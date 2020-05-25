@@ -1,1 +1,4 @@
-rootProject.name = 'kinozen'
+rootProject.name = 'gbzen'
+
+include 'mainProject'
+include 'playerzen'
