@@ -1,0 +1,4 @@
+rootProject.name = 'gbzen'
+
+include 'mainProject'
+include 'playerzen'
