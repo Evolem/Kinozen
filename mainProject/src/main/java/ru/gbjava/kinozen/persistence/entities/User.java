@@ -10,6 +10,12 @@ import java.util.Set;
 import static javax.persistence.GenerationType.IDENTITY;
 
 
+/**
+ * Created by IntelliJ Idea.
+ * User: Якимов В.Н.
+ * E-mail: yakimovvn@bk.ru
+ */
+
 @Data
 @Entity
 @NoArgsConstructor
