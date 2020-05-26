@@ -145,7 +145,8 @@ create table if not exists tbl_history
             references tbl_user,
     id_media integer not null
         constraint tbl_history_tbl_media_id_media_fk
-            references tbl_media
+            references tbl_media,
+    date_history date default now() not null
 );
 
 alter table tbl_history owner to postgres;
@@ -203,8 +204,8 @@ create table if not exists tbl_comment
     id_episode integer not null
         constraint tbl_comment_tbl_episode_id_episode_fk
             references tbl_episode,
-    date_commtent date,
-    text_commtent varchar(255) not null
+    text_commtent varchar(255) not null,
+    date_comment date default now() not null
 );
 
 alter table tbl_comment owner to postgres;
