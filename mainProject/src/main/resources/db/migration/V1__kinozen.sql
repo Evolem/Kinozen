@@ -30,9 +30,6 @@ create table if not exists tbl_media
     description_media varchar(255),
     released_media date,
     visible_media boolean,
-    id_director integer
-        constraint tbl_media_tbl_director_id_director_fk
-            references tbl_director,
     id_typemedia integer not null
         constraint tbl_media_tbl_typemedia_id_typemedia_fk
             references tbl_typemedia,
@@ -211,4 +208,16 @@ create table if not exists tbl_comment
 );
 
 alter table tbl_comment owner to postgres;
+
+create table if not exists tbl_director_media
+(
+    id_director integer not null
+        constraint tbl_director_media_tbl_director_id_director_fk
+            references tbl_director,
+    id_media integer not null
+        constraint tbl_director_media_tbl_media_id_media_fk
+            references tbl_media
+);
+
+alter table tbl_director_media owner to postgres;
 
