@@ -4,10 +4,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/kinozen?useUnicode=true&characterEncoding=utf8
+    url: jdbc:postgresql://home.yakimovvn.ru:5432/kinozen?useUnicode=true&characterEncoding=utf8
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: postgres
+    username: test
+    password: test
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     show-sql: false

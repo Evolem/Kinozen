@@ -15,7 +15,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
 @EqualsAndHashCode
 @Table(name = "tbl_user")

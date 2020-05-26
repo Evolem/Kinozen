@@ -6,7 +6,7 @@ create table if not exists tbl_typemedia
     name_typemedia varchar(255) not null
 );
 
-alter table tbl_typemedia owner to postgres;
+-- alter table tbl_typemedia owner to postgres;
 
 create table if not exists tbl_director
 (
@@ -19,7 +19,7 @@ create table if not exists tbl_director
     description_director varchar(255)
 );
 
-alter table tbl_director owner to postgres;
+-- alter table tbl_director owner to postgres;
 
 create table if not exists tbl_media
 (
@@ -36,7 +36,7 @@ create table if not exists tbl_media
     url_media varchar(255)
 );
 
-alter table tbl_media owner to postgres;
+-- alter table tbl_media owner to postgres;
 
 create table if not exists tbl_mediaposter
 (
@@ -49,7 +49,7 @@ create table if not exists tbl_mediaposter
     url_poster integer
 );
 
-alter table tbl_mediaposter owner to postgres;
+-- alter table tbl_mediaposter owner to postgres;
 
 create table if not exists tbl_genre
 (
@@ -59,7 +59,7 @@ create table if not exists tbl_genre
     name_genre varchar(255) not null
 );
 
-alter table tbl_genre owner to postgres;
+-- alter table tbl_genre owner to postgres;
 
 create table if not exists tbl_genre_media
 (
@@ -71,7 +71,7 @@ create table if not exists tbl_genre_media
             references tbl_media
 );
 
-alter table tbl_genre_media owner to postgres;
+-- alter table tbl_genre_media owner to postgres;
 
 create table if not exists tbl_actor
 (
@@ -83,7 +83,7 @@ create table if not exists tbl_actor
     description_actor varchar(255)
 );
 
-alter table tbl_actor owner to postgres;
+-- alter table tbl_actor owner to postgres;
 
 create table if not exists tbl_actor_media
 (
@@ -95,7 +95,7 @@ create table if not exists tbl_actor_media
             references tbl_media
 );
 
-alter table tbl_actor_media owner to postgres;
+-- alter table tbl_actor_media owner to postgres;
 
 create table if not exists tbl_user
 (
@@ -108,7 +108,7 @@ create table if not exists tbl_user
     email_user varchar(255)
 );
 
-alter table tbl_user owner to postgres;
+-- alter table tbl_user owner to postgres;
 
 create unique index if not exists tbl_user_login_user_uindex
     on tbl_user (login_user);
@@ -121,7 +121,7 @@ create table if not exists tbl_role
     name_role varchar(255) not null
 );
 
-alter table tbl_role owner to postgres;
+-- alter table tbl_role owner to postgres;
 
 create table if not exists tbl_role_user
 (
@@ -133,7 +133,7 @@ create table if not exists tbl_role_user
             references tbl_user
 );
 
-alter table tbl_role_user owner to postgres;
+-- alter table tbl_role_user owner to postgres;
 
 create table if not exists tbl_history
 (
@@ -149,7 +149,7 @@ create table if not exists tbl_history
     date_history date default now() not null
 );
 
-alter table tbl_history owner to postgres;
+-- alter table tbl_history owner to postgres;
 
 create table if not exists tbl_season
 (
@@ -163,7 +163,7 @@ create table if not exists tbl_season
     description_season varchar(255)
 );
 
-alter table tbl_season owner to postgres;
+-- alter table tbl_season owner to postgres;
 
 create table if not exists tbl_episode
 (
@@ -178,7 +178,7 @@ create table if not exists tbl_episode
     description_episode varchar(255)
 );
 
-alter table tbl_episode owner to postgres;
+-- alter table tbl_episode owner to postgres;
 
 create table if not exists tbl_episodeposter
 (
@@ -191,7 +191,7 @@ create table if not exists tbl_episodeposter
     url_episodeposter varchar(255)
 );
 
-alter table tbl_episodeposter owner to postgres;
+-- alter table tbl_episodeposter owner to postgres;
 
 create table if not exists tbl_comment
 (
@@ -208,7 +208,7 @@ create table if not exists tbl_comment
     date_comment date default now() not null
 );
 
-alter table tbl_comment owner to postgres;
+-- alter table tbl_comment owner to postgres;
 
 create table if not exists tbl_director_media
 (
@@ -220,5 +220,5 @@ create table if not exists tbl_director_media
             references tbl_media
 );
 
-alter table tbl_director_media owner to postgres;
+-- alter table tbl_director_media owner to postgres;
 
