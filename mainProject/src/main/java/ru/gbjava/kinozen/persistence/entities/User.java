@@ -1,14 +1,11 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -16,6 +13,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @Table(name = "tbl_user")
 public class User {
@@ -44,6 +42,6 @@ public class User {
     @JoinTable(name="tbl_role_user", joinColumns=
     @JoinColumn(name="id_user", referencedColumnName="id_user"), inverseJoinColumns=
     @JoinColumn(name="id_role", referencedColumnName="id_role"))
-    private List<Role> roles = new ArrayList<>();
+    private Set<Role> roles = new HashSet<>();
 
 }
