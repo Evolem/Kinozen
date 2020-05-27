@@ -7,7 +7,6 @@ create table if not exists tbl_typemedia
 );
 
 
-
 create table if not exists tbl_director
 (
     id_director          serial not null
@@ -18,7 +17,6 @@ create table if not exists tbl_director
     column_4             integer,
     description_director varchar(255)
 );
-
 
 
 create table if not exists tbl_media
@@ -37,7 +35,6 @@ create table if not exists tbl_media
 );
 
 
-
 create table if not exists tbl_mediaposter
 (
     id_poster  serial  not null
@@ -49,7 +46,6 @@ create table if not exists tbl_mediaposter
     url_poster integer
 );
 
-alter table tbl_mediaposter owner to postgres;
 
 create table if not exists tbl_genre
 (
@@ -58,7 +54,6 @@ create table if not exists tbl_genre
         primary key,
     name_genre varchar(255) not null
 );
-
 
 
 create table if not exists tbl_genre_media
@@ -70,7 +65,6 @@ create table if not exists tbl_genre_media
         constraint tbl_genre_media_tbl_media_id_media_fk
         references tbl_media
 );
-
 
 
 create table if not exists tbl_actor
@@ -96,7 +90,6 @@ create table if not exists tbl_actor_media
 );
 
 
-
 create table if not exists tbl_user
 (
     id_user       serial       not null
@@ -107,7 +100,6 @@ create table if not exists tbl_user
     name_user     varchar(255) not null,
     email_user    varchar(255)
 );
-
 
 
 create unique index if not exists tbl_user_login_user_uindex
@@ -122,7 +114,6 @@ create table if not exists tbl_role
 );
 
 
-
 create table if not exists tbl_role_user
 (
     id_role integer not null
@@ -132,7 +123,6 @@ create table if not exists tbl_role_user
         constraint tbl_role_user_tbl_user_id_user_fk
         references tbl_user
 );
-
 
 
 create table if not exists tbl_history
@@ -150,7 +140,6 @@ create table if not exists tbl_history
 );
 
 
-
 create table if not exists tbl_season
 (
     id_season          serial  not null
@@ -162,7 +151,6 @@ create table if not exists tbl_season
     number_season      integer not null,
     description_season varchar(255)
 );
-
 
 
 create table if not exists tbl_episode
@@ -179,7 +167,6 @@ create table if not exists tbl_episode
 );
 
 
-
 create table if not exists tbl_episodeposter
 (
     id_episodeposter  serial  not null
@@ -190,7 +177,6 @@ create table if not exists tbl_episodeposter
         references tbl_episode,
     url_episodeposter varchar(255)
 );
-
 
 
 create table if not exists tbl_comment
@@ -209,7 +195,6 @@ create table if not exists tbl_comment
 );
 
 
-
 create table if not exists tbl_director_media
 (
     id_director integer not null
@@ -219,7 +204,6 @@ create table if not exists tbl_director_media
         constraint tbl_director_media_tbl_media_id_media_fk
         references tbl_media
 );
-
 
 
 insert into tbl_role(id_role, name_role)
