@@ -195,7 +195,7 @@ alter table tbl_episodeposter owner to postgres;
 
 create table if not exists tbl_comment
 (
-    id_commtent serial not null
+    id_comment serial not null
         constraint tbl_comment_pk
             primary key,
     id_user integer not null
@@ -204,7 +204,7 @@ create table if not exists tbl_comment
     id_episode integer not null
         constraint tbl_comment_tbl_episode_id_episode_fk
             references tbl_episode,
-    text_commtent varchar(255) not null,
+    text_comment varchar(255) not null,
     date_comment date default now() not null
 );
 
@@ -223,5 +223,14 @@ create table if not exists tbl_director_media
 alter table tbl_director_media owner to postgres;
 
 insert into tbl_role(id_role, name_role) values (1, 'ROLE_ADMIN');
+
 insert into tbl_user(id_user, login_user, password_user, name_user) values (1, 'admin', '$2a$10$5rAOMKmVsh9.NlzXTLLbq.XwouGdg3dwohvb5/HDn692YfdrLthO2', 'vladimir');
 insert into tbl_role_user (id_role, id_user) VALUES (1,1);
+
+insert into tbl_typemedia(name_typemedia) values ('Фантастика');
+insert into tbl_typemedia(name_typemedia) values ('Ужасы');
+
+insert into tbl_media(name_media, description_media, released_media, visible_media, id_typemedia, url_media) values ('Игра престолов','описание 1', '2020-05-27', true, 1, 'igra-prestolov');
+insert into tbl_media(name_media, description_media, released_media, visible_media, id_typemedia, url_media)  values ('Игра престолов 2','описание 1', '2020-05-17', true, 2, 'igra-prestolov2');
+
+
