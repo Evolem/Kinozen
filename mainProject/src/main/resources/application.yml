@@ -6,13 +6,15 @@ spring:
   datasource:
     url: jdbc:postgresql://home.yakimovvn.ru:5432/kinozen?useUnicode=true&characterEncoding=utf8
     driver-class-name: org.postgresql.Driver
-    username: test
-    password: test
+    username: postgres
+    password: postgres
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-    show-sql: false
+    show-sql: true
     hibernate:
       ddl-auto: none
+
+
 
 
 files:

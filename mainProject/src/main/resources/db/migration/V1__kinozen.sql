@@ -6,7 +6,7 @@ create table if not exists tbl_typemedia
     name_typemedia varchar(255) not null
 );
 
--- alter table tbl_typemedia owner to postgres;
+alter table tbl_typemedia owner to postgres;
 
 create table if not exists tbl_director
 (
