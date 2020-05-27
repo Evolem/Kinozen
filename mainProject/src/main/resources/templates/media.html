@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 media
+<tr th:each="media, iterator : ${mediaList}">
+    <span th:if="${media.visible}">
+                            <td th:text="${iterator.index + 1}"></td>
+                            <td th:text="${media.id}"></td>
+                            <td th:text="${media.name}"></td>
+                            <td th:text="${media.description}"></td>
+                            <td th:text="${#dates.format(media.released, 'dd-MM-yyyy')}"></td>
+    </span>
+</tr>
 </body>
 </html>
