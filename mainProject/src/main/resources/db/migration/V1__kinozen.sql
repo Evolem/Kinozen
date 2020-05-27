@@ -7,7 +7,6 @@ create table if not exists tbl_typemedia
 );
 
 
-
 create table if not exists tbl_director
 (
     id_director          serial not null
@@ -18,7 +17,6 @@ create table if not exists tbl_director
     column_4             integer,
     description_director varchar(255)
 );
-
 
 
 create table if not exists tbl_media
@@ -37,7 +35,6 @@ create table if not exists tbl_media
 );
 
 
-
 create table if not exists tbl_mediaposter
 (
     id_poster  serial  not null
@@ -49,7 +46,6 @@ create table if not exists tbl_mediaposter
     url_poster integer
 );
 
-alter table tbl_mediaposter owner to postgres;
 
 create table if not exists tbl_genre
 (
