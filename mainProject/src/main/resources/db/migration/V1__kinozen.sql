@@ -232,5 +232,3 @@ insert into tbl_typemedia(name_typemedia) values ('Ужасы');
 
 insert into tbl_media(name_media, description_media, released_media, visible_media, id_typemedia, url_media) values ('Игра престолов','описание 1', '2020-05-27', true, 1, 'igra-prestolov');
 insert into tbl_media(name_media, description_media, released_media, visible_media, id_typemedia, url_media)  values ('Игра престолов 2','описание 1', '2020-05-17', true, 2, 'igra-prestolov2');
-
-
