@@ -29,4 +29,7 @@ public class UserP {
 
     @NotEmpty
     private String password;
+
+    private String newPassword1;
+    private String newPassword2;
 }

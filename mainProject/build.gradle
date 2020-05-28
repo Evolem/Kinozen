@@ -29,6 +29,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	compile group: 'com.ibm.icu', name: 'icu4j', version: '67.1'
+	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
 	annotationProcessor 'org.projectlombok:lombok'
   
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
