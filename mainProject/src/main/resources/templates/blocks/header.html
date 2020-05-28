@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.css}" href="../../static/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/style.css}" href="../../static/css/style.css"/>
+    <title>Kinozen</title>
+
+
+</head>
+
+<body>
+<div th:fragment="header" class="header_top">
+    <div class="col-sm-3 logo"><a href="index.html"><img  src=""
+                                                         alt=""/></a></div>
+    <div class="col-sm-6 nav">
+        <ul>
+            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="comic"><a
+                    href="movie.html"> </a></span></li>
+            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="movie"><a
+                    href="movie.html"> </a> </span></li>
+            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="video"><a
+                    href="movie.html"> </a></span></li>
+            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="game"><a
+                    href="movie.html"> </a></span></li>
+            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="tv"><a
+                    href="movie.html"> </a></span></li>
+            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="more"><a
+                    href="movie.html"> </a></span></li>
+        </ul>
+    </div>
+    <div class="col-sm-3 header_right">
+        <ul class="header_right_box">
+            <li><img src="images/p1.png" alt=""/></li>
+            <li><p><a href="#">Кэрол Варуа</a></p></li>
+            <li class="last"><i class="edit"> </i></li>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+</div>
 </body>
 </html>
