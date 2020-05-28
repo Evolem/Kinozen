@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.UserService;
-import ru.gbjava.kinozen.services.pojo.UserP;
+import ru.gbjava.kinozen.services.pojo.UserPojo;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -24,54 +24,54 @@ public class ProfileController {
     private final UserService userService;
 
     @GetMapping
-    public String profilePage(Principal principal, Model model, UserP userP){
+    public String profilePage(Principal principal, Model model, UserPojo userPojo){
         User user = userService.findByLogin(principal.getName());
-        userP.setEmail(user.getEmail());
-        userP.setName(user.getName());
-        model.addAttribute("userP", userP);
+        userPojo.setEmail(user.getEmail());
+        userPojo.setName(user.getName());
+        model.addAttribute("userPojo", userPojo);
         return "profile";
     }
 
     @GetMapping("/password")
-    public String profilePassPage(UserP userP){
+    public String profilePassPage(UserPojo userPojo){
         return "profilePass";
     }
 
     @PostMapping("/change")
-    public String changeProfile(Principal principal, @Valid UserP userP, BindingResult bindingResult) {
+    public String changeProfile(Principal principal, @Valid UserPojo userPojo, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "profile";
         }
         User user = userService.findByLogin(principal.getName());
-        if (!BCrypt.checkpw(userP.getPassword(), user.getPassword())) {
+        if (!BCrypt.checkpw(userPojo.getPassword(), user.getPassword())) {
             bindingResult.rejectValue("password", "Error", "Некорректный пароль");
             return "profile";
         }
 
-        user.setEmail(userP.getEmail());
-        user.setName(userP.getName());
+        user.setEmail(userPojo.getEmail());
+        user.setName(userPojo.getName());
         userService.save(user);
         return "redirect:/profile";
     }
 
     @PostMapping("/newPass")
-    public String changePassword(Principal principal, UserP userP, BindingResult bindingResult) {
+    public String changePassword(Principal principal, UserPojo userPojo, BindingResult bindingResult) {
         User user = userService.findByLogin(principal.getName());
 
-        if (userP.getNewPassword1().isEmpty() && userP.getNewPassword2().isEmpty()) {
+        if (userPojo.getNewPassword1().isEmpty() && userPojo.getNewPassword2().isEmpty()) {
             bindingResult.rejectValue("newPassword1", "Error", "Пароли не введены");
             return "profilePass";
         }
-        if (!Objects.equals(userP.getNewPassword1(), userP.getNewPassword2())) {
+        if (!Objects.equals(userPojo.getNewPassword1(), userPojo.getNewPassword2())) {
             bindingResult.rejectValue("newPassword1", "Error", "Пароли не совпадают");
             return "profilePass";
         }
-        if (!BCrypt.checkpw(userP.getPassword(), user.getPassword())) {
+        if (!BCrypt.checkpw(userPojo.getPassword(), user.getPassword())) {
             bindingResult.rejectValue("password", "Error", "Некорректный пароль");
             return "profilePass";
         }
 
-        user.setPassword(new BCryptPasswordEncoder().encode(userP.getNewPassword1()));
+        user.setPassword(new BCryptPasswordEncoder().encode(userPojo.getNewPassword1()));
         userService.save(user);
         return "redirect:/profile";
     }

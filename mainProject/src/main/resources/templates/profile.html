@@ -12,7 +12,7 @@
             <hr/>
             <a th:href="@{~/kinozen/profile/password}" class="btn btn-primary btn-sm active" role="button">Сменить пароль</a>
             <hr/>
-            <form action="#" th:action="@{/profile/change}" th:object="${userP}" method="POST">
+            <form action="#" th:action="@{/profile/change}" th:object="${userPojo}" method="POST">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">E-mail</label>
                     <div class="col-sm-10">

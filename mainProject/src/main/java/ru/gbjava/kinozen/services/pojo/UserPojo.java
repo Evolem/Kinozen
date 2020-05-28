@@ -1,5 +1,6 @@
 package ru.gbjava.kinozen.services.pojo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserP {
+public class UserPojo {
 
     private String login;
 
