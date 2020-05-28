@@ -8,6 +8,6 @@ public class StringConverter {
 
     public static String cyrillicToLatin(String cyrillic) {
         Transliterator toLatin = Transliterator.getInstance(CYRILLIC_TO_LATIN);
-        return toLatin.transliterate(cyrillic).toLowerCase();
+        return toLatin.transliterate(cyrillic).toLowerCase().trim().replaceAll("\\s+", "-");
     }
 }
