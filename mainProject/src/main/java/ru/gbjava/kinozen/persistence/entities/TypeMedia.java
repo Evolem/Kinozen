@@ -1,5 +1,7 @@
 package ru.gbjava.kinozen.persistence.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
+@Data
 @Table(name = "tbl_typemedia")
 public class TypeMedia {
 

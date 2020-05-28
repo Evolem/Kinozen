@@ -1,6 +1,7 @@
 package ru.gbjava.kinozen.persistence.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tbl_media")
@@ -39,7 +41,6 @@ public class Media  {
     private String url;
 
     @ManyToOne
-    @JoinTable(name = "tbl_typemedia")
     @JoinColumn(name = "id_typemedia")
     private TypeMedia typemedia;
 }

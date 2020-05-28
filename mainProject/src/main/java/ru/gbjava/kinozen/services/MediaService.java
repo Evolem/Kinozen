@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gbjava.kinozen.persistence.entities.Media;
+import ru.gbjava.kinozen.persistence.entities.TypeMedia;
 import ru.gbjava.kinozen.persistence.repositories.MediaRepository;
+import ru.gbjava.kinozen.persistence.repositories.TypeMediaRepository;
 import ru.gbjava.kinozen.services.pojo.MediaPojo;
 import ru.gbjava.kinozen.utilites.StringConverter;
 
@@ -20,88 +22,45 @@ import java.util.stream.Collectors;
 public class MediaService {
 
     private final MediaRepository mediaRepository;
+    private final TypeMediaRepository typeMediaRepository;
 
-    public MediaPojo findById (Integer id)  {
-        MediaPojo mediaPojo = new MediaPojo();
-        Media media = mediaRepository.findById(id).orElse(new Media());
-
-        mediaPojo.setId(media.getId());
-        mediaPojo.setName(media.getName());
-        mediaPojo.setReleased(media.getReleased());
-        mediaPojo.setDescription(media.getDescription());
-        mediaPojo.setVisible(media.getVisible());
-        mediaPojo.setUrl(media.getUrl());
-        return mediaPojo;
+    public MediaPojo findById(Integer id) {
+        Media media = mediaRepository.findById(id).orElse(new Media()); //todo бросить тут исключение
+        return new MediaPojo(media);
     }
 
-    public MediaPojo findByAll (Integer id)  {
-        MediaPojo mediaPojo = new MediaPojo();
-        Media media = mediaRepository.findById(id).orElse(new Media());
-
-        mediaPojo.setId(media.getId());
-        mediaPojo.setName(media.getName());
-        mediaPojo.setReleased(media.getReleased());
-        mediaPojo.setDescription(media.getDescription());
-        mediaPojo.setVisible(media.getVisible());
-        mediaPojo.setUrl(media.getUrl());
-        return mediaPojo;
+    public MediaPojo findByUrl(String url) {
+        Media media = mediaRepository.findMediaByUrl(url).orElse(new Media()); //todo бросить тут исключение
+        return new MediaPojo(media);
     }
 
-    public MediaPojo findByUrl (String url) {
-        MediaPojo mediaPojo = new MediaPojo();
-        Media media = mediaRepository.findByUrl(url).orElse(new Media());
-
-        mediaPojo.setId(media.getId());
-        mediaPojo.setName(media.getName());
-        mediaPojo.setReleased(media.getReleased());
-        mediaPojo.setDescription(media.getDescription());
-        mediaPojo.setVisible(media.getVisible());
-        mediaPojo.setUrl(media.getUrl());
-        return mediaPojo;
-    }
-
+    //можно сделать билдер
     @Transactional
-    public void addMedia (MediaPojo mediaPojo) {
+    public void save(MediaPojo mediaPojo) {
         Media media = new Media();
-
+        media.setId(mediaPojo.getId());
         media.setName(mediaPojo.getName());
         media.setReleased(mediaPojo.getReleased());
         media.setDescription(mediaPojo.getDescription());
         media.setVisible(mediaPojo.getVisible());
+        media.setTypemedia(typeMediaRepository.findById(mediaPojo.getId()).
+                orElse(new TypeMedia())); //todo бросить тут исключение
         media.setUrl(StringConverter.cyrillicToLatin(mediaPojo.getName()));
         mediaRepository.save(media);
     }
 
+    //todo проверка на null
     @Transactional
-    public void delete (MediaPojo mediaPojo) {
-        if (mediaPojo.getId() == null) {
-            throw new EntityNotFoundException("Ошибка при удалении!");
-        }
+    public void delete(MediaPojo mediaPojo) {
         mediaRepository.deleteById(mediaPojo.getId());
     }
 
-    //TODO
-    @Transactional
-    public void update (MediaPojo mediaPojo) {
-        Media media = new Media();
-
-        media.setName(mediaPojo.getName());
-        media.setReleased(mediaPojo.getReleased());
-        media.setDescription(mediaPojo.getDescription());
-        media.setVisible(mediaPojo.getVisible());
-        media.setUrl(StringConverter.cyrillicToLatin(mediaPojo.getName()));
-    }
-
-
-    public List<MediaPojo> allMedia () {
-        List<MediaPojo> mediaList = mediaRepository
-                .findAllOptionalMediaList()
-                .orElse(new ArrayList<>())
+    public List<MediaPojo> getAllMedia() {
+        return mediaRepository
+                .findAll()
                 .stream()
                 .map(MediaPojo::new)
                 .collect(Collectors.toList());
-
-        return mediaList;
     }
 
 }

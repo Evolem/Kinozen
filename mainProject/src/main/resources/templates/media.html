@@ -4,18 +4,38 @@
       xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Media</title>
 </head>
 <body>
-media
-<tr th:each="media, iterator : ${mediaList}">
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>description</th>
+        <th>Дата выхода</th>
+        <th>Видимость</th>
+        <th>Тип</th>
+        <th>Url</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="media, iterator : ${mediaList}">
     <span th:if="${media.visible}">
-                            <td th:text="${iterator.index + 1}"></td>
                             <td th:text="${media.id}"></td>
                             <td th:text="${media.name}"></td>
                             <td th:text="${media.description}"></td>
                             <td th:text="${#dates.format(media.released, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${media.visible}"></td>
+                            <td th:text="${media.getTypeMediaPojo().getName()}"></td>
+                            <td th:text="${media.getUrl()}"></td>
     </span>
+    </tr>
+    </tbody>
+</table>
 </tr>
 </body>
 </html>
