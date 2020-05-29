@@ -1,5 +1,6 @@
 package ru.gbjava.kinozen.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,10 +27,8 @@ public class Director {
     @Column(name = "description_director")
     private String descriptionDirector;
 
-    @OneToMany
-    @JoinTable(name = "tbl_media",
-            joinColumns = @JoinColumn(name = "id_media"),
-            inverseJoinColumns = @JoinColumn(name = "id_director"))
-    private Collection<Media> media;
+//    @OneToMany(mappedBy = "tbl_director")
+//    @JsonBackReference
+//    private Collection<Media> media;
 
 }

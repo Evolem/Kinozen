@@ -22,10 +22,12 @@
    <p th:text="${director.descriptionDirector}"/>
 </div>
 
-<div th:each="m : ${director.media}">
-    <p  th:text="${m.nameMedia} "/>
-    <br />
-</div>
+<!--<div th:each="m : ${director.media}">-->
+<!--    <p  th:text="${m.nameMedia} "/>-->
+<!--    <br />-->
+<!--</div>-->
+
+<a  th:href="@{'/directors/edit/' + ${director.idDirector}}" class="btn btn-warning">Edit</a>
 
 </body>
 </html>
