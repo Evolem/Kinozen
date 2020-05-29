@@ -26,14 +26,10 @@ public class Director {
     @Column(name = "description_director")
     private String descriptionDirector;
 
-    @ManyToMany
+    @OneToMany
     @JoinTable(name = "tbl_media",
             joinColumns = @JoinColumn(name = "id_media"),
             inverseJoinColumns = @JoinColumn(name = "id_director"))
     private Collection<Media> media;
 
-
-    public String getFullName() {
-        return String.format("%s %s", firstnameDirector, lastnameDirector);
-    }
 }

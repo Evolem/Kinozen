@@ -7,6 +7,4 @@ import ru.gbjava.kinozen.persistence.entities.Director;
 
 @Repository
 public interface DirectorRepository extends JpaRepository<Director, Long> {
-    Director findOneByFirstnameDirectorAndLastnameDirector(String firstname, String lastname);
-    boolean existsByFirstnameDirectorAndLastnameDirector(String firstname, String lastname);
 }
