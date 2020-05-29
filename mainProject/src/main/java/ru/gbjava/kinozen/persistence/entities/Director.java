@@ -27,8 +27,8 @@ public class Director {
     @Column(name = "description_director")
     private String descriptionDirector;
 
-//    @OneToMany(mappedBy = "tbl_director")
-//    @JsonBackReference
-//    private Collection<Media> media;
+    @OneToMany(mappedBy = "tbl_director")
+    @JsonBackReference
+    private Collection<Media> media;
 
 }
