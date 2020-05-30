@@ -13,7 +13,9 @@
     <span th:text="${#dates.format(media.released, 'dd-MM-yyyy')}"></span><br>
     <span th:text="${media.description}"></span><br>
     <span th:text="${media.url}"></span><br>
-</table>
 
+    <video controls width="640" height="264">
+        <source src="http://localhost:8181/playerzen/video/serial/598f17ce-5526-4e11-bb4f-080840f53b8f" type="video/mp4">
+    </video>
 </body>
 </html>

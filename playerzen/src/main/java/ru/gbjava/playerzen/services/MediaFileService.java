@@ -13,6 +13,7 @@ import ru.gbjava.playerzen.persistance.repositories.MediaFileRepository;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.UUID;
 
 import static java.lang.Math.min;
 
@@ -22,21 +23,23 @@ public class MediaFileService {
 
     private final MediaFileRepository repository;
 
+    //Сохраняем файл, чтобы не обращаться к базе слишком часто
+    private MediaFile mediaFile;
+
     @Value("${files.storepath.storage}")
     private String mainPath;
 
     public MediaFile getMediaFile(String name) {
-        return  repository.findByName(name);
+        return  repository.findByMedia(UUID.fromString(name));
     }
 
-    public ResourceRegion getResourceRegion(HttpHeaders headers, String... name) throws MalformedURLException {
-        UrlResource resource;
-        if (name.length < 3) {
-            resource = new UrlResource(String.format("file:%s/%s/%s.mp4", mainPath, name[0], name[1]));
-        } else {
-            resource = new UrlResource(String.format("file:%s/%s/%s/%s.mp4", mainPath, name[0], name[1], name[2]));
-        }
+    public ResourceRegion getResourceRegion(HttpHeaders headers, String media) throws MalformedURLException {
+        checkMediaFile(media);
+
+        UrlResource resource = new UrlResource(String.format("file:%s/%s.mp4", mainPath, mediaFile.getNameFile()));
+
         ResourceRegion region = null;
+
         try {
             region = resourceRegion(resource, headers);
         } catch (IOException e) {
@@ -45,6 +48,24 @@ public class MediaFileService {
         return region;
     }
 
+
+//    public ResourceRegion getResourceRegion(HttpHeaders headers, String... name) throws MalformedURLException {
+//        UrlResource resource;
+//        if (name.length < 3) {
+//            resource = new UrlResource(String.format("file:%s/%s/%s.mp4", mainPath, name[0], name[1]));
+//        } else {
+//            resource = new UrlResource(String.format("file:%s/%s/%s/%s.mp4", mainPath, name[0], name[1], name[2]));
+//        }
+//
+//        ResourceRegion region = null;
+//
+//        try {
+//            region = resourceRegion(resource, headers);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return region;
+//    }
 
     private ResourceRegion resourceRegion(UrlResource resource, HttpHeaders headers) throws IOException {
         long contentLength = resource.contentLength();
@@ -67,5 +88,12 @@ public class MediaFileService {
             return new ResourceRegion(resource, 0, rangerLength);
         }
 
+    }
+
+    //Проверка кэш-сущности
+    private void checkMediaFile(String media) {
+        if (mediaFile == null || !mediaFile.getMedia().equals(UUID.fromString(media))) {
+            mediaFile = repository.findByMedia(UUID.fromString(media));
+        }
     }
 }

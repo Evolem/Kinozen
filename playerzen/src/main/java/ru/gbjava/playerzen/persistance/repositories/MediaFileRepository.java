@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import ru.gbjava.playerzen.persistance.entities.MediaFile;
 
+import java.util.UUID;
+
 @Repository
 public interface MediaFileRepository extends JpaRepository<MediaFile, Long> {
-    //TODO: обдумать необходимость репозитория
-    MediaFile findByName(String name);
+
+    MediaFile findByMedia(UUID media);
 }

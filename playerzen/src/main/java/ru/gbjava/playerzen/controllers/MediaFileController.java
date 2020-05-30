@@ -5,13 +5,12 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import ru.gbjava.playerzen.persistance.entities.MediaFile;
 import ru.gbjava.playerzen.services.MediaFileService;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 import static java.lang.Math.min;
@@ -23,9 +22,9 @@ public class MediaFileController {
 
     private final MediaFileService service;
 
-    @GetMapping(value = "/{media}/{season}/{episode}")
-    public ResponseEntity<ResourceRegion> mediaSerial(@RequestHeader HttpHeaders headers, @PathVariable String media, @PathVariable String season, @PathVariable String episode) throws IOException {
-        ResourceRegion region = service.getResourceRegion(headers, media, season, episode);
+    @GetMapping(value = "/serial/{id}")
+    public ResponseEntity<ResourceRegion> mediaSerial(@RequestHeader HttpHeaders headers, @PathVariable String id) throws IOException {
+        ResourceRegion region = service.getResourceRegion(headers, id);
         return ResponseEntity
                 .status(HttpStatus.PARTIAL_CONTENT)
 //                .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
@@ -33,17 +32,15 @@ public class MediaFileController {
                 .body(region);
     }
 
-    @GetMapping(value = "/{media}/{episode}")
-    public ResponseEntity<ResourceRegion> mediaMove(@RequestHeader HttpHeaders headers, @PathVariable String media, @PathVariable String episode) throws IOException {
-        ResourceRegion region = service.getResourceRegion(headers, media, episode);
+    @GetMapping(value = "/film/{id}")
+    public ResponseEntity<ResourceRegion> mediaMove(@RequestHeader HttpHeaders headers, @PathVariable String id) throws IOException {
+        ResourceRegion region = service.getResourceRegion(headers, id);
         return ResponseEntity
                 .status(HttpStatus.PARTIAL_CONTENT)
 //                .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(region);
     }
-
-
 
 //    @GetMapping(value = "/video/{name}")
 //    public ResponseEntity<ResourceRegion> video(@RequestHeader HttpHeaders headers, @PathVariable String name) throws IOException {

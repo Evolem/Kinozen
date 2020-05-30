@@ -1,10 +1,12 @@
-create table if not exists tbl_mediafile
+create table if not exists tbl_media_file
 (
-    id_mediafile serial not null
-        constraint tbl_mediafile_pk
+    id_media_file bigserial not null
+        constraint tbl_media_file_pk
             primary key,
-    id_episode integer not null,
-    name_episode varchar(255)
+    uuid_media uuid not null,
+    name_media_file varchar(255) not null
 );
 
-alter table tbl_mediafile owner to postgres;
+create unique index if not exists tbl_media_file_id_media_file_uindex
+    on tbl_media_file (id_media_file);
+
