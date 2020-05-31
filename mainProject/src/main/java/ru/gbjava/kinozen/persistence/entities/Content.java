@@ -17,30 +17,30 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tbl_media")
-public class Media  {
+@Table(name = "tbl_content")
+public class Content {
 
     @Id
-    @Column(name = "id_media")
+    @Column(name = "id_content")
     @GeneratedValue(strategy = IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "name_media")
+    @Column(name = "name_content")
     private String name;
 
-    @Column(name = "description_media")
+    @Column(name = "description_content")
     private String description;
 
-    @Column(name = "released_media")
+    @Column(name = "released_content")
     private Date released;
 
-    @Column(name = "visible_media")
+    @Column(name = "visible_content")
     private Boolean visible;
 
-    @Column(name = "url_media")
+    @Column(name = "url_content")
     private String url;
 
     @ManyToOne
-    @JoinColumn(name = "id_typemedia")
-    private TypeMedia typemedia;
+    @JoinColumn(name = "id_typecontent")
+    private TypeContent typeContent;
 }
