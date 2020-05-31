@@ -10,17 +10,17 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Data
-@Table(name = "tbl_typemedia")
-public class TypeMedia {
+@Table(name = "tbl_typecontent")
+public class TypeContent {
 
     @Id
-    @Column(name = "id_typemedia")
+    @Column(name = "id_typecontent")
     @GeneratedValue(strategy = IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "name_typemedia")
+    @Column(name = "name_typecontent")
     private String name;
 
-    @OneToMany(mappedBy = "typemedia")
-    private List<Media> allMedia;
+    @OneToMany(mappedBy = "typeContent")
+    private List<Content> allContent;
 }
