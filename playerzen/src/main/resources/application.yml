@@ -1,0 +1,23 @@
+server:
+  tomcat:
+    threads:
+      max: 1
+  port: 8181
+  servlet:
+    context-path: /playerzen
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/playerzen
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+files:
+  storepath:
+    storage:  "D:\\PlayerZenStorage"
