@@ -30,6 +30,9 @@ public class Actor {
     @Column(name = "description_actor")
     private String description;
 
+    @Column(name = "img_actor")
+    private String image;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "tbl_actor_content",
