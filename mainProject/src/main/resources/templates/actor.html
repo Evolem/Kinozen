@@ -18,7 +18,9 @@
         <table class="table table-hover">
             <tr th:each="media, iterator : ${actor.getMedias()}">
                 <td th:text="${iterator.index + 1}"></td>
-                <td th:text="${media.getName()}"></td>
+                <td>
+                    <a th:href="@{'/media/' + ${media.getUrl()}}">[[ ${media.getName()} ]]</a>
+                </td>
             </tr>
         </table>
     </div>
