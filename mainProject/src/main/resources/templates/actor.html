@@ -16,10 +16,10 @@
         <br>
 
         <table class="table table-hover">
-            <tr th:each="media, iterator : ${actor.getMedias()}">
+            <tr th:each="content, iterator : ${actor.getContents()}">
                 <td th:text="${iterator.index + 1}"></td>
                 <td>
-                    <a th:href="@{'/media/' + ${media.getUrl()}}">[[ ${media.getName()} ]]</a>
+                    <a th:href="@{'/content/' + ${content.getUrl()}}">[[ ${content.getName()} ]]</a>
                 </td>
             </tr>
         </table>
