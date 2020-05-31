@@ -5,6 +5,6 @@ import ru.gbjava.kinozen.persistence.entities.Content;
 
 import java.util.Optional;
 
-public interface MediaRepository extends JpaRepository<Content, Integer> {
+public interface ContentRepository extends JpaRepository<Content, Long> {
     Optional<Content> findMediaByUrl(String url);
 }

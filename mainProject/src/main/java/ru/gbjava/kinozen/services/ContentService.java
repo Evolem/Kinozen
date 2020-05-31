@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.TypeContent;
-import ru.gbjava.kinozen.persistence.repositories.MediaRepository;
-import ru.gbjava.kinozen.persistence.repositories.TypeMediaRepository;
+import ru.gbjava.kinozen.persistence.repositories.ContentRepository;
+import ru.gbjava.kinozen.persistence.repositories.TypeContentRepository;
 import ru.gbjava.kinozen.services.pojo.ContentPojo;
 import ru.gbjava.kinozen.utilites.StringConverter;
 
@@ -18,16 +18,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ContentService {
 
-    private final MediaRepository mediaRepository;
-    private final TypeMediaRepository typeMediaRepository;
+    private final ContentRepository contentRepository;
+    private final TypeContentRepository typeContentRepository;
 
-    public ContentPojo findById(Integer id) {
-        Content content = mediaRepository.findById(id).orElse(new Content()); //todo бросить тут исключение
+    public ContentPojo findById(Long id) {
+        Content content = contentRepository.findById(id).orElse(new Content()); //todo бросить тут исключение
         return new ContentPojo(content);
     }
 
     public ContentPojo findByUrl(String url) {
-        Content content = mediaRepository.findMediaByUrl(url).orElse(new Content()); //todo бросить тут исключение
+        Content content = contentRepository.findMediaByUrl(url).orElse(new Content()); //todo бросить тут исключение
         return new ContentPojo(content);
     }
 
@@ -40,20 +40,20 @@ public class ContentService {
         content.setReleased(contentPojo.getReleased());
         content.setDescription(contentPojo.getDescription());
         content.setVisible(contentPojo.getVisible());
-        content.setTypeContent(typeMediaRepository.findById(contentPojo.getId()).
+        content.setTypeContent(typeContentRepository.findById(contentPojo.getId()).
                 orElse(new TypeContent())); //todo бросить тут исключение
         content.setUrl(StringConverter.cyrillicToLatin(contentPojo.getName()));
-        mediaRepository.save(content);
+        contentRepository.save(content);
     }
 
     //todo проверка на null
     @Transactional
     public void delete(ContentPojo contentPojo) {
-        mediaRepository.deleteById(contentPojo.getId().intValue());
+        contentRepository.deleteById(contentPojo.getId());
     }
 
     public List<ContentPojo> getAllMedia() {
-        return mediaRepository
+        return contentRepository
                 .findAll()
                 .stream()
                 .map(ContentPojo::new)
