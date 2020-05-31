@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Media</title>
+</head>
+<body>
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>description</th>
+        <th>Дата выхода</th>
+        <th>Видимость</th>
+        <th>Тип</th>
+        <th>Url</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="content, iterator : ${contentList}">
+    <span th:if="${content.visible}">
+                            <td th:text="${content.id}"></td>
+                            <td th:text="${content.name}"></td>
+                            <td th:text="${content.description}"></td>
+                            <td th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${content.visible}"></td>
+                            <td th:text="${content.getTypeContentPojo().getName()}"></td>
+                            <td th:text="${content.getUrl()}"></td>
+    </span>
+    </tr>
+    </tbody>
+</table>
+</tr>
+</body>
+</html>
