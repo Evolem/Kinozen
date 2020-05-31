@@ -1,15 +1,16 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "tbl_typemedia")
 public class TypeMedia {
 
