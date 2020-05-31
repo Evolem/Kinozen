@@ -33,4 +33,9 @@ public class ActorController {
         response.sendRedirect(request.getHeader("referer"));
     }
 
+    @GetMapping
+    public String addActor(){
+        return "addActor";
+    }
+
 }

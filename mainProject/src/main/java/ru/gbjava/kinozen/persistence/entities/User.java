@@ -18,6 +18,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -28,7 +29,7 @@ public class User {
     @Id
     @Column(name = "id_user")
     @GeneratedValue(strategy = IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "login_user")
     private String login;

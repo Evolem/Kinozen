@@ -1,7 +1,6 @@
 package ru.gbjava.kinozen.persistence.entities;
 
 import lombok.*;
-import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 
@@ -20,7 +19,7 @@ public class Actor {
     @Id
     @Column(name = "id_actor")
     @GeneratedValue(strategy = IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name = "firstname_actor")
     private String firstName;
@@ -33,11 +32,11 @@ public class Actor {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "tbl_actor_media",
+            name = "tbl_actor_content",
             joinColumns = @JoinColumn(name = "id_actor"),
-            inverseJoinColumns = @JoinColumn(name = "id_media")
+            inverseJoinColumns = @JoinColumn(name = "id_content")
     )
-    private List<Media> medias;
+    private List<Content> contents;
 
 
 }

@@ -3,7 +3,7 @@ package ru.gbjava.kinozen.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gbjava.kinozen.persistence.entities.Actor;
-import ru.gbjava.kinozen.persistence.entities.Media;
+import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.repositories.ActorRepository;
 import ru.gbjava.kinozen.services.pojo.ActorPojo;
 
@@ -16,13 +16,13 @@ public class ActorService {
 
     private final ActorRepository actorRepository;
 
-    public Actor getActorById(int id){
+    public Actor getActorById(long id){
         return actorRepository.findById(id).orElse(new Actor());
     }
 
-    public List<Media> getActorMedias(int id){
+    public List<Content> getActorContents(long id){
         Actor actor = actorRepository.findById(id).orElse(new Actor());
-        return actor.getMedias();
+        return actor.getContents();
     }
 
     @Transactional
