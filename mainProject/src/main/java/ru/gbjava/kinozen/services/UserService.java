@@ -5,11 +5,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gbjava.kinozen.persistence.entities.Role;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.persistence.repositories.UserRepository;
+import ru.gbjava.kinozen.services.pojo.UserPojo;
 
 import java.util.*;
 
@@ -25,8 +27,8 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public User findByLogin(String login) {
-        return userRepository.findOneByLogin(login);
+    public UserPojo findByLogin(String login) {
+        return new UserPojo(userRepository.findOneByLogin(login));
     }
 
     public User getAnonymousUser() {
@@ -66,9 +68,29 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByLogin(login);
     }
 
-    public User save(User user){
+    public User save(UserPojo userPojo){
+        User user = User.builder()
+                .id(userPojo.getId())
+                .login(userPojo.getLogin())
+                .email(userPojo.getEmail())
+                .name(userPojo.getName())
+                .password(userPojo.getPassword())
+                .roles(userPojo.getRoles()).build();
         return userRepository.save(user);
     }
 
+    public User updateFieldsAndSave(String login, UserPojo sourceOfChanges) {
+        UserPojo userPojo = findByLogin(login);
+        if (sourceOfChanges.getEmail() != null) {
+            userPojo.setEmail(sourceOfChanges.getEmail());
+        }
+        if (sourceOfChanges.getName() != null) {
+            userPojo.setName(sourceOfChanges.getName());
+        }
+        if (sourceOfChanges.getNewPassword1() != null) {
+            userPojo.setPassword(new BCryptPasswordEncoder().encode(sourceOfChanges.getNewPassword1()));
+        }
+        return save(userPojo);
+    }
 }
 

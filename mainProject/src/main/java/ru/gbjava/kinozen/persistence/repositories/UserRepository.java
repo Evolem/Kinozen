@@ -9,7 +9,7 @@ import ru.gbjava.kinozen.persistence.entities.User;
  * E-mail: yakimovvn@bk.ru
  */
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<User, Long> {
     User findOneByLogin(String login);
     boolean existsByLogin(String login);
 }
