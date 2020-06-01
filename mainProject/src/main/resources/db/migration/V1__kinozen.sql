@@ -42,7 +42,6 @@ create table if not exists tbl_director
 );
 
 
-
 create table if not exists tbl_content
 (
     id_content serial not null
@@ -56,7 +55,8 @@ create table if not exists tbl_content
         constraint tbl_content_tbl_typecontent_id_typecontent_fk
         references tbl_typecontent,
     url_content varchar(255),
-    img_content varchar(255)
+    img_content varchar(255),
+    id_director bigint
 );
 
 
@@ -244,7 +244,18 @@ values ('Сериал');
 insert into tbl_typecontent(name_typecontent)
 values ('Фильм');
 
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Игра престолов', 'описание 1', '2020-05-27', true, 1, 'igra-prestolov');
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Игра престолов 2', 'описание 1', '2020-05-17', true, 2, 'igra-prestolov2');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content, id_director)
+values ('Игра престолов', 'описание 1', '2020-05-27', true, 1, 'igra-prestolov',1),
+('Игра престолов 2', 'описание 1', '2020-05-17', true, 2, 'igra-prestolov2',1);
+
+insert into tbl_director
+(
+    firstname_director,
+    lastname_director,
+    description_director,
+    img_director
+) values ('Дэвид', 'Наттер', 'карьера	Режиссер, Продюсер
+дата рождения	1960 • стрелец стрелец• 60 лет
+место рождения	США
+жанры	драма, фантастика, детектив
+всего фильмов	53, 1985 — 2019','https://www.kinopoisk.ru/name/64671/photos/')
