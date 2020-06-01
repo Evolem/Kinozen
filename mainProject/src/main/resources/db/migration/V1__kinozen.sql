@@ -245,9 +245,13 @@ insert into tbl_typecontent(name_typecontent)
 values ('Фильм');
 
 insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Игра престолов', 'описание 1', '2020-05-27', true, 1, 'igra-prestolov');
+values ('Игра престолов', 'тут описание', '2020-05-27', true, 1, 'igra-prestolov');
 insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Пустыня смерти', 'дейсивие в пусиые', '2020-05-17', true, 2, 'igra-prestolov2');
+values ('Пустыня смерти', 'тут описание', '2020-05-17', true, 2, 'pustinya-smerti');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Сопрано', 'тут описание', '2020-05-17', true, 2, 'soprano');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Рик и морти', 'тут описание', '2020-05-17', true, 2, 'rik-i-morti');
 
 
 insert into tbl_genre(name_genre) values ('аниме');
@@ -282,5 +286,12 @@ insert into tbl_genre(name_genre) values ('фантастика');
 insert into tbl_genre(name_genre) values ('фильм-нуар');
 insert into tbl_genre(name_genre) values ('фэнтези');
 insert into tbl_genre(name_genre) values ('эротика');
+
+insert into tbl_genre_content (id_genre, id_content) values (29,1);
+insert into tbl_genre_content (id_genre, id_content) values (31,1);
+
+insert into tbl_genre_content (id_genre, id_content) values (27,3);
+insert into tbl_genre_content (id_genre, id_content) values (30,3);
+insert into tbl_genre_content (id_genre, id_content) values (25,3);
 
 
