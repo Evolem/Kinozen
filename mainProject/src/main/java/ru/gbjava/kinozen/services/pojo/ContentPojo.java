@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Genre;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +22,7 @@ public class ContentPojo {
     private Boolean visible;
     private TypeContentPojo typeContentPojo;
     private String url;
+    private List<GenrePojo> genres;
 
     public ContentPojo(Content content) {
         this.id = content.getId();
@@ -27,6 +31,9 @@ public class ContentPojo {
         this.description = content.getDescription();
         this.visible = content.getVisible();
         this.typeContentPojo = new TypeContentPojo(content.getTypeContent());
+        for (Genre genre : content.getGenres()) {
+            this.genres.add(new GenrePojo(genre));
+        }
         this.url = content.getUrl();
     }
 }
