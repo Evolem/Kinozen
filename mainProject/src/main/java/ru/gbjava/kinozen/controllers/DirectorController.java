@@ -5,10 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.gbjava.kinozen.persistence.entities.Director;
-import ru.gbjava.kinozen.persistence.entities.Media;
 import ru.gbjava.kinozen.services.DirectorService;
-
-import java.util.List;
 
 
 @Controller

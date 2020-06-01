@@ -22,8 +22,8 @@
    <p th:text="${director.descriptionDirector}"/>
 </div>
 
-<div th:each="m : ${director.media}">
-  <p  th:text="${m.nameMedia} "/>
+<div th:each="c : ${director.contents}">
+  <p  th:text="${c.getName()} "/>
   <br />
 </div>
 

@@ -43,4 +43,8 @@ public class Content {
     @ManyToOne
     @JoinColumn(name = "id_typecontent")
     private TypeContent typeContent;
+
+    @ManyToOne
+    @JoinColumn(name = "id_director")
+    private Director director;
 }
