@@ -91,7 +91,7 @@ create table if not exists tbl_actor
     firstname_actor varchar(255),
     lastname_actor varchar(255),
     description_actor varchar(255),
-    img_actor integer
+    img_actor varchar(255)
 );
 
 
@@ -247,4 +247,6 @@ values ('Фильм');
 insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
 values ('Игра престолов', 'описание 1', '2020-05-27', true, 1, 'igra-prestolov');
 insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Игра престолов 2', 'описание 1', '2020-05-17', true, 2, 'igra-prestolov2');
+values ('Пустыня смерти', 'дейсивие в пусиые', '2020-05-17', true, 2, 'igra-prestolov2');
+
+
