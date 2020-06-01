@@ -6,42 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.css}" href="../../static/css/bootstrap.css"/>
-    <link type="text/css" rel="stylesheet" th:href="@{css/style.css}" href="../../static/css/style.css"/>
-    <title>Kinozen</title>
-
+    <link rel="stylesheet" th:href="@{css/style.css}" href="../static/css/style.css"/>
+    <link rel="stylesheet" th:href="@{css/style_1.css}" href="../static/css/style_1.css"/>
+    <link rel="stylesheet" th:href="@{css/style_2.css}" href="../static/css/style_2.css"/>
 
 </head>
 
 <body>
-<div th:fragment="header" class="header_top">
-    <div class="col-sm-3 logo"><a href="index.html"><img  src=""
-                                                         alt=""/></a></div>
-    <div class="col-sm-6 nav">
-        <ul>
-            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="comic"><a
-                    href="movie.html"> </a></span></li>
-            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="movie"><a
-                    href="movie.html"> </a> </span></li>
-            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="video"><a
-                    href="movie.html"> </a></span></li>
-            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="game"><a
-                    href="movie.html"> </a></span></li>
-            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="tv"><a
-                    href="movie.html"> </a></span></li>
-            <li><span class="simptip-position-bottom simptip-movable" data-tooltip="more"><a
-                    href="movie.html"> </a></span></li>
-        </ul>
+<div th:fragment="menu" class="menu">
+    <div class="menu__content desktop">
+        <div class="menu__content-wrapper">
+            <a class="menu__item menu__logo" href="/kinozen/">
+                <img th:src="@{/images/log.png}" src="../static/images/log.png" class="menu__item-logo"/>
+            </a>
+            <a href="#" class="menu__item menu__item--link">Сериалы</a>
+            <a href="#" class="menu__item menu__item--link">Фильмы</a>
+            <a href="#" class="menu__item menu__search">
+                <img th:src="@{images/search-icon.png}" src="../static/images/search-icon.png"/><span>Поиск</span></a>
+        </div>
+        <div class="menu__content-wrapper"><a class="menu__sign button" href="#">Войти</a>
+            <a class="menu__register button-primary" href="#">Зарегистрироваться</a></div>
     </div>
-    <div class="col-sm-3 header_right">
-        <ul class="header_right_box">
-            <li><img src="images/p1.png" alt=""/></li>
-            <li><p><a href="#">Кэрол Варуа</a></p></li>
-            <li class="last"><i class="edit"> </i></li>
-            <div class="clearfix"></div>
-        </ul>
-    </div>
-    <div class="clearfix"></div>
 </div>
 </body>
 </html>
