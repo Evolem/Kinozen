@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Director;
@@ -15,12 +16,12 @@ import ru.gbjava.kinozen.persistence.repositories.DirectorRepository;
 @Service
 public class DirectorService{
     private DirectorRepository directorRepository;
-    private ContentService contentService;
+    private ContentService contentRepository;
 
     @Autowired
     public void setDirectorRepository(DirectorRepository directorRepository) {
         this.directorRepository = directorRepository;
-        this.contentService = contentService;
+        this.contentRepository = contentRepository;
     }
 
 
@@ -28,8 +29,8 @@ public class DirectorService{
         return directorRepository.findById(id).get();
     }
 
-    public Collection<Content> findByIdDirector(Long id){
-        return (Collection<Content>) directorRepository;
+    public List<Content> findByIdDirector(Long id){
+        return (List<Content>) directorRepository;
     }
 
     public Director save(Director Director) {

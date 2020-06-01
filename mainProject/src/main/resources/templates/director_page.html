@@ -13,8 +13,9 @@
 <div>
     <p>Информация о режиссере</p>
 </div>
-
 <div>
+    <img class="director_image" th:src="@{'/image_repository/directors/' + ${director.idDirector} + '/img_1.jpg'}">
+</div>
     <p th:text="${director.firstnameDirector} + ' ' + ${director.lastnameDirector}"/>
 </div>
 
@@ -23,7 +24,7 @@
 </div>
 
 <div th:each="c : ${director.contents}">
-  <p  th:text="${c.getName()} "/>
+  <p  th:text="${c.getName().toString()} "/>
   <br />
 </div>
 

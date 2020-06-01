@@ -30,8 +30,7 @@ public class Director {
     @Column(name = "img_director")
     private String imgDirector;
 
-    @OneToMany(mappedBy = "tbl_director")
+    @OneToMany(mappedBy = "director")
     @JsonBackReference
-    private Collection<Content> contents;
-
+    private List<Content> contents;
 }
