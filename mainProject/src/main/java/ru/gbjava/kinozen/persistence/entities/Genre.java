@@ -21,5 +21,9 @@ public class Genre {
     private String name;
 
     @ManyToMany
+    @JoinTable(
+            name = "tbl_genre_content",
+            joinColumns = @JoinColumn(name = "id_genre"),
+            inverseJoinColumns = @JoinColumn(name = "id_content"))
     Set<Content> contents;
 }

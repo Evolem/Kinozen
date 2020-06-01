@@ -45,6 +45,6 @@ public class Content {
     @JoinColumn(name = "id_typecontent")
     private TypeContent typeContent;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "contents")
     Set<Genre> genres;
 }
