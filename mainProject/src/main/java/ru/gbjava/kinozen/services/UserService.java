@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gbjava.kinozen.persistence.entities.Role;
 import ru.gbjava.kinozen.persistence.entities.User;
+import ru.gbjava.kinozen.persistence.repositories.RoleRepository;
 import ru.gbjava.kinozen.persistence.repositories.UserRepository;
 import ru.gbjava.kinozen.services.pojo.UserPojo;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Created by IntelliJ Idea.
@@ -26,6 +28,7 @@ import java.util.*;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     public UserPojo findByLogin(String login) {
         return new UserPojo(userRepository.findOneByLogin(login));
@@ -68,7 +71,25 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByLogin(login);
     }
 
+    public boolean isEmailExist(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+
+    public User saveNewUser(UserPojo userPojo){
+        if(userPojo.getRoles() == null || userPojo.getRoles().isEmpty()){
+            userPojo.addRole(roleRepository.getByRole("ROLE_USER"));
+        }
+        if (userPojo.getNewPassword1() != null) {
+            userPojo.setPassword(new BCryptPasswordEncoder().encode(userPojo.getNewPassword1()));
+        }
+        return save(userPojo);
+
+    }
+
     public User save(UserPojo userPojo){
+
+
         User user = User.builder()
                 .id(userPojo.getId())
                 .login(userPojo.getLogin())
@@ -92,5 +113,6 @@ public class UserService implements UserDetailsService {
         }
         return save(userPojo);
     }
+
 }
 
