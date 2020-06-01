@@ -1,4 +1,4 @@
-package ru.gbjava.kinozen.services.pojo;
+package ru.gbjava.kinozen.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,12 +10,8 @@ import ru.gbjava.kinozen.persistence.entities.Genre;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenrePojo {
+public class GenreDto {
     private Long id;
     private String name;
 
-    public GenrePojo(Genre genre) {
-        this.id = genre.getId();
-        this.name = genre.getName();
-    }
 }
