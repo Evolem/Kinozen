@@ -10,14 +10,15 @@ import ru.gbjava.kinozen.persistence.repositories.GenreRepository;
 public class GenreService implements CrudService <Genre, Long> {
     private final GenreRepository genreRepository;
 
+
     @Override
-    public Iterable<Genre> getAll() {
+    public Iterable<Genre> findAll() {
         return null;
     }
 
     @Override
-    public Genre getById(Long aLong) {
-        return null;
+    public Genre findById(Long id) {
+        return genreRepository.findById(id).orElseThrow(() -> new RuntimeException("Genre not found!"));
     }
 
     @Override
@@ -26,7 +27,7 @@ public class GenreService implements CrudService <Genre, Long> {
     }
 
     @Override
-    public void deleteBy(Long aLong) {
+    public void deleteBy(Long id) {
 
     }
 }

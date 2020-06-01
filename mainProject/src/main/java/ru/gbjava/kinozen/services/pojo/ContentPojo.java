@@ -31,9 +31,6 @@ public class ContentPojo {
         this.description = content.getDescription();
         this.visible = content.getVisible();
         this.typeContentPojo = new TypeContentPojo(content.getTypeContent());
-        for (Genre genre : content.getGenres()) {
-            this.genres.add(new GenreDto(genre));
-        }
         this.url = content.getUrl();
     }
 }

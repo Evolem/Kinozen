@@ -25,5 +25,5 @@ public class Genre {
             name = "tbl_genre_content",
             joinColumns = @JoinColumn(name = "id_genre"),
             inverseJoinColumns = @JoinColumn(name = "id_content"))
-    Set<Content> contents;
+    private Set<Content> contents;
 }
