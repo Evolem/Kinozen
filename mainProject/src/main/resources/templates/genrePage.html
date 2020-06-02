@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>[[ ${genre.name} ]]</title>
+</head>
+<body>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>[[ ${genre.name} ]]</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c, iterator : ${genre.contents}">
+        <td>
+            <a th:href="@{'/content/' + ${c.url}}">[[ ${c.name} ]]</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

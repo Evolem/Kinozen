@@ -42,6 +42,7 @@ create table if not exists tbl_director
 );
 
 
+
 create table if not exists tbl_content
 (
     id_content serial not null
@@ -55,8 +56,7 @@ create table if not exists tbl_content
         constraint tbl_content_tbl_typecontent_id_typecontent_fk
         references tbl_typecontent,
     url_content varchar(255),
-    img_content varchar(255),
-    id_director bigint
+    img_content varchar(255)
 );
 
 
@@ -66,7 +66,8 @@ create table if not exists tbl_genre
     id_genre serial not null
         constraint tbl_genre_pk
         primary key,
-    name_genre varchar(255) not null
+    name_genre varchar(255) not null,
+	url_genre varchar(255)
 );
 
 
@@ -91,7 +92,7 @@ create table if not exists tbl_actor
     firstname_actor varchar(255),
     lastname_actor varchar(255),
     description_actor varchar(255),
-    img_actor integer
+    img_actor varchar(255)
 );
 
 
@@ -245,18 +246,54 @@ values ('Сериал');
 insert into tbl_typecontent(name_typecontent)
 values ('Фильм');
 
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content, id_director)
-values ('Игра престолов', 'описание 1', '2020-05-27', true, 1, 'igra-prestolov',1),
-('Игра престолов 2', 'описание 1', '2020-05-17', true, 2, 'igra-prestolov2',1);
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Игра престолов', 'тут описание', '2020-05-27', true, 1, 'igra-prestolov');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Пустыня смерти', 'тут описание', '2020-05-17', true, 2, 'pustinya-smerti');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Сопрано', 'тут описание', '2020-05-17', true, 2, 'soprano');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Рик и морти', 'тут описание', '2020-05-17', true, 2, 'rik-i-morti');
 
-insert into tbl_director
-(
-    firstname_director,
-    lastname_director,
-    description_director,
-    img_director
-) values ('Дэвид', 'Наттер', 'карьера	Режиссер, Продюсер
-дата рождения	1960 • стрелец стрелец• 60 лет
-место рождения	США
-жанры	драма, фантастика, детектив
-всего фильмов	53, 1985 — 2019','https://www.kinopoisk.ru/name/64671/photos/')
+
+insert into tbl_genre(name_genre) values ('аниме');
+insert into tbl_genre(name_genre) values ('биографический');
+insert into tbl_genre(name_genre) values ('боевик');
+insert into tbl_genre(name_genre) values ('вестерн');
+insert into tbl_genre(name_genre) values ('военный');
+insert into tbl_genre(name_genre) values ('детектив');
+insert into tbl_genre(name_genre) values ('детский');
+insert into tbl_genre(name_genre) values ('документальный');
+insert into tbl_genre(name_genre) values ('драма');
+insert into tbl_genre(name_genre) values ('исторический');
+insert into tbl_genre(name_genre) values ('кинокомикс');
+insert into tbl_genre(name_genre) values ('комедия');
+insert into tbl_genre(name_genre) values ('концерт');
+insert into tbl_genre(name_genre) values ('короткометражный');
+insert into tbl_genre(name_genre) values ('криминал');
+insert into tbl_genre(name_genre) values ('мелодрама');
+insert into tbl_genre(name_genre) values ('мистика');
+insert into tbl_genre(name_genre) values ('музыка');
+insert into tbl_genre(name_genre) values ('мультфильм');
+insert into tbl_genre(name_genre) values ('мюзикл');
+insert into tbl_genre(name_genre) values ('научный');
+insert into tbl_genre(name_genre) values ('приключения');
+insert into tbl_genre(name_genre) values ('реалити-шоу');
+insert into tbl_genre(name_genre) values ('семейный');
+insert into tbl_genre(name_genre) values ('спорт');
+insert into tbl_genre(name_genre) values ('ток-шоу');
+insert into tbl_genre(name_genre) values ('триллер');
+insert into tbl_genre(name_genre) values ('ужасы');
+insert into tbl_genre(name_genre) values ('фантастика');
+insert into tbl_genre(name_genre) values ('фильм-нуар');
+insert into tbl_genre(name_genre) values ('фэнтези');
+insert into tbl_genre(name_genre) values ('эротика');
+
+insert into tbl_genre_content (id_genre, id_content) values (29,1);
+insert into tbl_genre_content (id_genre, id_content) values (31,1);
+
+insert into tbl_genre_content (id_genre, id_content) values (27,3);
+insert into tbl_genre_content (id_genre, id_content) values (30,3);
+insert into tbl_genre_content (id_genre, id_content) values (25,3);
+
+

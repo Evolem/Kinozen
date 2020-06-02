@@ -3,9 +3,12 @@ package ru.gbjava.kinozen.services.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.gbjava.kinozen.dto.GenreDto;
 import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Genre;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +22,7 @@ public class ContentPojo {
     private Boolean visible;
     private TypeContentPojo typeContentPojo;
     private String url;
+    private List<GenreDto> genres;
 
     public ContentPojo(Content content) {
         this.id = content.getId();

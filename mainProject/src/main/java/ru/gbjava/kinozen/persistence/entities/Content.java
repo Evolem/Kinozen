@@ -1,6 +1,5 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +9,7 @@ import javax.persistence.*;
 
 
 import java.util.Date;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -45,7 +45,6 @@ public class Content {
     @JoinColumn(name = "id_typecontent")
     private TypeContent typeContent;
 
-    @ManyToOne
-    @JoinColumn(name = "id_director")
-    private Director director;
+    @ManyToMany(mappedBy = "contents")
+    Set<Genre> genres;
 }
