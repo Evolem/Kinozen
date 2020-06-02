@@ -3,10 +3,7 @@ package ru.gbjava.kinozen.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.gbjava.kinozen.dto.GenreDto;
 import ru.gbjava.kinozen.dto.mappers.GenreMapper;
 import ru.gbjava.kinozen.services.GenreService;
@@ -34,6 +31,11 @@ public class GenreController {
         GenreDto genreDto = GenreMapper.INSTANCE.toDto(genreService.findByUrl(url));
         model.addAttribute("genre", genreDto);
         return "genrePage";
+    }
+
+    @PostMapping
+    public void addGenre(GenreDto genreDto){
+        genreService.save(GenreMapper.INSTANCE.toEntity(genreDto));
     }
 
     //todo это временный метод, который будет удален
