@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.gbjava.kinozen.persistence.entities.Genre;
 import ru.gbjava.kinozen.persistence.repositories.GenreRepository;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class GenreService implements CrudService <Genre, Long> {
@@ -12,8 +14,8 @@ public class GenreService implements CrudService <Genre, Long> {
 
 
     @Override
-    public Iterable<Genre> findAll() {
-        return null;
+    public List<Genre> findAll() {
+        return genreRepository.findAll();
     }
 
     @Override
@@ -22,12 +24,16 @@ public class GenreService implements CrudService <Genre, Long> {
     }
 
     @Override
-    public void save(Genre object) {
-
+    public void save(Genre genre) {
+        genreRepository.save(genre);
     }
 
     @Override
     public void deleteBy(Long id) {
+        genreRepository.deleteById(id);
+    }
 
+    public Genre findByUrl(String url){
+        r
     }
 }

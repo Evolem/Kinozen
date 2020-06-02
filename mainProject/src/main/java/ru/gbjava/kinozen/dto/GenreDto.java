@@ -17,4 +17,5 @@ public class GenreDto {
     private Long id;
     private String name;
     private Set<Content> contents;
+    private String url;
 }

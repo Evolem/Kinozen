@@ -20,6 +20,9 @@ public class Genre {
     @Column(name = "name_genre")
     private String name;
 
+    @Column(name = "url_genre")
+    private String url;
+
     @ManyToMany
     @JoinTable(
             name = "tbl_genre_content",

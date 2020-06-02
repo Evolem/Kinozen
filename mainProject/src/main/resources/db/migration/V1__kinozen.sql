@@ -66,7 +66,8 @@ create table if not exists tbl_genre
     id_genre serial not null
         constraint tbl_genre_pk
         primary key,
-    name_genre varchar(255) not null
+    name_genre varchar(255) not null,
+	url_genre varchar(255)
 );
 
 
