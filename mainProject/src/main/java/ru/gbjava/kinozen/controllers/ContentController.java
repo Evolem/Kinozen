@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ru.gbjava.kinozen.dto.ContentDto;
+import ru.gbjava.kinozen.dto.TypeContentDto;
 import ru.gbjava.kinozen.services.ContentService;
-import ru.gbjava.kinozen.services.pojo.ContentPojo;
-import ru.gbjava.kinozen.services.pojo.TypeContentPojo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @Controller
@@ -28,30 +28,30 @@ public class ContentController {
 
     @GetMapping
     public String getAllMedia(Model model){
-        List<ContentPojo> pojoList = contentService.getAllMedia();
-        model.addAttribute("contentList", pojoList);
+        List<ContentDto> dtoList = contentService.getAllMedia();
+        model.addAttribute("contentList", dtoList);
         return "content";
     }
 
     @GetMapping ("/{url}")
     public String getMediaByUrl(Model model, @PathVariable String url){
-        ContentPojo contentPojo = contentService.findByUrl(url);
-        model.addAttribute("content", contentPojo);
+        ContentDto contentDto = contentService.findByUrl(url);
+        model.addAttribute("content", contentDto);
         return "contentPage";
     }
 
     @GetMapping ("/addContent")
     public String addGetContent(Model model) {
-        ContentPojo contentPojo = new ContentPojo();
-        List<TypeContentPojo> types = contentService.getAllTypes();
-        model.addAttribute("content" ,contentPojo);
-        model.addAttribute("types",types);
+        ContentDto contentDto = new ContentDto();
+        List<TypeContentDto> types = contentService.getAllTypes();
+        model.addAttribute("content", contentDto);
+        model.addAttribute("types", types);
         return "addContent";
     }
 
     @PostMapping("/addContent")
-    public void addContent(ContentPojo contentPojo, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        contentService.save(contentPojo);
+    public void addContent(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        contentService.save(contentDto);
         response.sendRedirect(request.getHeader("referer"));
     }
 
