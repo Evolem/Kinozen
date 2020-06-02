@@ -16,6 +16,7 @@ import java.util.Set;
 public class GenreDto {
     private Long id;
     private String name;
+    //todo тут должен быть список dto!
     private Set<Content> contents;
     private String url;
 }
