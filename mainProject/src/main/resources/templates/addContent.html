@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+      lang="RU">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -24,14 +24,14 @@
                     <input type="text" name="description" class="form-control" placeholder="Описание">
                 </div>
 
-                <!--  TODO придумать как будет меняться страница при выборе Фильм/Сериал  -->
+<!--TODO исправить ошибку с записью в БД-->
 
-                <select class="form-control" name="typeContentDto">
-                    <option th:each="type : ${types}"
-                            th:text="${type.name}"
-                            th:value="${type.id}">
-                    </option>
-                </select>
+<!--                <select class="form-control" name="typeContentDto">-->
+<!--                    <option th:each="type : ${types}"-->
+<!--                            th:text="${type.name}"-->
+<!--                            th:value="${type.id}">-->
+<!--                    </option>-->
+<!--                </select>-->
 
             </div>
             <div class="form-row">
