@@ -7,12 +7,7 @@
 <body class="custom_class">
 <div id="__next">
     <div class="registration" style="background-color: black">
-        <a class="registration__content-logo" href="/kinozen">
-            <img th:src="@{/images/log.png}" src="../static/images/log.png" class="registration__content-logo-img"/>
-        </a>
-        <a class="registration__close" href="/kinozen">
-            <img th:src="@{images/close.png}" src="images/close.png">
-        </a>
+        <head th:replace="blocks/header_login_reg.html:: header_login_reg"></head>
         <div class="registration__content">
             <div class="registration__content-title">Вход в аккаунт</div>
             <div class="registration__form-title">Войдите для доступа к подписке и списку избранного</div>
@@ -22,8 +17,8 @@
                         <div class="registration__form-switcher_item active">E-mail</div>
                         <div class="registration__form-switcher_item ">Телефон</div>
                     </div>
-                    <form>
-                        <div class="registration__form-inputs" th:action="@{/authenticateTheUser}">
+                    <form th:action="@{/authenticateTheUser}">
+                        <div class="registration__form-inputs">
                             <div class="registration__form-input_wrapper">
                                 <input type="email" value="" class="registration__form-input" placeholder="E-mail"/>
                             </div>
@@ -67,62 +62,7 @@
             </div>
         </div>
         <div class="registration__shade"></div>
-        <div class="registration__footer">
-            <div class="registration__footer-wrapper">
-                <a class="registration__footer-logo" href="/">
-                    <img th:src="@{/images/log.png}" src="../static/images/log.png" width="200"/>
-                </a>
-                <div class="registration__footer-age">
-                    <div class="registration__footer-age_img">
-                        <img src=""/>
-                    </div>
-                    <div class="registration__footer-age_text">
-                            <span>Все права защищены<br/>© ООО &quot;Kinozen&quot;,
-                                2020<br/>© 2020 бла бла бла бла...... .</span>
-                    </div>
-                </div>
-                <div class="registration__footer-social">
-                    <div class="registration__footer-social_icons">
-                        <div class="registration__footer-icon registration__footer-tg">
-                            <a target="_blank" href="#">
-                                <img src=""/>
-                            </a>
-                        </div>
-                        <div class="registration__footer-icon registration__footer-vk">
-                            <a target="_blank" href="#">
-                                <img src=""/>
-                            </a>
-                        </div>
-                        <div class="registration__footer-icon registration__footer-fb">
-                            <a target="_blank" href="#">
-                                <img src=""/>
-                            </a>
-                        </div>
-                        <div class="registration__footer-icon registration__footer-ok">
-                            <a target="_blank" href="#">
-                                <img src=""/>
-                            </a>
-                            <div class="registration__footer-icon registration__footer-tw">
-                                <a target="_blank" href="#">
-                                    <img src=""/>
-                                </a>
-                            </div>
-                            <div class="registration__footer-icon registration__footer-yo">
-                                <a target="_blank" href="#">
-                                    <img src=""/>
-                                </a>
-                            </div>
-                            <div class="registration__footer-icon registration__footer-ze">
-                                <a target="_blank" href="#">
-                                    <img src=""/>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="registration__footer-social_support"><span>Поддержка:</span> 0 000 000 000 0</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <head th:replace="blocks/footer_login_reg.html :: footer_login_reg"></head>
     </div>
 </div>
 <div id="portal-root" class="portal-root"></div>
