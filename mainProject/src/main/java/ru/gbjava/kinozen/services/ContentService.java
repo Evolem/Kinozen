@@ -29,9 +29,9 @@ public class ContentService{
         return new ContentDto(content);
     }
 
-    public ContentDto findByUrl(String url) {
+    public Content findByUrl(String url) {
         Content content = contentRepository.findMediaByUrl(url).orElseThrow(() -> new RuntimeException("Content Not Found!"));
-        return new ContentDto(content);
+        return content;
     }
 
     public List<TypeContentDto> getAllTypes() {
@@ -63,7 +63,7 @@ public class ContentService{
         contentRepository.deleteById(contentDto.getId());
     }
 
-    public List<ContentDto> getAllMedia() {
+    public List<ContentDto> getAllContent() {
         return contentRepository
                 .findAll()
                 .stream()
