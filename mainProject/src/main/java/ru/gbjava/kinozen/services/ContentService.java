@@ -63,7 +63,7 @@ public class ContentService{
         contentRepository.deleteById(contentDto.getId());
     }
 
-    public List<ContentDto> getAllMedia() {
+    public List<ContentDto> getAllContent() {
         return contentRepository
                 .findAll()
                 .stream()

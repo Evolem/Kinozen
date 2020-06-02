@@ -27,21 +27,21 @@ public class ContentController {
     private final ContentService contentService;
 
     @GetMapping
-    public String getAllMedia(Model model){
-        List<ContentDto> dtoList = contentService.getAllMedia();
+    public String getAllContent(Model model){
+        List<ContentDto> dtoList = contentService.getAllContent();
         model.addAttribute("contentList", dtoList);
         return "content";
     }
 
     @GetMapping ("/{url}")
-    public String getMediaByUrl(Model model, @PathVariable String url){
+    public String getContentByUrl(Model model, @PathVariable String url){
         ContentDto contentDto = contentService.findByUrl(url);
         model.addAttribute("content", contentDto);
         return "contentPage";
     }
 
     @GetMapping ("/addContent")
-    public String addGetContent(Model model) {
+    public String addContent(Model model) {
         ContentDto contentDto = new ContentDto();
         List<TypeContentDto> types = contentService.getAllTypes();
         model.addAttribute("content", contentDto);
@@ -56,8 +56,9 @@ public class ContentController {
     }
 
     @GetMapping ("/delete")
-    public String deleteMedia(){
-        return "deleteContent";
+    public void deleteContent(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        contentService.delete(contentDto);
+        response.sendRedirect(request.getHeader("referer"));
     }
 
 
