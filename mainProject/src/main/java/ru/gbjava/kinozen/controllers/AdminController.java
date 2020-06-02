@@ -15,9 +15,4 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping ("/add")
-    public String addMedia(){
-        return "addMedia";
-    }
-
 }
