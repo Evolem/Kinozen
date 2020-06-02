@@ -2,3 +2,6 @@ rootProject.name = 'gbzen'
 
 include 'mainProject'
 include 'playerzen'
+include 'ConfigServer'
+findProject(':ConfigServer')?.name = 'configServer'
+
