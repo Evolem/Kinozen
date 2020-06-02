@@ -1,55 +1,241 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<div th:fragment="newsletter" class="container">
-    <footer id="footer">
-        <div id="footer-3d">
-            <div class="gp-container">
-                <span class="first-widget-bend"></span>
-            </div>
-        </div>
-        <div id="footer-widgets" class="gp-footer-larger-first-col">
-            <div class="gp-container">
-                <div class="footer-widget footer-1">
-                    <div class="wpb_wrapper">
-                        <img src="" alt=""/>
-                    </div>
-                    <br>
-                    <p>Лучший онлайн кинотиатор</p>
-                    <p class="text"> Лучший онлайн кинотиатор</p>
+<div th:fragment="footer" class="footer">
+    <div class="on-wide-desktop on-desktop on-wide-tablet">
+        <div class="footer__row footer__row_space-between">
+            <div class="footer__cell footer__cell_first">
+                <div class="footer__row footer__row--logo footer__row_space-between">
+                    <a href="/kinozen">
+                        <img th:src="@{images/log.png}" src="../static/images/log.png" class="footer__logo"/>
+                    </a>
+
                 </div>
-                <div class="footer_box">
-                    <div class="col_1_of_3 span_1_of_3">
-                        <h3>Категории</h3>
-                        <ul class="first">
-                            <li><a href="#"></a></li>
-                            <li><a href="#">История</a></li>
-                            <li><a href="#"></a></li>
-                        </ul>
-                    </div>
-                    <div class="col_1_of_3 span_1_of_3">
-                        <h3>Информация</h3>
-                        <ul class="first">
-                            <li><a href="#">Новые продукты</a></li>
-                            <li><a href="#">top sellers</a></li>
-                            <li><a href="#">Specials</a></li>
-                        </ul>
-                    </div>
-                    <div class="col_1_of_3 span_1_of_3">
-                        <h3>Подписывайтесь на нас</h3>
-                        <ul class="first">
-                            <li><a href="#">Facebook</a></li>
-                            <li><a href="#">Twitter</a></li>
-                            <li><a href="#">Youtube</a></li>
-                        </ul>
-                        <div class="copy">
-                            <p>&copy; 2020 Kinozen<a href="#" target="_blank"> </a></p>
+                <div class="footer__copyright">
+                    <div class="footer__copyright-text">Все права защищены</div>
+                    <div class="footer__copyright-text">
+                        <div class="footer__copyright-textpart">© ООО &quot;А сериал&quot;,
+                            <!-- -->2020
+                        </div>
+                        <div class="footer__copyright-textpart">©
+                            <!-- -->2020
+                            <!-- --> Home Box Office, Inc. All rights reserved. HBO® and all
+                            related
+                            service marks are the property of Home Box Office, Inc.
                         </div>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
+            </div>
+            <div class="footer__cell footer__cell_second">
+                <div class="footer__menu">
+                    <a class="footer__menu-link" href="#">Сериалы</a>
+                    <a class="footer__menu-link" href="#">Фильмы</a>
+                    <a class="footer__menu-link" href="#">Коллекции</a>
+                    <a class="footer__menu-link" href="#">Избранное</a>
+                    <a class="footer__menu-link" href="#">Поиск</a>
+                </div>
+                <div class="footer__service-menu">
+                    <a class="footer__service-menu-item" href="#">Пользовательское
+                        соглашение</a>
+                    <a class="footer__service-menu-item" href="#">FAQ</a>
+                    <a class="footer__service-menu-item" href="#">Контакты</a>
+                </div>
+                <div class="footer__app-menu">
+                    <a href="#" target="_blank" class="footer__app-menu-item">
+                        <img th:src="@{images/appstore.png}" src="../static/images/appstore.png"
+                             class="footer__app-menu-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__app-menu-item">
+                        <img th:src="@{images/goolestore.png}" src="../static/images/goolestore.png"
+                             class="footer__app-menu-icon"/>
+                    </a>
+                </div>
+            </div>
+            <div class="footer__cell footer__cell_therd">
+                <div class="footer__social">
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                </div>
+                <div class="footer__phone"><span
+                        class="footer__phone-label">Поддержка:</span><span
+                        class="footer__phone-text">0 000 000 000 0</span></div>
             </div>
         </div>
-    </footer>
+    </div>
+    <div class="footer__wrapper on-tablet">
+        <div class="footer__row footer__row_space-between">
+            <div class="footer__cell">
+                <a href="#">
+                    <img src="" class="footer__logo"/>
+                </a>
+                <img src="" class="footer__age"/>
+            </div>
+            <div class="footer__cell">
+                <div class="footer__menu">
+                    <a class="footer__menu-link" href="#">Сериалы</a>
+                    <a class="footer__menu-link" href="#">Фильмы</a>
+                    <a class="footer__menu-link" href="#">Коллекции</a>
+                    <a class="footer__menu-link" href="#">Избранное</a>
+                    <a class="footer__menu-link" href="#">Поиск</a>
+                </div>
+                <div class="footer__service-menu">
+                    <a class="footer__service-menu-item" href="#">Пользовательское соглашение</a>
+                    <a class="footer__service-menu-item" href="#">FAQ</a>
+                    <a class="footer__service-menu-item" href="#">Контакты</a>
+                </div>
+                <div class="footer__app-menu">
+                    <a href="#"
+                       target="_blank" class="footer__app-menu-item">
+                        <img src="" class="footer__app-menu-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__app-menu-item">
+                        <img src="" class="footer__app-menu-icon"/>
+                    </a>
+                </div>
+            </div>
+            <div class="footer__cell">
+                <div class="footer__social">
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                    <a href="#" target="_blank" class="footer__social-item">
+                        <img src="" class="footer__social-icon"/>
+                    </a>
+                </div>
+                <div class="footer__phone">
+                    <span class="footer__phone-label">Поддержка:</span>
+                    <span class="footer__phone-text">8 800 500 100 5</span></div>
+            </div>
+        </div>
+        <div class="footer__row">
+            <div class="footer__copyright">
+                <div class="footer__copyright-text">Все права защищены</div>
+                <div class="footer__copyright-text">
+                    <div class="footer__copyright-textpart">© ООО &quot;А сериал&quot;,
+                        <!-- -->2020
+                    </div>
+                    <div class="footer__copyright-textpart">©
+                        <!-- -->2020
+                        <!-- --> Home Box Office, Inc. All rights reserved. HBO® and all related
+                        service
+                        marks are the property of Home Box Office, Inc.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer__wrapper on-phone">
+        <div class="footer__row">
+            <a href="#">
+                <img src="" class="footer__logo"/>
+            </a>
+            <div class="footer__menu">
+                <a class="footer__menu-link" href="#">Сериалы</a>
+                <a class="footer__menu-link" href="#">Фильмы</a>
+                <a class="footer__menu-link" href="#">Коллекции</a>
+                <a class="footer__menu-link" href="#">ТВ</a>
+                <a class="footer__menu-link" href="#">Избранное</a>
+                <a class="footer__menu-link" href="#">Поиск</a>
+            </div>
+        </div>
+        <div class="footer__row">
+            <div class="footer__service-menu">
+                <a class="footer__service-menu-item" href="#">Пользовательское
+                    соглашение</a>
+                <a class="footer__service-menu-item" href="#">FAQ</a>
+                <a class="footer__service-menu-item" href="#">Контакты</a>
+            </div>
+        </div>
+        <div class="footer__row">
+            <div class="footer__social">
+                <a href="#" target="_blank" class="footer__social-item">
+                    <img src="" class="footer__social-icon"/>
+                </a>
+                <a href="#" target="_blank" class="footer__social-item">
+                    <img src="" class="footer__social-icon"/>
+                </a>
+                <a href="#" target="_blank" class="footer__social-item">
+                    <img src="" class="footer__social-icon"/>
+                </a>
+                <a href="#" target="_blank" class="footer__social-item">
+                    <img src="" class="footer__social-icon"/>
+                </a>
+                <a href="#" target="_blank" class="footer__social-item">
+                    <img src="" class="footer__social-icon"/>
+                </a>
+                <a href="#" target="_blank" class="footer__social-item">
+                    <img src="" class="footer__social-icon"/>
+                </a>
+                <a href="#" target="_blank" class="footer__social-item">
+                    <img src="" class="footer__social-icon"/>
+                </a>
+            </div>
+        </div>
+        <div class="footer__row footer__around">
+            <div class="footer__app-menu">
+                <a href="#" target="_blank" class="footer__app-menu-item">
+                    <img src="" class="footer__app-menu-icon"/>
+                </a><a href="#" target="_blank" class="footer__app-menu-item">
+                <img src="" class="footer__app-menu-icon"/>
+            </a>
+            </div>
+        </div>
+        <div class="footer__row">
+            <div class="footer__phone"><span class="footer__phone-label">Поддержка:</span>
+                <span
+                        class="footer__phone-text">8 800 500 100 5</span>
+            </div>
+        </div>
+        <div class="footer__row">
+            <img src="" class="footer__age"/>
+            <div class="footer__copyright">
+                <div class="footer__copyright-text">Все права защищены</div>
+                <div class="footer__copyright-text">
+                    <div class="footer__copyright-textpart">© ООО &quot;А сериал&quot;,
+                        <!-- -->2020
+                    </div>
+                    <div class="footer__copyright-textpart">©
+                        <!-- -->2020
+                        <!-- --> Home Box Office, Inc. All rights reserved. HBO® and all related
+                        service
+                        marks are the property of Home Box Office, Inc.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

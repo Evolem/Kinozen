@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 
 import java.util.Date;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -43,4 +44,7 @@ public class Content {
     @ManyToOne
     @JoinColumn(name = "id_typecontent")
     private TypeContent typeContent;
+
+    @ManyToMany(mappedBy = "contents")
+    Set<Genre> genres;
 }

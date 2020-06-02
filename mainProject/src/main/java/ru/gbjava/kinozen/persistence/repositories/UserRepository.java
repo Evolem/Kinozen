@@ -12,4 +12,5 @@ import ru.gbjava.kinozen.persistence.entities.User;
 public interface UserRepository extends CrudRepository<User, Long> {
     User findOneByLogin(String login);
     boolean existsByLogin(String login);
+    boolean existsByEmail(String email);
 }
