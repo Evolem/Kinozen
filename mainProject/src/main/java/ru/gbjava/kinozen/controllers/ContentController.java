@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.TypeContentDto;
+import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Genre;
 import ru.gbjava.kinozen.services.ContentService;
+import ru.gbjava.kinozen.services.GenreService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +28,7 @@ import java.util.List;
 public class ContentController {
 
     private final ContentService contentService;
+    private final GenreService genreService;
 
     @GetMapping
     public String getAllContent(Model model){
@@ -33,9 +37,10 @@ public class ContentController {
         return "content";
     }
 
+    //todo dto and facade
     @GetMapping ("/{url}")
     public String getContentByUrl(Model model, @PathVariable String url){
-        ContentDto contentDto = contentService.findByUrl(url);
+        Content contentDto = contentService.findByUrl(url);
         model.addAttribute("content", contentDto);
         return "contentPage";
     }
