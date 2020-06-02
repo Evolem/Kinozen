@@ -4,12 +4,11 @@
       xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 <head>
     <meta charset="UTF-8">
-    <title>MediaPage</title>
+    <title> [[ ${content.name} ]]</title>
 </head>
 <body>
     <span th:text="${content.visible}"></span><br>
     <span th:text="${content.name}"></span><br>
-    <span th:text="${content.typeContentPojo.getName()}"></span><br>
     <span th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></span><br>
     <span th:text="${content.description}"></span><br>
     <span th:text="${content.url}"></span><br>
