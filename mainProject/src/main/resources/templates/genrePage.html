@@ -4,11 +4,25 @@
       xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 <head>
     <meta charset="UTF-8">
-    <title>GenrePage</title>
+    <title>[[ ${genre.name} ]]</title>
 </head>
 <body>
-<span th:text="${genre.id}"></span><br>
-<span th:text="${genre.name}"></span><br>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>[[ ${genre.name} ]]</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c, iterator : ${genre.contents}">
+        <td>
+            <a th:href="@{'/content/' + ${c.url}}">[[ ${c.name} ]]</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

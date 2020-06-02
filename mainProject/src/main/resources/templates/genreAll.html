@@ -13,15 +13,18 @@
     <tr>
         <th>id</th>
         <th>name</th>
-        <th>Url</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="g, iterator : ${genres}">
         <td th:text="${g.id}"></td>
-        <td th:text="${g.name}"></td>
+        <td>
+            <a th:href="@{'/genre/' + ${g.url}}">[[ ${g.name} ]]</a>
+        </td>
     </tr>
     </tbody>
 </table>
+<br>
+<a th:href="@{'/genre/?param=re'}">Сгенерировать url всем сущностям</a>
 </body>
 </html>

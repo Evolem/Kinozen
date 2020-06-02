@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gbjava.kinozen.persistence.entities.Genre;
 import ru.gbjava.kinozen.persistence.repositories.GenreRepository;
+import ru.gbjava.kinozen.utilites.StringConverter;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -34,6 +36,15 @@ public class GenreService implements CrudService <Genre, Long> {
     }
 
     public Genre findByUrl(String url){
-        r
+        return genreRepository.findByUrl(url).orElseThrow(()-> new RuntimeException("Genre not found"));
+    }
+
+    @Transactional
+    public void reGenerateAllUrl(){
+        List<Genre> genres = genreRepository.findAll();
+        for (Genre g: genres) {
+            g.setUrl(StringConverter.cyrillicToLatin(g.getName()));
+            genreRepository.save(g);
+        }
     }
 }
