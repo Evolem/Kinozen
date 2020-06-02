@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.TypeContentDto;
+import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Genre;
 import ru.gbjava.kinozen.services.ContentService;
+import ru.gbjava.kinozen.services.GenreService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,23 +28,25 @@ import java.util.List;
 public class ContentController {
 
     private final ContentService contentService;
+    private final GenreService genreService;
 
     @GetMapping
-    public String getAllMedia(Model model){
-        List<ContentDto> dtoList = contentService.getAllMedia();
+    public String getAllContent(Model model){
+        List<ContentDto> dtoList = contentService.getAllContent();
         model.addAttribute("contentList", dtoList);
         return "content";
     }
 
+    //todo dto and facade
     @GetMapping ("/{url}")
-    public String getMediaByUrl(Model model, @PathVariable String url){
-        ContentDto contentDto = contentService.findByUrl(url);
+    public String getContentByUrl(Model model, @PathVariable String url){
+        Content contentDto = contentService.findByUrl(url);
         model.addAttribute("content", contentDto);
         return "contentPage";
     }
 
     @GetMapping ("/addContent")
-    public String addGetContent(Model model) {
+    public String addContent(Model model) {
         ContentDto contentDto = new ContentDto();
         List<TypeContentDto> types = contentService.getAllTypes();
         model.addAttribute("content", contentDto);
@@ -56,8 +61,9 @@ public class ContentController {
     }
 
     @GetMapping ("/delete")
-    public String deleteMedia(){
-        return "deleteContent";
+    public void deleteContent(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        contentService.delete(contentDto);
+        response.sendRedirect(request.getHeader("referer"));
     }
 
 
