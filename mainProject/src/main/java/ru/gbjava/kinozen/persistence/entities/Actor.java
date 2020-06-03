@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -38,6 +39,6 @@ public class Actor {
             name = "tbl_actor_content",
             joinColumns = @JoinColumn(name = "id_actor"),
             inverseJoinColumns = @JoinColumn(name = "id_content"))
-    private List<Content> contents;
+    private Set<Content> contents;
 
 }

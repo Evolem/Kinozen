@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -30,4 +32,11 @@ public class Director {
 
     @Column(name = "img_director")
     private String imgDirector;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "tbl_director_content",
+            joinColumns = @JoinColumn(name = "id_director"),
+            inverseJoinColumns = @JoinColumn(name = "id_content"))
+    private Set<Content> contents;
 }

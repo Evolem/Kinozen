@@ -34,13 +34,11 @@ public class CommentController {
     }
 
     @GetMapping
-    public String comment(Model model, Principal principal)
-    {
-        UserDto user = userService.findByLogin(principal.getName());
+    public String comment(Model model, Principal principal) {
+        UserDto userDto = userService.findByLogin(principal.getName());
+        System.out.println("id user: "+userDto.getId());
 
-        System.out.println("id user: "+user.getId());
-       /// CommentFilter commentFilter = new CommentFilter(user.getId());
-        List<CommentDto> comment = commentService.findCommentsByUser(user.getId());
+        List<CommentDto> comment = commentService.findCommentsByUser(userDto.getId());
         model.addAttribute("comment", comment);
         return "tempcomment";
 }

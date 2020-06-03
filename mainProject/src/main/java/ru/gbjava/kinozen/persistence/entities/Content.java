@@ -43,4 +43,10 @@ public class Content {
 
     @ManyToMany(mappedBy = "contents")
     Set<Genre> genres;
+
+    @ManyToMany(mappedBy = "contents")
+    Set<Actor> actors;
+
+    @ManyToMany(mappedBy = "contents")
+    Set<Director> directors;
 }

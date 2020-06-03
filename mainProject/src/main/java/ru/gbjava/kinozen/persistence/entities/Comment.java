@@ -26,6 +26,8 @@ public class Comment {
     @JoinColumn(name = "id_user")
     private User user;
 
+    @JoinColumn (name = "id_entity")
+    private UUID idEntity;
 
     @Column(name = "text_comment")
     private String text_comment;

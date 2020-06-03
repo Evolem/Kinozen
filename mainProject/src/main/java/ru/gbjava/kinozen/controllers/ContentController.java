@@ -34,7 +34,6 @@ public class ContentController {
         return "content";
     }
 
-    //todo dto and facade
     @GetMapping ("/{url}")
     public String getContentByUrl(Model model, @PathVariable String url){
         ContentDto contentDto = ContentMapper.INSTANCE.toDto(contentFacade.findContentByUrl(url));
@@ -63,6 +62,5 @@ public class ContentController {
         contentFacade.deleteContentById(contentDto.getId());
         response.sendRedirect(request.getHeader("referer"));
     }
-
 
 }
