@@ -4,12 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
-
 import java.util.Date;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
 
 @Entity
 @Builder
