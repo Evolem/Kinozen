@@ -185,7 +185,7 @@ create table if not exists tbl_comment
     id_user uuid not null
         constraint tbl_comment_tbl_user_id_user_fk
         references tbl_user,
-    uuid_content integer not null,
+    id_entity integer not null,
     text_comment varchar(255) not null,
     date_comment date default now() not null
 );
@@ -205,7 +205,7 @@ create table if not exists tbl_director_content
 
 create table if not exists tbl_episode
 (
-    uuid_episode uuid default uuid_generate_v4() not null
+    id_episode uuid default uuid_generate_v4() not null
         constraint tbl_episode_pk
         primary key,
     id_season uuid not null
@@ -220,10 +220,10 @@ create table if not exists tbl_episode
 
 create table if not exists tbl_film
 (
-    uuid_film uuid default uuid_generate_v4() not null
+    id_film uuid default uuid_generate_v4() not null
         constraint tbl_film_pk
         primary key,
-    uuid_content uuid default uuid_generate_v4() not null
+    id_content uuid default uuid_generate_v4() not null
         constraint tbl_film_tbl_content_id_content_fk
         references tbl_content (id_content)
 );
