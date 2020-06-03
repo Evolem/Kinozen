@@ -19,19 +19,19 @@ public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_director")
-    private Long idDirector;
+    private Long id;
 
     @Column(name = "firstname_director")
-    private String firstnameDirector;
+    private String firstName;
 
     @Column(name = "lastname_director")
-    private String lastnameDirector;
+    private String lastName;
 
     @Column(name = "description_director")
-    private String descriptionDirector;
+    private String description;
 
     @Column(name = "img_director")
-    private String imgDirector;
+    private String imgName;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

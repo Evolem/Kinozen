@@ -27,6 +27,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
+    //todo возвращаться должен тип данных User
     public UserDto findByLogin(String login) {
         return UserMapper.INSTANCE.toDto(userRepository.findOneByLogin(login));
     }
@@ -34,7 +35,6 @@ public class UserService implements UserDetailsService {
     public User getAnonymousUser() {
         return userRepository.findOneByLogin("anonymous");
     }
-
 
     @Override
     @Transactional

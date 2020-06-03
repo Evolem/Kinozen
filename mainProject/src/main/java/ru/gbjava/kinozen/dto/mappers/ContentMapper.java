@@ -10,7 +10,10 @@ import java.util.List;
 @Mapper
 public interface ContentMapper {
     ContentMapper INSTANCE = Mappers.getMapper(ContentMapper.class);
+
     ContentDto toDto(Content content);
+
     Content toEntity(ContentDto contentDto);
-    Iterable<ContentDto> toDtoList (List<Content> contents);
+
+    Iterable<ContentDto> toDtoList(List<Content> contents);
 }

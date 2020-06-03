@@ -8,6 +8,8 @@ import ru.gbjava.kinozen.persistence.entities.User;
 @Mapper
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-    UserDto toDto (User user);
-    User toEntity (UserDto userDto);
+
+    UserDto toDto(User user);
+
+    User toEntity(UserDto userDto);
 }

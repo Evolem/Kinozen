@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface ContentTypeMapper {
     ContentTypeMapper INSTANCE = Mappers.getMapper(ContentTypeMapper.class);
+
     ContentTypeDto toDto(ContentType contentType);
+
     ContentType toEntity(ContentTypeDto contentTypeDto);
-    Iterable<ContentTypeDto> toDtoList (List<ContentType> contentTypes);
+
+    Iterable<ContentTypeDto> toDtoList(List<ContentType> contentTypes);
 }

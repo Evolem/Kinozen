@@ -32,7 +32,7 @@ public class Actor {
     private String description;
 
     @Column(name = "img_actor")
-    private String image;
+    private String imageName;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

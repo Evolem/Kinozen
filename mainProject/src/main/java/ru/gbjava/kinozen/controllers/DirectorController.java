@@ -1,7 +1,6 @@
 package ru.gbjava.kinozen.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,23 +17,23 @@ public class DirectorController {
     private final DirectorService directorService;
 
     @GetMapping("/{id}")
-    public String showDirector(Model model, @PathVariable UUID id) {
+    public String getDirectorById(Model model, @PathVariable UUID id) {
         Director director = directorService.findById(id);
         model.addAttribute("director", director);
-        return "director_page";
+        return "directorPage";
     }
 
     @GetMapping("/edit/{id}")
     public String editProductForm(Model model, @PathVariable UUID id) {
         Director director = directorService.findById(id);
         model.addAttribute("director", director);
-        return "director_edit";
+        return "directorEdit";
     }
 
     @PostMapping("/edit")
-    public String saveProduct(@ModelAttribute(name = "director") Director director) {
+    public String saveDirector(@ModelAttribute(name = "director") Director director) {
         directorService.save(director);
-        return "redirect:/";
+        return "redirect:/directorPage/"+ director.getId();
     }
 
 }

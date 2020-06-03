@@ -24,36 +24,29 @@ import java.util.List;
 @RequestMapping("/tempcomment")
 @RequiredArgsConstructor
 public class CommentController {
-    private CommentService commentService;
-    private UserService userService;
 
-    @Autowired
-    public CommentController(UserService userService, CommentService commentService) {
-        this.userService = userService;
-        this.commentService = commentService;
-    }
+    //todo переделать!
+
+    private final CommentService commentService;
+    private final UserService userService;
+
 
     @GetMapping
-    public String comment(Model model, Principal principal) {
-        UserDto userDto = userService.findByLogin(principal.getName());
-        System.out.println("id user: "+userDto.getId());
-
-        List<CommentDto> comment = commentService.findCommentsByUser(userDto.getId());
-        model.addAttribute("comment", comment);
+    public String getCommentByUser(Model model, Principal principal) {
+//        UserDto userDto = userService.findByLogin(principal.getName());
+//        List<CommentDto> comment = commentService.findCommentsByUser(userDto.getId());
+//        model.addAttribute("comment", comment);
         return "tempcomment";
-}
+    }
 
     @PostMapping("/add_comment")
-    public String add_comment(Model model,Principal principal,
-                             @RequestParam String usercomment){
-        UserDto user = userService.findByLogin(principal.getName());
-        System.out.println("id user to add comment: "+user.getId());
-        CommentDto newcomment = new CommentDto(5L,user.getId(),usercomment,new Date());
-
-    //    commentService.save(newcomment);
-
+    public String addComment(Model model, Principal principal,
+                             @RequestParam String usercomment) {
+//        UserDto user = userService.findByLogin(principal.getName());
+//        System.out.println("id user to add comment: "+user.getId());
+//        CommentDto newcomment = new CommentDto(5L,user.getId(),usercomment,new Date());
+//        commentService.save(newcomment);
         //newcomment = commentService.save(newcomment);
-
         return "tempcomment";
     }
 
