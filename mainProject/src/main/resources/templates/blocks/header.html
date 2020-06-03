@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 
 <head th:fragment="head">
     <meta charset="utf-8">
@@ -18,7 +20,7 @@
             <a class="menu__item menu__logo" href="/kinozen/">
                 <img th:src="@{/images/log.png}" src="../static/images/log.png" class="menu__item-logo"/>
             </a>
-            <a href="#" class="menu__item menu__item--link">Сериалы</a>
+            <a href="/kinozen/content" class="menu__item menu__item--link">Сериалы</a>
             <a href="#" class="menu__item menu__item--link">Фильмы</a>
             <a href="#" class="menu__item menu__search">
                 <img th:src="@{images/search-icon.png}" src="../static/images/search-icon.png"/><span>Поиск</span></a>

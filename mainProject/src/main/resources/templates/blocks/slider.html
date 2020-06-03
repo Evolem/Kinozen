@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+
+<div th:fragment="slider" id="slider" class="main-slider">
+    <div class="main-slider__arrows">
+        <img class="main-slider__arrow main-slider__arrows-left" th:src="@{images/left.png}"
+             src="../static/images/left.png"/>
+        <img class="main-slider__arrow main-slider__arrows-right" th:src="@{images/right.png}"
+             src="../static/images/right.png"/>
+    </div>
+    <div class="main-slider__wrapper">
+        <div class="main-slider__bg">
+            <img
+                 src=""
+                 class="main-slider__bg-img" alt="null">
+        </div>
+        <div class="main-slider__content">
+            <a class="main-slider__title" href="#">
+                <img
+                     src=""
+                     alt="null"/>
+            </a>
+            <div class="main-slider__quote">
+                <div class="main-slider__text">
+                </div>
+            </div>
+        </div>
+        <div class="main-slider__shade"></div>
+    </div>
+    <div class="main-slider__wrapper invisible ">
+        <div class="main-slider__bg">
+            <img
+                 src=""
+                 class="main-slider__bg-img" alt="null">
+        </div>
+        <div class="main-slider__content">
+            <a class="main-slider__title" href="#">
+                <img
+                     src=""
+                     alt="null"/></a>
+            <div class="main-slider__quote">
+                <div class="main-slider__text">
+                </div>
+            </div>
+        </div>
+        <div class="main-slider__shade"></div>
+    </div>
+
+    <div class="main-slider__lines">
+        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)">
+            <div class="main-slider__line-active" style="animation-duration:10s"></div>
+        </div>
+        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
+        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
+    </div>
+</div>

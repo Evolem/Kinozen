@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
-<head>
-    <meta charset="UTF-8">
+
+<head th:replace="blocks/header.html :: head">
     <title>Media</title>
 </head>
-<body>
 
-<table class="table table-hover">
+
+<!--<table class="table table-hover">
     <thead class="thead-dark">
     <tr>
         <th>id</th>
@@ -35,6 +35,51 @@
     </tr>
     </tbody>
 </table>
-</tr>
+</tr>-->
+
+<body class="custom_class">
+<div id="__next">
+    <div class="wrapper">
+        <div class="wrapper">
+            <head th:replace="blocks/header.html :: menu"></head>
+            <div class="content ">
+                <div class="catalogue overflow">
+                    <div class="catalogue__header">
+                        <div class="breadcrumbs">
+                            <div class="breadcrumbs__item">
+                                <a class="breadcrumbs__href" href="/kinozen">Главная</a> / 
+                            </div>
+                            <div class="breadcrumbs__item">Сериалы</div>
+                        </div>
+                        <h1>Сериалы онлайн</h1>
+                        <div class="catalogue__seo-description">.</div>
+                        <div>
+                            <div class="catalogue-filter">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="catalogue__wrapper">
+                            <a th:each="content, iterator : ${contentList}" class="card-item card-item-series">
+                                <div class="card-item__image" th:href="${content.getUrl()}">
+                                    <div th:data-lazy="${content.visible}" class="card-item__image-img">
+                                        <img th:src="@{images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}"
+                                             src="../static/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg" th:alt="${content.name}"/>
+                                    </div>
+                                </div>
+                                <div class="card-item__title" th:text="${content.name}"> </div>
+                            </a>
+                            </a>
+                        </div>
+                        <button as="button" class="btn btn_primary">Загрузить еще</button>
+                    </div>
+                </div>
+            </div>
+            <head th:replace="blocks/footer.html :: footer"></head>
+        </div>
+    </div>
+</div>
+
+</body>
 </body>
 </html>

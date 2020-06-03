@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html ang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 
 <head th:replace="blocks/header.html :: head"></head>
 
@@ -9,331 +11,7 @@
         <div class="wrapper">
             <head th:replace="blocks/header.html :: menu"></head>
             <div class="content ">
-                <div id="slider" class="main-slider">
-                    <div class="main-slider__arrows">
-                        <img class="main-slider__arrow main-slider__arrows-left" th:src="@{images/left.png}"
-                             src="../static/images/left.png"/>
-                        <img class="main-slider__arrow main-slider__arrows-right" th:src="@{images/right.png}"
-                             src="../static/images/right.png"/>
-                    </div>
-                    <div class="main-slider__wrapper">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/435eae56fda2f77c534ce3c916573cf3-751-ea0dc8cc33254d398009466c83b000e9.jpg}"
-                                 src="../static/images/435eae56fda2f77c534ce3c916573cf3-751-ea0dc8cc33254d398009466c83b000e9.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/e/94/90ecf1d759d1a9d28eaa034551442e94-750-6287322b42ba4163b021e5d005c13be8.png}"
-                                     src="../static/trim/e/94/90ecf1d759d1a9d28eaa034551442e94-750-6287322b42ba4163b021e5d005c13be8.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Возвращение революционного сериала о поиске Бога в
-                                    современном мире
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible ">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/315f429f54ac64409bbf4acee92474d5-698-8061732a791c4774af85070eb87c4234.jpg}"
-                                 src="../static/images/315f429f54ac64409bbf4acee92474d5-698-8061732a791c4774af85070eb87c4234.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/5/7b/149e9d3008eb45be7b0b57c19065d57b-697-b0a1532ba6884a35a485a62d56917436.png}"
-                                     src="../static/trim/5/7b/149e9d3008eb45be7b0b57c19065d57b-697-b0a1532ba6884a35a485a62d56917436.png"
-                                     alt="null"/></a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Смотрите новый эпизод магического сериала с Евой Грин
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/f2f0de3c63af000f2f90354e7438afc3-629-0585803781d54471b9caf41a6019c5fb.jpg}"
-                                 src="../static/images/f2f0de3c63af000f2f90354e7438afc3-629-0585803781d54471b9caf41a6019c5fb.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trima/1c/a3e4a389dc43d310923fb62d5ab16a1c-628-ca6d840584ed4e2f8f85a55fe0d58dd2.png}"
-                                     src="../static/trima/1c/a3e4a389dc43d310923fb62d5ab16a1c-628-ca6d840584ed4e2f8f85a55fe0d58dd2.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Спонтанная и глубоко искренняя драма</div>
-                                <div class="main-slider__quote-source">RogerEbert.com</div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{../static/images/9adddd55865dc2c75e2e191c84de5979-748-dcd7efe244b9454b8fb037770c2ae51a.jpg}"
-                                 src="../static/images/9adddd55865dc2c75e2e191c84de5979-748-dcd7efe244b9454b8fb037770c2ae51a.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title"
-                               href="#">
-                                <img th:src="@{trim/7/51/3a7f87cfe9f8673ea3a36e752dd17751-747-003840172bcd43cda32e122f7844def1.png}"
-                                     src="../static/trim/7/51/3a7f87cfe9f8673ea3a36e752dd17751-747-003840172bcd43cda32e122f7844def1.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Премьера романтической комедии с Анной Кендрик</div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/7d0a27db87cbd4243eacad312e5d7f41-513-4a438805316c4db6a493a66307407c8a.jpg}"
-                                 src="../static/images/7d0a27db87cbd4243eacad312e5d7f41-513-4a438805316c4db6a493a66307407c8a.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/6/96/0f4a36c4a3ee08de2cb188696ee51696-511-4b469fc1fa4544f9a1bf30923a7ed208.png}"
-                                     src="../static/trim/6/96/0f4a36c4a3ee08de2cb188696ee51696-511-4b469fc1fa4544f9a1bf30923a7ed208.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">«Хорошая борьба» остается одним из лучших и самых
-                                    безумных шоу на телевидении
-                                </div>
-                                <div class="main-slider__quote-source">Decider</div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <div class="main-slider__bg ">
-                                <img th:src="@{images/1dc439aca90bbdf4c4c9a31543252fe3-548-c693d76293834ad9b2fac99e0fef27bd.jpg}"
-                                     src="../static/images/1dc439aca90bbdf4c4c9a31543252fe3-548-c693d76293834ad9b2fac99e0fef27bd.jpg"
-                                     class="main-slider__bg-img" alt="null">
-                            </div>
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/9/92/81cfb9735fea15ca8791a3c34a78d992-547-680d9b7300e448319b9e13a7ba96a11a.png}"
-                                     src="../static/trim/9/92/81cfb9735fea15ca8791a3c34a78d992-547-680d9b7300e448319b9e13a7ba96a11a.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Второй сезон стартовал очень интригующе</div>
-                                <div class="main-slider__quote-source">TV Fanatic</div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/0e50034267efee4f7bcfd62dc1b5f809-415-e3ae7c368f50488584dee27a9e8db0aa.jpg}"
-                                 src="../static/images/0e50034267efee4f7bcfd62dc1b5f809-415-e3ae7c368f50488584dee27a9e8db0aa.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{5/e7/c3664b673d90c603447db7c2d2bbc5e7-413-ce21b935642c4bc48b7a0fe9857a9d95.png}"
-                                     src="trim/5/e7/c3664b673d90c603447db7c2d2bbc5e7-413-ce21b935642c4bc48b7a0fe9857a9d95.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Смотрите финал комедийного триллера от создательницы
-                                    «Убивая Еву» и «Дряни»
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/437687da72730cf42ce36bd093b78b3e-473-8eb3a50ab7ef490daaedc64a82b57b0a.jpg}"
-                                 src="../static/images/437687da72730cf42ce36bd093b78b3e-473-8eb3a50ab7ef490daaedc64a82b57b0a.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/e/c2/8c10cf7fb63a271a356a191b948f5ec2-472-9d7299786e474b89b5041ff734b15278.png}"
-                                     src="../static/trim/e/c2/8c10cf7fb63a271a356a191b948f5ec2-472-9d7299786e474b89b5041ff734b15278.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Безупречное, порочное удовольствие</div>
-                                <div class="main-slider__quote-source">Salon.com</div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/ab97b3f446a250a1a4837ef471084348-476-845c9d289d624e3d845a2c2c6d217fcb.jpg}"
-                                 src="../static/images/ab97b3f446a250a1a4837ef471084348-476-845c9d289d624e3d845a2c2c6d217fcb.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/9/f0/1a7c3b4c28eb0673aa12037a2b9739f0-475-106e90d5593b471da1cec04245299ef0.png}"
-                                     src="../static/trim/9/f0/1a7c3b4c28eb0673aa12037a2b9739f0-475-106e90d5593b471da1cec04245299ef0.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Превосходное развлечение, которое поддерживают два
-                                    отличных актерских перформанса
-                                </div>
-                                <div class="main-slider__quote-source">indieWire</div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/d56f9775d4421043ef8e90641d93b07f-590-866304b7b5cb43e480169cea300a1c3d.jpg}"
-                                 src="../static/images/d56f9775d4421043ef8e90641d93b07f-590-866304b7b5cb43e480169cea300a1c3d.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/5/ed/985f599bb4b81c01d5b5d16ad241d5ed-589-a4926fce99594fd58e1d6a95bf263040.png}"
-                                     src="../static/trim/5/ed/985f599bb4b81c01d5b5d16ad241d5ed-589-a4926fce99594fd58e1d6a95bf263040.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">«Страшные сказки: Город Ангелов» с отличной игрой
-                                    Натали Дормер не уступает оригиналу в мрачности
-                                </div>
-                                <div class="main-slider__quote-source">IGN Movies</div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/d567f75fba75ba13d448b5deaa208e67-665-45f2998235224f9e944159c82908146f.jpg}"
-                                 src="../static/images/d567f75fba75ba13d448b5deaa208e67-665-45f2998235224f9e944159c82908146f.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/0/a5/a00cf3a9ed10ef4b2995a370e09f40a5-664-efda0ce9bdae43ef89e39efe5f66a1ff.png}"
-                                     src="../static/trim/0/a5/a00cf3a9ed10ef4b2995a370e09f40a5-664-efda0ce9bdae43ef89e39efe5f66a1ff.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Пронзительная драма, где Марк Руффало играет сразу
-                                    две роли
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/f679f386067f41d85d54dd9d53f46e62-713-a0505adff9054275904a29bd2915c752.jpg}"
-                                 src="../static/images/f679f386067f41d85d54dd9d53f46e62-713-a0505adff9054275904a29bd2915c752.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/6/f7/56f8973f2639280b45ca0ac1ffc486f7-712-151d816ddff441e0aba812c5b384c438.png}"
-                                     src="../static/trim/6/f7/56f8973f2639280b45ca0ac1ffc486f7-712-151d816ddff441e0aba812c5b384c438.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Драма о героиновой эпидемии в Америке от продюсера
-                                    «Пиратов Карибского моря» Джерри Брукхаймера
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/5fcfa8adf29eda71e622d3242e753a65-518-0baa7f85505c4f358e66320958affa3f.jpg}"
-                                 src="../static/images/5fcfa8adf29eda71e622d3242e753a65-518-0baa7f85505c4f358e66320958affa3f.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/9/c5/bb5e3d4ca343bd970eb03674b015b9c5-517-10b4006c5e0f4cb59a0bd8f48330a394.png}"
-                                     src="../static/trim/9/c5/bb5e3d4ca343bd970eb03674b015b9c5-517-10b4006c5e0f4cb59a0bd8f48330a394.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">К счастью, в четвертом сезоне нет недостатка в
-                                    фирменном юморе
-                                </div>
-                                <div class="main-slider__quote-source">TV Guide</div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/36ab5bbc84127288a4bfbab259005f93-576-ce486b328aa841b187ab196c190e87ac.jpg}"
-                                 src="../static/images/36ab5bbc84127288a4bfbab259005f93-576-ce486b328aa841b187ab196c190e87ac.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/3/65/db73efcfe91a8a5873b5ac5f7c53a365-574-485fd60f024f43df81e14a919418852b.png}"
-                                     src="../static/trim/3/65/db73efcfe91a8a5873b5ac5f7c53a365-574-485fd60f024f43df81e14a919418852b.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Очаровательное шоу о том, как перестать волноваться и
-                                    полюбить себя
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__wrapper invisible">
-                        <div class="main-slider__bg">
-                            <img th:src="@{images/60ce29a6c4bb1d07174505537971423a-311-9712c826b31a4539987b41dd3805d7c5.jpg}"
-                                 src="../static/images/60ce29a6c4bb1d07174505537971423a-311-9712c826b31a4539987b41dd3805d7c5.jpg"
-                                 class="main-slider__bg-img" alt="null">
-                        </div>
-                        <div class="main-slider__content">
-                            <a class="main-slider__title" href="#">
-                                <img th:src="@{trim/2/57/19c55b6aa760d80b828127613ebdd257-309-3539b8d0e2d74a07ba3bcb19e4ca8d17.png}"
-                                     src="../static/trim/2/57/19c55b6aa760d80b828127613ebdd257-309-3539b8d0e2d74a07ba3bcb19e4ca8d17.png"
-                                     alt="null"/>
-                            </a>
-                            <div class="main-slider__quote">
-                                <div class="main-slider__text">Смотрите финал третьего сезона</div>
-                            </div>
-                        </div>
-                        <div class="main-slider__shade"></div>
-                    </div>
-                    <div class="main-slider__lines">
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)">
-                            <div class="main-slider__line-active" style="animation-duration:10s"></div>
-                        </div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)"></div>
-                    </div>
-                </div>
+                <head th:replace="blocks/slider.html :: slider"></head>
                 <div class="showcase">
                     <div class="showcase-item ">
                         <div class="component-header">
@@ -342,68 +20,17 @@
                         <div class="video-line" type="nw">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide video-line__item">
+                                    <div th:each="content, iterator : ${contentList}"  class="swiper-slide video-line__item">
                                         <a class="card-item card-item-nw" href=th:text="${content.url}">
                                             <div class="card-item__image">
                                                 <img th:src="@{images/play.png}" src="../static/images/play.png" class="card-item__play"/>
                                                 <img class="card-item__image-img" th:src="@{images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}"
                                                      src="../static/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg"
-                                                     alt="Игра престолов"/>
+                                                     th:alt="${content.name}"/>
                                             </div>
-                                            <div class="card-item__title">Игра престолов</div>
+                                            <div class="card-item__title" th:text="${content.name}"></div>
                                         </a>
                                     </div>
-                                    <div class="swiper-slide video-line__item">
-                                        <a class="card-item card-item-nw">
-                                            <div class="card-item__image">
-                                                <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                     class="card-item__play"/>
-                                                <img class="card-item__image-img"
-                                                     th:src="@{images/billionaires.jpg}"
-                                                     src="../static/images/billionaires.jpg"
-                                                     alt="Миллиарды"/>
-                                            </div>
-                                            <div class="card-item__title">Миллиарды</div>
-                                        </a></div>
-                                    <div class="swiper-slide video-line__item">
-                                        <a class="card-item card-item-nw">
-                                            <div class="card-item__image">
-                                                <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                     class="card-item__play"/>
-                                                <img class="card-item__image-img"
-                                                     th:src="@{images/01766460994566141407f569e442b616-13272-48f5719a4e76488aad4fe410b58c3a7b.jpg}"
-                                                     src="../static/images/01766460994566141407f569e442b616-13272-48f5719a4e76488aad4fe410b58c3a7b.jpg"
-                                                     alt="Убивая Еву"/>
-                                            </div>
-                                            <div class="card-item__title">Убивая Еву</div>
-                                        </a></div>
-                                    <div class="swiper-slide video-line__item">
-                                        <a class="card-item card-item-nw">
-                                            <div class="card-item__image">
-                                                <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                     class="card-item__play"/>
-                                                <img class="card-item__image-img"
-                                                     th:src="@{images/318a36d1d52df7692baac7c5903ef786-11383-2445d89fe72a49f6af14c9ee5c143b82.jpg}"
-                                                     src="../static/images/318a36d1d52df7692baac7c5903ef786-11383-2445d89fe72a49f6af14c9ee5c143b82.jpg"
-                                                     alt="Секс в большом городе"/>
-                                            </div>
-                                            <div class="card-item__title">Секс в большом городе</div>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide video-line__item">
-                                        <a class="card-item card-item-nw">
-                                            <div class="card-item__image">
-                                                <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                     class="card-item__play"/>
-                                                <img class="card-item__image-img"
-                                                     th:src="@{images/b3d9a904d870efab67cde76e8fbff26b-11090-7d012a97e6c545529828da4ffacf45eb.jpg}"
-                                                     src="../static/images/b3d9a904d870efab67cde76e8fbff26b-11090-7d012a97e6c545529828da4ffacf45eb.jpg"
-                                                     alt="Мир Дикого Запада"/>
-                                            </div>
-                                            <div class="card-item__title">Мир Дикого Запада</div>
-                                        </a>
-                                    </div>
-
                                     <div class="swiper-button-next">
                                         <div class="swiper-button-next-arrow"></div>
                                     </div>
@@ -422,69 +49,15 @@
                             <div class="video-line" type="editors">
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper">
-                                        <div class="swiper-slide video-line__item">
+                                        <div th:each="content, iterator : ${contentList}" class="swiper-slide video-line__item">
                                             <a class="card-item card-item-editors">
                                                 <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img"
-                                                         th:src="@{images/de9b03b607317f1f9fd70d864b6e71a5-10924-2eddfae459b748c9a17a22afcf12f76a.jpg}"
-                                                         src="../static/images/de9b03b607317f1f9fd70d864b6e71a5-10924-2eddfae459b748c9a17a22afcf12f76a.jpg"
-                                                         alt="Хорошая борьба"/>
+                                                    <img th:src="@{images/play.png}" src="../static/images/play.png" class="card-item__play"/>
+                                                    <img class="card-item__image-img" th:src="@{images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}"
+                                                         src="../static/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg"
+                                                         th:alt="${content.name}"/>
                                                 </div>
-                                                <div class="card-item__title">Хорошая борьба</div>
-                                            </a>
-                                        </div>
-                                        <div class="swiper-slide video-line__item">
-                                            <a class="card-item card-item-editors">
-                                                <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img"
-                                                         th:src="@{images/882d8929d01da6b99e9b40b2e42ff2a3-25275-56fb9cfe0e1e46c8aa666da0a8017a59.jpg}"
-                                                         src="../static/images/882d8929d01da6b99e9b40b2e42ff2a3-25275-56fb9cfe0e1e46c8aa666da0a8017a59.jpg"
-                                                         alt="Дьяволы"/>
-                                                </div>
-                                                <div class="card-item__title">Дьяволы</div>
-                                            </a>
-                                        </div>
-                                        <div class="swiper-slide video-line__item">
-                                            <a class="card-item card-item-editors">
-                                                <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img"
-                                                         th:src="@{images/f51b73f0a66a797d048de5db0dbe4afd-28004-572e69fed8664164a7991af7b61abb07.jpg}"
-                                                         src="../static/images/f51b73f0a66a797d048de5db0dbe4afd-28004-572e69fed8664164a7991af7b61abb07.jpg"
-                                                         alt="Ошибка 404"/>
-                                                </div>
-                                                <div class="card-item__title">Ошибка 404</div>
-                                            </a>
-                                        </div>
-                                        <div class="swiper-slide video-line__item">
-                                            <a class="card-item card-item-editors">
-                                                <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img"
-                                                         th:src="@{images/40c4e22f07ea0c2bcce22e87694e50d4-18085-687aa40298154332a595b7eaf1a4e75c.jpg}"
-                                                         src="../static/images/40c4e22f07ea0c2bcce22e87694e50d4-18085-687aa40298154332a595b7eaf1a4e75c.jpg"
-                                                         alt="МакМиллионы"/>
-                                                </div>
-                                                <div class="card-item__title">МакМиллионы</div>
-                                            </a>
-                                        </div>
-                                        <div class="swiper-slide video-line__item">
-                                            <a class="card-item card-item-editors">
-                                                <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img"
-                                                         th:src="@{images/0c3a45c9f02d6fab30513381e75b05b4-17563-b565a9cbdc7a49c9891cc0c27eb1dcdf.jpg}"
-                                                         src="../static/images/0c3a45c9f02d6fab30513381e75b05b4-17563-b565a9cbdc7a49c9891cc0c27eb1dcdf.jpg"
-                                                         alt="Томми"/>
-                                                </div>
-                                                <div class="card-item__title">Томми</div>
+                                                <div class="card-item__title" th:text="${content.name}"></div>
                                             </a>
                                         </div>
                                     </div>
@@ -507,168 +80,27 @@
                                     «Эйфория»,
                                     «Чернобыль», «Секс в большом городе» и сотни других сериалов в оригинале с
                                     субтитрами и на русском языке. Оформите подписку на сайте или в приложении
-                                    Амедиатеки и смотрите сериалы онлайн в день премьеры. Амедиатека доступна на
-                                    Smart
-                                    TV, Apple TV и Android TV и в мобильных приложениях для iOS и Android.
+                                    КиноЗен и смотрите сериалы онлайн в день премьеры.
                                 </div>
                             </div>
                         </div>
                         <div class="showcase-item ">
                             <div class="component-header">
                                 <div class="component-header__title">Новое в подписке</div>
-
                             </div>
                             <div class="video-line" type="editors">
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper">
-                                        <div class="swiper-slide video-line__item">
+                                        <div th:each="content, iterator : ${contentList}" class="swiper-slide video-line__item">
                                             <a class="card-item card-item-editors">
                                                 <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img"
-                                                         th:src="@{images/bb4223d3321a078acf43fb1732509f0d-29569-2f6a9f8b103d48c8bc5360d6fd6311b8.jpg}"
-                                                         src="../static/images/bb4223d3321a078acf43fb1732509f0d-29569-2f6a9f8b103d48c8bc5360d6fd6311b8.jpg"
-                                                         alt="Кайфтаун"/>
+                                                    <img th:src="@{images/play.png}" src="../static/images/play.png" class="card-item__play"/>
+                                                    <img class="card-item__image-img" th:src="@{images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}"
+                                                         src="../static/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg"
+                                                         th:alt="${content.name}"/>
                                                 </div>
-                                                <div class="card-item__title">Кайфтаун</div>
+                                                <div class="card-item__title" th:text="${content.name}">Кайфтаун</div>
                                             </a>
-                                        </div>
-                                        <div class="swiper-slide video-line__item">
-                                            <a class="card-item card-item-editors">
-                                                <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img"
-                                                         th:src="@{images/152dd81df60ce3b6b7ccfeb3fdb7124a-30313-3d6f4cad5e334dbb828d8e0014cc27c8.jpg}"
-                                                         src="../static/images/152dd81df60ce3b6b7ccfeb3fdb7124a-30313-3d6f4cad5e334dbb828d8e0014cc27c8.jpg"
-                                                         alt="Светила"/>
-                                                </div>
-                                                <div class="card-item__title">Светила</div>
-                                            </a>
-                                        </div>
-                                        <div class="swiper-slide video-line__item">
-                                            <a class="card-item card-item-editors">
-                                                <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img"
-                                                         th:src="@{images/277b3c99c0c870549bb7f0a6fa49633f-28787-53d8b0bca8cf4157a44499779581084d.jpg}"
-                                                         src="../static/images/277b3c99c0c870549bb7f0a6fa49633f-28787-53d8b0bca8cf4157a44499779581084d.jpg"
-                                                         alt="Я знаю, что это правда"/>
-                                                </div>
-                                                <div class="card-item__title">Я знаю, что это правда</div>
-                                            </a>
-                                        </div>
-                                        <div class="swiper-slide video-line__item">
-                                            <a class="card-item card-item-editors">
-                                                <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img" th:src="@{images/natali.jpg}"
-                                                         src="../static/images/natali.jpg"
-                                                         alt="Натали Вуд: Что остается за кадром"/>
-                                                </div>
-                                                <div class="card-item__title">Натали Вуд: Что остается за кадром
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="swiper-slide video-line__item">
-                                            <a class="card-item card-item-editors">
-                                                <div class="card-item__image">
-                                                    <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                         class="card-item__play"/>
-                                                    <img class="card-item__image-img"
-                                                         th:src="@{images/betti.jpg}" src="../static/images/betti.jpg"
-                                                         alt="Бетти"/>
-                                                </div>
-                                                <div class="card-item__title">Бетти</div>
-                                            </a>
-                                        </div>
-                                        <div class="swiper-button-next">
-                                            <div class="swiper-button-next-arrow"></div>
-                                        </div>
-                                        <div class="swiper-button-prev">
-                                            <div class="swiper-button-prev-arrow"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="showcase-item ">
-                                <div class="component-header">
-                                    <div class="component-header__title">Новые сезоны</div>
-
-                                </div>
-                                <div class="video-line" type="editors">
-                                    <div class="swiper-container">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide video-line__item">
-                                                <a
-                                                        class="card-item card-item-editors">
-                                                    <div class="card-item__image">
-                                                        <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                             class="card-item__play"/>
-                                                        <img class="card-item__image-img"
-                                                             th:src="@{images/billionaires.jpg}"
-                                                             src="../static/images/billionaires.jpg"
-                                                             alt="Миллиарды"/></picture>
-                                                    </div>
-                                                    <div class="card-item__title">Миллиарды</div>
-                                                </a>
-                                            </div>
-                                            <div class="swiper-slide video-line__item">
-                                                <a class="card-item card-item-editors">
-                                                    <div class="card-item__image">
-                                                        <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                             class="card-item__play"/>
-                                                        <img class="card-item__image-img"
-                                                             th:src="@{images/inTheDark.jpg}"
-                                                             src="../static/images/inTheDark.jpg"
-                                                             alt="Во тьме"/>
-                                                    </div>
-                                                    <div class="card-item__title">Во тьме</div>
-                                                </a>
-                                            </div>
-                                            <div class="swiper-slide video-line__item">
-                                                <a class="card-item card-item-editors">
-                                                    <div class="card-item__image">
-                                                        <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                             class="card-item__play"/>
-                                                        <img class="card-item__image-img" th:src="@{images/ramie.jpg}"
-                                                             src="../static/images/ramie.jpg"
-                                                             alt="Рами"/>
-                                                    </div>
-                                                    <div class="card-item__title">Рами</div>
-                                                </a>
-                                            </div>
-                                            <div class="swiper-slide video-line__item">
-                                                <a class="card-item card-item-editors">
-                                                    <div class="card-item__image">
-                                                        <img th:src="@{images/play.png}" src="../static/images/play.png"
-                                                             class="card-item__play"/>
-                                                        <img class="card-item__image-img"
-                                                             th:src="@{images/killingEve.jpg}"
-                                                             src="../static/images/killingEve.jpg"
-                                                             alt="Убивая Еву"/>
-                                                    </div>
-                                                    <div class="card-item__title">Убивая Еву</div>
-                                                </a>
-                                            </div>
-                                            <div class="swiper-slide video-line__item">
-                                                <a
-                                                        class="card-item card-item-editors">
-                                                    <div class="card-item__image"><img
-                                                            th:src="@{images/play.png}" src="../static/images/play.png"
-                                                            class="card-item__play"/>
-                                                        <img class="card-item__image-img"
-                                                             th:src="@{images/WiteCrow.jpg}"
-                                                             src="../static/images/WiteCrow.jpg"
-                                                             alt="Белая ворона"/>
-                                                    </div>
-                                                    <div class="card-item__title">Белая ворона</div>
-                                                </a>
-                                            </div>
-
                                         </div>
                                         <div class="swiper-button-next">
                                             <div class="swiper-button-next-arrow"></div>
@@ -686,10 +118,10 @@
                 </div>
             </div>
         </div>
-        <div id="portal-root" class="portal-root"></div>
     </div>
 </div>
-</body>
 <script src="js/js.js"></script>
+</body>
+
 
 </html>

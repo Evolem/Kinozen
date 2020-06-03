@@ -18,7 +18,7 @@
             <div class="registration__form">
 
                 <div class="registration__form-content">
-                    <form th:object="${userPojo}" th:action="@{/registration}">
+                    <form  th:object="${userPojo}" th:action="@{/registration}">
                         <div class="registration__form-inputs">
                             <div class="registration__form-input_wrapper">
                                 <input th:field="*{login}" type="text" name="login" class="registration__form-input"
@@ -76,11 +76,10 @@
                                          <a href="/terms-of-use">согласие на обработку моих персональных
                                         данных</a>
                                     </span></label></div>
-                        <button class="registration__form-button active ">Зарегистрироваться</button>
+                        <button type="submit" class="registration__form-button active">Зарегистрироваться</button>
                     </form>
                     <div class="registration__no-account">Уже зарегистрированы?
-                        <a class="registration__no-account_link" href="/kinozen/login.html">Войдите в
-                            аккаунт</a>
+                        <a class="registration__no-account_link" href="/kinozen/login.html">Войдите в аккаунт</a>
                     </div>
                 </div>
 
