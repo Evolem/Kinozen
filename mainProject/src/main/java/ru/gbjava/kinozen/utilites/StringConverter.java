@@ -1,7 +1,9 @@
 package ru.gbjava.kinozen.utilites;
 
 import com.ibm.icu.text.Transliterator;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class StringConverter {
 
     private static final String CYRILLIC_TO_LATIN = "Russian-Latin/BGN";

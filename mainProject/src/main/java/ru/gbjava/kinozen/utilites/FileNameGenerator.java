@@ -1,23 +1,25 @@
 package ru.gbjava.kinozen.utilites;
 
+import lombok.experimental.UtilityClass;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@UtilityClass
 public class FileNameGenerator {
 
-    // 1. Checks only provided folder, not enters inner folders;
-    // 2. If folder is empty or contains invalid files returns 1;
+    // 1. Проверяет только переданную папку, вложенные папки не проверяются;
+    // 2. Если папка пуста или нету файлов с номером в имени - возвращается 1;
 
-    public static String generate(String fileName, String fileFolder) {
-        try (Stream<Path> walk = Files.walk(Paths.get(fileFolder), 1)) {
+    public static String generate(Path fileFolder) {
+        try (Stream<Path> walk = Files.walk(fileFolder, 1)) {
             Optional<Integer> max = walk
                     .filter(Files::isRegularFile)
-                    .filter(file -> isOnlyNumbersInNameExceptExtension(file.getFileName().toString()))
+                    .filter(file -> isOnlyNumbersInNameExceptExtension(file.getFileName()))
                     .max(Comparator.comparing(file -> getNumberInName(file.getFileName())))
                     .map(file -> getNumberInName(file.getFileName()));
             if (max.isPresent()) {
@@ -30,12 +32,11 @@ public class FileNameGenerator {
     }
 
     private static int getNumberInName(Path file) {
-        return Integer.parseInt(file.getFileName().toString().replaceAll("[.][^.]+$", ""));
+        return Integer.parseInt(file.toString().replaceAll("[.][^.]+$", ""));
     }
 
-    private static boolean isOnlyNumbersInNameExceptExtension(String fileName) {
-        String nameWithoutExtension = fileName.replaceAll("[.][^.]+$", "");
+    private static boolean isOnlyNumbersInNameExceptExtension(Path fileName) {
+        String nameWithoutExtension = fileName.toString().replaceAll("[.][^.]+$", "");
         return nameWithoutExtension.matches("[0-9]+");
     }
-
 }
