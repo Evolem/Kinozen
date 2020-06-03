@@ -1,32 +1,35 @@
-package ru.gbjava.kinozen.services.pojo;
+package ru.gbjava.kinozen.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.gbjava.kinozen.persistence.entities.Content;
 
 import java.util.Date;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-public class ContentPojo {
+@NoArgsConstructor
+public class ContentDto {
 
     private Long id;
     private String name;
     private String description;
     private Date released;
     private Boolean visible;
-    private TypeContentPojo typeContentPojo;
+    private TypeContentDto typeContentDto;
     private String url;
 
-    public ContentPojo(Content content) {
+    public ContentDto(Content content) {
         this.id = content.getId();
         this.name = content.getName();
         this.released = content.getReleased();
         this.description = content.getDescription();
         this.visible = content.getVisible();
-        this.typeContentPojo = new TypeContentPojo(content.getTypeContent());
+        this.typeContentDto = new TypeContentDto(content.getTypeContent());
         this.url = content.getUrl();
     }
+
 }

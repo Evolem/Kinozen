@@ -14,8 +14,8 @@ public class StringConverterTest {
 
     @Test
     public void cyrillicToLatinTest_stringWithSymbols() {
-        String result = StringConverter.cyrillicToLatin("строка !@#$%^&*(){}-+=1");
-        Assertions.assertEquals("stroka-!@#$%^&*(){}-+=1", result);
+        String result = StringConverter.cyrillicToLatin("строка !@#$%^&*(){}_-+=1");
+        Assertions.assertEquals("stroka-_-1", result);
     }
 
     @Test
@@ -45,5 +45,11 @@ public class StringConverterTest {
     public void cyrillicToLatinTest_StringWithSpaces() {
         String result = StringConverter.cyrillicToLatin("     Many        spaces      ");
         Assertions.assertEquals("many-spaces", result);
+    }
+
+    @Test
+    public void cyrillicToLatinTest_StringWithSoftSign() {
+        String result = StringConverter.cyrillicToLatin("Мультик объем");
+        Assertions.assertEquals("multik-obyem", result);
     }
 }

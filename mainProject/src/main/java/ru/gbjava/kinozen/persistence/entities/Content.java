@@ -1,22 +1,20 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-
 import java.util.Date;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "tbl_content")
 public class Content {
 
@@ -43,4 +41,7 @@ public class Content {
     @ManyToOne
     @JoinColumn(name = "id_typecontent")
     private TypeContent typeContent;
+
+    @ManyToMany(mappedBy = "contents")
+    Set<Genre> genres;
 }
