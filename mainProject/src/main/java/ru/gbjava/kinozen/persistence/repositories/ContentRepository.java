@@ -10,5 +10,5 @@ import java.util.UUID;
 
 public interface ContentRepository extends JpaRepository<Content, UUID> {
     Optional<Content> findContentByUrl(String url);
-    List<Content> findContentByTypeContent(ContentType type);
+
 }
