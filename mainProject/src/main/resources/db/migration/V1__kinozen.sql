@@ -1,9 +1,9 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 create table if not exists flyway_schema_history
 (
-    installed_rank integer not null
+    installed_rank uuid default uuid_generate_v4() not null
         constraint flyway_schema_history_pk
-        primary key,
+            primary key,
     version varchar(50),
     description varchar(200) not null,
     type varchar(20) not null,
@@ -22,9 +22,9 @@ create index if not exists flyway_schema_history_s_idx
 
 create table if not exists tbl_typecontent
 (
-    id_typecontent serial not null
+    id_typecontent uuid default uuid_generate_v4() not null
         constraint tbl_typecontent_pk
-        primary key,
+            primary key,
     name_typecontent varchar(255) not null
 );
 
@@ -32,9 +32,9 @@ create table if not exists tbl_typecontent
 
 create table if not exists tbl_director
 (
-    id_director serial not null
+    id_director uuid default uuid_generate_v4() not null
         constraint tbl_director_pk
-        primary key,
+            primary key,
     firstname_director varchar(255),
     lastname_director varchar(255),
     description_director varchar(255),
@@ -45,14 +45,14 @@ create table if not exists tbl_director
 
 create table if not exists tbl_content
 (
-    id_content serial not null
+    id_content uuid default uuid_generate_v4() not null
         constraint tbl_content_pk
-        primary key,
+            primary key,
     name_content varchar(255) not null,
     description_content varchar(255),
     released_content date,
     visible_content boolean,
-    id_typecontent integer not null
+    id_typecontent uuid not null
         constraint tbl_content_tbl_typecontent_id_typecontent_fk
         references tbl_typecontent,
     url_content varchar(255),
@@ -63,9 +63,9 @@ create table if not exists tbl_content
 
 create table if not exists tbl_genre
 (
-    id_genre serial not null
+    id_genre uuid default uuid_generate_v4() not null
         constraint tbl_genre_pk
-        primary key,
+            primary key,
     name_genre varchar(255) not null,
 	url_genre varchar(255)
 );
@@ -74,10 +74,10 @@ create table if not exists tbl_genre
 
 create table if not exists tbl_genre_content
 (
-    id_genre integer not null
+    id_genre uuid default uuid_generate_v4() not null
         constraint tbl_genre_content_tbl_genre_id_genre_fk
         references tbl_genre,
-    id_content integer not null
+    id_content uuid default uuid_generate_v4() not null
         constraint tbl_genre_content_tbl_content_id_content_fk
         references tbl_content
 );
@@ -86,7 +86,7 @@ create table if not exists tbl_genre_content
 
 create table if not exists tbl_actor
 (
-    id_actor serial not null
+    id_actor uuid default uuid_generate_v4() not null
         constraint tbl_actor_pk
         primary key,
     firstname_actor varchar(255),
@@ -99,10 +99,10 @@ create table if not exists tbl_actor
 
 create table if not exists tbl_actor_content
 (
-    id_actor integer not null
+    id_actor uuid default uuid_generate_v4() not null
         constraint tbl_actor_content_tbl_actor_id_actor_fk
         references tbl_actor,
-    id_content integer not null
+    id_content uuid default uuid_generate_v4() not null
         constraint tbl_actor_content_tbl_media_id_content_fk
         references tbl_content
 );
@@ -111,7 +111,7 @@ create table if not exists tbl_actor_content
 
 create table if not exists tbl_user
 (
-    id_user serial not null
+    id_user uuid default uuid_generate_v4() not null
         constraint tbl_user_pk
         primary key,
     login_user varchar(255) not null,
@@ -127,7 +127,7 @@ create unique index if not exists tbl_user_login_user_uindex
 
 create table if not exists tbl_role
 (
-    id_role serial not null
+    id_role uuid default uuid_generate_v4() not null
         constraint tbl_role_pk
         primary key,
     name_role varchar(255) not null
@@ -137,10 +137,10 @@ create table if not exists tbl_role
 
 create table if not exists tbl_role_user
 (
-    id_role integer not null
+    id_role uuid default uuid_generate_v4() not null
         constraint tbl_role_user_tbl_role_id_role_fk
         references tbl_role,
-    id_user integer not null
+    id_user uuid default uuid_generate_v4() not null
         constraint tbl_role_user_tbl_user_id_user_fk
         references tbl_user
 );
@@ -149,13 +149,13 @@ create table if not exists tbl_role_user
 
 create table if not exists tbl_history
 (
-    id_history serial not null
+    id_history uuid default uuid_generate_v4() not null
         constraint tbl_history_pk
         primary key,
-    id_user integer not null
+    id_user uuid not null
         constraint tbl_history_tbl_user_id_user_fk
         references tbl_user,
-    id_content integer not null
+    id_content uuid not null
         constraint tbl_history_tbl_content_id_content_fk
         references tbl_content (id_content),
     date_history date default now() not null
@@ -165,10 +165,10 @@ create table if not exists tbl_history
 
 create table if not exists tbl_season
 (
-    id_season serial not null
+    id_season uuid default uuid_generate_v4() not null
         constraint tbl_season_pk
         primary key,
-    id_content integer not null
+    id_content uuid not null
         constraint tbl_season_tbl_content_id_content_fk
         references tbl_content (id_content),
     number_season integer not null,
@@ -179,10 +179,10 @@ create table if not exists tbl_season
 
 create table if not exists tbl_comment
 (
-    id_comment serial not null
+    id_comment uuid default uuid_generate_v4() not null
         constraint tbl_comment_pk
         primary key,
-    id_user integer not null
+    id_user uuid not null
         constraint tbl_comment_tbl_user_id_user_fk
         references tbl_user,
     uuid_content integer not null,
@@ -194,10 +194,10 @@ create table if not exists tbl_comment
 
 create table if not exists tbl_director_content
 (
-    id_director integer not null
+    id_director uuid default uuid_generate_v4() not null
         constraint tbl_director_content_tbl_director_id_director_fk
         references tbl_director,
-    id_content integer not null
+    id_content uuid default uuid_generate_v4() not null
         constraint tbl_director_content_tbl_content_id_content_fk
         references tbl_content (id_content)
 );
@@ -208,7 +208,7 @@ create table if not exists tbl_episode
     uuid_episode uuid default uuid_generate_v4() not null
         constraint tbl_episode_pk
         primary key,
-    id_season integer not null
+    id_season uuid not null
         constraint tbl_episode_tbl_season_id_season_fk
         references tbl_season,
     number_episode integer not null,
@@ -218,44 +218,52 @@ create table if not exists tbl_episode
 );
 
 
-create unique index if not exists tbl_episode_id_episode_uindex
-    on tbl_episode (uuid_episode);
-
 create table if not exists tbl_film
 (
     uuid_film uuid default uuid_generate_v4() not null
         constraint tbl_film_pk
         primary key,
-    uuid_content integer not null
+    uuid_content uuid default uuid_generate_v4() not null
         constraint tbl_film_tbl_content_id_content_fk
         references tbl_content (id_content)
 );
 
 
+-- Добавление ролей
 insert into tbl_role(id_role, name_role)
-values (1, 'ROLE_ADMIN');
-values (2, 'ROLE_USER');
+values ('30cd0855-daa0-4611-8b9b-2b91b9defdde', 'ROLE_ADMIN');
+values ('06ff9230-c3dd-44bb-aaf3-ef2ef4991c3f', 'ROLE_USER');
 
 insert into tbl_user(id_user, login_user, password_user, name_user)
-values (1, 'admin', '$2a$10$5rAOMKmVsh9.NlzXTLLbq.XwouGdg3dwohvb5/HDn692YfdrLthO2', 'vladimir');
+values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', 'admin', '$2a$10$5rAOMKmVsh9.NlzXTLLbq.XwouGdg3dwohvb5/HDn692YfdrLthO2', 'vladimir');
+
 insert into tbl_role_user (id_role, id_user)
-VALUES (1, 1);
-
-insert into tbl_typecontent(name_typecontent)
-values ('Сериал');
-insert into tbl_typecontent(name_typecontent)
-values ('Фильм');
-
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Игра престолов', 'тут описание', '2020-05-27', true, 1, 'igra-prestolov');
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Пустыня смерти', 'тут описание', '2020-05-17', true, 2, 'pustinya-smerti');
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Сопрано', 'тут описание', '2020-05-17', true, 2, 'soprano');
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Рик и морти', 'тут описание', '2020-05-17', true, 2, 'rik-i-morti');
+VALUES ('30cd0855-daa0-4611-8b9b-2b91b9defdde', 'ef39e14f-8e9e-4bd6-894f-3b7e99cf8089');
 
 
+-- Заполнение типа контента
+insert into tbl_typecontent(id_typecontent, name_typecontent)
+values ('7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'Сериал');
+insert into tbl_typecontent(id_typecontent, name_typecontent)
+values ('aeaf93f8-d8fc-4cfa-ad66-7b685ced73b4', 'Фильм');
+
+
+-- Заполнение таблице content
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Игра престолов', 'тут описание', '2020-05-27', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'igra-prestolov');
+
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Пустыня смерти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'pustinya-smerti');
+
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Сопрано', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'soprano');
+
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
+values ('Рик и морти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'rik-i-morti');
+
+
+
+-- Заполенение Жанров
 insert into tbl_genre(name_genre) values ('аниме');
 insert into tbl_genre(name_genre) values ('биографический');
 insert into tbl_genre(name_genre) values ('боевик');
@@ -289,11 +297,5 @@ insert into tbl_genre(name_genre) values ('фильм-нуар');
 insert into tbl_genre(name_genre) values ('фэнтези');
 insert into tbl_genre(name_genre) values ('эротика');
 
-insert into tbl_genre_content (id_genre, id_content) values (29,1);
-insert into tbl_genre_content (id_genre, id_content) values (31,1);
-
-insert into tbl_genre_content (id_genre, id_content) values (27,3);
-insert into tbl_genre_content (id_genre, id_content) values (30,3);
-insert into tbl_genre_content (id_genre, id_content) values (25,3);
 
 
