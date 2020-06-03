@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Страница режиссера</title>
+    <link rel="stylesheet" th:href="@{../css/style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div>
+    <p>Информация о режиссере</p>
+</div>
+<div>
+    <img class="director_image" th:src="@{'/image_repository/directors/' + ${director.idDirector} + '/img_1.jpg'}">
+</div>
+    <p th:text="${director.firstnameDirector} + ' ' + ${director.lastnameDirector}"/>
+</div>
+
+<div>
+   <p th:text="${director.descriptionDirector}"/>
+</div>
+
+<div th:each="c : ${director.contents}">
+  <p  th:text="${c.getName().toString()} "/>
+  <br />
+</div>
+
+<a  th:href="@{'/directors/edit/' + ${director.idDirector}}" class="btn btn-warning">Edit</a>
+
+</body>
+</html>
