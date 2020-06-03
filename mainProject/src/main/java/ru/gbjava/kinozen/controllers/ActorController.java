@@ -23,10 +23,17 @@ public class ActorController {
 
     private final ActorService actorService;
 
+    //todo поправить логику
+
     @GetMapping("/{id}")
     public String getActorById(Model model, @PathVariable UUID id){
         model.addAttribute("actor", actorService.findById(id));
         return "actor";
+    }
+
+    @GetMapping("")
+    public String addActor(){
+        return "addActor";
     }
 
     @PostMapping /* /actor - endpoint для добавления новго актера */
@@ -35,9 +42,6 @@ public class ActorController {
         response.sendRedirect(request.getHeader("referer"));
     }
 
-    @GetMapping
-    public String addActor(){
-        return "addActor";
-    }
+
 
 }

@@ -16,6 +16,8 @@ public class DirectorController {
 
     private final DirectorService directorService;
 
+    //todo переделать!
+
     @GetMapping("/{id}")
     public String getDirectorById(Model model, @PathVariable UUID id) {
         Director director = directorService.findById(id);

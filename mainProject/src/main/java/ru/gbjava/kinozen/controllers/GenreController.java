@@ -19,6 +19,8 @@ public class GenreController {
 
     private final GenreService genreService;
 
+    //todo поправить логику добавления!
+
     @GetMapping
     public String getAllGenre(Model model) {
         Iterable<GenreDto> genres = GenreMapper.INSTANCE.toDtoList(genreService.findAll());

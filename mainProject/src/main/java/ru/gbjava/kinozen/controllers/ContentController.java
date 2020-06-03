@@ -27,6 +27,8 @@ public class ContentController {
 
     private final ContentFacade contentFacade;
 
+    //todo поправить логику добавления!
+
     @GetMapping
     public String getAllContent(Model model){
         Iterable<ContentDto> dtoList = ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent());
