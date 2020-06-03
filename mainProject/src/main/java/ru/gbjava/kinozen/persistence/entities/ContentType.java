@@ -14,15 +14,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_typecontent")
+@Table(name = "tbl_contenttype")
 public class ContentType {
 
     @Id
-    @Column(name = "id_typecontent")
+    @Column(name = "id_contenttype")
     @GeneratedValue(strategy = IDENTITY)
     private UUID id;
 
-    @Column(name = "name_typecontent")
+    @Column(name = "name_contenttype")
     private String name;
 
     @OneToMany(mappedBy = "contentType")
