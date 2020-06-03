@@ -1,6 +1,5 @@
 package ru.gbjava.kinozen.dto.mappers;
 
-import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import ru.gbjava.kinozen.dto.GenreDto;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.gbjava.kinozen.services.UserService;
-import ru.gbjava.kinozen.services.pojo.UserPojo;
+import ru.gbjava.kinozen.dto.UserDto;
 
 import java.util.Objects;
 
@@ -20,7 +20,7 @@ public class UserPojoValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return UserPojo.class.equals(clazz);
+        return UserDto.class.equals(clazz);
     }
 
     @Override
@@ -32,16 +32,16 @@ public class UserPojoValidator implements Validator {
             username = ((UserDetails) principal).getUsername();
         }
 
-        UserPojo userPojo = (UserPojo) target;
-        final UserPojo locatedUser = userService.findByLogin(username);
+        UserDto userDto = (UserDto) target;
+        final UserDto locatedUser = userService.findByLogin(username);
 
-        if (userPojo.getNewPassword1().isEmpty() && userPojo.getNewPassword2().isEmpty()) {
+        if (userDto.getNewPassword1().isEmpty() && userDto.getNewPassword2().isEmpty()) {
             errors.rejectValue("newPassword1", "Error", "Пароли не введены");
         }
-        if (!Objects.equals(userPojo.getNewPassword1(), userPojo.getNewPassword2())) {
+        if (!Objects.equals(userDto.getNewPassword1(), userDto.getNewPassword2())) {
             errors.rejectValue("newPassword1", "Error", "Пароли не совпадают");
         }
-        if (!BCrypt.checkpw(userPojo.getPassword(), locatedUser.getPassword())) {
+        if (!BCrypt.checkpw(userDto.getPassword(), locatedUser.getPassword())) {
             errors.rejectValue("password", "Error", "Некорректный пароль");
         }
     }

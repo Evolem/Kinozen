@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.services.ActorService;
-import ru.gbjava.kinozen.services.pojo.ActorPojo;
+import ru.gbjava.kinozen.dto.ActorDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,8 +28,8 @@ public class ActorController {
     }
 
     @PostMapping /* /actor - endpoint для добавления новго актера */
-    public void addActor(ActorPojo actorPojo, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        actorService.save(actorPojo);
+    public void addActor(ActorDto actorDto, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        actorService.save(actorDto);
         response.sendRedirect(request.getHeader("referer"));
     }
 

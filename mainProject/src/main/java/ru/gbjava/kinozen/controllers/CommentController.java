@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.services.CommentService;
 import ru.gbjava.kinozen.services.UserService;
-import ru.gbjava.kinozen.services.pojo.CommentPojo;
-import ru.gbjava.kinozen.services.pojo.UserPojo;
+import ru.gbjava.kinozen.dto.CommentDto;
 
 import java.security.Principal;
 
@@ -36,11 +36,11 @@ public class CommentController {
     @GetMapping
     public String comment(Model model, Principal principal)
     {
-        UserPojo user = userService.findByLogin(principal.getName());
+        UserDto user = userService.findByLogin(principal.getName());
 
         System.out.println("id user: "+user.getId());
        /// CommentFilter commentFilter = new CommentFilter(user.getId());
-        List<CommentPojo> comment = commentService.CommentedListUserID(user.getId());
+        List<CommentDto> comment = commentService.findCommentsByUser(user.getId());
         model.addAttribute("comment", comment);
         return "tempcomment";
 }
@@ -48,9 +48,9 @@ public class CommentController {
     @PostMapping("/add_comment")
     public String add_comment(Model model,Principal principal,
                              @RequestParam String usercomment){
-        UserPojo user = userService.findByLogin(principal.getName());
+        UserDto user = userService.findByLogin(principal.getName());
         System.out.println("id user to add comment: "+user.getId());
-        CommentPojo newcomment = new CommentPojo(5L,user.getId(),usercomment,new Date());
+        CommentDto newcomment = new CommentDto(5L,user.getId(),usercomment,new Date());
 
     //    commentService.save(newcomment);
 

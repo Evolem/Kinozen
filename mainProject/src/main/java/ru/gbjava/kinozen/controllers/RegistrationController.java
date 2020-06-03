@@ -7,14 +7,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.gbjava.kinozen.services.UserService;
-import ru.gbjava.kinozen.services.pojo.UserPojo;
+import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.validators.RegUserPojoValidator;
-import ru.gbjava.kinozen.validators.UserPojoValidator;
-
-import javax.validation.Valid;
 
 /**
  * Created by IntelliJ Idea.
@@ -27,27 +22,25 @@ import javax.validation.Valid;
 @RequestMapping(value = "/registration")
 public class RegistrationController {
 
+    //todo фасад?
     private final UserService userService;
     private final RegUserPojoValidator regUserPojoValidator;
 
-
-
     @GetMapping
     public String showReg(Model model){
-        model.addAttribute("userPojo", new UserPojo());
+        model.addAttribute("userPojo", new UserDto());
         return "registration";
     }
 
     @PostMapping
-    public String actionReg(UserPojo userPojo, Model model , BindingResult bindingResult){
+    public String actionReg(UserDto userDto, Model model , BindingResult bindingResult){
+        regUserPojoValidator.validate(userDto, bindingResult);
 
-        regUserPojoValidator.validate(userPojo, bindingResult);
         if(bindingResult.hasErrors()) {
-            model.addAttribute("userPojo", userPojo);
+            model.addAttribute("userPojo", userDto);
             return "registration";
         }
-        userService.saveNewUser(userPojo);
-
+        userService.saveNewUser(userDto);
         return "redirect:/profile";
     }
 }

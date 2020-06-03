@@ -5,21 +5,21 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity
-@Builder
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @Table(name = "tbl_actor")
 public class Actor {
 
     @Id
     @Column(name = "id_actor")
     @GeneratedValue(strategy = IDENTITY)
-    private long id;
+    private UUID id;
 
     @Column(name = "firstname_actor")
     private String firstName;
@@ -37,9 +37,7 @@ public class Actor {
     @JoinTable(
             name = "tbl_actor_content",
             joinColumns = @JoinColumn(name = "id_actor"),
-            inverseJoinColumns = @JoinColumn(name = "id_content")
-    )
+            inverseJoinColumns = @JoinColumn(name = "id_content"))
     private List<Content> contents;
-
 
 }

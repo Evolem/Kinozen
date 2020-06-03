@@ -8,20 +8,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.gbjava.kinozen.dto.UserDto;
+import ru.gbjava.kinozen.dto.mappers.UserMapper;
 import ru.gbjava.kinozen.persistence.entities.Role;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.persistence.repositories.RoleRepository;
 import ru.gbjava.kinozen.persistence.repositories.UserRepository;
-import ru.gbjava.kinozen.services.pojo.UserPojo;
 
-import java.util.*;
-import java.util.regex.Pattern;
-
-/**
- * Created by IntelliJ Idea.
- * User: Якимов В.Н.
- * E-mail: yakimovvn@bk.ru
- */
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +27,8 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-    public UserPojo findByLogin(String login) {
-        return new UserPojo(userRepository.findOneByLogin(login));
+    public UserDto findByLogin(String login) {
+        return UserMapper.INSTANCE.toDto(userRepository.findOneByLogin(login));
     }
 
     public User getAnonymousUser() {
@@ -61,8 +58,7 @@ public class UserService implements UserDetailsService {
         return grandAuthority;
     }
 
-
-
+    @Transactional
     public void delete(User user){
         userRepository.delete(user);
     }
@@ -76,7 +72,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public User saveNewUser(UserPojo userPojo){
+    public User saveNewUser(UserDto userPojo){
         if(userPojo.getRoles() == null || userPojo.getRoles().isEmpty()){
             userPojo.addRole(roleRepository.getByRole("ROLE_USER"));
         }
@@ -87,21 +83,13 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public User save(UserPojo userPojo){
-
-
-        User user = User.builder()
-                .id(userPojo.getId())
-                .login(userPojo.getLogin())
-                .email(userPojo.getEmail())
-                .name(userPojo.getName())
-                .password(userPojo.getPassword())
-                .roles(userPojo.getRoles()).build();
-        return userRepository.save(user);
+    @Transactional
+    public User save(UserDto userPojo){
+        return userRepository.save(UserMapper.INSTANCE.toEntity(userPojo));
     }
 
-    public User updateFieldsAndSave(String login, UserPojo sourceOfChanges) {
-        UserPojo userPojo = findByLogin(login);
+    public User updateFieldsAndSave(String login, UserDto sourceOfChanges) {
+        UserDto userPojo = findByLogin(login);
         if (sourceOfChanges.getEmail() != null) {
             userPojo.setEmail(sourceOfChanges.getEmail());
         }
@@ -113,6 +101,5 @@ public class UserService implements UserDetailsService {
         }
         return save(userPojo);
     }
-
 }
 

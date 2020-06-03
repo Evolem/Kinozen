@@ -38,7 +38,7 @@ public class GenreController {
         genreService.save(GenreMapper.INSTANCE.toEntity(genreDto));
     }
 
-    //todo это временный метод, который будет удален
+    //todo это временный метод для генерации url, заюзать нужно один раз, чтобы url создались.
     @GetMapping("/")
     public void generateAllUrl(Model model,
                                HttpServletRequest request,

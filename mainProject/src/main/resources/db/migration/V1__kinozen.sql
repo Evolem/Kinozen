@@ -20,12 +20,12 @@ create table if not exists flyway_schema_history
 create index if not exists flyway_schema_history_s_idx
     on flyway_schema_history (success);
 
-create table if not exists tbl_typecontent
+create table if not exists tbl_contenttype
 (
-    id_typecontent uuid default uuid_generate_v4() not null
-        constraint tbl_typecontent_pk
+    id_contenttype uuid default uuid_generate_v4() not null
+        constraint tbl_contenttype_pk
             primary key,
-    name_typecontent varchar(255) not null
+    name_contenttype varchar(255) not null
 );
 
 
@@ -52,9 +52,9 @@ create table if not exists tbl_content
     description_content varchar(255),
     released_content date,
     visible_content boolean,
-    id_typecontent uuid not null
-        constraint tbl_content_tbl_typecontent_id_typecontent_fk
-        references tbl_typecontent,
+    id_contenttype uuid not null
+        constraint tbl_content_tbl_contenttype_id_contenttype_fk
+        references tbl_contenttype,
     url_content varchar(255),
     img_content varchar(255)
 );
@@ -191,7 +191,6 @@ create table if not exists tbl_comment
 );
 
 
-
 create table if not exists tbl_director_content
 (
     id_director uuid default uuid_generate_v4() not null
@@ -232,36 +231,47 @@ create table if not exists tbl_film
 -- Добавление ролей
 insert into tbl_role(id_role, name_role)
 values ('30cd0855-daa0-4611-8b9b-2b91b9defdde', 'ROLE_ADMIN');
+insert into tbl_role(id_role, name_role)
 values ('06ff9230-c3dd-44bb-aaf3-ef2ef4991c3f', 'ROLE_USER');
 
+-- Добавление админа (admin admin)
 insert into tbl_user(id_user, login_user, password_user, name_user)
 values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', 'admin', '$2a$10$5rAOMKmVsh9.NlzXTLLbq.XwouGdg3dwohvb5/HDn692YfdrLthO2', 'vladimir');
 
+-- Связка пользователя с ролью
 insert into tbl_role_user (id_role, id_user)
-VALUES ('30cd0855-daa0-4611-8b9b-2b91b9defdde', 'ef39e14f-8e9e-4bd6-894f-3b7e99cf8089');
-
+values ('30cd0855-daa0-4611-8b9b-2b91b9defdde', 'ef39e14f-8e9e-4bd6-894f-3b7e99cf8089');
 
 -- Заполнение типа контента
-insert into tbl_typecontent(id_typecontent, name_typecontent)
+insert into tbl_contenttype(id_contenttype, name_contenttype)
 values ('7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'Сериал');
-insert into tbl_typecontent(id_typecontent, name_typecontent)
+insert into tbl_contenttype(id_contenttype, name_contenttype)
 values ('aeaf93f8-d8fc-4cfa-ad66-7b685ced73b4', 'Фильм');
 
-
 -- Заполнение таблице content
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Игра престолов', 'тут описание', '2020-05-27', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'igra-prestolov');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_contenttype)
+values ('Игра престолов', 'тут описание', '2020-05-27', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a');
 
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Пустыня смерти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'pustinya-smerti');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_contenttype)
+values ('Пустыня смерти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a');
 
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Сопрано', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'soprano');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_contenttype)
+values ('Сопрано', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a');
 
-insert into tbl_content(name_content, description_content, released_content, visible_content, id_typecontent, url_content)
-values ('Рик и морти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'rik-i-morti');
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_contenttype)
+values ('Рик и морти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a');
 
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_contenttype)
+values ('Мир дикого запада', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a');
 
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_contenttype)
+values ('Убивая Еву', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a');
+
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_contenttype)
+values ('Шепот', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a');
+
+insert into tbl_content(name_content, description_content, released_content, visible_content, id_contenttype)
+values ('Южный парк', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a');
 
 -- Заполенение Жанров
 insert into tbl_genre(name_genre) values ('аниме');
@@ -296,6 +306,3 @@ insert into tbl_genre(name_genre) values ('фантастика');
 insert into tbl_genre(name_genre) values ('фильм-нуар');
 insert into tbl_genre(name_genre) values ('фэнтези');
 insert into tbl_genre(name_genre) values ('эротика');
-
-
-

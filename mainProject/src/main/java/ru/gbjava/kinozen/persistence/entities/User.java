@@ -1,39 +1,31 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-
-import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-
-/**
- * Created by IntelliJ Idea.
- * User: Якимов В.Н.
- * E-mail: yakimovvn@bk.ru
- */
-
-@Data
-@Entity
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @EqualsAndHashCode
 @Table(name = "tbl_user")
 public class User {
 
-
     @Id
     @Column(name = "id_user")
     @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(name = "login_user")
     private String login;
-
 
     @Column(name = "password_user")
     private String password;
@@ -44,11 +36,10 @@ public class User {
     @Column(name = "email_user")
     private String email;
 
-
     @ManyToMany
-    @JoinTable(name="tbl_role_user", joinColumns=
-    @JoinColumn(name="id_user", referencedColumnName="id_user"), inverseJoinColumns=
-    @JoinColumn(name="id_role", referencedColumnName="id_role"))
-    private Set<Role> roles = new HashSet<>();
-
+    @JoinTable(
+            name = "tbl_role_user",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_role"))
+    private Set<Role> roles;
 }

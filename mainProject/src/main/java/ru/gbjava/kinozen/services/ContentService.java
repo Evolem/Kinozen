@@ -2,73 +2,64 @@ package ru.gbjava.kinozen.services;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.gbjava.kinozen.dto.ContentDto;
-import ru.gbjava.kinozen.dto.TypeContentDto;
+import org.springframework.util.Assert;
 import ru.gbjava.kinozen.persistence.entities.Content;
-import ru.gbjava.kinozen.persistence.entities.TypeContent;
+import ru.gbjava.kinozen.persistence.entities.ContentType;
 import ru.gbjava.kinozen.persistence.repositories.ContentRepository;
-import ru.gbjava.kinozen.persistence.repositories.TypeContentRepository;
+import ru.gbjava.kinozen.persistence.repositories.ContentTypeRepository;
 import ru.gbjava.kinozen.utilites.StringConverter;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 
 @Service
 @RequiredArgsConstructor
-public class ContentService{
+public class ContentService implements CrudService<Content, UUID> {
 
     private final ContentRepository contentRepository;
-    private final TypeContentRepository typeContentRepository;
+    private final ContentTypeRepository contentTypeRepository;
 
-    public ContentDto findById(Long id) {
-        Content content = contentRepository.findById(id).orElseThrow(() -> new RuntimeException("Content Not Found!"));
-        return new ContentDto(content);
+    @Override
+    public List<Content> findAll() {
+        return contentRepository.findAll();
     }
 
-    public Content findByUrl(String url) {
-        Content content = contentRepository.findMediaByUrl(url).orElseThrow(() -> new RuntimeException("Content Not Found!"));
-        return content;
+    @Override
+    public Content findById(@NonNull UUID uuid) {
+        return contentRepository.findById(uuid).orElseThrow(()-> new RuntimeException("Content not found! " + uuid));
     }
 
-    public List<TypeContentDto> getAllTypes() {
-        return typeContentRepository
-                .findAll()
-                .stream()
-                .map(TypeContentDto::new)
-                .collect(Collectors.toList());
+    public List<Content> findAllByTypeContent(ContentType type){
+        return contentRepository.findContentByTypeContent(type);
     }
 
+    @Override
     @Transactional
-    public void save(ContentDto contentDto) {
-        Content content = new Content();
-//        content.setId(contentPojo.getId());
-        content.setName(contentDto.getName());
-        content.setReleased(contentDto.getReleased());
-        content.setDescription(contentDto.getDescription());
-        content.setVisible(contentDto.getVisible());
-        content.setTypeContent(typeContentRepository
-                .findById(contentDto.getId())
-                .orElseThrow(() -> new RuntimeException("Genre Not Found!")));
-        content.setUrl(StringConverter.cyrillicToLatin(contentDto.getName()));
+    public void save(Content content) {
         contentRepository.save(content);
     }
 
-    //todo проверка на null
+    @Override
     @Transactional
-    public void delete(ContentDto contentDto) {
-        contentRepository.deleteById(contentDto.getId());
+    public void deleteById(@NonNull UUID uuid) {
+        contentRepository.deleteById(uuid);
     }
 
-    public List<ContentDto> getAllContent() {
-        return contentRepository
-                .findAll()
-                .stream()
-                .map(ContentDto::new)
-                .collect(Collectors.toList());
+    public Content findByUrl(String url){
+        return contentRepository.findContentByUrl(url).orElseThrow(()-> new RuntimeException("Content not found! " + url));
     }
 
+    @Transactional
+    public void reGenerateAllUrl() {
+        List<Content> contents = contentRepository.findAll();
+        for (Content c : contents) {
+            c.setUrl(StringConverter.cyrillicToLatin(c.getName()));
+            contentRepository.save(c);
+        }
+    }
 }

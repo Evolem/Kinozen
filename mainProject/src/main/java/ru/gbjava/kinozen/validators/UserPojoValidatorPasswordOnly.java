@@ -7,8 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.services.UserService;
-import ru.gbjava.kinozen.services.pojo.UserPojo;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class UserPojoValidatorPasswordOnly implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return UserPojo.class.equals(clazz);
+        return UserDto.class.equals(clazz);
     }
 
     @Override
@@ -29,9 +29,9 @@ public class UserPojoValidatorPasswordOnly implements Validator {
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
         }
-        UserPojo userPojo = (UserPojo) target;
-        final UserPojo user = userService.findByLogin(username);
-        if (!BCrypt.checkpw(userPojo.getPassword(), user.getPassword())) {
+        UserDto userDto = (UserDto) target;
+        final UserDto user = userService.findByLogin(username);
+        if (!BCrypt.checkpw(userDto.getPassword(), user.getPassword())) {
             errors.rejectValue("password", "Error", "Некорректный пароль");
         }
     }

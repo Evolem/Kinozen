@@ -1,25 +1,23 @@
 package ru.gbjava.kinozen.persistence.entities;
-import lombok.Data;
+
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.Date;
 import java.util.UUID;
 
-//Pozdeyev D.M. Date:02.06.2020
 import static javax.persistence.GenerationType.IDENTITY;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tbl_film")
-@NoArgsConstructor
-@Data
 public class Film {
+
     @Id
-    @Column(name = "uuid_film")
+    @Column(name = "id_film")
     @GeneratedValue(strategy = IDENTITY)
     private UUID uuid_film;
-
-
-
-
 }

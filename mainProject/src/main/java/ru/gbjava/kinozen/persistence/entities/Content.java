@@ -6,22 +6,21 @@ import javax.persistence.*;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@Entity
 @Table(name = "tbl_content")
 public class Content {
 
     @Id
     @Column(name = "id_content")
     @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(name = "name_content")
     private String name;
@@ -39,8 +38,8 @@ public class Content {
     private String url;
 
     @ManyToOne
-    @JoinColumn(name = "id_typecontent")
-    private TypeContent typeContent;
+    @JoinColumn(name = "id_contenttype")
+    private ContentType contentType;
 
     @ManyToMany(mappedBy = "contents")
     Set<Genre> genres;
