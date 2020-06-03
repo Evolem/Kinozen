@@ -48,8 +48,7 @@ public class FileNameGeneratorTest {
     @Disabled //Папка для видео указана для операционок windows, этот тест на других ОС будет падать
     @Test
     public void generateTest_defaultFolderCheck() {
-        Path fleFolder = video_path;
-        String res = FileNameGenerator.generate(fleFolder);
+        String res = FileNameGenerator.generate(video_path);
         Assertions.assertTrue(Integer.parseInt(res) > 0);
     }
 }
