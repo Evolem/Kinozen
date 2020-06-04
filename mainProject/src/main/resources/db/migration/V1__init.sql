@@ -332,14 +332,14 @@ insert into tbl_genre_content(id_genre, id_content) values ('983cb528-6018-4ae0-
 insert into tbl_genre_content(id_genre, id_content) values ('b52879d8-6e13-45f6-8414-3e7b31e635d2','1740acb5-a8c6-43f8-b8e1-faa74c92ea4a');
 
 -- Заполнение актеров
-insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor) VALUES ('b2154a81-f5d7-4c63-963b-7580065fccd9', 'Василий', 'Медведев', 'Очень хороший человек и актеров');
-insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor) VALUES ('4590fe12-ad94-4b07-a474-0b63daad377b', 'Григорич', 'Путин', 'Очень хороший человек и актеров');
-insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor) VALUES ('3c59fb86-baa8-4f47-9cd1-4a8b28f35ba4', 'Сергей', 'Рогозин', 'Очень хороший человек и актеров');
-insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor) VALUES ('925d3d6d-712e-4248-8886-ae53dcffed93', 'Андрей', 'Собянин', 'Очень хороший человек и актеров');
-insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor) VALUES ('f08fc5cb-bba6-4d2e-baaf-35f431b95ef9', 'Кира', 'Лавров', 'Очень хороший человек и актеров');
-insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor) VALUES ('96c623da-7691-4f91-80a4-fbe8a7e53e11', 'Сема', 'Топвый', 'Очень хороший человек и актеров');
-insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor) VALUES ('452c769d-3b26-4ddc-82dd-84715e629c99', 'Евген', 'Нолан', 'Очень хороший человек и актеров');
-insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor) VALUES ('8da0729b-7bcc-4e00-b83f-9d25be64b6d1', 'Маша', 'Симосян', 'Очень хороший человек и актеров');
+insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor, url_actor) VALUES ('b2154a81-f5d7-4c63-963b-7580065fccd9', 'Василий', 'Медведев', 'Очень хороший человек и актеров','vasiliy-medvedev');
+insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor, url_actor) VALUES ('4590fe12-ad94-4b07-a474-0b63daad377b', 'Григорич', 'Путин', 'Очень хороший человек и актеров','grigorich-putin');
+insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor, url_actor) VALUES ('3c59fb86-baa8-4f47-9cd1-4a8b28f35ba4', 'Сергей', 'Рогозин', 'Очень хороший человек и актеров','sergey-rogozin');
+insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor, url_actor) VALUES ('925d3d6d-712e-4248-8886-ae53dcffed93', 'Андрей', 'Собянин', 'Очень хороший человек и актеров','andrey-sobyanin');
+insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor, url_actor) VALUES ('f08fc5cb-bba6-4d2e-baaf-35f431b95ef9', 'Кира', 'Лавров', 'Очень хороший человек и актеров','kira-lavrov');
+insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor, url_actor) VALUES ('96c623da-7691-4f91-80a4-fbe8a7e53e11', 'Сема', 'Топвый', 'Очень хороший человек и актеров','sema-topvyy');
+insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor, url_actor) VALUES ('452c769d-3b26-4ddc-82dd-84715e629c99', 'Евген', 'Нолан', 'Очень хороший человек и актеров','yevgen-nolan');
+insert into tbl_actor (id_actor, firstname_actor, lastname_actor, description_actor, url_actor) VALUES ('8da0729b-7bcc-4e00-b83f-9d25be64b6d1', 'Маша', 'Симосян', 'Очень хороший человек и актеров','masha-simosyan');
 
 -- Связка актеров и контента
 insert into tbl_actor_content(id_actor, id_content) VALUES ('b2154a81-f5d7-4c63-963b-7580065fccd9','1740acb5-a8c6-43f8-b8e1-faa74c92ea4a');

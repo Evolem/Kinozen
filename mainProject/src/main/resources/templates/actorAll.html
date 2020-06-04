@@ -19,12 +19,11 @@
     <tr th:each="a, iterator : ${actors}">
         <td th:text="${a.id}"></td>
         <td>
-            <a th:href="@{'/actor/' + ${a.url}}">[[ ${g.name} ]]</a>
+            <a th:href="@{'/actor/' + ${a.url}}">[[ ${a.firstName} ]] [[ ${a.lastName} ]]</a>
         </td>
     </tr>
     </tbody>
 </table>
 <br>
-<a th:href="@{'/genre/?param=re'}">Сгенерировать url всем сущностям</a>
 </body>
 </html>
