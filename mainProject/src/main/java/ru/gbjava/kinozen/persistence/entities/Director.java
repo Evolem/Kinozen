@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_director")
-    private Long id;
+    private UUID id;
 
     @Column(name = "firstname_director")
     private String firstName;

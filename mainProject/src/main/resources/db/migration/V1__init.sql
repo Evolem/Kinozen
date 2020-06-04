@@ -365,13 +365,13 @@ insert into tbl_director(id_director, firstname_director, lastname_director, des
 values ('cc959d7b-ba6a-4458-be47-6e8cca63bafb', 'Алексей', 'Петров', 'Андройд и учитель Нолана, собрал все в мире нагрды и снял лучшие фильмы', 'alex-petrov');
 
 -- связка режиисера и контента
-insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','1740acb5-a8c6-43f8-b8e1-faa74c92ea4a');
-insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','8d0f77af-0679-4b53-a0ac-5f655c991ef0');
-insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','68c2769d-2e9f-4dd7-b322-1d5124a05bef');
-insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','1c6b8365-7b92-4772-9406-458ca0e7f4ab');
-insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','47725759-864e-4d4d-a601-dd52d1506e2a');
-insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','8e3287b6-35f6-4a1d-81e8-47df3cf1f793');
-insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','51bf778e-46e5-4f01-8c31-e6bb0de53a7c');
-insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','f3b18f94-67f5-43b8-a452-71b62f5e3230');
+insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','1740acb5-a8c6-43f8-b8e1-faa74c92ea4a');
+insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','8d0f77af-0679-4b53-a0ac-5f655c991ef0');
+insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','68c2769d-2e9f-4dd7-b322-1d5124a05bef');
+insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','1c6b8365-7b92-4772-9406-458ca0e7f4ab');
+insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','47725759-864e-4d4d-a601-dd52d1506e2a');
+insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','8e3287b6-35f6-4a1d-81e8-47df3cf1f793');
+insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','51bf778e-46e5-4f01-8c31-e6bb0de53a7c');
+insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','f3b18f94-67f5-43b8-a452-71b62f5e3230');
 
 
