@@ -20,14 +20,6 @@ create table if not exists flyway_schema_history
 create index if not exists flyway_schema_history_s_idx
     on flyway_schema_history (success);
 
-create table if not exists tbl_contenttype
-(
-    id_contenttype uuid default uuid_generate_v4() not null
-        constraint tbl_contenttype_pk
-            primary key,
-    name_contenttype varchar(255) not null
-);
-
 
 
 create table if not exists tbl_director
@@ -53,9 +45,7 @@ create table if not exists tbl_content
     description_content varchar(255),
     released_content date,
     visible_content boolean,
-    id_contenttype uuid not null
-        constraint tbl_content_tbl_contenttype_id_contenttype_fk
-        references tbl_contenttype,
+    type_content integer not null,
     url_content varchar(255),
     img_content varchar(255)
 );
@@ -219,16 +209,6 @@ create table if not exists tbl_episode
 );
 
 
-create table if not exists tbl_film
-(
-    id_film uuid default uuid_generate_v4() not null
-        constraint tbl_film_pk
-        primary key,
-    id_content uuid default uuid_generate_v4() not null
-        constraint tbl_film_tbl_content_id_content_fk
-        references tbl_content (id_content)
-);
-
 
 -- Добавление ролей
 insert into tbl_role(id_role, name_role)
@@ -244,21 +224,19 @@ values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', 'admin', '$2a$10$5rAOMKmVsh9.Nlz
 insert into tbl_role_user (id_role, id_user)
 values ('30cd0855-daa0-4611-8b9b-2b91b9defdde', 'ef39e14f-8e9e-4bd6-894f-3b7e99cf8089');
 
--- Заполнение типов контента
-insert into tbl_contenttype(id_contenttype, name_contenttype)
-values ('7354d2dd-c12e-45cf-b1a5-774469eb4d8a', 'Сериал');
-insert into tbl_contenttype(id_contenttype, name_contenttype)
-values ('aeaf93f8-d8fc-4cfa-ad66-7b685ced73b4', 'Фильм');
-
 -- Заполнение таблицы content
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('1740acb5-a8c6-43f8-b8e1-faa74c92ea4a','Игра престолов', 'тут описание', '2020-05-27', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','igra-prestolov');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('8d0f77af-0679-4b53-a0ac-5f655c991ef0','Пустыня смерти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','pustynya-smerti');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('68c2769d-2e9f-4dd7-b322-1d5124a05bef','Сопрано', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','soprano');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('1c6b8365-7b92-4772-9406-458ca0e7f4ab','Рик и морти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','rik-i-morti');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('47725759-864e-4d4d-a601-dd52d1506e2a','Мир дикого запада', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','mir-dikogo-zapada');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('8e3287b6-35f6-4a1d-81e8-47df3cf1f793','Убивая Еву', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','ubivaya-yevu');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('51bf778e-46e5-4f01-8c31-e6bb0de53a7c','Шепот', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','shepot');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('f3b18f94-67f5-43b8-a452-71b62f5e3230','Южный парк', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','yuzhnyy-park');
+-- Сериалы
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('1740acb5-a8c6-43f8-b8e1-faa74c92ea4a','Игра престолов', 'тут описание', '2020-05-27', true, 0,'igra-prestolov');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('8d0f77af-0679-4b53-a0ac-5f655c991ef0','Пустыня смерти', 'тут описание', '2020-05-17', true, 0,'pustynya-smerti');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('68c2769d-2e9f-4dd7-b322-1d5124a05bef','Сопрано', 'тут описание', '2020-05-17', true, 0,'soprano');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('1c6b8365-7b92-4772-9406-458ca0e7f4ab','Рик и морти', 'тут описание', '2020-05-17', true, 0,'rik-i-morti');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('47725759-864e-4d4d-a601-dd52d1506e2a','Мир дикого запада', 'тут описание', '2020-05-17', true, 0,'mir-dikogo-zapada');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('8e3287b6-35f6-4a1d-81e8-47df3cf1f793','Убивая Еву', 'тут описание', '2020-05-17', true, 0,'ubivaya-yevu');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('51bf778e-46e5-4f01-8c31-e6bb0de53a7c','Шепот', 'тут описание', '2020-05-17', true, 0,'shepot');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('f3b18f94-67f5-43b8-a452-71b62f5e3230','Южный парк', 'тут описание', '2020-05-17', true, 0,'yuzhnyy-park');
+--Фильмы
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('86a38fc4-a9a6-45e8-a6c8-08aac7949f25','Интерстеллар', 'тут описание', '2020-05-27', true, 1,'interstellar');
+
 
 -- Заполенение Жанров
 insert into tbl_genre(id_genre ,name_genre, url_genre) values ('295c4a70-f4ca-4e49-8cd7-3542c53f4925','аниме','anime');
@@ -390,9 +368,6 @@ insert into tbl_episode(id_episode, id_season, number_episode, name_episode, des
 insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('d2ccf26a-bdac-4251-90a1-a45cf90ff297','5e291fb1-6962-4a06-9d82-970d46b3833c', 2, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
 insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('e719e33e-7bcb-49b4-a9f7-a8ce09463b6b','5e291fb1-6962-4a06-9d82-970d46b3833c', 3, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
 
--- добавление фильма
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('86a38fc4-a9a6-45e8-a6c8-08aac7949f25','Интерстеллар', 'тут описание', '2020-05-27', true, 'aeaf93f8-d8fc-4cfa-ad66-7b685ced73b4','interstellar');
-insert into tbl_film (id_film, id_content) values ('2abe79b0-f3e3-4661-83d6-a90f0cb94cd8','86a38fc4-a9a6-45e8-a6c8-08aac7949f25');
 
 -- добавление комментариев к фильму
 insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
