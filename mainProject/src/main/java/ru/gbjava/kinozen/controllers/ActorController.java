@@ -30,7 +30,7 @@ public class ActorController {
     }
 
     @GetMapping
-    public String getAll(Model model){
+    public String getAll(Model model) {
         Iterable<ActorDto> actors = ActorMapper.INSTANCE.toDtoList(actorService.findAll());
         model.addAttribute("actors", actors);
         return "actorAll";

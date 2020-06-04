@@ -12,14 +12,14 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ContentFacadeImpl implements ContentFacade{
+public class ContentFacadeImpl implements ContentFacade {
 
     private final ContentService contentService;
     private final ContentTypeService contentTypeService;
 
     @Override
     public List<Content> findAllContent() {
-       return contentService.findAll();
+        return contentService.findAll();
     }
 
     @Override

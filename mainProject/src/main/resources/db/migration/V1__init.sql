@@ -187,7 +187,7 @@ create table if not exists tbl_comment
     id_user uuid not null
         constraint tbl_comment_tbl_user_id_user_fk
         references tbl_user,
-    id_entity integer not null,
+    id_entity uuid default uuid_generate_v4() not null,
     text_comment varchar(255) not null,
     date_comment date default now() not null
 );
@@ -373,5 +373,34 @@ insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a
 insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','8e3287b6-35f6-4a1d-81e8-47df3cf1f793');
 insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','51bf778e-46e5-4f01-8c31-e6bb0de53a7c');
 insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','f3b18f94-67f5-43b8-a452-71b62f5e3230');
+
+-- заполнение сезонов (игра престолов)
+insert into tbl_season (id_season, id_content, number_season, description_season) values ('57d12cd4-ec35-42c1-9b88-22ea330c2b10','1740acb5-a8c6-43f8-b8e1-faa74c92ea4a', 1 , 'Откровенно фиговый сезон');
+insert into tbl_season (id_season, id_content, number_season, description_season) values ('1b71c4be-5361-4e2c-94e9-93caf73eecaf','1740acb5-a8c6-43f8-b8e1-faa74c92ea4a', 2 , 'Та же шляпа');
+insert into tbl_season (id_season, id_content, number_season, description_season) values ('5e291fb1-6962-4a06-9d82-970d46b3833c','1740acb5-a8c6-43f8-b8e1-faa74c92ea4a', 3 , 'Этот сезон точно интереснее предыдущих');
+
+-- заполнение эпизодов по сезонам (игра престолов)
+insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('742da102-b403-4934-9f3c-b74a5ce07860','57d12cd4-ec35-42c1-9b88-22ea330c2b10', 1, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('0ca26d11-f2b6-4955-a617-d9bd390b4713','57d12cd4-ec35-42c1-9b88-22ea330c2b10', 2, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('83580aa6-01f2-4d31-8f5d-ece408ce334f','57d12cd4-ec35-42c1-9b88-22ea330c2b10', 3, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('473cb191-5152-468a-adf0-3f690c087ea9','1b71c4be-5361-4e2c-94e9-93caf73eecaf', 1, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('ced70d3c-1d08-4456-84e4-20e3d3500594','1b71c4be-5361-4e2c-94e9-93caf73eecaf', 2, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('d9da9647-38c6-430b-b8ab-b366a08cffdb','1b71c4be-5361-4e2c-94e9-93caf73eecaf', 3, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('68cc52a9-c495-4912-881a-d021f7d8bf0e','5e291fb1-6962-4a06-9d82-970d46b3833c', 1, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('d2ccf26a-bdac-4251-90a1-a45cf90ff297','5e291fb1-6962-4a06-9d82-970d46b3833c', 2, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+insert into tbl_episode(id_episode, id_season, number_episode, name_episode, description_episode) values ('e719e33e-7bcb-49b4-a9f7-a8ce09463b6b','5e291fb1-6962-4a06-9d82-970d46b3833c', 3, 'Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+
+-- добавление фильма
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('86a38fc4-a9a6-45e8-a6c8-08aac7949f25','Интерстеллар', 'тут описание', '2020-05-27', true, 'aeaf93f8-d8fc-4cfa-ad66-7b685ced73b4','interstellar');
+insert into tbl_film (id_film, id_content) values ('2abe79b0-f3e3-4661-83d6-a90f0cb94cd8','86a38fc4-a9a6-45e8-a6c8-08aac7949f25');
+
+-- добавление комментариев к фильму
+insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
+insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
+insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
+insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
+insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
+insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
+
 
 
