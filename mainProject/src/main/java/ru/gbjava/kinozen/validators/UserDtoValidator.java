@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class UserPojoValidator implements Validator {
+public class UserDtoValidator implements Validator {
 
     private final UserService userService;
 

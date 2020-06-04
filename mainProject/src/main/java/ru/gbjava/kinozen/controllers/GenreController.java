@@ -47,7 +47,7 @@ public class GenreController {
                                HttpServletResponse response,
                                @RequestParam String param) throws IOException {
         if (param.equals("re")) {
-            genreService.reGenerateAllUrl();
+            genreService.generateAllUrl();
         }
         response.sendRedirect(request.getHeader("referer"));
     }

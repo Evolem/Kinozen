@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.gbjava.kinozen.dto.GenreDto;
 import ru.gbjava.kinozen.dto.mappers.ActorMapper;
+import ru.gbjava.kinozen.dto.mappers.GenreMapper;
 import ru.gbjava.kinozen.services.ActorService;
 import ru.gbjava.kinozen.dto.ActorDto;
 
@@ -25,6 +27,13 @@ public class ActorController {
 
     //todo поправить логику
 
+//    @GetMapping("/{url}")
+//    public String getGenreByUrl(Model model, @PathVariable String url) {
+//        GenreDto genreDto = GenreMapper.INSTANCE.toDto(actorService.findByUrl(url));
+//        model.addAttribute("genre", genreDto);
+//        return "genrePage";
+//    }
+
     @GetMapping("/{id}")
     public String getActorById(Model model, @PathVariable UUID id){
         model.addAttribute("actor", actorService.findById(id));
@@ -41,7 +50,5 @@ public class ActorController {
         actorService.save(ActorMapper.INSTANCE.toEntity(actorDto));
         response.sendRedirect(request.getHeader("referer"));
     }
-
-
 
 }

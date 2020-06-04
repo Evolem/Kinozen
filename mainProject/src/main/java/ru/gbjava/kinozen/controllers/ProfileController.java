@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.services.UserService;
-import ru.gbjava.kinozen.validators.UserPojoValidator;
-import ru.gbjava.kinozen.validators.UserPojoValidatorPasswordOnly;
+import ru.gbjava.kinozen.validators.UserDtoValidator;
+import ru.gbjava.kinozen.validators.UserDtoValidatorPasswordOnly;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -22,11 +22,11 @@ import java.security.Principal;
 public class ProfileController {
     private final UserService userService;
 
-    @Qualifier("userPojoValidator")
-    private final UserPojoValidator userPojoValidator;
+    @Qualifier("userDtoValidator")
+    private final UserDtoValidator userDtoValidator;
 
     @Qualifier("passwordValidator")
-    private final UserPojoValidatorPasswordOnly passwordValidator;
+    private final UserDtoValidatorPasswordOnly passwordValidator;
 
     @GetMapping
     public String profilePage(final Principal principal, Model model, UserDto userDto) {
@@ -53,7 +53,7 @@ public class ProfileController {
 
     @PostMapping("/newPass")
     public String changePassword(final Principal principal, UserDto userDto, BindingResult bindingResult) {
-        userPojoValidator.validate(userDto, bindingResult);
+        userDtoValidator.validate(userDto, bindingResult);
         if (bindingResult.hasErrors()) {
             return "profilePass";
         }

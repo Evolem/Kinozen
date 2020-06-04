@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
-public class RegUserPojoValidator implements Validator {
+public class RegUserDtoValidator implements Validator {
 
     private final UserService userService;
 

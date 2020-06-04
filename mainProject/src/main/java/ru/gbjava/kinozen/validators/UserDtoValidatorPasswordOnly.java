@@ -12,7 +12,7 @@ import ru.gbjava.kinozen.services.UserService;
 
 @Service
 @RequiredArgsConstructor
-public class UserPojoValidatorPasswordOnly implements Validator {
+public class UserDtoValidatorPasswordOnly implements Validator {
 
     private final UserService userService;
 

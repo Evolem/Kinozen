@@ -30,8 +30,11 @@ public class Director {
     @Column(name = "description_director")
     private String description;
 
+    @Column(name = "url_director")
+    private String url;
+
     @Column(name = "img_director")
-    private String imgName;
+    private String imageName;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

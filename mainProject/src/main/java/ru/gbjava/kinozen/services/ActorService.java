@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ActorService implements CrudService<Actor, UUID> {
+public class ActorService implements CrudService<Actor, UUID>, UrlService<Actor>{
 
     private final ActorRepository actorRepository;
 
@@ -37,5 +37,15 @@ public class ActorService implements CrudService<Actor, UUID> {
     @Transactional
     public void deleteById(UUID uuid) {
         actorRepository.deleteById(uuid);
+    }
+
+    @Override
+    public Actor findByUrl(String url) {
+        return new Actor();
+    }
+
+    @Override
+    public void generateAllUrl() {
+
     }
 }

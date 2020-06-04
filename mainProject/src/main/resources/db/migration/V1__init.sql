@@ -38,6 +38,7 @@ create table if not exists tbl_director
     firstname_director varchar(255),
     lastname_director varchar(255),
     description_director varchar(255),
+    url_director varchar(255)
     img_director varchar(255)
 );
 
@@ -92,7 +93,8 @@ create table if not exists tbl_actor
     firstname_actor varchar(255),
     lastname_actor varchar(255),
     description_actor varchar(255),
-    img_actor varchar(255)
+    url_actor varchar(255),
+    img_actor varchar(255),
 );
 
 

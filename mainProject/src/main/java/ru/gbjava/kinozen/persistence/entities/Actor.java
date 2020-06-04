@@ -31,6 +31,9 @@ public class Actor {
     @Column(name = "description_actor")
     private String description;
 
+    @Column(name = "url_actor")
+    private String url;
+
     @Column(name = "img_actor")
     private String imageName;
 

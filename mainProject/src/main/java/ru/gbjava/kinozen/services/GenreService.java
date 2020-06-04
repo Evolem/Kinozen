@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class GenreService implements CrudService<Genre, UUID> {
+public class GenreService implements CrudService<Genre, UUID>, UrlService<Genre>  {
     private final GenreRepository genreRepository;
 
     @Override
@@ -37,12 +37,14 @@ public class GenreService implements CrudService<Genre, UUID> {
         genreRepository.deleteById(id);
     }
 
+    @Override
     public Genre findByUrl(String url) {
         return genreRepository.findByUrl(url).orElseThrow(() -> new RuntimeException("Genre not found! " + url));
     }
 
+    @Override
     @Transactional
-    public void reGenerateAllUrl() {
+    public void generateAllUrl() {
         List<Genre> genres = genreRepository.findAll();
         for (Genre g : genres) {
             g.setUrl(StringConverter.cyrillicToLatin(g.getName()));
