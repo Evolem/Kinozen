@@ -11,7 +11,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/playerzen
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: postgres
+    password: 6pEvtOU5
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     show-sql: true

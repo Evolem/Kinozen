@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 
 <head th:fragment="head">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{css/style.css}" href="../static/css/style.css"/>
-    <link rel="stylesheet" th:href="@{css/style_1.css}" href="../static/css/style_1.css"/>
-    <link rel="stylesheet" th:href="@{css/style_2.css}" href="../static/css/style_2.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/style_1.css}" />
+    <link rel="stylesheet" th:href="@{/css/style_2.css}" />
 
 </head>
 
@@ -18,13 +20,14 @@
             <a class="menu__item menu__logo" href="/kinozen/">
                 <img th:src="@{/images/log.png}" src="../static/images/log.png" class="menu__item-logo"/>
             </a>
-            <a href="#" class="menu__item menu__item--link">Сериалы</a>
+            <a href="/kinozen/content" class="menu__item menu__item--link">Сериалы</a>
             <a href="#" class="menu__item menu__item--link">Фильмы</a>
             <a href="#" class="menu__item menu__search">
-                <img th:src="@{images/search-icon.png}" src="../static/images/search-icon.png"/><span>Поиск</span></a>
+                <img th:src="@{/images/search-icon.png}" src="../static/images/search-icon.png"/><span>Поиск</span></a>
         </div>
-        <div class="menu__content-wrapper"><a class="menu__sign button" href="/kinozen/login">Войти</a>
-            <a class="menu__register button-primary" href="#">Зарегистрироваться</a></div>
+        <div class="menu__content-wrapper">
+            <a class="menu__sign button" href="/kinozen/login">Войти</a>
+            <a class="menu__register button-primary" href="/kinozen/registration">Зарегистрироваться</a></div>
     </div>
 </div>
 </body>

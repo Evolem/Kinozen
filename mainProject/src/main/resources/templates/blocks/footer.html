@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 
 <div th:fragment="footer" class="footer">
     <div class="on-wide-desktop on-desktop on-wide-tablet">
@@ -7,30 +9,26 @@
             <div class="footer__cell footer__cell_first">
                 <div class="footer__row footer__row--logo footer__row_space-between">
                     <a href="/kinozen">
-                        <img th:src="@{images/log.png}" src="../static/images/log.png" class="footer__logo"/>
+                        <img th:src="@{/images/log.png}"/>
                     </a>
 
                 </div>
                 <div class="footer__copyright">
                     <div class="footer__copyright-text">Все права защищены</div>
                     <div class="footer__copyright-text">
-                        <div class="footer__copyright-textpart">© ООО &quot;А сериал&quot;,
+                        <div class="footer__copyright-textpart">© ООО &quot;KinoZen&quot;,
                             <!-- -->2020
                         </div>
                         <div class="footer__copyright-textpart">©
                             <!-- -->2020
-                            <!-- --> Home Box Office, Inc. All rights reserved. HBO® and all
-                            related
-                            service marks are the property of Home Box Office, Inc.
                         </div>
                     </div>
                 </div>
             </div>
             <div class="footer__cell footer__cell_second">
                 <div class="footer__menu">
-                    <a class="footer__menu-link" href="#">Сериалы</a>
+                    <a class="footer__menu-link" href="/kinozen/content">Сериалы</a>
                     <a class="footer__menu-link" href="#">Фильмы</a>
-                    <a class="footer__menu-link" href="#">Коллекции</a>
                     <a class="footer__menu-link" href="#">Избранное</a>
                     <a class="footer__menu-link" href="#">Поиск</a>
                 </div>
@@ -42,12 +40,10 @@
                 </div>
                 <div class="footer__app-menu">
                     <a href="#" target="_blank" class="footer__app-menu-item">
-                        <img th:src="@{images/appstore.png}" src="../static/images/appstore.png"
-                             class="footer__app-menu-icon"/>
+                        <img th:src="@{/images/appstore.png}" class="footer__app-menu-icon"/>
                     </a>
                     <a href="#" target="_blank" class="footer__app-menu-item">
-                        <img th:src="@{images/goolestore.png}" src="../static/images/goolestore.png"
-                             class="footer__app-menu-icon"/>
+                        <img th:src="@{/images/goolestore.png}" class="footer__app-menu-icon"/>
                     </a>
                 </div>
             </div>
@@ -78,156 +74,6 @@
                 <div class="footer__phone"><span
                         class="footer__phone-label">Поддержка:</span><span
                         class="footer__phone-text">0 000 000 000 0</span></div>
-            </div>
-        </div>
-    </div>
-    <div class="footer__wrapper on-tablet">
-        <div class="footer__row footer__row_space-between">
-            <div class="footer__cell">
-                <a href="#">
-                    <img th:src="@{images/log.png}" src="../static/images/log.png"/>
-                </a>
-                <img src="" class="footer__age"/>
-            </div>
-            <div class="footer__cell">
-                <div class="footer__menu">
-                    <a class="footer__menu-link" href="#">Сериалы</a>
-                    <a class="footer__menu-link" href="#">Фильмы</a>
-                    <a class="footer__menu-link" href="#">Коллекции</a>
-                    <a class="footer__menu-link" href="#">Избранное</a>
-                    <a class="footer__menu-link" href="#">Поиск</a>
-                </div>
-                <div class="footer__service-menu">
-                    <a class="footer__service-menu-item" href="#">Пользовательское соглашение</a>
-                    <a class="footer__service-menu-item" href="#">FAQ</a>
-                    <a class="footer__service-menu-item" href="#">Контакты</a>
-                </div>
-                <div class="footer__app-menu">
-                    <a href="#"
-                       target="_blank" class="footer__app-menu-item">
-                        <img src="" class="footer__app-menu-icon"/>
-                    </a>
-                    <a href="#" target="_blank" class="footer__app-menu-item">
-                        <img src="" class="footer__app-menu-icon"/>
-                    </a>
-                </div>
-            </div>
-            <div class="footer__cell">
-                <div class="footer__social">
-                    <a href="#" target="_blank" class="footer__social-item">
-                        <img src="" class="footer__social-icon"/>
-                    </a>
-                    <a href="#" target="_blank" class="footer__social-item">
-                        <img src="" class="footer__social-icon"/>
-                    </a>
-                    <a href="#" target="_blank" class="footer__social-item">
-                        <img src="" class="footer__social-icon"/>
-                    </a>
-                    <a href="#" target="_blank" class="footer__social-item">
-                        <img src="" class="footer__social-icon"/>
-                    </a>
-                    <a href="#" target="_blank" class="footer__social-item">
-                        <img src="" class="footer__social-icon"/>
-                    </a>
-                    <a href="#" target="_blank" class="footer__social-item">
-                        <img src="" class="footer__social-icon"/>
-                    </a>
-                    <a href="#" target="_blank" class="footer__social-item">
-                        <img src="" class="footer__social-icon"/>
-                    </a>
-                </div>
-                <div class="footer__phone">
-                    <span class="footer__phone-label">Поддержка:</span>
-                    <span class="footer__phone-text">8 800 500 100 5</span></div>
-            </div>
-        </div>
-        <div class="footer__row">
-            <div class="footer__copyright">
-                <div class="footer__copyright-text">Все права защищены</div>
-                <div class="footer__copyright-text">
-                    <div class="footer__copyright-textpart">© ООО &quot;Kinozen&quot;,
-                        <!-- -->2020
-                    </div>
-                    <div class="footer__copyright-textpart">©
-                        <!-- -->2020 бла бла бла бла...... .
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer__wrapper on-phone">
-        <div class="footer__row">
-            <a href="#">
-                <img th:src="@{images/log.png}" src="../static/images/log.png" width="100"/>
-            </a>
-            <div class="footer__menu">
-                <a class="footer__menu-link" href="#">Сериалы</a>
-                <a class="footer__menu-link" href="#">Фильмы</a>
-                <a class="footer__menu-link" href="#">Коллекции</a>
-                <a class="footer__menu-link" href="#">Избранное</a>
-                <a class="footer__menu-link" href="#">Поиск</a>
-            </div>
-        </div>
-        <div class="footer__row">
-            <div class="footer__service-menu">
-                <a class="footer__service-menu-item" href="#">Пользовательское
-                    соглашение</a>
-                <a class="footer__service-menu-item" href="#">FAQ</a>
-                <a class="footer__service-menu-item" href="#">Контакты</a>
-            </div>
-        </div>
-        <div class="footer__row">
-            <div class="footer__social">
-                <a href="#" target="_blank" class="footer__social-item">
-                    <img src="" class="footer__social-icon"/>
-                </a>
-                <a href="#" target="_blank" class="footer__social-item">
-                    <img src="" class="footer__social-icon"/>
-                </a>
-                <a href="#" target="_blank" class="footer__social-item">
-                    <img src="" class="footer__social-icon"/>
-                </a>
-                <a href="#" target="_blank" class="footer__social-item">
-                    <img src="" class="footer__social-icon"/>
-                </a>
-                <a href="#" target="_blank" class="footer__social-item">
-                    <img src="" class="footer__social-icon"/>
-                </a>
-                <a href="#" target="_blank" class="footer__social-item">
-                    <img src="" class="footer__social-icon"/>
-                </a>
-                <a href="#" target="_blank" class="footer__social-item">
-                    <img src="" class="footer__social-icon"/>
-                </a>
-            </div>
-        </div>
-        <div class="footer__row footer__around">
-            <div class="footer__app-menu">
-                <a href="#" target="_blank" class="footer__app-menu-item">
-                    <img src="" class="footer__app-menu-icon"/>
-                </a><a href="#" target="_blank" class="footer__app-menu-item">
-                <img src="" class="footer__app-menu-icon"/>
-            </a>
-            </div>
-        </div>
-        <div class="footer__row">
-            <div class="footer__phone"><span class="footer__phone-label">Поддержка:</span>
-                <span
-                        class="footer__phone-text">8 800 500 100 5</span>
-            </div>
-        </div>
-        <div class="footer__row">
-            <img src="" class="footer__age"/>
-            <div class="footer__copyright">
-                <div class="footer__copyright-text">Все права защищены</div>
-                <div class="footer__copyright-text">
-                    <div class="footer__copyright-textpart">© ООО &quot;Kinozen&quot;,
-                        <!-- -->2020
-                    </div>
-                    <div class="footer__copyright-textpart">©
-                        <!-- -->2020 бла бла бла бла...... .
-                    </div>
-                </div>
             </div>
         </div>
     </div>

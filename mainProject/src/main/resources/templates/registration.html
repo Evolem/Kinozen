@@ -2,45 +2,101 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
     <title>Registration</title>
+    <head th:replace="blocks/header.html :: head"></head>
 </head>
 <body>
+<!--<form class="form-horizontal" th:object="${userPojo}" th:action="@{/registration}" method="post">
+    <div class="form-group">
+        <label for="exampleInputLogin">Login:</label>
+        <input th:field="*{login}" type="text" name="login" class="form-control" id="exampleInputLogin"
+               aria-describedby="emailHelp" placeholder="Enter username">
+        <small class="form-text text-muted" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login
+            error</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputName">Name:</label>
+        <input th:field="*{name}" type="text" name="name" class="form-control" id="exampleInputName"
+               aria-describedby="emailHelp" placeholder="Enter username">
+        <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail">e-mail:</label>
+        <input th:field="*{email}" type="text" name="name" class="form-control" id="exampleInputEmail"
+               aria-describedby="emailHelp" placeholder="Enter username">
+        <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email
+            error</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPass1">Password:</label>
+        <input th:field="*{newPassword1}" type="text" name="name" class="form-control" id="exampleInputPass1"
+               aria-describedby="emailHelp" placeholder="Enter username">
+        <small class="form-text text-muted" th:if="${#fields.hasErrors('newPassword1')}" th:errors="*{newPassword1}">Password1
+            Error</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPass2">Password replay:</label>
+        <input th:field="*{newPassword2}" type="text" name="name" class="form-control" id="exampleInputPass2"
+               aria-describedby="emailHelp" placeholder="Enter username">
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Registration</button>
+</form>-->
+<div id="__next">
 
-    <form class="form-horizontal" th:object="${userDto}" th:action="@{/registration}" method="post">
-
-        <div class="form-group">
-            <label for="exampleInputLogin">Login:</label>
-            <input th:field="*{login}" type="text" name="login" class="form-control" id="exampleInputLogin" aria-describedby="emailHelp" placeholder="Enter username">
-            <small class="form-text text-muted" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login error</small>
-
+    <div class="registration" style="background-color: black;">
+        <a class="registration__content-logo" href="/kinozen">
+            <img th:src="@{/images/log.png}" class="registration__content-logo-img"/>
+        </a>
+        <a class="registration__close" href="/kinozen">
+            <img th:src="@{images/close.png}">
+        </a>
+        <div class="registration__content">
+            <div class="registration__content-title">Регистрация</div>
+            <div class="registration__form-title">Зарегистрируйтесь для просмотра и загрузки фильмов и сериалов
+            </div>
+            <form th:object="${userPojo}" th:action="@{/registration}" class="registration__form">
+                <div class="registration__form-content">
+                    <div class="registration__form-inputs">
+                        <div class="registration__form-input_wrapper">
+                            <input th:field="*{login}" type="text" name="login" id="exampleInputLogin"
+                                   aria-describedby="emailHelp" class="registration__form-input" placeholder="Логин"/>
+                        </div>
+                        <div class="registration__form-input_wrapper">
+                            <input th:field="*{name}" type="text" name="name" id="exampleInputName"
+                                   aria-describedby="emailHelp" class="registration__form-input" placeholder="Имя пользователя"/>
+                        </div>
+                        <div class="registration__form-input_wrapper">
+                            <input th:field="*{email}" type="text" name="name" id="exampleInputEmail"
+                                   aria-describedby="emailHelp" class="registration__form-input" placeholder="E-mail"/>
+                        </div>
+                        <div class="registration__form-input_wrapper">
+                            <input th:field="*{newPassword1}" type="text" name="name" id="exampleInputPass1"
+                                   aria-describedby="emailHelp" class="registration__form-input" placeholder="Пароль"/>
+                        </div>
+                        <div class="registration__form-input_wrapper">
+                            <input th:field="*{newPassword2}" type="text" name="name" id="exampleInputPass2"
+                                   aria-describedby="emailHelp" class="registration__form-input" placeholder="Повтарите пароль"/>
+                        </div>
+                    </div>
+                    <div class="registration__form-rule">Не менее 6 символов</div>
+                    <div class="registration__form-license">
+                        <input type="checkbox" id="confirm_license"
+                               name="confirmLicense" class="registration__checkbox"/>
+                        <label for="confirm_license">
+                                    <span>Я
+                                    согласен с условиями
+                                        <a href="/terms-of-use">пользовательского соглашения</a> <!-- -->и даю свое
+                                        <a href="/terms-of-use">согласие на обработку моих персональных
+                                        данных</a>
+                                    </span></label></div>
+                    <button class="registration__form-button active">Зарегистрироваться</button>
+                    <div class="registration__no-account">Уже зарегистрированы?
+                        <a class="registration__no-account_link" href="/kinozen/login">Войдите в аккаунт</a></div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="exampleInputName">Name:</label>
-            <input th:field="*{name}" type="text" name="name" class="form-control" id="exampleInputName" aria-describedby="emailHelp" placeholder="Enter username">
-            <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</small>
-        </div>
-
-        <div class="form-group">
-            <label for="exampleInputEmail">e-mail:</label>
-            <input th:field="*{email}" type="text" name="name" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter username">
-            <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</small>
-        </div>
-
-        <div class="form-group">
-            <label for="exampleInputPass1">Password:</label>
-            <input th:field="*{newPassword1}" type="text" name="name" class="form-control" id="exampleInputPass1" aria-describedby="emailHelp" placeholder="Enter username">
-            <small class="form-text text-muted" th:if="${#fields.hasErrors('newPassword1')}" th:errors="*{newPassword1}">Password1 Error</small>
-        </div>
-
-
-        <div class="form-group">
-            <label for="exampleInputPass2">Password replay:</label>
-            <input th:field="*{newPassword2}" type="text" name="name" class="form-control" id="exampleInputPass2" aria-describedby="emailHelp" placeholder="Enter username">
-        </div>
-
-        <button type="submit" class="btn btn-primary mt-3">Registration</button>
-    </form>
-
+        <head th:replace="blocks/registration_footer.html :: registration__footer"></head>
+    </div>
+</div>
 </body>
 </html>
