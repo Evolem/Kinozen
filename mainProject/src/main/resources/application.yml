@@ -1,14 +1,13 @@
 server:
   servlet:
     context-path: /kinozen
-  port: 8087
 
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/kinozen?useUnicode=true&characterEncoding=utf8
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: 6pEvtOU5
+    password: se1234
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     show-sql: false
