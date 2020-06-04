@@ -8,11 +8,14 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: se1234
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    show-sql: false
+    hibernate:
+      ddl-auto: none
 
-jpa:
-  database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-  show-sql: false
 
 files:
   storepath:
     video_download:  "C:\\video_download"
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title> [[ ${content.name} ]]</title>
+</head>
+<body>
+<span th:text="${content.visible}"></span><br>
+<span th:text="${content.name}"></span><br>
+<span th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></span><br>
+<span th:text="${content.description}"></span><br>
+<span th:text="${content.url}"></span><br>
+
+<b>Жанры:</b>
+<tr th:each="g, iterator : ${content.genres}">
+    <td th:text="${g.name}"></td>
+</tr>
+<br>
+<b>Актеры:</b>
+<tr th:each="a, iterator : ${content.actors}">
+    <td th:text="${a.firstName}"></td>
+    <td th:text="${a.lastName}"></td>
+</tr>
+<br>
+<b>Режисcеры:</b>
+<tr th:each="d, iterator : ${content.directors}">
+    <td th:text="${d.firstName}"></td>
+    <td th:text="${d.lastName}"></td>
+</tr>
+
+<br>
+
+<video controls width="640" height="264">
+    <source src="http://localhost:8181/playerzen/video/serial/598f17ce-5526-4e11-bb4f-080840f53b8f" type="video/mp4">
+</video>
+</body>
+</html>

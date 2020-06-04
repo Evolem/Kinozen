@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
-Регистрация
+
+    <form class="form-horizontal" th:object="${userDto}" th:action="@{/registration}" method="post">
+
+        <div class="form-group">
+            <label for="exampleInputLogin">Login:</label>
+            <input th:field="*{login}" type="text" name="login" class="form-control" id="exampleInputLogin" aria-describedby="emailHelp" placeholder="Enter username">
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login error</small>
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName">Name:</label>
+            <input th:field="*{name}" type="text" name="name" class="form-control" id="exampleInputName" aria-describedby="emailHelp" placeholder="Enter username">
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</small>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail">e-mail:</label>
+            <input th:field="*{email}" type="text" name="name" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter username">
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</small>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPass1">Password:</label>
+            <input th:field="*{newPassword1}" type="text" name="name" class="form-control" id="exampleInputPass1" aria-describedby="emailHelp" placeholder="Enter username">
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('newPassword1')}" th:errors="*{newPassword1}">Password1 Error</small>
+        </div>
+
+
+        <div class="form-group">
+            <label for="exampleInputPass2">Password replay:</label>
+            <input th:field="*{newPassword2}" type="text" name="name" class="form-control" id="exampleInputPass2" aria-describedby="emailHelp" placeholder="Enter username">
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Registration</button>
+    </form>
+
 </body>
 </html>
