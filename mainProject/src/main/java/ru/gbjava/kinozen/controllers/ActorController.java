@@ -23,8 +23,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ActorController {
 
-    //todo поправить логику добавления
-
     private final ActorService actorService;
 
     @GetMapping("/{url}")
@@ -33,7 +31,6 @@ public class ActorController {
         model.addAttribute("actor", actorDto);
         return "actor";
     }
-
 
     @PostMapping /* /actor - endpoint для добавления новго актера */
     public void addActor(ActorDto actorDto, HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -36,7 +36,7 @@ public class GenreController {
     }
 
     @PostMapping
-    public void addGenre(GenreDto genreDto){
+    public void add(GenreDto genreDto){
         genreService.save(GenreMapper.INSTANCE.toEntity(genreDto));
     }
 

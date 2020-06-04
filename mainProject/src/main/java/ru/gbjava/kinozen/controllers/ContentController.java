@@ -42,8 +42,8 @@ public class ContentController {
         return "contentPage";
     }
 
-    @GetMapping ("/addContent")
-    public String addContent(Model model) {
+    @GetMapping ("/add")
+    public String add(Model model) {
         ContentDto contentDto = new ContentDto();
         Iterable<ContentTypeDto> types = ContentTypeMapper.INSTANCE.toDtoList(contentFacade.findAllTypeContent());
 
@@ -52,8 +52,8 @@ public class ContentController {
         return "contentEdit";
     }
 
-    @PostMapping("/addContent")
-    public void addContent(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    @PostMapping("/add")
+    public void add(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
         contentFacade.saveContent(ContentMapper.INSTANCE.toEntity(contentDto));
         response.sendRedirect(request.getHeader("referer"));
     }
