@@ -11,10 +11,12 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GenreDto {
+public class DirectorDto {
+
     private UUID id;
-    private String name;
-    //todo тут должен быть список dto!
-    private Set<Content> contents;
+    private String firstName;
+    private String lastName;
+    private String description;
     private String url;
+    private Set<Content> contents;
 }

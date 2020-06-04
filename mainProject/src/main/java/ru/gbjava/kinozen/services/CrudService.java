@@ -1,8 +1,10 @@
 package ru.gbjava.kinozen.services;
 
+import java.util.List;
+
 public interface CrudService<T, ID> {
-    Iterable<T> findAll();
+    List<T> findAll();
     T findById(ID id);
     void save(T object);
-    void deleteBy(ID id);
+    void deleteById(ID id);
 }

@@ -1,33 +1,44 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
-@Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@Entity
 @Table(name = "tbl_director")
 public class Director {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_director")
-    private Long idDirector;
+    private UUID id;
 
     @Column(name = "firstname_director")
-    private String firstnameDirector;
+    private String firstName;
 
     @Column(name = "lastname_director")
-    private String lastnameDirector;
+    private String lastName;
 
     @Column(name = "description_director")
-    private String descriptionDirector;
+    private String description;
+
+    @Column(name = "url_director")
+    private String url;
 
     @Column(name = "img_director")
-    private String imgDirector;
+    private String imageName;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "tbl_director_content",
+            joinColumns = @JoinColumn(name = "id_director"),
+            inverseJoinColumns = @JoinColumn(name = "id_content"))
+    private Set<Content> contents;
 }

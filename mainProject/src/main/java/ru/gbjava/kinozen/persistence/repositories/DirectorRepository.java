@@ -1,10 +1,9 @@
 package ru.gbjava.kinozen.persistence.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import ru.gbjava.kinozen.persistence.entities.Director;
 
+import java.util.UUID;
 
-@Repository
-public interface DirectorRepository extends JpaRepository<Director, Long> {
+public interface DirectorRepository extends JpaRepository<Director, UUID> {
 }

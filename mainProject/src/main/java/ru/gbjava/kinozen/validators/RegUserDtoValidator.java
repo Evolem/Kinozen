@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.services.UserService;
-import ru.gbjava.kinozen.services.pojo.UserPojo;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -18,41 +18,41 @@ import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
-public class RegUserPojoValidator implements Validator {
+public class RegUserDtoValidator implements Validator {
 
     private final UserService userService;
 
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return UserPojo.class.equals(clazz);
+        return UserDto.class.equals(clazz);
     }
 
 
     @Override
     public void validate(Object target, Errors errors) {
 
-        UserPojo userPojo = (UserPojo) target;
+        UserDto userDto = (UserDto) target;
 
-        if(userPojo.getLogin().isEmpty())
+        if(userDto.getLogin().isEmpty())
             errors.rejectValue("login", "Error", "Введите логин");
 
-        if(userService.isUserExist(userPojo.getLogin()))
+        if(userService.isUserExist(userDto.getLogin()))
             errors.rejectValue("login", "Error", "Логин уже используется");
 
-        if(!Pattern.compile("^(.+)@(.+)$").matcher(userPojo.getEmail()).matches())
+        if(!Pattern.compile("^(.+)@(.+)$").matcher(userDto.getEmail()).matches())
             errors.rejectValue("email", "Error", "Некороректный адрес электронной почты");
 
-        if(userService.isEmailExist(userPojo.getEmail()))
-            errors.rejectValue("email", "Error", "Пользователь c почтой " + userPojo.getEmail() + " уже зарегистрирован");
+        if(userService.isEmailExist(userDto.getEmail()))
+            errors.rejectValue("email", "Error", "Пользователь c почтой " + userDto.getEmail() + " уже зарегистрирован");
 
-        if(userPojo.getName().length() < 2 || userPojo.getName().length() > 30)
+        if(userDto.getName().length() < 2 || userDto.getName().length() > 30)
             errors.rejectValue("name", "Error", "Некороректное имя");
 
-        if (userPojo.getNewPassword1().isEmpty() && userPojo.getNewPassword2().isEmpty()) {
+        if (userDto.getNewPassword1().isEmpty() && userDto.getNewPassword2().isEmpty()) {
             errors.rejectValue("newPassword1", "Error", "Пароли не введены");
         }
-        if (!Objects.equals(userPojo.getNewPassword1(), userPojo.getNewPassword2())) {
+        if (!Objects.equals(userDto.getNewPassword1(), userDto.getNewPassword2())) {
             errors.rejectValue("newPassword1", "Error", "Пароли не совпадают");
         }
     }

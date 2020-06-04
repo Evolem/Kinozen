@@ -1,43 +1,42 @@
 package ru.gbjava.kinozen.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
-import java.util.List;
-
-import ru.gbjava.kinozen.persistence.entities.Content;
+import org.springframework.transaction.annotation.Transactional;
 import ru.gbjava.kinozen.persistence.entities.Director;
-import ru.gbjava.kinozen.persistence.repositories.ContentRepository;
 import ru.gbjava.kinozen.persistence.repositories.DirectorRepository;
 
+import java.util.List;
+import java.util.UUID;
 
 
 @Service
-public class DirectorService{
-    private DirectorRepository directorRepository;
-    private ContentService contentRepository;
+@RequiredArgsConstructor
+public class DirectorService implements CrudService<Director, UUID> {
 
-    @Autowired
-    public void setDirectorRepository(DirectorRepository directorRepository) {
-        this.directorRepository = directorRepository;
-        this.contentRepository = contentRepository;
+    private final DirectorRepository directorRepository;
+
+    @Override
+    public List<Director> findAll() {
+        return directorRepository.findAll();
     }
 
-
-    public Director findById(Long id){
-        return directorRepository.findById(id).get();
+    @Override
+    public Director findById(UUID uuid) {
+        return directorRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Director not found! " + uuid));
     }
 
-    public List<Content> findByIdDirector(Long id){
-        return (List<Content>) directorRepository;
+    @Override
+    @Transactional
+    public void save(Director director) {
+        directorRepository.save(director);
     }
 
-    public Director save(Director Director) {
-        return directorRepository.save(Director);
+    @Override
+    @Transactional
+    public void deleteById(UUID uuid) {
+        directorRepository.deleteById(uuid);
     }
-
-
 
 
 }

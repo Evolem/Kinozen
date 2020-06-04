@@ -8,12 +8,12 @@ import ru.gbjava.kinozen.utilites.StringConverter;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class GenreService implements CrudService <Genre, Long> {
+public class GenreService implements CrudService<Genre, UUID>, UrlService<Genre>  {
     private final GenreRepository genreRepository;
-
 
     @Override
     public List<Genre> findAll() {
@@ -21,28 +21,32 @@ public class GenreService implements CrudService <Genre, Long> {
     }
 
     @Override
-    public Genre findById(Long id) {
-        return genreRepository.findById(id).orElseThrow(() -> new RuntimeException("Genre not found!"));
+    public Genre findById(UUID id) {
+        return genreRepository.findById(id).orElseThrow(() -> new RuntimeException("Genre not found! " + id));
     }
 
     @Override
+    @Transactional
     public void save(Genre genre) {
         genreRepository.save(genre);
     }
 
     @Override
-    public void deleteBy(Long id) {
+    @Transactional
+    public void deleteById(UUID id) {
         genreRepository.deleteById(id);
     }
 
-    public Genre findByUrl(String url){
-        return genreRepository.findByUrl(url).orElseThrow(()-> new RuntimeException("Genre not found"));
+    @Override
+    public Genre findByUrl(String url) {
+        return genreRepository.findByUrl(url).orElseThrow(() -> new RuntimeException("Genre not found! " + url));
     }
 
+    @Override
     @Transactional
-    public void reGenerateAllUrl(){
+    public void generateAllUrl() {
         List<Genre> genres = genreRepository.findAll();
-        for (Genre g: genres) {
+        for (Genre g : genres) {
             g.setUrl(StringConverter.cyrillicToLatin(g.getName()));
             genreRepository.save(g);
         }

@@ -1,25 +1,26 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-
-import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity
-@Builder
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @Table(name = "tbl_actor")
 public class Actor {
 
     @Id
     @Column(name = "id_actor")
     @GeneratedValue(strategy = IDENTITY)
-    private long id;
+    private UUID id;
 
     @Column(name = "firstname_actor")
     private String firstName;
@@ -30,16 +31,17 @@ public class Actor {
     @Column(name = "description_actor")
     private String description;
 
+    @Column(name = "url_actor")
+    private String url;
+
     @Column(name = "img_actor")
-    private String image;
+    private String imageName;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "tbl_actor_content",
             joinColumns = @JoinColumn(name = "id_actor"),
-            inverseJoinColumns = @JoinColumn(name = "id_content")
-    )
-    private List<Content> contents;
-
+            inverseJoinColumns = @JoinColumn(name = "id_content"))
+    private Set<Content> contents;
 
 }

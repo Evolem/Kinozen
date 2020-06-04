@@ -1,35 +1,30 @@
 package ru.gbjava.kinozen.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Actor;
+import ru.gbjava.kinozen.persistence.entities.ContentType;
+import ru.gbjava.kinozen.persistence.entities.Director;
+import ru.gbjava.kinozen.persistence.entities.Genre;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class ContentDto {
 
-    private Long id;
+    private UUID id;
     private String name;
     private String description;
     private Date released;
     private Boolean visible;
-    private TypeContentDto typeContentDto;
     private String url;
-
-    public ContentDto(Content content) {
-        this.id = content.getId();
-        this.name = content.getName();
-        this.released = content.getReleased();
-        this.description = content.getDescription();
-        this.visible = content.getVisible();
-        this.typeContentDto = new TypeContentDto(content.getTypeContent());
-        this.url = content.getUrl();
-    }
-
+    private ContentType contentType;
+    private Set<Genre> genres;
+    private Set<Actor> actors;
+    private Set<Director> directors;
 }

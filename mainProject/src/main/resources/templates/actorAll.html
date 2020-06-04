@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Все жанры</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a, iterator : ${actors}">
+        <td th:text="${a.id}"></td>
+        <td>
+            <a th:href="@{'/actor/' + ${a.url}}">[[ ${a.firstName} ]] [[ ${a.lastName} ]]</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+</body>
+</html>
