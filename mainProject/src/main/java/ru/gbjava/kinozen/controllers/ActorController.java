@@ -26,7 +26,14 @@ public class ActorController {
     public String getGenreByUrl(Model model, @PathVariable String url) {
         ActorDto actorDto = ActorMapper.INSTANCE.toDto(actorService.findByUrl(url));
         model.addAttribute("actor", actorDto);
-        return "actor";
+        return "actorPage";
+    }
+
+    @GetMapping
+    public String getAll(Model model){
+        Iterable<ActorDto> actors = ActorMapper.INSTANCE.toDtoList(actorService.findAll());
+        model.addAttribute("actors", actors);
+        return "actorAll";
     }
 
     @PostMapping /* /actor - endpoint для добавления новго актера */

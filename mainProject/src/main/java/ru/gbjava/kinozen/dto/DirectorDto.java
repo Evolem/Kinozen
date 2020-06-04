@@ -6,12 +6,14 @@ import lombok.Setter;
 import ru.gbjava.kinozen.persistence.entities.Content;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class DirectorDto {
 
+    private UUID id;
     private String firstName;
     private String lastName;
     private String description;
