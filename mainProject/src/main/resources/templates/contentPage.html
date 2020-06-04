@@ -12,6 +12,7 @@
 <span th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></span><br>
 <span th:text="${content.description}"></span><br>
 <span th:text="${content.url}"></span><br>
+<span th:text="${content.contentType.getName()}"></span><br>
 
 <b>Жанры:</b>
 <tr th:each="g, iterator : ${content.genres}">
@@ -31,9 +32,11 @@
 </tr>
 
 <br>
+<div th:if="${content.getContentType().getName().equals('Фильм')}">
+    <video controls width="640" height="264">
+        <source th:src="@{http://localhost:8181/playerzen/video/{id}(id=${content.getId()})}" type="video/mp4">
+    </video>
+</div>
 
-<video controls width="640" height="264">
-    <source src="http://localhost:8181/playerzen/video/serial/598f17ce-5526-4e11-bb4f-080840f53b8f" type="video/mp4">
-</video>
 </body>
 </html>
