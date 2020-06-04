@@ -13,8 +13,15 @@
 <span th:text="${content.description}"></span><br>
 <span th:text="${content.url}"></span><br>
 
+<b>Жанры:</b>
 <tr th:each="g, iterator : ${content.genres}">
     <td th:text="${g.name}"></td>
+</tr>
+<br>
+<b>Актеры:</b>
+<tr th:each="a, iterator : ${content.actors}">
+    <td th:text="${a.firstName}"></td>
+    <td th:text="${a.lastName}"></td>
 </tr>
 
 <br>

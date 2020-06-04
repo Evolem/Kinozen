@@ -4,15 +4,13 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.ContentTypeDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.ContentTypeMapper;
+import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +24,7 @@ import java.io.IOException;
 public class ContentController {
 
     private final ContentFacade contentFacade;
+    private final ContentService contentService;
 
     //todo поправить логику добавления!
 
@@ -62,6 +61,17 @@ public class ContentController {
     @GetMapping ("/delete")
     public void deleteContent(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
         contentFacade.deleteContentById(contentDto.getId());
+        response.sendRedirect(request.getHeader("referer"));
+    }
+
+    @GetMapping("/")
+    public void generateAllUrl(Model model,
+                               HttpServletRequest request,
+                               HttpServletResponse response,
+                               @RequestParam String param) throws IOException {
+        if (param.equals("re")) {
+            contentService.reGenerateAllUrl();
+        }
         response.sendRedirect(request.getHeader("referer"));
     }
 

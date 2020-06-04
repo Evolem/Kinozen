@@ -11,10 +11,10 @@ import java.util.List;
 public interface ActorMapper {
     ActorMapper INSTANCE = Mappers.getMapper(ActorMapper.class);
 
-    ActorDto toDto(Actor Actor);
+    ActorDto toDto(Actor actor);
 
-    Actor toEntity(ActorDto ActorDto);
+    Actor toEntity(ActorDto actorDto);
 
-    Iterable<ActorDto> toDtoList(List<Actor> Actors);
+    Iterable<ActorDto> toDtoList(List<Actor> actors);
 }
 

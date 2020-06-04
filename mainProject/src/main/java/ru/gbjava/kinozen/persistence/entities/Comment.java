@@ -30,8 +30,8 @@ public class Comment {
     private UUID idEntity;
 
     @Column(name = "text_comment")
-    private String text_comment;
+    private String text;
 
     @Column(name = "date_comment")
-    private Date date_comment;
+    private Date date;
 }
