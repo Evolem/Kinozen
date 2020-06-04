@@ -3,40 +3,218 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 <head>
-    <meta charset="UTF-8">
-    <title> [[ ${content.name} ]]</title>
+    <title>[[ ${content.name} ]]</title>
+    <head th:replace="blocks/header.html :: head"></head>
 </head>
-<body>
-<span th:text="${content.visible}"></span><br>
+<body class="custom_class">
+
+<!--<span th:text="${content.visible}"></span><br>
 <span th:text="${content.name}"></span><br>
 <span th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></span><br>
 <span th:text="${content.description}"></span><br>
 <span th:text="${content.url}"></span><br>
-<span th:text="${content.type.getType()}"></span><br>
-
 <b>Жанры:</b>
 <tr th:each="g, iterator : ${content.genres}">
     <td th:text="${g.name}"></td>
-</tr>
-<br>
-<b>Актеры:</b>
-<tr th:each="a, iterator : ${content.actors}">
-    <td th:text="${a.firstName}"></td>
-    <td th:text="${a.lastName}"></td>
-</tr>
-<br>
-<b>Режисcеры:</b>
-<tr th:each="d, iterator : ${content.directors}">
-    <td th:text="${d.firstName}"></td>
-    <td th:text="${d.lastName}"></td>
-</tr>
+</tr>-->
 
-<br>
-<div th:if="${content.type.getType().equals('Фильм')}">
-    <video controls width="640" height="264">
-        <source th:src="@{http://localhost:8181/playerzen/video/{id}(id=${content.getId()})}" type="video/mp4">
-    </video>
+
+<div id="__next">
+    <div class="wrapper">
+        <div class="wrapper">
+            <head th:replace="blocks/header.html :: menu"></head>
+            <div class="content ">
+                <div class="movie" itemscope="" itemtype="">
+                    <div class="movie__wrapper">
+                        <div class="movie__bg">
+                            <img th:src="@{/images/d781b63575af29fb87c066e933ec10b7-10934-50ec73dd18914659b88afadcb0d99dcb.jpg}"
+                                 class="movie__bg-image" th:alt="${content.name}"
+                                 style="transform: translate3d(0px, 0%, 0px);">
+                            <div class="movie__bg-shade"></div>
+                            <div class="movie__left-shade"></div>
+                            <div class="movie__header">
+                                <div class="breadcrumbs">
+                                    <div class="breadcrumbs__item">
+                                        <a class="breadcrumbs__href" href="/kinozen">Главная</a>&nbsp;/&nbsp;
+                                    </div>
+                                    <div class="breadcrumbs__item">
+                                        <a class="breadcrumbs__href" href="/kinozen/content">Сериалы</a>&nbsp;/&nbsp;
+                                    </div>
+                                    <div class="breadcrumbs__item" th:text="${content.name}"></div>
+                                </div>
+                                <div class="movie__logo">
+                                    <img src="" th:alt="${content.name}">
+                                </div>
+                                <div class="movie__original-title">
+                                </div>
+                                <div class="movie__seasons">
+                                    <div class="movie__seasons-title">Сезоны:</div>
+                                    <div class="movie__seasons-items">
+                                        <a class="movie__seasons-item" href="#">1</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movie__content">
+                            <div class="movie__title">
+                                <div class="movie__title-elem movie__title-buttons">
+                                    <div class="movie__play">
+                                        <div class="play-button movie__play-button">
+                                            <div class="play-button__icon">
+                                                <img th:src="@{/images/play.png}">
+                                            </div>
+                                            <div class="play-button__text">
+                                                <div class="play-button__title">Смотреть</div>
+                                                <div class="play-button__plain">1 сезон 1 серия</div>
+                                            </div>
+                                        </div>
+                                        <div class="movie__play-favorites movie__play-mind">
+                                            <div class="movie__play-favorites_img">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="movie__title-elem movie__title-text ">
+                                    <h1 itemprop="name"></h1>
+                                </div>
+                            </div>
+                            <div class="movie__description">
+                                <div class="movie__description-trailer">
+                                    <div class="movie__description-trailer_header">
+                                        <div class="movie__description-trailer_title">
+                                        </div>
+                                    </div>
+                                    <div class="movie__description-trailer_video">
+                                        <video controls width="850" height="440">
+                                            <source src="http://localhost:8181/playerzen/video/serial/598f17ce-5526-4e11-bb4f-080840f53b8f"
+                                                    type="video/mp4">
+                                        </video>
+                                        <!-- <div class="movie__description-trailer_desciption">
+                                             <div class="movie__description-trailer_desciption-title"></div>
+                                             <div class="movie__description-trailer_desciption-duration">00:51</div>
+                                         </div>
+                                         <img src="" class="movie__description-trailer_play">-->
+                                    </div>
+                                </div>
+                                <div class="movie__description-data ">
+                                    <div class="">
+                                        <div class="movie__description-data_text">
+                                            <span itemprop="description" th:text="${content.description}"></span>
+                                        </div>
+                                        <div class="description-persons movie__data-wrapper">
+                                            <div class="movie__data-col movie__data-col_title">Жанр:</div>
+                                            <div class="movie__data-col movie__data-col_content">
+                                                <div th:each="g, iterator : ${content.genres}">
+                                                    <span itemprop="director" th:text="${g.getName()}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="movie__data-col movie__data-col_title">Режиссеры:</div>
+                                            <div class="movie__data-col movie__data-col_content">
+                                                <div th:each="d, iterator : ${content.directors}">
+                                                    <span itemprop="director" th:text="${d.firstName + ' ' + d.lastName}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="movie__data-col movie__data-col_title">В ролях:</div>
+                                            <div class="movie__data-col movie__data-col_content">
+                                                <div th:each="a, iterator : ${content.actors}">
+                                                    <span itemprop="actor" th:text="${a.firstName + ' ' + a.lastName}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="movie__data-col movie__data-col_title">Страна:</div>
+                                            <div class="movie__data-col movie__data-col_content">
+                                                <div>
+                                                    <span itemprop="countryOfOrigin"></span>
+                                                </div>
+                                            </div>
+                                            <div class="movie__data-col movie__data-col_title">Производство:</div>
+                                            <div class="movie__data-col movie__data-col_content">
+                                                <span itemprop="productionCompany"></span>
+                                            </div>
+                                            <div class="movie__data-col movie__data-col_title">Примьеры:</div>
+                                            <div class="movie__data-col movie__data-col_content">
+                                                <span itemprop="productionCompany" th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="movie__episodes">
+                                <div class="movie__episodes-item">
+                                    <div class="movie__episodes-title">Сезон 1</div>
+                                    <div class="video-line" type="episodes">
+                                        <div class="swiper-container swiper-container-initialized swiper-container-horizontal">
+                                            <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+                                                <div class="swiper-slide video-line__item swiper-slide-active"
+                                                     style="width: 372.833px; margin-right: 20px;">
+                                                    <a class="card-item card-item-episodes" itemscope="" itemtype=""
+                                                       itemprop="episode">
+                                                        <div class="card-item__image">
+                                                            <img th:src="@{/images/play.png}"
+                                                                 class="card-item__play card-item__always">
+                                                            <div class="card-item__image-img" data-lazy-loaded="">
+                                                                <img alt="" src="">
+                                                            </div>
+                                                            <div class="card-item__current">
+                                                                <div class="card-item__current-number"
+                                                                     itemprop="episodeNumber">1
+                                                                </div>
+                                                                <div class="card-item__current-duration">00:00</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-item__title" itemprop="name" th:text="${content.name}"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-button-next" tabindex="0" role="button"
+                                                 aria-label="Next slide" aria-disabled="false">
+                                                <div class="swiper-button-next-arrow"></div>
+                                            </div>
+                                            <div class="swiper-button-prev swiper-button-disabled" tabindex="0"
+                                                 role="button" aria-label="Previous slide" aria-disabled="true">
+                                                <div class="swiper-button-prev-arrow"></div>
+                                            </div>
+                                            <span class="swiper-notification" aria-live="assertive"
+                                                  aria-atomic="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="movie__recommendations">
+                                <div class="movie__recommendations-title">Вам понравится</div>
+                                <div class="video-line" type="editors">
+                                    <div class="swiper-container swiper-container-initialized swiper-container-horizontal">
+                                        <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+                                            <div class="swiper-slide video-line__item swiper-slide-active"
+                                                 style="width: 372.833px; margin-right: 20px;">
+                                                <a class="card-item card-item-editors">
+                                                    <div class="card-item__image">
+                                                        <div class="card-item__image-img" data-lazy-loaded=""></div>
+                                                    </div>
+                                                    <div class="card-item__title"></div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-button-next swiper-button-disabled" tabindex="0"
+                                             role="button" aria-label="Next slide" aria-disabled="true">
+                                            <div class="swiper-button-next-arrow"></div>
+                                        </div>
+                                        <div class="swiper-button-prev swiper-button-disabled" tabindex="0"
+                                             role="button" aria-label="Previous slide" aria-disabled="true">
+                                            <div class="swiper-button-prev-arrow"></div>
+                                        </div>
+                                        <span class="swiper-notification" aria-live="assertive"
+                                              aria-atomic="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <head th:replace="blocks/footer.html :: footer"></head>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
-
 </body>
 </html>
