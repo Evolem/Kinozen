@@ -23,6 +23,12 @@
     <td th:text="${a.firstName}"></td>
     <td th:text="${a.lastName}"></td>
 </tr>
+<br>
+<b>Режисcеры:</b>
+<tr th:each="d, iterator : ${content.directors}">
+    <td th:text="${d.firstName}"></td>
+    <td th:text="${d.lastName}"></td>
+</tr>
 
 <br>
 

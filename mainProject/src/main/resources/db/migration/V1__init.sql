@@ -251,14 +251,14 @@ insert into tbl_contenttype(id_contenttype, name_contenttype)
 values ('aeaf93f8-d8fc-4cfa-ad66-7b685ced73b4', 'Фильм');
 
 -- Заполнение таблицы content
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content)values ('1740acb5-a8c6-43f8-b8e1-faa74c92ea4a','Игра престолов', 'тут описание', '2020-05-27', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','igra-prestolov');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content)values ('8d0f77af-0679-4b53-a0ac-5f655c991ef0','Пустыня смерти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','pustynya-smerti');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content)values ('68c2769d-2e9f-4dd7-b322-1d5124a05bef','Сопрано', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','soprano');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content)values ('1c6b8365-7b92-4772-9406-458ca0e7f4ab','Рик и морти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','rik-i-morti');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content)values ('47725759-864e-4d4d-a601-dd52d1506e2a','Мир дикого запада', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','mir-dikogo-zapada');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content)values ('8e3287b6-35f6-4a1d-81e8-47df3cf1f793','Убивая Еву', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','ubivaya-yevu');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content)values ('51bf778e-46e5-4f01-8c31-e6bb0de53a7c','Шепот', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','shepot');
-insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content)values ('f3b18f94-67f5-43b8-a452-71b62f5e3230','Южный парк', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','yuzhnyy-park');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('1740acb5-a8c6-43f8-b8e1-faa74c92ea4a','Игра престолов', 'тут описание', '2020-05-27', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','igra-prestolov');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('8d0f77af-0679-4b53-a0ac-5f655c991ef0','Пустыня смерти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','pustynya-smerti');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('68c2769d-2e9f-4dd7-b322-1d5124a05bef','Сопрано', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','soprano');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('1c6b8365-7b92-4772-9406-458ca0e7f4ab','Рик и морти', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','rik-i-morti');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('47725759-864e-4d4d-a601-dd52d1506e2a','Мир дикого запада', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','mir-dikogo-zapada');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('8e3287b6-35f6-4a1d-81e8-47df3cf1f793','Убивая Еву', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','ubivaya-yevu');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('51bf778e-46e5-4f01-8c31-e6bb0de53a7c','Шепот', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','shepot');
+insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, id_contenttype, url_content) values ('f3b18f94-67f5-43b8-a452-71b62f5e3230','Южный парк', 'тут описание', '2020-05-17', true, '7354d2dd-c12e-45cf-b1a5-774469eb4d8a','yuzhnyy-park');
 
 -- Заполенение Жанров
 insert into tbl_genre(id_genre ,name_genre, url_genre) values ('295c4a70-f4ca-4e49-8cd7-3542c53f4925','аниме','anime');
@@ -359,3 +359,19 @@ insert into tbl_actor_content(id_actor, id_content) VALUES ('925d3d6d-712e-4248-
 insert into tbl_actor_content(id_actor, id_content) VALUES ('3c59fb86-baa8-4f47-9cd1-4a8b28f35ba4','8e3287b6-35f6-4a1d-81e8-47df3cf1f793');
 insert into tbl_actor_content(id_actor, id_content) VALUES ('4590fe12-ad94-4b07-a474-0b63daad377b','51bf778e-46e5-4f01-8c31-e6bb0de53a7c');
 insert into tbl_actor_content(id_actor, id_content) VALUES ('b2154a81-f5d7-4c63-963b-7580065fccd9','f3b18f94-67f5-43b8-a452-71b62f5e3230');
+
+-- заполнение режжисера
+insert into tbl_director(id_director, firstname_director, lastname_director, description_director, url_director)
+values ('cc959d7b-ba6a-4458-be47-6e8cca63bafb', 'Алексей', 'Петров', 'Андройд и учитель Нолана, собрал все в мире нагрды и снял лучшие фильмы', 'alex-petrov');
+
+-- связка режиисера и контента
+insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','1740acb5-a8c6-43f8-b8e1-faa74c92ea4a');
+insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','8d0f77af-0679-4b53-a0ac-5f655c991ef0');
+insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','68c2769d-2e9f-4dd7-b322-1d5124a05bef');
+insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','1c6b8365-7b92-4772-9406-458ca0e7f4ab');
+insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','47725759-864e-4d4d-a601-dd52d1506e2a');
+insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','8e3287b6-35f6-4a1d-81e8-47df3cf1f793');
+insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','51bf778e-46e5-4f01-8c31-e6bb0de53a7c');
+insert into tbl_actor_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','f3b18f94-67f5-43b8-a452-71b62f5e3230');
+
+
