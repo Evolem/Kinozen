@@ -10,12 +10,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ActorDto {
+public class DirectorDto {
 
     private String firstName;
     private String lastName;
     private String description;
     private String url;
     private Set<Content> contents;
-
 }

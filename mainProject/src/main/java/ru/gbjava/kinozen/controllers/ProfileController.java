@@ -22,6 +22,8 @@ import java.security.Principal;
 public class ProfileController {
     private final UserService userService;
 
+    //todo переделать!
+
     @Qualifier("userDtoValidator")
     private final UserDtoValidator userDtoValidator;
 
