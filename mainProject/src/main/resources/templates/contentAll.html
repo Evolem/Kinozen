@@ -16,6 +16,7 @@
         <th>description</th>
         <th>Дата выхода</th>
         <th>Видимость</th>
+        <th>Тип</th>
 
     </tr>
     </thead>
@@ -32,6 +33,7 @@
                             <td th:text="${content.description}"></td>
                             <td th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></td>
                             <td th:text="${content.visible}"></td>
+                            <td th:text="${content.type.getType()}"></td>
 
     </span>
     </tr>
