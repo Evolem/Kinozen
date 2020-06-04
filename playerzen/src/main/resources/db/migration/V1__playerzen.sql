@@ -10,3 +10,5 @@ create table if not exists tbl_media_file
 create unique index if not exists tbl_media_file_id_media_file_uindex
     on tbl_media_file (id_media_file);
 
+insert into tbl_media_file (uuid_media, name_media_file)
+values ('86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'love.death.robot.S01.2')

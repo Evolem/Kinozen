@@ -7,9 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import ru.gbjava.kinozen.dto.ContentDto;
-import ru.gbjava.kinozen.dto.ContentTypeDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
-import ru.gbjava.kinozen.dto.mappers.ContentTypeMapper;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
 
@@ -45,10 +43,8 @@ public class ContentController {
     @GetMapping ("/add")
     public String add(Model model) {
         ContentDto contentDto = new ContentDto();
-        Iterable<ContentTypeDto> types = ContentTypeMapper.INSTANCE.toDtoList(contentFacade.findAllTypeContent());
 
         model.addAttribute("content", contentDto);
-        model.addAttribute("types", types);
         return "contentEdit";
     }
 

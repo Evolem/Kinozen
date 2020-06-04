@@ -1,6 +1,7 @@
 package ru.gbjava.kinozen.persistence.entities;
 
 import lombok.*;
+import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 
 import javax.persistence.*;
 
@@ -37,9 +38,9 @@ public class Content {
     @Column(name = "url_content")
     private String url;
 
-    @ManyToOne
-    @JoinColumn(name = "id_contenttype")
-    private ContentType contentType;
+    @Column(name = "type_content")
+    @Enumerated(EnumType.ORDINAL)
+    private TypeContent type;
 
     @ManyToMany(mappedBy = "contents")
     Set<Genre> genres;

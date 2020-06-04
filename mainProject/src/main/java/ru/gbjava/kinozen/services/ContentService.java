@@ -6,11 +6,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.util.Assert;
 import ru.gbjava.kinozen.persistence.entities.Content;
-import ru.gbjava.kinozen.persistence.entities.ContentType;
+import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.persistence.repositories.ContentRepository;
-import ru.gbjava.kinozen.persistence.repositories.ContentTypeRepository;
 import ru.gbjava.kinozen.utilites.StringConverter;
 
 import java.util.List;
@@ -22,7 +20,6 @@ import java.util.UUID;
 public class ContentService implements CrudService<Content, UUID> {
 
     private final ContentRepository contentRepository;
-    private final ContentTypeRepository contentTypeRepository;
 
     @Override
     public List<Content> findAll() {
@@ -35,7 +32,7 @@ public class ContentService implements CrudService<Content, UUID> {
     }
 
     //todo нужно получить список по типу
-    public List<Content> findAllByTypeContent(ContentType type){
+    public List<Content> findAllByTypeContent(TypeContent type){
         return contentRepository.findAll();
     }
 

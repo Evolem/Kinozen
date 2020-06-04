@@ -22,25 +22,15 @@ public class MediaFileController {
 
     private final MediaFileService service;
 
-    @GetMapping(value = "/serial/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<ResourceRegion> mediaSerial(@RequestHeader HttpHeaders headers, @PathVariable String id) throws IOException {
         ResourceRegion region = service.getResourceRegion(headers, id);
         return ResponseEntity
                 .status(HttpStatus.PARTIAL_CONTENT)
-//                .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentType(MediaTypeFactory.getMediaType(region.getResource()).orElse(MediaType.APPLICATION_OCTET_STREAM))
                 .body(region);
     }
 
-    @GetMapping(value = "/film/{id}")
-    public ResponseEntity<ResourceRegion> mediaMove(@RequestHeader HttpHeaders headers, @PathVariable String id) throws IOException {
-        ResourceRegion region = service.getResourceRegion(headers, id);
-        return ResponseEntity
-                .status(HttpStatus.PARTIAL_CONTENT)
-//                .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(region);
-    }
 
 //    @GetMapping(value = "/video/{name}")
 //    public ResponseEntity<ResourceRegion> video(@RequestHeader HttpHeaders headers, @PathVariable String name) throws IOException {
