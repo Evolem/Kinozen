@@ -7,5 +7,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ActorRepository extends JpaRepository<Actor, UUID> {
-
+    Optional<Actor> findByUrl(String url);
 }

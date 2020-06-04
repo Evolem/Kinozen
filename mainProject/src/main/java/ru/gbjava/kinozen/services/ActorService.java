@@ -41,11 +41,11 @@ public class ActorService implements CrudService<Actor, UUID>, UrlService<Actor>
 
     @Override
     public Actor findByUrl(String url) {
-        return new Actor();
+        return actorRepository.findByUrl(url).orElseThrow(()-> new RuntimeException("Actor not found! " + url));
     }
 
     @Override
     public void generateAllUrl() {
-
+        //todo
     }
 }

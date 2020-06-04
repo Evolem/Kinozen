@@ -32,7 +32,7 @@ public class ContentController {
     public String getAllContent(Model model){
         Iterable<ContentDto> dtoList = ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent());
         model.addAttribute("contentList", dtoList);
-        return "content";
+        return "contentAll";
     }
 
     @GetMapping ("/{url}")
@@ -49,7 +49,7 @@ public class ContentController {
 
         model.addAttribute("content", contentDto);
         model.addAttribute("types", types);
-        return "addContent";
+        return "contentEdit";
     }
 
     @PostMapping("/addContent")
