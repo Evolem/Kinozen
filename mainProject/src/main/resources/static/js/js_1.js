@@ -7,10 +7,10 @@ for (let add of login) {
             loginActive.className = 'registration__form-switcher_item ';
             e.target.className = 'registration__form-switcher_item active';
             let inputForm = document.querySelector('.registration__form-input_wrapper');
-            if (e.target.textContent == "Телефон") {
-                inputForm.innerHTML = '<input type="text" value="+7 " class="registration__form-input error"/>';
-            } else {
+            if (e.target.textContent == "E-mail") {
                 inputForm.innerHTML = '<input type="email" value="" class="registration__form-input" placeholder="E-mail"/>';
+            } else {
+                inputForm.innerHTML = '<input type="text" name="username" class="registration__form-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите логин"/>';
             }
         }
     })
