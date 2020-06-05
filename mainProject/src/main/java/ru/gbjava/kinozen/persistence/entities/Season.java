@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -28,4 +29,7 @@ public class Season {
 
     @Column(name = "description_season")
     private String description;
+
+    @OneToMany(mappedBy = "season")
+    private List<Episode> episodes;
 }

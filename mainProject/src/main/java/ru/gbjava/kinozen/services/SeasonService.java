@@ -2,6 +2,7 @@ package ru.gbjava.kinozen.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.repositories.SeasonRepository;
 
@@ -32,5 +33,9 @@ public class SeasonService implements CrudService<Season, UUID> {
     @Override
     public void deleteById(UUID uuid) {
         seasonRepository.deleteById(uuid);
+    }
+
+    public List<Season> findSeasonByContent(Content content){
+        return seasonRepository.findAllByContent(content);
     }
 }
