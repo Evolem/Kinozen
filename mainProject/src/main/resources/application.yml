@@ -19,3 +19,6 @@ files:
   storepath:
     video_download:  "C:\\video_download"
 
+playerzen:
+  service:
+    url: "http://localhost:8181/playerzen"

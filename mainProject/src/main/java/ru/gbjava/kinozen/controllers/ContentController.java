@@ -2,6 +2,8 @@ package ru.gbjava.kinozen.controllers;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.core.io.support.ResourceRegion;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,11 +12,13 @@ import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
+import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/content")
@@ -24,6 +28,7 @@ public class ContentController {
     private final ContentFacade contentFacade;
     private final ContentService contentService;
 
+    private final PlayerFeignClient playerFeignClient;
     //todo поправить логику добавления!
 
     @GetMapping
@@ -38,6 +43,11 @@ public class ContentController {
         ContentDto contentDto = ContentMapper.INSTANCE.toDto(contentFacade.findContentByUrl(url));
         model.addAttribute("content", contentDto);
         return "contentPage";
+    }
+
+    @GetMapping(value = "video/{id}")
+    public ResponseEntity<byte[]> mediaSerial(@RequestHeader HttpHeaders headers, @PathVariable String id) {
+        return playerFeignClient.mediaSerial(headers, id);
     }
 
     @GetMapping ("/add")
