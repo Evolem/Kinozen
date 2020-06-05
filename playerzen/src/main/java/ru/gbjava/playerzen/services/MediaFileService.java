@@ -48,25 +48,6 @@ public class MediaFileService {
         return region;
     }
 
-
-//    public ResourceRegion getResourceRegion(HttpHeaders headers, String... name) throws MalformedURLException {
-//        UrlResource resource;
-//        if (name.length < 3) {
-//            resource = new UrlResource(String.format("file:%s/%s/%s.mp4", mainPath, name[0], name[1]));
-//        } else {
-//            resource = new UrlResource(String.format("file:%s/%s/%s/%s.mp4", mainPath, name[0], name[1], name[2]));
-//        }
-//
-//        ResourceRegion region = null;
-//
-//        try {
-//            region = resourceRegion(resource, headers);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return region;
-//    }
-
     private ResourceRegion resourceRegion(UrlResource resource, HttpHeaders headers) throws IOException {
         long contentLength = resource.contentLength();
         List<HttpRange> list = headers.getRange();
