@@ -65,14 +65,14 @@
 
 
                                 <form th:action="@{''}" method="get">
-                                <select name="episode">
-                                    <option th:text="'Выберите серию'" th:value="null"></option>
-                                    <!--suppress ThymeleafVariablesResolveInspection -->
-                                    <option th:each="e : ${episodes}"
-                                            th:value="${e.numberEpisode}"
-                                            th:text="${e.numberEpisode}">
-                                    </option>
-                                </select>
+                                    <select name="episode">
+                                        <option th:text="'Выберите серию'" th:value="null"></option>
+                                        <!--suppress ThymeleafVariablesResolveInspection -->
+                                        <option th:each="e : ${episodes}"
+                                                th:value="${e.numberEpisode}"
+                                                th:text="${e.numberEpisode}+ '. ' + ${e.name}">
+                                        </option>
+                                    </select>
                                     <button type="submit">применить</button>
                                 </form>
 
@@ -154,48 +154,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="movie__episodes">
-                                <div class="movie__episodes-item">
-                                    <div class="movie__episodes-title">Сезон 1</div>
-                                    <div class="video-line" type="episodes">
-                                        <div class="swiper-container swiper-container-initialized swiper-container-horizontal">
-                                            <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
-                                                <div class="swiper-slide video-line__item swiper-slide-active"
-                                                     style="width: 372.833px; margin-right: 20px;">
-                                                    <a class="card-item card-item-episodes" itemscope="" itemtype=""
-                                                       itemprop="episode">
-                                                        <div class="card-item__image">
-                                                            <img th:src="@{/images/play.png}"
-                                                                 class="card-item__play card-item__always">
-                                                            <div class="card-item__image-img" data-lazy-loaded="">
-                                                                <img alt="" src="">
-                                                            </div>
-                                                            <div class="card-item__current">
-                                                                <div class="card-item__current-number"
-                                                                     itemprop="episodeNumber">1
-                                                                </div>
-                                                                <div class="card-item__current-duration">00:00</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-item__title" itemprop="name"
-                                                             th:text="${content.name}"></div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-button-next" tabindex="0" role="button"
-                                                 aria-label="Next slide" aria-disabled="false">
-                                                <div class="swiper-button-next-arrow"></div>
-                                            </div>
-                                            <div class="swiper-button-prev swiper-button-disabled" tabindex="0"
-                                                 role="button" aria-label="Previous slide" aria-disabled="true">
-                                                <div class="swiper-button-prev-arrow"></div>
-                                            </div>
-                                            <span class="swiper-notification" aria-live="assertive"
-                                                  aria-atomic="true"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="movie__recommendations">
                                 <div class="movie__recommendations-title">Вам понравится</div>
                                 <div class="video-line" type="editors">

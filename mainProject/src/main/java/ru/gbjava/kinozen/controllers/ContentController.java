@@ -10,6 +10,7 @@ import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.EpisodeDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.EpisodeMapper;
+import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
@@ -40,10 +41,10 @@ public class ContentController {
     @GetMapping("/{contentUrl}")
     public String getContentByUrl(Model model, @PathVariable String contentUrl) {
         Content content = contentFacade.findContentByUrl(contentUrl);
-        Iterable<Season> seasons = contentFacade.findAllSeasonByContent(content);
+        List<Season> seasons = contentFacade.findAllSeasonByContent(content);
 
         model.addAttribute("idEntity", content.getId());
-        model.addAttribute("seasons", seasons);
+        model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
         return "contentPage";
     }
@@ -55,15 +56,15 @@ public class ContentController {
                                  @RequestParam(required = false) Integer episode) {
 
         Content content = contentFacade.findContentByUrl(contentUrl);
-        Iterable<Season> seasons = contentFacade.findAllSeasonByContent(content);
+        List<Season> seasons = contentFacade.findAllSeasonByContent(content);
         Season currentSeason = contentFacade.findSeasonByContentAndUrl(content, seasonUrl);
         List<Episode> episodes = currentSeason.getEpisodes();
         EpisodeDto episodeDto = EpisodeMapper.INSTANCE.toDto(contentFacade.getEpisodeFromListByNumber(episodes, episode));
 
         model.addAttribute("idEntity", episodeDto.getId());
-        model.addAttribute("episodes", episodes);
-        model.addAttribute("currentSeason", currentSeason);
-        model.addAttribute("seasons", seasons);
+        model.addAttribute("episodes", EpisodeMapper.INSTANCE.toDtoList(episodes));
+        model.addAttribute("currentSeason", SeasonMapper.INSTANCE.toDto(currentSeason));
+        model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
         return "contentPage";
     }
