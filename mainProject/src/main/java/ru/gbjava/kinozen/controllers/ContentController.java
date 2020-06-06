@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
+import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
 import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
@@ -40,7 +42,10 @@ public class ContentController {
 
     @GetMapping ("/{url}")
     public String getContentByUrl(Model model, @PathVariable String url){
-        ContentDto contentDto = ContentMapper.INSTANCE.toDto(contentFacade.findContentByUrl(url));
+        Content contentDto = contentFacade.findContentByUrl(url);
+        Iterable<Season> seasons = contentFacade.findAllSeasonByContent(contentDto);
+
+        model.addAttribute("seasons", seasons);
         model.addAttribute("content", contentDto);
         return "contentPage";
     }
