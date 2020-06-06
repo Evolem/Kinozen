@@ -14,6 +14,7 @@ import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
+import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
 import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
@@ -41,13 +42,10 @@ public class ContentController {
     @GetMapping("/{contentUrl}")
     public String getContentByUrl(Model model, @PathVariable String contentUrl) {
         Content content = contentFacade.findContentByUrl(contentUrl);
-        List<Season> seasons = contentFacade.findAllSeasonByContent(content);
-
-        model.addAttribute("idEntity", content.getId());
-        model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
-        model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
+        contentFacade.checkTypeAndSetupModel(model, content);
         return "contentPage";
     }
+
 
     @GetMapping("/{contentUrl}/{seasonUrl}")
     public String getSeasonByUrl(Model model,
@@ -59,9 +57,10 @@ public class ContentController {
         List<Season> seasons = contentFacade.findAllSeasonByContent(content);
         Season currentSeason = contentFacade.findSeasonByContentAndUrl(content, seasonUrl);
         List<Episode> episodes = currentSeason.getEpisodes();
-        EpisodeDto episodeDto = EpisodeMapper.INSTANCE.toDto(contentFacade.getEpisodeFromListByNumber(episodes, episode));
+        EpisodeDto currentEpisode = EpisodeMapper.INSTANCE.toDto(contentFacade.getEpisodeFromListByNumber(episodes, episode));
 
-        model.addAttribute("idEntity", episodeDto.getId());
+        model.addAttribute("idEntity", currentEpisode.getId());
+        model.addAttribute("description", currentEpisode.getDescription());
         model.addAttribute("episodes", EpisodeMapper.INSTANCE.toDtoList(episodes));
         model.addAttribute("currentSeason", SeasonMapper.INSTANCE.toDto(currentSeason));
         model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));

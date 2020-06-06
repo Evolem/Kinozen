@@ -1,5 +1,7 @@
 package ru.gbjava.kinozen.services.facade;
 
+import org.springframework.ui.Model;
+import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
@@ -23,4 +25,7 @@ public interface ContentFacade {
     List<Episode> findAllEpisodeBySeason(Season season);
 
     Episode getEpisodeFromListByNumber(List<Episode> episodes, Integer episodeNumber);
+
+    void checkTypeAndSetupModel(Model model, Content content);
+
 }

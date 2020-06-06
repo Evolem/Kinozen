@@ -23,7 +23,7 @@ public class ActorController {
     private final ActorService actorService;
 
     @GetMapping("/{url}")
-    public String getGenreByUrl(Model model, @PathVariable String url) {
+    public String getActorByUrl(Model model, @PathVariable String url) {
         ActorDto actorDto = ActorMapper.INSTANCE.toDto(actorService.findByUrl(url));
         model.addAttribute("actor", actorDto);
         return "actorPage";

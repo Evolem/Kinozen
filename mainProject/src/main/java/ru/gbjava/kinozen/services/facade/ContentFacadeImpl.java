@@ -2,7 +2,10 @@ package ru.gbjava.kinozen.services.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.EpisodeMapper;
+import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
@@ -76,6 +79,18 @@ public class ContentFacadeImpl implements ContentFacade {
             }
         }
         throw new RuntimeException("Episode not found!");
+    }
+
+    @Override
+    public void checkTypeAndSetupModel(Model model, Content content) {
+        if(content.getType().ordinal() == 0){
+            List<Season> seasons = findAllSeasonByContent(content);
+            model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
+        } else {
+            model.addAttribute("idEntity", content.getId());
+        }
+        model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
+        model.addAttribute("description", content.getDescription());
     }
 
 }
