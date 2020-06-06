@@ -20,8 +20,8 @@ public class Season {
     @Column(name = "id_season")
     private UUID id;
 
-    @Column(name = "id_content")
     @ManyToOne
+    @JoinColumn(name = "id_content")
     private Content content;
 
     @Column(name = "number_season")

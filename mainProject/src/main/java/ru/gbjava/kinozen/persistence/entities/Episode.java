@@ -20,7 +20,7 @@ public class Episode {
     private UUID id;
 
     @ManyToOne
-    @Column(name = "id_season")
+    @JoinColumn(name = "id_season")
     private Season season;
 
     @Column(name = "number_episode")
