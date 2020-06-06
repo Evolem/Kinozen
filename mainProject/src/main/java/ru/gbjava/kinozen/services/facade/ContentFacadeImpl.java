@@ -2,8 +2,13 @@ package ru.gbjava.kinozen.services.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.gbjava.kinozen.dto.mappers.EpisodeMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Episode;
+import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.services.ContentService;
+import ru.gbjava.kinozen.services.EpisodeService;
+import ru.gbjava.kinozen.services.SeasonService;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +18,8 @@ import java.util.UUID;
 public class ContentFacadeImpl implements ContentFacade {
 
     private final ContentService contentService;
+    private final SeasonService seasonService;
+    private final EpisodeService episodeService;
 
     @Override
     public List<Content> findAllContent() {
@@ -32,6 +39,43 @@ public class ContentFacadeImpl implements ContentFacade {
     @Override
     public void deleteContentById(UUID uuid) {
         contentService.deleteById(uuid);
+    }
+
+    @Override
+    public List<Season> findAllSeasonByContent(Content content) {
+        return seasonService.findSeasonByContent(content);
+    }
+
+    @Override
+    public Season findSeasonByContentAndUrl(Content content, String url) {
+        return seasonService.findByContentAndUrl(content, url);
+    }
+
+    @Override
+    public List<Episode> findAllEpisodeBySeason(Season season) {
+        return episodeService.findAllBySeason(season);
+    }
+
+    //todo переделать исключение
+    @Override
+    public Episode getEpisodeFromListByNumber(List<Episode> episodes, Integer episodeNumber) throws RuntimeException {
+        Episode episode = null;
+        if (episodeNumber == null) {
+            for (Episode e : episodes) {
+                if (e.getNumberEpisode() == 1) {
+                    episode = e;
+                    return episode;
+                }
+            }
+        } else {
+            for (Episode e : episodes) {
+                if (e.getNumberEpisode().equals(episodeNumber)) {
+                    episode = e;
+                    return episode;
+                }
+            }
+        }
+        throw new RuntimeException("Episode not found!");
     }
 
 }
