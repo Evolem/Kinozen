@@ -35,7 +35,12 @@ public class SeasonService implements CrudService<Season, UUID> {
         seasonRepository.deleteById(uuid);
     }
 
-    public List<Season> findSeasonByContent(Content content){
+    public List<Season> findSeasonByContent(Content content) {
         return seasonRepository.findAllByContent(content);
+    }
+
+    public Season findByContentAndUrl(Content content, String url) {
+        return seasonRepository.findByContentAndUrl(content, url).orElseThrow(() ->
+                new RuntimeException("Season not found " + content.getUrl() + "/" + url));
     }
 }

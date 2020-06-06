@@ -30,6 +30,9 @@ public class Season {
     @Column(name = "description_season")
     private String description;
 
+    @Column(name = "url_season")
+    private String url;
+
     @OneToMany(mappedBy = "season")
     private List<Episode> episodes;
 }

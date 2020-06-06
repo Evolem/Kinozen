@@ -47,36 +47,42 @@
                                 </div>
                                 <div class="movie__original-title">
                                 </div>
+
+
                                 <div class="movie__seasons">
                                     <div class="movie__seasons-title">Сезоны:</div>
                                     <div class="movie__seasons-items">
-                                        <a class="movie__seasons-item" href="#">1</a>
 
-
-
-
+                                        <a class="movie__seasons-item"
+                                           th:each="s, iterator : ${seasons}"
+                                           th:href="@{'/content/' + ${content.url} + '/' + ${s.url}}"
+                                           th:text="${s.numberSeason}">
+                                        </a>
                                     </div>
                                 </div>
+
+                                <br>
+
+
+                                <form th:action="@{''}" method="get">
+                                <select name="episode">
+                                    <option th:text="'Выберите серию'" th:value="null"></option>
+                                    <!--suppress ThymeleafVariablesResolveInspection -->
+                                    <option th:each="e : ${episodes}"
+                                            th:value="${e.numberEpisode}"
+                                            th:text="${e.numberEpisode}">
+                                    </option>
+                                </select>
+                                    <button type="submit">применить</button>
+                                </form>
+
+
                             </div>
                         </div>
                         <div class="movie__content">
                             <div class="movie__title">
                                 <div class="movie__title-elem movie__title-buttons">
-                                    <div class="movie__play">
-                                        <div class="play-button movie__play-button">
-                                            <div class="play-button__icon">
-                                                <img th:src="@{/images/play.png}">
-                                            </div>
-                                            <div class="play-button__text">
-                                                <div class="play-button__title">Смотреть</div>
-                                                <div class="play-button__plain">1 сезон 1 серия</div>
-                                            </div>
-                                        </div>
-                                        <div class="movie__play-favorites movie__play-mind">
-                                            <div class="movie__play-favorites_img">
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="movie__title-elem movie__title-text ">
                                     <h1 itemprop="name"></h1>
@@ -88,9 +94,13 @@
                                         <div class="movie__description-trailer_title">
                                         </div>
                                     </div>
+
+                                    <br>
+                                    <span th:text="${idEntity}"></span>
                                     <div class="movie__description-trailer_video">
                                         <video controls width="850" height="440">
-                                            <source th:src="@{/content/video/{id}(id=${content.getId()})}" type="video/mp4">
+                                            <source th:src="@{/content/video/{id}(id=${idEntity})}"
+                                                    type="video/mp4">
                                         </video>
                                         <!-- <div class="movie__description-trailer_desciption">
                                              <div class="movie__description-trailer_desciption-title"></div>
@@ -114,13 +124,15 @@
                                             <div class="movie__data-col movie__data-col_title">Режиссеры:</div>
                                             <div class="movie__data-col movie__data-col_content">
                                                 <div th:each="d, iterator : ${content.directors}">
-                                                    <span itemprop="director" th:text="${d.firstName + ' ' + d.lastName}"></span>
+                                                    <span itemprop="director"
+                                                          th:text="${d.firstName + ' ' + d.lastName}"></span>
                                                 </div>
                                             </div>
                                             <div class="movie__data-col movie__data-col_title">В ролях:</div>
                                             <div class="movie__data-col movie__data-col_content">
                                                 <div th:each="a, iterator : ${content.actors}">
-                                                    <span itemprop="actor" th:text="${a.firstName + ' ' + a.lastName}"></span>
+                                                    <span itemprop="actor"
+                                                          th:text="${a.firstName + ' ' + a.lastName}"></span>
                                                 </div>
                                             </div>
                                             <div class="movie__data-col movie__data-col_title">Страна:</div>
@@ -135,7 +147,8 @@
                                             </div>
                                             <div class="movie__data-col movie__data-col_title">Примьеры:</div>
                                             <div class="movie__data-col movie__data-col_content">
-                                                <span itemprop="productionCompany" th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></span>
+                                                <span itemprop="productionCompany"
+                                                      th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -164,7 +177,8 @@
                                                                 <div class="card-item__current-duration">00:00</div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-item__title" itemprop="name" th:text="${content.name}"></div>
+                                                        <div class="card-item__title" itemprop="name"
+                                                             th:text="${content.name}"></div>
                                                     </a>
                                                 </div>
                                             </div>
