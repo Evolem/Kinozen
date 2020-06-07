@@ -3,10 +3,8 @@ package ru.gbjava.kinozen.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gbjava.kinozen.persistence.entities.Actor;
-import ru.gbjava.kinozen.persistence.entities.Content;
-import ru.gbjava.kinozen.persistence.entities.Genre;
+
 import ru.gbjava.kinozen.persistence.repositories.ActorRepository;
-import ru.gbjava.kinozen.dto.ActorDto;
 import ru.gbjava.kinozen.utilites.StringConverter;
 
 import javax.transaction.Transactional;
@@ -31,8 +29,8 @@ public class ActorService implements CrudService<Actor, UUID>, UrlService<Actor>
 
     @Override
     @Transactional
-    public void save(Actor actor) {
-        actorRepository.save(actor);
+    public Actor save(Actor actor) {
+        return actorRepository.save(actor);
     }
 
     @Override

@@ -29,8 +29,8 @@ public class CommentService implements CrudService <Comment, UUID> {
 
     @Override
     @Transactional
-    public void save(Comment comment) {
-        commentRepository.save(comment);
+    public Comment save(Comment comment) {
+        return commentRepository.save(comment);
     }
 
     @Override
