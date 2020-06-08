@@ -1,12 +1,15 @@
 package ru.gbjava.playerzen.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRange;
 import org.springframework.stereotype.Service;
+import ru.gbjava.playerzen.exceptions.EntityNotFoundException;
 import ru.gbjava.playerzen.persistance.entities.MediaFile;
 import ru.gbjava.playerzen.persistance.repositories.MediaFileRepository;
 
@@ -17,39 +20,39 @@ import java.util.UUID;
 
 import static java.lang.Math.min;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MediaFileService {
 
     private final MediaFileRepository repository;
 
-    //Сохраняем файл, чтобы не обращаться к базе слишком часто
     private MediaFile mediaFile;
 
     @Value("${files.storepath.storage}")
     private String mainPath;
 
-    public MediaFile getMediaFile(String name) {
-        return  repository.findByMedia(UUID.fromString(name));
+    public MediaFile getMediaFile(String name) throws EntityNotFoundException {
+        return  repository.findByMedia(UUID.fromString(name)).orElseThrow(() -> new EntityNotFoundException("File not found: " + name));
     }
 
-    public ResourceRegion getResourceRegion(HttpHeaders headers, String media) throws MalformedURLException {
+    public ResourceRegion getResourceRegion(HttpHeaders headers, String media) throws MalformedURLException, EntityNotFoundException {
         checkMediaFile(media);
 
         UrlResource resource = new UrlResource(String.format("file:%s/%s.mp4", mainPath, mediaFile.getNameFile()));
 
-        ResourceRegion region = null;
-
-        try {
-            region = resourceRegion(resource, headers);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return region;
+        return resourceRegion(resource, headers);
     }
 
-    private ResourceRegion resourceRegion(UrlResource resource, HttpHeaders headers) throws IOException {
-        long contentLength = resource.contentLength();
+    private ResourceRegion resourceRegion(UrlResource resource, HttpHeaders headers) {
+        long contentLength = 0;
+        try {
+            contentLength = resource.contentLength();
+        } catch (IOException e) {
+            log.error("File {} is not valid!", resource.getFilename());
+            throw new RuntimeException(e.getMessage());
+        }
+
         List<HttpRange> list = headers.getRange();
         HttpRange range;
 
@@ -71,10 +74,9 @@ public class MediaFileService {
 
     }
 
-    //Проверка кэш-сущности
-    private void checkMediaFile(String media) {
+    private void checkMediaFile(String media) throws EntityNotFoundException {
         if (mediaFile == null || !mediaFile.getMedia().equals(UUID.fromString(media))) {
-            mediaFile = repository.findByMedia(UUID.fromString(media));
+            mediaFile = repository.findByMedia(UUID.fromString(media)).orElseThrow(() -> new EntityNotFoundException("File not found: " + media));
         }
     }
 }

@@ -14,7 +14,6 @@ import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
-import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
 import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
@@ -69,8 +68,8 @@ public class ContentController {
     }
 
     @GetMapping(value = "video/{id}")
-    public ResponseEntity<byte[]> mediaSerial(@RequestHeader HttpHeaders headers, @PathVariable String id) {
-        return playerFeignClient.mediaSerial(headers, id);
+    public ResponseEntity<byte[]> getContentFile(@RequestHeader HttpHeaders headers, @PathVariable String id) {
+        return playerFeignClient.getContentFile(headers, id);
     }
 
     @GetMapping("/add")

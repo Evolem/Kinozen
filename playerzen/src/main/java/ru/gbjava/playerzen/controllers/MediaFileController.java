@@ -5,6 +5,7 @@ import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ru.gbjava.playerzen.exceptions.EntityNotFoundException;
 import ru.gbjava.playerzen.services.MediaFileService;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class MediaFileController {
     private final MediaFileService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ResourceRegion> mediaSerial(@RequestHeader HttpHeaders headers, @PathVariable String id) throws IOException {
+    public ResponseEntity<ResourceRegion> getContentFile(@RequestHeader HttpHeaders headers, @PathVariable String id) throws IOException, EntityNotFoundException {
         ResourceRegion region = service.getResourceRegion(headers, id);
         return ResponseEntity
                 .status(HttpStatus.PARTIAL_CONTENT)
