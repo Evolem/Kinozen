@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.gbjava.kinozen.dto.UserDto;
+import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.UserService;
 
 @Service
@@ -30,7 +31,7 @@ public class UserDtoValidatorPasswordOnly implements Validator {
             username = ((UserDetails) principal).getUsername();
         }
         UserDto userDto = (UserDto) target;
-        final UserDto user = userService.findByLogin(username);
+        final User user = userService.findByLogin(username);
         if (!BCrypt.checkpw(userDto.getPassword(), user.getPassword())) {
             errors.rejectValue("password", "Error", "Некорректный пароль");
         }

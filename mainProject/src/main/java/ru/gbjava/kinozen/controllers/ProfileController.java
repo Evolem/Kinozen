@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.dto.UserDto;
+import ru.gbjava.kinozen.dto.mappers.UserMapper;
+import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.validators.UserDtoValidator;
 import ru.gbjava.kinozen.validators.UserDtoValidatorPasswordOnly;
@@ -32,8 +34,8 @@ public class ProfileController {
 
     @GetMapping
     public String profilePage(final Principal principal, Model model, UserDto userDto) {
-        final UserDto user = userService.findByLogin(principal.getName());
-        model.addAttribute("userPojo", user);
+        final User user = userService.findByLogin(principal.getName());
+        model.addAttribute("userDto", UserMapper.INSTANCE.toDto(user));
         return "profile";
     }
 

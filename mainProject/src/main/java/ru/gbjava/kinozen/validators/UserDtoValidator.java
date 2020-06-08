@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.dto.UserDto;
 
@@ -33,7 +34,7 @@ public class UserDtoValidator implements Validator {
         }
 
         UserDto userDto = (UserDto) target;
-        final UserDto locatedUser = userService.findByLogin(username);
+        final User user = userService.findByLogin(username);
 
         if (userDto.getNewPassword1().isEmpty() && userDto.getNewPassword2().isEmpty()) {
             errors.rejectValue("newPassword1", "Error", "Пароли не введены");
@@ -41,7 +42,7 @@ public class UserDtoValidator implements Validator {
         if (!Objects.equals(userDto.getNewPassword1(), userDto.getNewPassword2())) {
             errors.rejectValue("newPassword1", "Error", "Пароли не совпадают");
         }
-        if (!BCrypt.checkpw(userDto.getPassword(), locatedUser.getPassword())) {
+        if (!BCrypt.checkpw(userDto.getPassword(), user.getPassword())) {
             errors.rejectValue("password", "Error", "Некорректный пароль");
         }
     }
