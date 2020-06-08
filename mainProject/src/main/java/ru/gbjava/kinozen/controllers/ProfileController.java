@@ -40,7 +40,6 @@ public class ProfileController {
         }
 
         userService.updateFieldsAndSave(principal.getName(), userDto);
-//        model.addAttribute("message", "Профиль успешно изменен");
         return "redirect:/profile";
     }
 
@@ -51,7 +50,6 @@ public class ProfileController {
         }
 
         userService.updateFieldsAndSave(principal.getName(), userDto);
-//        model.addAttribute("message", "Пароль успешно изменен");
         return "redirect:/profile";
     }
 }

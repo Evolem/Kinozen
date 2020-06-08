@@ -18,7 +18,7 @@ public @interface UserDtoPasswordMatcher {
 
     String secondField();
 
-    String message() default "Некорректный пароль";
+    String message() default "Некорректный новый пароль";
 
     Class<?>[] groups() default {};
 
