@@ -1,10 +1,10 @@
 package ru.gbjava.kinozen.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +12,7 @@ import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.UserService;
-import ru.gbjava.kinozen.validators.UserDtoValidator;
-import ru.gbjava.kinozen.validators.UserDtoValidatorPasswordOnly;
 
-import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -23,14 +20,6 @@ import java.security.Principal;
 @RequestMapping("/profile")
 public class ProfileController {
     private final UserService userService;
-
-    //todo переделать!
-
-    @Qualifier("userDtoValidator")
-    private final UserDtoValidator userDtoValidator;
-
-    @Qualifier("passwordValidator")
-    private final UserDtoValidatorPasswordOnly passwordValidator;
 
     @GetMapping
     public String profilePage(final Principal principal, Model model, UserDto userDto) {
@@ -45,24 +34,24 @@ public class ProfileController {
     }
 
     @PostMapping("/change")
-    public String changeProfile(final Principal principal, @Valid UserDto userDto, BindingResult bindingResult) {
-        passwordValidator.validate(userDto, bindingResult);
+    public String changeProfile(final Principal principal, @Validated(UserDto.OnlyFields.class) UserDto userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "profile";
         }
 
         userService.updateFieldsAndSave(principal.getName(), userDto);
+//        model.addAttribute("message", "Профиль успешно изменен");
         return "redirect:/profile";
     }
 
     @PostMapping("/newPass")
-    public String changePassword(final Principal principal, UserDto userDto, BindingResult bindingResult) {
-        userDtoValidator.validate(userDto, bindingResult);
+    public String changePassword(final Principal principal, @Validated(UserDto.NewPasswords.class) UserDto userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "profilePass";
         }
 
         userService.updateFieldsAndSave(principal.getName(), userDto);
+//        model.addAttribute("message", "Пароль успешно изменен");
         return "redirect:/profile";
     }
 }
