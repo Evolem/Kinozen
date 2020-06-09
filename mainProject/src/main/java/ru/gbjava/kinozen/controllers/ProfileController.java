@@ -34,7 +34,7 @@ public class ProfileController {
     }
 
     @PostMapping("/change")
-    public String changeProfile(final Principal principal, @Validated(UserDto.OnlyFields.class) UserDto userDto, BindingResult bindingResult) {
+    public String changeProfile(final Principal principal, @Validated(UserDto.UserFields.class) UserDto userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "profile";
         }

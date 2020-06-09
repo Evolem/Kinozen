@@ -23,26 +23,24 @@ import java.util.UUID;
         groups = UserDto.NewPasswords.class
 )
 public class UserDto {
-    interface CurrentPassword {
+
+    public interface UserFields {
     }
 
-    public interface OnlyFields extends CurrentPassword {
-    }
-
-    public interface NewPasswords extends CurrentPassword {
+    public interface NewPasswords {
     }
 
     private UUID id;
     private String login;
 
-    @Size(min = 2, max = 30, groups = OnlyFields.class)
+    @Size(min = 2, max = 30, groups = UserFields.class)
     private String name;
 
-    @NotEmpty(groups = OnlyFields.class)
-    @Email(groups = OnlyFields.class)
+    @NotEmpty(groups = UserFields.class)
+    @Email(groups = UserFields.class)
     private String email;
 
-    @UserDtoPassword(groups = CurrentPassword.class)
+    @UserDtoPassword(groups = {UserFields.class, NewPasswords.class})
     private String password;
 
     private Set<Role> roles;
