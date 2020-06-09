@@ -2,17 +2,18 @@ package ru.gbjava.kinozen.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.gbjava.kinozen.persistence.entities.Director;
 import ru.gbjava.kinozen.persistence.repositories.DirectorRepository;
+import ru.gbjava.kinozen.utilites.StringConverter;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
 
 @Service
 @RequiredArgsConstructor
-public class DirectorService implements CrudService<Director, UUID> {
+public class DirectorService implements CrudService<Director, UUID>, UrlService<Director> {
 
     private final DirectorRepository directorRepository;
 
@@ -38,5 +39,18 @@ public class DirectorService implements CrudService<Director, UUID> {
         directorRepository.deleteById(uuid);
     }
 
+    @Override
+    public Director findByUrl(String url) {
+        return directorRepository.findByUrl(url).orElseThrow(() -> new RuntimeException("Director not found! " + url));
+    }
 
+    @Override
+    @Transactional
+    public void generateAllUrl() {
+        List<Director> directors = directorRepository.findAll();
+        for (Director d : directors) {
+            d.setUrl(StringConverter.cyrillicToLatin(d.getFirstName() + "-" + d.getLastName()));
+            directorRepository.save(d);
+        }
+    }
 }
