@@ -15,21 +15,19 @@ import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.persistence.repositories.RoleRepository;
 import ru.gbjava.kinozen.persistence.repositories.UserRepository;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, CrudService<User, UUID> {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-    //todo возвращаться должен тип данных User
-    public UserDto findByLogin(String login) {
-        return UserMapper.INSTANCE.toDto(userRepository.findOneByLogin(login));
+    public User findByLogin(String login) {
+        return userRepository.findOneByLogin(login);
     }
 
     public User getAnonymousUser() {
@@ -72,34 +70,55 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public User saveNewUser(UserDto userPojo){
-        if(userPojo.getRoles() == null || userPojo.getRoles().isEmpty()){
-            userPojo.addRole(roleRepository.getByRole("ROLE_USER"));
+    public User saveNewUser(UserDto userDto){
+        if(userDto.getRoles() == null || userDto.getRoles().isEmpty()){
+            userDto.addRole(roleRepository.getByRole("ROLE_USER"));
         }
-        if (userPojo.getNewPassword1() != null) {
-            userPojo.setPassword(new BCryptPasswordEncoder().encode(userPojo.getNewPassword1()));
+        if (userDto.getNewPassword1() != null) {
+            userDto.setPassword(new BCryptPasswordEncoder().encode(userDto.getNewPassword1()));
         }
-        return save(userPojo);
+        return save(userDto);
 
     }
 
     @Transactional
-    public User save(UserDto userPojo){
-        return userRepository.save(UserMapper.INSTANCE.toEntity(userPojo));
+    public User save(UserDto userDto){
+        return userRepository.save(UserMapper.INSTANCE.toEntity(userDto));
     }
 
     public User updateFieldsAndSave(String login, UserDto sourceOfChanges) {
-        UserDto userPojo = findByLogin(login);
+        User user = findByLogin(login);
+        UserDto userDto = UserMapper.INSTANCE.toDto(user);
         if (sourceOfChanges.getEmail() != null) {
-            userPojo.setEmail(sourceOfChanges.getEmail());
+            userDto.setEmail(sourceOfChanges.getEmail());
         }
         if (sourceOfChanges.getName() != null) {
-            userPojo.setName(sourceOfChanges.getName());
+            userDto.setName(sourceOfChanges.getName());
         }
         if (sourceOfChanges.getNewPassword1() != null) {
-            userPojo.setPassword(new BCryptPasswordEncoder().encode(sourceOfChanges.getNewPassword1()));
+            userDto.setPassword(new BCryptPasswordEncoder().encode(sourceOfChanges.getNewPassword1()));
         }
-        return save(userPojo);
+        return save(userDto);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    }
+
+    @Override
+    public User findById(UUID uuid) {
+        return userRepository.findById(uuid).orElseThrow(() -> new RuntimeException("User not found! " + uuid));
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteById(UUID uuid) {
+        userRepository.deleteById(uuid);
     }
 }
 
