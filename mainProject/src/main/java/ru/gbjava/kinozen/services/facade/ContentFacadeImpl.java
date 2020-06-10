@@ -3,6 +3,7 @@ package ru.gbjava.kinozen.services.facade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.EpisodeMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
@@ -14,6 +15,7 @@ import ru.gbjava.kinozen.services.EpisodeService;
 import ru.gbjava.kinozen.services.SeasonService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -62,19 +64,17 @@ public class ContentFacadeImpl implements ContentFacade {
     //todo переделать исключение
     @Override
     public Episode getEpisodeFromListByNumber(List<Episode> episodes, Integer episodeNumber) throws RuntimeException {
-        Episode episode = null;
-        if (episodeNumber == null) {
+
+        if (Objects.isNull(episodeNumber)) {
             for (Episode e : episodes) {
                 if (e.getNumberEpisode() == 1) {
-                    episode = e;
-                    return episode;
+                    return e;
                 }
             }
         } else {
             for (Episode e : episodes) {
                 if (e.getNumberEpisode().equals(episodeNumber)) {
-                    episode = e;
-                    return episode;
+                    return e;
                 }
             }
         }

@@ -1,6 +1,10 @@
 package ru.gbjava.kinozen.services;
 
-public interface UrlService <E>{
-    E findByUrl(String url);
+import org.springframework.lang.NonNull;
+
+public interface UrlService<E> {
+
+    E findByUrl(@NonNull String url);
+
     void generateAllUrl();
 }

@@ -11,7 +11,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface SeasonRepository extends JpaRepository<Season, UUID> {
-    List<Season> findAllByContent(Content content);
 
-    Optional<Season> findByContentAndUrl(@NonNull Content content, String url);
+    List<Season> findAllByContent(@NonNull Content content);
+
+    Optional<Season> findByContentAndUrl(@NonNull Content content, @NonNull String url);
 }

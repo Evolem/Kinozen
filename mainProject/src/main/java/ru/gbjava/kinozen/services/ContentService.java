@@ -28,18 +28,18 @@ public class ContentService implements CrudService<Content, UUID> {
 
     @Override
     public Content findById(@NonNull UUID uuid) {
-        return contentRepository.findById(uuid).orElseThrow(()-> new RuntimeException("Content not found! " + uuid));
+        return contentRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Content not found! " + uuid));
     }
 
     //todo нужно получить список по типу
-    public List<Content> findAllByTypeContent(TypeContent type){
+    public List<Content> findAllByTypeContent(TypeContent type) {
         return contentRepository.findAll();
     }
 
     @Override
     @Transactional
-    public void save(Content content) {
-        contentRepository.save(content);
+    public Content save(Content content) {
+        return contentRepository.save(content);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class ContentService implements CrudService<Content, UUID> {
         contentRepository.deleteById(uuid);
     }
 
-    public Content findByUrl(String url){
-        return contentRepository.findContentByUrl(url).orElseThrow(()-> new RuntimeException("Content not found! " + url));
+    public Content findByUrl(String url) {
+        return contentRepository.findContentByUrl(url).orElseThrow(() -> new RuntimeException("Content not found! " + url));
     }
 
     @Transactional

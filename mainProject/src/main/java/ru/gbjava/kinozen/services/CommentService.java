@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class CommentService implements CrudService <Comment, UUID> {
+public class CommentService implements CrudService<Comment, UUID> {
 
     private final CommentRepository commentRepository;
 
@@ -29,8 +29,8 @@ public class CommentService implements CrudService <Comment, UUID> {
 
     @Override
     @Transactional
-    public void save(Comment comment) {
-        commentRepository.save(comment);
+    public Comment save(Comment comment) {
+        return commentRepository.save(comment);
     }
 
     @Override
