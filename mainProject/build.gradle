@@ -32,6 +32,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
 
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.3.RELEASE'
+    compileOnly 'org.springframework.boot:spring-boot-devtools'
 
     runtimeOnly 'org.postgresql:postgresql'
     compile group: 'com.ibm.icu', name: 'icu4j', version: '67.1'

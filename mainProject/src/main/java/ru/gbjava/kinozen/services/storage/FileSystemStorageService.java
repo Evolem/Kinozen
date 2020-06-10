@@ -11,24 +11,34 @@ import java.util.stream.Stream;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import ru.gbjava.kinozen.configurations.StorageProperties;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
 
+import javax.annotation.PostConstruct;
+
+
 @Service
+@RequiredArgsConstructor
 public class FileSystemStorageService implements StorageService{
 
-    private final Path rootLocation;
+ //   @Value("${files.storage.video_download}")
+    private Path rootLocation;
 
-    @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
-        this.rootLocation = properties.getLocation();
+//    @Autowired
+//    public FileSystemStorageService(StorageProperties properties) {
+//        this.rootLocation = properties.getLocation();
+//    }
+
+    @PostConstruct
+    private void initPath(){
+        this.rootLocation = Paths.get("C:\\video_download");
     }
 
     @Override
