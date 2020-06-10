@@ -1,8 +1,6 @@
 package ru.gbjava.kinozen.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +13,6 @@ import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
-import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +25,6 @@ import java.util.List;
 public class ContentController {
 
     private final ContentFacade contentFacade;
-    private final PlayerFeignClient playerFeignClient;
     //todo поправить логику добавления!
 
     @GetMapping
@@ -67,10 +63,6 @@ public class ContentController {
         return "contentPage";
     }
 
-    @GetMapping(value = "video/{id}")
-    public ResponseEntity<byte[]> getContentFile(@RequestHeader HttpHeaders headers, @PathVariable String id) {
-        return playerFeignClient.getContentFile(headers, id);
-    }
 
     @GetMapping("/add")
     public String add(Model model) {
