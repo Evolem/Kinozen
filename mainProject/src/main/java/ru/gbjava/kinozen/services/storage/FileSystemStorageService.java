@@ -1,28 +1,24 @@
 package ru.gbjava.kinozen.services.storage;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Objects;
-import java.util.stream.Stream;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
 import ru.gbjava.kinozen.utilites.FileNameGenerator;
 
-import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 
 @Service
