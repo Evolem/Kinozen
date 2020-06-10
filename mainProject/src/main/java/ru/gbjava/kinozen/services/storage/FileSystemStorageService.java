@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import lombok.RequiredArgsConstructor;
@@ -45,17 +46,15 @@ public class FileSystemStorageService implements StorageService{
     @Override
     public String store(MultipartFile file) {
 
+        // Использование утилиты для генерации имен
+        String filename = String.format("%s" + "." + "%s", FileNameGenerator.generate(rootLocation),
+                Objects.requireNonNull(file.getContentType()).split("/", 2)[1] );
 
-        System.out.println(StringUtils.cleanPath(file.getContentType()));
-
-        // Использование утилиты для генерации имен, вместо StringUtils.cleanPath(file.getOriginalFilename());
-        String filename = FileNameGenerator.generate(rootLocation);
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);
             }
             if (filename.contains("..")) {
-                // This is a security check
                 throw new StorageException(
                         "Cannot store file with relative path outside current directory "
                                 + filename);
