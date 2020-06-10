@@ -22,6 +22,8 @@ import ru.gbjava.kinozen.services.storage.StorageService;
 @RequiredArgsConstructor
 public class FileUploadController {
 
+    //todo необходимо настроить безопасность для этого контроллера!
+
     private final StorageService storageService;
 
 
@@ -78,7 +80,7 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        return "redirect:/";
+        return "uploadForm";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

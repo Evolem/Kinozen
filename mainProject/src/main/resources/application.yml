@@ -21,7 +21,7 @@ spring:
 
 
 files:
-  storepath:
+  storagepath:
     video_download:  "C:\\video_download"
 
 playerzen:
