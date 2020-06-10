@@ -15,8 +15,8 @@ spring:
       ddl-auto: none
   servlet:
     multipart:
-      max-file-size: 999KB
-      max-request-size: 999KB
+      max-file-size: 2000MB
+      max-request-size: 2000MB
 
 
 
