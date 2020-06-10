@@ -36,6 +36,8 @@ public class FileSystemStorageService implements StorageService{
 //        this.rootLocation = properties.getLocation();
 //    }
 
+
+    //todo временный хард код, пока не разберусь с ресурсом
     @PostConstruct
     private void initPath(){
         this.rootLocation = Paths.get("C:\\video_download");
