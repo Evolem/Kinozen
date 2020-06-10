@@ -10,7 +10,6 @@ import ru.gbjava.kinozen.services.storage.StorageService;
 
 @EnableFeignClients
 @SpringBootApplication
-//@EnableConfigurationProperties(StorageProperties.class)
 public class KinozenApplication {
 
 	public static void main(String[] args) {
