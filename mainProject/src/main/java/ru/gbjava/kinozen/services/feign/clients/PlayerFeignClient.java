@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface PlayerFeignClient {
 
     @GetMapping(value = "/video/{id}", produces = "application/octet-stream")
-    ResponseEntity<byte[]> mediaSerial(@RequestHeader HttpHeaders headers, @PathVariable String id);
+    ResponseEntity<byte[]> getContentFile(@RequestHeader HttpHeaders headers, @PathVariable String id);
 }
