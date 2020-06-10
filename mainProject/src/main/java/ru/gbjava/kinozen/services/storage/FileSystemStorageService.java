@@ -10,16 +10,14 @@ import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
+import ru.gbjava.kinozen.utilites.FileNameGenerator;
 
 import javax.annotation.PostConstruct;
 
@@ -44,8 +42,10 @@ public class FileSystemStorageService implements StorageService{
     }
 
     @Override
-    public void store(MultipartFile file) {
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+    public String store(MultipartFile file) {
+
+        // Использование утилиты для генерации имен, вместо StringUtils.cleanPath(file.getOriginalFilename());
+        String filename = FileNameGenerator.generate(rootLocation);
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);
@@ -56,14 +56,19 @@ public class FileSystemStorageService implements StorageService{
                         "Cannot store file with relative path outside current directory "
                                 + filename);
             }
+
+            //todo
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, this.rootLocation.resolve(filename),
                         StandardCopyOption.REPLACE_EXISTING);
             }
+
         }
         catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
+
+        return filename;
     }
 
     @Override
