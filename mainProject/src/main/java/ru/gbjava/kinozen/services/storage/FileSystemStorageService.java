@@ -32,18 +32,6 @@ public class FileSystemStorageService implements StorageService {
     @Value("${files.storage.video_download}")
     private Path rootLocation;
 
-//    @Autowired
-//    public FileSystemStorageService(StorageProperties properties) {
-//        this.rootLocation = properties.getLocation();
-//    }
-
-
-    //todo временный хард код, пока не разберусь с ресурсом
-//    @PostConstruct
-//    private void initPath(){
-//        this.rootLocation = Paths.get("C:\\video_download");
-//    }
-
     @Override
     public String store(MultipartFile file) {
 
