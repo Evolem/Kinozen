@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>PlayerZen</title>
+</head>
+<body>
+<h1>PlayerZen here</h1>
+<br>
+<br>
+<form action="#" th:action="@{/video/}"  method="POST" enctype="multipart/form-data">
+    <div class="form-group col-md-3">
+        <input type="file" class="form-control" name="file"/>фото
+    </div>
+    <button type="submit" class="btn btn-success">добавить</button>
+</form>
+<br>
+<br>
+<br>
+</body>
+</html>
