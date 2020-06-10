@@ -13,10 +13,15 @@ spring:
     show-sql: false
     hibernate:
       ddl-auto: none
+  servlet:
+    multipart:
+      max-file-size: 2000MB
+      max-request-size: 2000MB
+
 
 
 files:
-  storepath:
+  storagepath:
     video_download:  "C:\\video_download"
 
 playerzen:
