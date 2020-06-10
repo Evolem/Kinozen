@@ -18,10 +18,8 @@ spring:
       max-file-size: 2000MB
       max-request-size: 2000MB
 
-
-
 files:
-  storagepath:
+  storage:
     video_download:  "C:\\video_download"
 
 playerzen:
