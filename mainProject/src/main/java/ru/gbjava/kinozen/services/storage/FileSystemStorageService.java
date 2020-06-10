@@ -14,6 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
@@ -43,6 +44,9 @@ public class FileSystemStorageService implements StorageService{
 
     @Override
     public String store(MultipartFile file) {
+
+
+        System.out.println(StringUtils.cleanPath(file.getContentType()));
 
         // Использование утилиты для генерации имен, вместо StringUtils.cleanPath(file.getOriginalFilename());
         String filename = FileNameGenerator.generate(rootLocation);
