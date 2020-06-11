@@ -29,8 +29,8 @@ public class DirectorService implements CrudService<Director, UUID>, UrlService<
 
     @Override
     @Transactional
-    public void save(Director director) {
-        directorRepository.save(director);
+    public Director save(Director director) {
+        return directorRepository.save(director);
     }
 
     @Override

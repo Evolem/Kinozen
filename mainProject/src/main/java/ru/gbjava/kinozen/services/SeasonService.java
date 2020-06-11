@@ -26,8 +26,8 @@ public class SeasonService implements CrudService<Season, UUID> {
     }
 
     @Override
-    public void save(Season object) {
-        seasonRepository.save(object);
+    public Season save(Season object) {
+        return seasonRepository.save(object);
     }
 
     @Override

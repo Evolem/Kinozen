@@ -27,17 +27,17 @@ public class UserService implements UserDetailsService, CrudService<User, UUID> 
     private final RoleRepository roleRepository;
 
     public User findByLogin(String login) {
-        return userRepository.findOneByLogin(login);
+        return userRepository.findOneByLogin(login).orElseThrow(()-> new RuntimeException("Login not found! " + login));
     }
 
     public User getAnonymousUser() {
-        return userRepository.findOneByLogin("anonymous");
+        return userRepository.findOneByLogin("anonymous").orElseThrow(()-> new RuntimeException("Login not found! anon"));
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findOneByLogin(username);
+        User user = userRepository.findOneByLogin(username).orElseThrow(()-> new RuntimeException("Username not found! " + username));
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password");
         }
@@ -72,7 +72,7 @@ public class UserService implements UserDetailsService, CrudService<User, UUID> 
 
     public User saveNewUser(UserDto userDto){
         if(userDto.getRoles() == null || userDto.getRoles().isEmpty()){
-            userDto.addRole(roleRepository.getByRole("ROLE_USER"));
+            userDto.addRole(roleRepository.getByRole("ROLE_USER").orElseThrow(()-> new RuntimeException("Role not found!")));
         }
         if (userDto.getNewPassword1() != null) {
             userDto.setPassword(new BCryptPasswordEncoder().encode(userDto.getNewPassword1()));
@@ -112,8 +112,8 @@ public class UserService implements UserDetailsService, CrudService<User, UUID> 
     }
 
     @Override
-    public void save(User user) {
-        userRepository.save(user);
+    public User save(User user) {
+       return userRepository.save(user);
     }
 
     @Override
