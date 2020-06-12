@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление сезона</title>
+</head>
+<body>
+
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+</div>
+
+<form th:action="@{/seasons/saveSeason}" th:object="${seasonDto}" method="POST">
+    <div class="form-row">
+        <input th:field="*{id}" type="hidden">
+        <div>
+            <label>Описание</label>
+            <input th:field="*{description}" type="text" placeholder="напиши описание">
+        </div>
+        <div>
+            <label>Номер сезона</label>
+            <input th:field="*{numberSeason}" type="number" placeholder="Цена">
+        </div>
+
+        <div>
+            <label>Url</label>
+            <input th:field="*{url}" type="text" placeholder="адресс">
+        </div>
+
+    </div>
+    <div>
+        <div>
+            <label>Content</label>
+            <select th:field="*{contentId}">
+                <option disabled selected th:text="${currentContentName}" th:value="${seasonDto.contentId}"></option>
+                <option th:each="c : ${contentList}" th:text="${c.name}" th:value="${c.id}"/>
+            </select>
+        </div>
+    </div>
+    <div>
+        <button type="submit">Сохранить</button>
+    </div>
+</form>
+
+
+</body>
+</html>
