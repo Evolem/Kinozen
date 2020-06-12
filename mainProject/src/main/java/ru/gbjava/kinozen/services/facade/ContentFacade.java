@@ -1,7 +1,8 @@
 package ru.gbjava.kinozen.services.facade;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
@@ -28,4 +29,5 @@ public interface ContentFacade {
 
     void checkTypeAndSetupModel(Model model, Content content);
 
+    ResponseEntity<byte[]> getContentFile(HttpHeaders headers, String id);
 }

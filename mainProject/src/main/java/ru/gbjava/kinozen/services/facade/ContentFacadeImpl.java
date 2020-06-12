@@ -1,11 +1,11 @@
 package ru.gbjava.kinozen.services.facade;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
-import ru.gbjava.kinozen.dto.mappers.EpisodeMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
@@ -13,6 +13,7 @@ import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.EpisodeService;
 import ru.gbjava.kinozen.services.SeasonService;
+import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +26,7 @@ public class ContentFacadeImpl implements ContentFacade {
     private final ContentService contentService;
     private final SeasonService seasonService;
     private final EpisodeService episodeService;
+    private final PlayerFeignClient playerFeignClient;
 
     @Override
     public List<Content> findAllContent() {
@@ -93,4 +95,8 @@ public class ContentFacadeImpl implements ContentFacade {
         model.addAttribute("description", content.getDescription());
     }
 
+    @Override
+    public ResponseEntity<byte[]> getContentFile(HttpHeaders headers, String id) {
+        return playerFeignClient.getContentFile(headers, id);
+    }
 }
