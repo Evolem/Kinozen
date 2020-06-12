@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
@@ -31,20 +32,15 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public String store(MultipartFile file) {
 
+        String[] fileNameArr = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
+        String extension = fileNameArr[fileNameArr.length - 1];
+
         // Использование утилиты для генерации имен
-        String filename = String.format("%s" + "." + "%s", FileNameGenerator.generate(rootLocation),
-                Objects.requireNonNull(file.getContentType()).split("/", 2)[1]);
+        String filename = String.format("%s" + "." + "%s", FileNameGenerator.generate(rootLocation), extension);
 
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);
-            }
-            if (filename.contains("..")) {
-
-                // Защита от перехода на другой уровень каталога
-                throw new StorageException(
-                        "Cannot store file with relative path outside current directory "
-                                + filename);
             }
 
             try (InputStream inputStream = file.getInputStream()) {
