@@ -33,9 +33,8 @@ public class ContentFileController {
         return "page";
     }
 
-    @PostMapping("/")
-    public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        service.uploadContentFile(file, "f363f0d0-7417-4fba-a00b-f250aecd3958");
-        return "redirect:/video/";
+    @PostMapping(value = "/{uuid}")
+    public void uploadContentFile(@RequestParam("file") MultipartFile file, @PathVariable String uuid) throws IOException {
+        service.uploadContentFile(file, uuid);
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
@@ -96,7 +97,14 @@ public class ContentFacadeImpl implements ContentFacade {
     }
 
     @Override
-    public ResponseEntity<byte[]> getContentFile(HttpHeaders headers, String id) {
-        return playerFeignClient.getContentFile(headers, id);
+    public ResponseEntity<byte[]> getContentFile(HttpHeaders headers, String uuid) {
+        return playerFeignClient.getContentFile(headers, uuid);
     }
+
+    @Override
+    public void uploadContentFile(MultipartFile file, String uuid) {
+        playerFeignClient.uploadContentFile(file, uuid);
+    }
+
+
 }
