@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.playerzen.exceptions.EntityNotFoundException;
-import ru.gbjava.playerzen.services.MediaFileService;
+import ru.gbjava.playerzen.services.ContentFileService;
 
 import java.io.IOException;
 
@@ -15,9 +15,9 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/video")
 @RequiredArgsConstructor
-public class MediaFileController {
+public class ContentFileController {
 
-    private final MediaFileService service;
+    private final ContentFileService service;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ResourceRegion> getContentFile(@RequestHeader HttpHeaders headers, @PathVariable String id) throws IOException, EntityNotFoundException {
@@ -35,7 +35,7 @@ public class MediaFileController {
 
     @PostMapping("/")
     public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        service.uploadMediaFile(file, "f363f0d0-7417-4fba-a00b-f250aecd3958");
+        service.uploadContentFile(file, "f363f0d0-7417-4fba-a00b-f250aecd3958");
         return "redirect:/video/";
     }
 }
