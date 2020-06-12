@@ -1,9 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/kinozen?useUnicode=true&characterEncoding=utf8
-    username: postgres
-    password: se1234
-
-files:
-  storage:
-    video_download:  "C:\\video_download"
