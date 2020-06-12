@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### private files ###
+/mainProject/src/main/resources/application-private.yml
