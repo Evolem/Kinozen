@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tbl_media_file")
-public class MediaFile {
+public class ContentFile {
 
     @Id
     @Column(name = "id_media_file")
@@ -22,7 +22,7 @@ public class MediaFile {
     private Long id;
 
     @Column(name = "uuid_media")
-    private UUID media;
+    private UUID content;
 
     @Column(name = "name_media_file")
     private String nameFile;
