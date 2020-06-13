@@ -1,8 +1,6 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -10,9 +8,11 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@Builder
 @Setter
 @Getter
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "tbl_history")
 public class History {
 
