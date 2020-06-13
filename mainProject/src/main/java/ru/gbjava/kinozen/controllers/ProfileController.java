@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
 import ru.gbjava.kinozen.persistence.entities.User;
+import ru.gbjava.kinozen.services.HistoryService;
 import ru.gbjava.kinozen.services.UserService;
 
 import java.security.Principal;
@@ -20,11 +21,13 @@ import java.security.Principal;
 @RequestMapping("/profile")
 public class ProfileController {
     private final UserService userService;
+    private final HistoryService historyService;
 
     @GetMapping
     public String profilePage(final Principal principal, Model model, UserDto userDto) {
         final User user = userService.findByLogin(principal.getName());
         model.addAttribute("userDto", UserMapper.INSTANCE.toDto(user));
+        model.addAttribute("history", historyService.findHistoryByUserId(user.getId()));
         return "profile";
     }
 
