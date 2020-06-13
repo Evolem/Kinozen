@@ -36,6 +36,25 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Сохранить изменения</button>
             </form>
+
+            <div th:if="${history.size() > 0}">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Дата просмотра</th>
+                        <th>Название</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="historyRecord: ${history}">
+                        <td th:text = "${historyRecord.getDate()}"/>
+                        <td>
+                            <a th:href="@{'/content/' + ${historyRecord.getContent().getUrl()}}"> [[ ${historyRecord.getContent().getName()} ]] </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </body>
 </html>
