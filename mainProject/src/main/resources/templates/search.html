@@ -1,10 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8"/>
+    <title>Поиск</title>
+    <link rel="stylesheet" th:href="@{../static/css/stylesheet.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 </head>
+
 <body>
-Страница поиска
+
+<div class="container">
+    <div th:replace="~{navigation :: navigation(Home)}" />
+
+    <h1>Поиск</h1>
+
+    <h3 th:text="#{filters}"></h3>
+    <form th:action="@{/search}" method="GET">
+        <div class="input-group">
+            <input class="form-control" th:value="${param.name}" name="name" type="text"
+                   th:placeholder="Название фильма"/>
+<!--            <input class="form-control" th:value="${param.max_price}" name="max_price" type="number"-->
+<!--                   th:placeholder="#{filters.price.max}"/>-->
+<!--            <select name="cat_id">-->
+<!--                <option th:text="'Не выбрана'" th:value="null"/>-->
+<!--                <option th:each="c : ${categories}" th:text="${c.title}" th:selected="${param.cat_id != null && c.id.toString() == param.cat_id.toString()}"-->
+<!--                        th:value="${c.id}"/>-->
+<!--            </select>-->
+        </div>
+        <br>
+        <button type="submit" th:text="Поиск" class="btn btn-warning"></button>
+        <a class="btn btn-warning" th:href="@{'/search?p=1'}" th:text="Сбросить фильтр"></a>
+    </form>
+    <br>
+    <h3 th:text="Список фильмов"></h3>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th></th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="content : ${page.content}">
+            <td th:text="${content.id}"/>
+            <td>
+                <a style="font-weight: bold" th:text="${content.name}" th:href="@{ ${content.url}}"/>
+            </td>
+            <td>
+                <span th:text="${content.description}"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{'/?p='+ ${page.previousOrFirstPageable().getPageNumber() + 1} + ${filtersDef}}" th:text="#{paging.prev}"></a>
+            </li>
+            <li class="page-item" th:classappend="${page.getNumber() + 1 == i ? 'active' : ''}"
+                th:each="i : ${#numbers.sequence(1, page.getTotalPages())}">
+                <a class="page-link" th:text="${i}" th:href="@{'/?p=' + ${i} + ${filtersDef}}"></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{'/?p='+ ${page.nextOrLastPageable().getPageNumber() + 1} + ${filtersDef}}" th:text="#{paging.next}"></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
 </body>
 </html>

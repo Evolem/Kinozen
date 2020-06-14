@@ -8,7 +8,7 @@ public class ContentSpecifications {
     public static Specification<Content> nameContains(String word) {
         return (Specification<Content>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("name"), "%"+word+"%");
     }
-    public static Specification<Content> typeContentEquals(String type) {
-        return (Specification<Content>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("type"), type);
-    }
+//    public static Specification<Content> typeContentEquals(String type) {
+//        return (Specification<Content>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("type"), type);
+//    }
 }
