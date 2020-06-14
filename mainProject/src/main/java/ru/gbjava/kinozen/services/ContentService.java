@@ -17,10 +17,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 @Service
@@ -72,7 +69,7 @@ public class ContentService implements CrudService<Content, UUID> {
         }
     }
 
-    public List<Content> findAll(String name, Date releasedFrom, Date releasedTo, boolean visible, Integer typeOrdinal) {
+    public List<Content> findAll(String name, Date releasedFrom, Date releasedTo, Boolean visible, Integer typeOrdinal) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Content> criteriaQuery = criteriaBuilder.createQuery(Content.class);
         Root<Content> root = criteriaQuery.from(Content.class);
@@ -91,8 +88,12 @@ public class ContentService implements CrudService<Content, UUID> {
             predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("released"), releasedTo));
         }
 
-        if(!visible){
-            predicates.add(criteriaBuilder.isFalse(root.get("visible")));
+        if(visible != null){
+            if(visible){
+                predicates.add(criteriaBuilder.isTrue(root.get("visible")));
+            }else {
+                predicates.add(criteriaBuilder.isFalse(root.get("visible")));
+            }
         }
 
         if(typeOrdinal != null){
@@ -104,6 +105,17 @@ public class ContentService implements CrudService<Content, UUID> {
 
 
         return entityManager.createQuery(criteriaQuery).getResultList();
+
+    }
+
+    public void changeVisible(UUID uuid) {
+        Optional<Content> optionalContent = contentRepository.findById(uuid);
+        if (optionalContent.isPresent()){
+            Content content = optionalContent.get();
+            content.setVisible(!content.getVisible());
+            contentRepository.save(content);
+        }
+
 
     }
 }

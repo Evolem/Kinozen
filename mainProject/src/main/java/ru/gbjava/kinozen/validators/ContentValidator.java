@@ -25,6 +25,10 @@ public class ContentValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
 
+        ContentDto contentDto = ((ContentDto) target);
+        if (contentDto.getName().length() < 3 || contentDto.getName().length() > 30)  {
+            errors.rejectValue("name", "Error", "Имя не корректного размера");
+        }
     }
 
 

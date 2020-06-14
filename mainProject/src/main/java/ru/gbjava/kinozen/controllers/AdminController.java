@@ -35,13 +35,15 @@ public class AdminController {
             @RequestParam(required = false) Integer type
     ) {
 
+
         List<Content> contentList = contentService.findAll(
                 name,
                 releasedFrom,
                 releasedTo,
                 visible,
                 type);
-        model.addAttribute("content", ContentMapper.INSTANCE.toDtoList(contentList));
+        model.addAttribute("contents", ContentMapper.INSTANCE.toDtoList(contentList));
+        model.addAttribute("visible", true);
         return "admin";
     }
 
@@ -66,8 +68,16 @@ public class AdminController {
 
     }
 
+    @GetMapping(value = "/visible/{uuid}")
+    public String changeVisible(@PathVariable("uuid")UUID uuid){
+        contentService.changeVisible(uuid);
+        return "redirect:/admin";
+    }
+
+
+
     @PostMapping
-    public String saveWorkflow(ContentDto contentDto, BindingResult bindingResult, Model model) {
+    public String saveContent(ContentDto contentDto, BindingResult bindingResult, Model model) {
 
 
         contentValidator.validate(contentDto, bindingResult);
@@ -82,7 +92,7 @@ public class AdminController {
 
 
     @GetMapping("/new")
-    public String newWorkflow(Model model){
+    public String newContent(Model model){
 
         model.addAttribute("content",
                 new ContentDto()
