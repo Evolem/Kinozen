@@ -12,8 +12,14 @@ create unique index if not exists tbl_collection_id_collection_uindex
 
 create table if not exists tbl_content_collection
 (
-	id_collection uuid not null
-		constraint tbl_content_collection_tbl_collection_id_collection_fk
-			references tbl_collection,
-	id_content uuid not null
+    id_content uuid not null
+        constraint tbl_content_collection_pk
+            primary key,
+    id_collection uuid not null
+        constraint tbl_content_collection_tbl_collection_id_collection_fk
+            references tbl_collection
 );
+
+create unique index tbl_content_collection_id_content_uindex
+    on tbl_content_collection (id_content);
+
