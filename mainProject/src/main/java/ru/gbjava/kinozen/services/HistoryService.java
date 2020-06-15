@@ -6,9 +6,7 @@ import ru.gbjava.kinozen.persistence.entities.History;
 import ru.gbjava.kinozen.persistence.repositories.HistoryRepository;
 
 import javax.transaction.Transactional;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -18,27 +16,24 @@ public class HistoryService {
     private final ContentService contentService;
 
     public List<History> findHistoryByUserId(UUID id){
-        List<History> history = historyRepository.findAllByIdUser(id).orElse(null);
-        assert history != null;
-        history.sort((h1, h2) -> h2.getDate().compareTo(h1.getDate()));
 
+        List<History> history = historyRepository.findAllByIdUser(id).orElse(new ArrayList<>());
+        history.sort((h1, h2) -> h2.getDate().compareTo(h1.getDate()));
         return history;
     }
 
     @Transactional
     public History save(UUID userId, UUID contentId){
-        historyRepository
-                .findByIdUserAndContentId(userId, contentId)
-                .ifPresent(h -> historyRepository.deleteById(h.getId()));
 
-        History history = History.builder()
-                .idUser(userId)
-                .content(contentService.findById(contentId))
-                .date(new Date())
-                .build();
+       History history = historyRepository
+               .findByIdUserAndContentId(userId, contentId)
+               .orElse(History.builder()
+                       .idUser(userId)
+                       .content(contentService.findById(contentId))
+                       .build());
+       history.setDate(new Date());
 
-        return historyRepository.save(history);
+       return historyRepository.save(history);
     }
-
 
 }
