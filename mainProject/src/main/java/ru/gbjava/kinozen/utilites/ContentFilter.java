@@ -9,18 +9,17 @@ import java.util.Map;
 
 @Getter
 public class ContentFilter {
-        private Specification<Content> spec;
-        private StringBuilder filterDefinition;
+    private Specification<Content> spec;
+    private StringBuilder filterDefinition;
 
-        public ContentFilter(Map<String, String> map) {
-            this.spec = Specification.where(null);
-            this.filterDefinition = new StringBuilder();
-            if (map.containsKey("name") && !map.get("name").isEmpty()) {
-                String name = map.get("name");
-                spec = spec.and(ContentSpecifications.nameContains(name));
-                filterDefinition.append("&name=").append(name);
-            }
+    public ContentFilter(Map<String, String> map) {
+        this.spec = Specification.where(null);
+        this.filterDefinition = new StringBuilder();
+        if (map.containsKey("name") && !map.get("name").isEmpty()) {
+            String name = map.get("name");
+            spec = spec.and(ContentSpecifications.nameContains(name));
+            filterDefinition.append("&name=").append(name);
         }
     }
-
 }
+
