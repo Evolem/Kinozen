@@ -25,12 +25,15 @@
                     <form th:action="@{/authenticateTheUser}" method="post">
                         <div class="registration__form-inputs">
                             <div class="registration__form-input_wrapper">
-                                <input type="text" name="username" class="registration__form-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите логин"/>
+                                <input type="text" name="username" class="registration__form-input"
+                                       id="exampleInputEmail1" aria-describedby="emailHelp"
+                                       placeholder="Введите логин"/>
                             </div>
                             <div class="registration__form-input_wrapper">
-                                <input type="password" name="password" class="registration__form-input" id="exampleInputPassword1" placeholder="Введите пароль"/>
+                                <input type="password" name="password" class="registration__form-input"
+                                       id="exampleInputPassword1" placeholder="Введите пароль"/>
                                 <div class="registration__eye">
-                                    <img src="" class="registration__eye-img"/>
+                                    <img th:src="@{/images/icons/eye.png}" class="registration__eye-img"/>
                                 </div>
                             </div>
                         </div>
