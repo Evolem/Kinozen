@@ -33,3 +33,4 @@ out/
 
 ### private files ###
 /mainProject/src/main/resources/application-private.yml
+/playerzen/src/main/resources/application-private.yml

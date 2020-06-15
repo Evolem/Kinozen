@@ -4,11 +4,10 @@ server:
     context-path: /playerzen
 
 spring:
+  profiles:
+    include: 'private'
   datasource:
-    url: jdbc:postgresql://localhost:5432/playerzen
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: 6pEvtOU5
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     show-sql: false
@@ -18,7 +17,3 @@ spring:
     multipart:
       max-file-size: 5GB
       max-request-size: 5GB
-
-files:
-  storepath:
-    storage:  "D:\\PlayerZenStorage"

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.playerzen.exceptions.EntityNotFoundException;
-import ru.gbjava.playerzen.persistance.entities.MediaFile;
-import ru.gbjava.playerzen.persistance.repositories.MediaFileRepository;
+import ru.gbjava.playerzen.persistance.entities.ContentFile;
+import ru.gbjava.playerzen.persistance.repositories.ContentFileRepository;
 import ru.gbjava.playerzen.utilites.FileNameGenerator;
 
 import java.io.IOException;
@@ -28,50 +28,50 @@ import static java.lang.Math.min;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MediaFileService {
+public class ContentFileService {
 
-    private final MediaFileRepository repository;
+    private final ContentFileRepository repository;
 
-    private MediaFile mediaFile;
+    private ContentFile contentFile;
 
     @Value("${files.storepath.storage}")
-    private Path MEDIA_STORE;
+    private Path STORAGE;
 
-    public MediaFile getMediaFile(String name) throws EntityNotFoundException {
-        return  repository.findByMedia(UUID.fromString(name)).orElseThrow(() -> new EntityNotFoundException("File not found: " + name));
+    public ContentFile getContentFile(String name) throws EntityNotFoundException {
+        return  repository.findByContent(UUID.fromString(name)).orElseThrow(() -> new EntityNotFoundException("File not found: " + name));
     }
 
     @Transactional
-    public void uploadMediaFile(MultipartFile file, String uuidMedia) {
+    public void uploadContentFile(MultipartFile file, String uuidContent) {
 
-        if (repository.findByMedia(UUID.fromString(uuidMedia)).isPresent()) {
-            log.error("Content {} already exists", uuidMedia);
+        if (repository.findByContent(UUID.fromString(uuidContent)).isPresent()) {
+            log.error("Content {} already exists", uuidContent);
             return;
         }
 
         try {
             if (file.getBytes().length != 0) {
-                String uploadedFileName = FileNameGenerator.generate(MEDIA_STORE) + ".mp4";
-                Path targetLocation = MEDIA_STORE.resolve(uploadedFileName);
+                String uploadedFileName = FileNameGenerator.generate(STORAGE) + ".mp4";
+                Path targetLocation = STORAGE.resolve(uploadedFileName);
                 Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-                MediaFile mediaFile = MediaFile.builder()
-                        .media(UUID.fromString(uuidMedia))
+                ContentFile contentFile = ContentFile.builder()
+                        .content(UUID.fromString(uuidContent))
                         .nameFile(uploadedFileName)
                         .build();
-                repository.save(mediaFile);
+                repository.save(contentFile);
 
-                log.info("File {}, UUID: {} has been successfully uploaded!", uploadedFileName, uuidMedia);
+                log.info("File {}, UUID: {} has been successfully uploaded!", uploadedFileName, uuidContent);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public ResourceRegion getResourceRegion(HttpHeaders headers, String media) throws MalformedURLException, EntityNotFoundException {
-        checkMediaFile(media);
+    public ResourceRegion getResourceRegion(HttpHeaders headers, String content) throws MalformedURLException, EntityNotFoundException {
+        checkContentFile(content);
 
-        UrlResource resource = new UrlResource(String.format("file:%s/%s", MEDIA_STORE, mediaFile.getNameFile()));
+        UrlResource resource = new UrlResource(String.format("file:%s/%s", STORAGE, contentFile.getNameFile()));
 
         return resourceRegion(resource, headers);
     }
@@ -106,9 +106,9 @@ public class MediaFileService {
 
     }
 
-    private void checkMediaFile(String media) throws EntityNotFoundException {
-        if (mediaFile == null || !mediaFile.getMedia().equals(UUID.fromString(media))) {
-            mediaFile = repository.findByMedia(UUID.fromString(media)).orElseThrow(() -> new EntityNotFoundException("File not found: " + media));
+    private void checkContentFile(String content) throws EntityNotFoundException {
+        if (contentFile == null || !contentFile.getContent().equals(UUID.fromString(content))) {
+            contentFile = repository.findByContent(UUID.fromString(content)).orElseThrow(() -> new EntityNotFoundException("File not found: " + content));
         }
     }
 }

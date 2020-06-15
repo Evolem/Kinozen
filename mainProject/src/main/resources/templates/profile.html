@@ -2,59 +2,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Профиль</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <head th:replace="blocks/header.html :: head"></head>
 </head>
-    <body>
-        <div class="container">
-            <h1>Профиль пользователя <span sec:authentication="name"></span></h1>
-            <hr/>
-            <a th:href="@{~/kinozen/profile/password}" class="btn btn-primary btn-sm active" role="button">Сменить пароль</a>
-            <hr/>
-            <form action="#" th:action="@{/profile/change}" th:object="${userDto}" method="POST">
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">E-mail</label>
-                    <div class="col-sm-10">
-                        <input type="text" th:field="*{email}" class="form-control" th:value=${email} th:placeholder="Email" />
-                        <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
+<body class="custom_class">
+<div id="__next">
+    <div class="wrapper settings-page-wrapper">
+        <div class="wrapper settings-page-wrapper">
+            <head th:replace="blocks/header.html :: menu"></head>
+            <div class="content ">
+                <div class="settings">
+                    <div class="settings__left padTop">
+                        <div class="breadcrumbs">
+                            <div class="breadcrumbs__item"><a class="breadcrumbs__href" href="/">Главная</a>&nbsp;/&nbsp;
+                            </div>
+                            <div class="breadcrumbs__item">Настройки</div>
+                        </div>
+                        <h1>Настройки</h1>
+                        <div class="settings__menu">
+                            <div class="settings__menu-title active">
+                                <div class="settings__menu-title_text">Профили</div>
+                            </div>
+                            <div class="settings__menu-title">
+                                <div class="settings__menu-title_text">Аккаунт</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settings__right padTop">
+                        <div class="settings__content">
+                            <div class="settings-item">
+                                <h1>Профили</h1>
+                                <div class="settings-item__content flex settings-item__profiles">
+                                    <div class="settings-item__profile active">
+                                        <img class="settings-item__profile-img" src="">
+                                        <div class="settings-item__profile-title">Мой профиль</div>
+                                        <div class="settings-item__profile-edit">Редактировать</div>
+                                    </div>
+                                    <div class="settings-item__profile settings-item__profile_new">
+                                        <img class="settings-item__profile-img"
+                                             src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGNpcmNsZSBzdHJva2U9IiM1NjVDNjciIHN0cm9rZS13aWR0aD0iMiIgY3g9IjYwIiBjeT0iNjAiIHI9IjU5Ii8+CiAgICA8cGF0aCBkPSJNNjEuNSA1OWgyNy4yNWExLjI1IDEuMjUgMCAwIDEgMCAyLjVINjEuNXYyNy4yNWExLjI1IDEuMjUgMCAwIDEtMi41IDBWNjEuNUgzMS4yNWExLjI1IDEuMjUgMCAwIDEgMC0yLjVINTlWMzEuMjVhMS4yNSAxLjI1IDAgMCAxIDIuNSAwVjU5eiIgZmlsbD0iIzU2NUM2NyIvPgogIDwvZz4KPC9zdmc+Cg==">
+                                        <div class="settings-item__profile-title">Новый профиль</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Имя</label>
-                    <div class="col-sm-10">
-                        <input type="text" th:field="*{name}" class="form-control" th:value=${name} th:placeholder="Name" />
-                        <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Текущий пароль</label>
-                    <div class="col-sm-10">
-                        <input type="password" th:field="*{password}" class="form-control" th:placeholder="Password" />
-                        <small class="form-text text-muted" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</small>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-            </form>
-
-            <div th:if="${history != null}">
-                <table class="table table-hover">
-                    <thead class="thead-light">
-                    <tr>
-                        <th>Дата просмотра</th>
-                        <th>Название</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="historyRecord: ${history}">
-                        <td th:text = "${historyRecord.getDate()}"/>
-                        <td>
-                            <a th:href="@{'/content/' + ${historyRecord.getContent().getUrl()}}"> [[ ${historyRecord.getContent().getName()} ]] </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
+            <head th:replace="blocks/footer.html :: footer"></head>
         </div>
-    </body>
+    </div>
+</div>
+<script src="js/js_2.js"></script>
+</body>
 </html>

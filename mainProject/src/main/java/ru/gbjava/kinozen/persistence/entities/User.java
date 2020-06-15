@@ -23,7 +23,7 @@ public class User {
 
     @Id
     @Column(name = "id_user")
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue
     private UUID id;
 
     @Column(name = "login_user")
