@@ -24,7 +24,6 @@ public class Collection {
     @Column(name = "name_collection")
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "id_content")
+    @OneToMany(mappedBy = "collection")
     private List<Content> contentList;
 }

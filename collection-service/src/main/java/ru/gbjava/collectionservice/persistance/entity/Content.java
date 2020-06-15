@@ -1,5 +1,6 @@
 package ru.gbjava.collectionservice.persistance.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ public class Content {
     @Column(name = "id_content")
     private UUID id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_collection")
     private Collection collection;
