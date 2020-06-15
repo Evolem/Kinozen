@@ -28,7 +28,7 @@ public class RegistrationController {
 
     @GetMapping
     public String showReg(Model model){
-        model.addAttribute("userPojo", new UserDto());
+        model.addAttribute("userDto", new UserDto());
         return "registration";
     }
 
@@ -37,7 +37,7 @@ public class RegistrationController {
         regUserDtoValidator.validate(userDto, bindingResult);
 
         if(bindingResult.hasErrors()) {
-            model.addAttribute("userPojo", userDto);
+            model.addAttribute("userDto", userDto);
             return "registration";
         }
         userService.saveNewUser(userDto);
