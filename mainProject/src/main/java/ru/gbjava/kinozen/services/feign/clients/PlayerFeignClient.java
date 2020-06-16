@@ -10,8 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 public interface PlayerFeignClient {
 
     @GetMapping(value = "/video/{uuid}", produces = "application/octet-stream")
-    ResponseEntity<byte[]> getContentFile(@RequestHeader HttpHeaders headers, @PathVariable(name = "uuid") String uuid);
+    ResponseEntity<byte[]> getContentFile(@RequestHeader HttpHeaders headers, @PathVariable String uuid);
 
     @PostMapping(value = "/video/{uuid}", consumes = "multipart/form-data")
-    void uploadContentFile(@RequestParam("file") MultipartFile file, @PathVariable(name = "uuid") String uuid);
+    void uploadContentFile(@RequestParam("file") MultipartFile file, @PathVariable String uuid);
 }
