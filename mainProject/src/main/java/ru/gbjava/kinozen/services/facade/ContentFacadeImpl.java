@@ -11,13 +11,16 @@ import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
+import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.EpisodeService;
 import ru.gbjava.kinozen.services.SeasonService;
+import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -28,6 +31,7 @@ public class ContentFacadeImpl implements ContentFacade {
     private final SeasonService seasonService;
     private final EpisodeService episodeService;
     private final PlayerFeignClient playerFeignClient;
+    private final UserService userService;
 
     @Override
     public List<Content> findAllContent() {
@@ -106,5 +110,17 @@ public class ContentFacadeImpl implements ContentFacade {
         playerFeignClient.uploadContentFile(file, uuid);
     }
 
+    @Override
+    public void likeContentByUser(String login, String contentUrl) {
+        User user = userService.findByLogin(login);
+        Content content = findContentByUrl(contentUrl);
+        Set<Content> likedContent = user.getLikedContent();
 
+        if (likedContent.contains(content)) {
+            likedContent.remove(content);
+        } else {
+            likedContent.add(content);
+        }
+        userService.save(user);
+    }
 }

@@ -51,4 +51,7 @@ public class Content {
 
     @ManyToMany(mappedBy = "contents")
     Set<Director> directors;
+
+    @ManyToMany(mappedBy = "likedContent")
+    Set<User> likes;
 }

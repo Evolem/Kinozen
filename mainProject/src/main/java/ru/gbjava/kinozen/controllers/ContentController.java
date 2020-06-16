@@ -17,6 +17,7 @@ import ru.gbjava.kinozen.services.facade.ContentFacade;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -84,4 +85,9 @@ public class ContentController {
         response.sendRedirect(request.getHeader("referer"));
     }
 
+    @PostMapping("/like/{contentUrl}")
+    public void likeContent(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
+        contentFacade.likeContentByUser(principal.getName(), contentUrl);
+        response.sendRedirect(request.getHeader("referer"));
+    }
 }
