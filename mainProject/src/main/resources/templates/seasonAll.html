@@ -11,15 +11,19 @@
 <table>
     <thead>
     <tr>
-        <th>id</th>
-        <th>name</th>
+        <th>Ссылка</th>
+        <th>Edit</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="s, iterator : ${seasons}">
-        <td th:text="${s.id}"></td>
+
         <td>
-            <a th:href="@{'/seasons/edit?id=' + ${s.id}}">[[ ${s.content.name} ]]. Сезон [[ ${s.numberSeason} ]]</a>
+            <a th:href="@{'/content/' + ${s.content.url} + '/' + ${s.url}}">[[ ${s.content.name} ]]. Сезон [[ ${s.numberSeason} ]]</a>
+        </td>
+
+        <td>
+            <a th:href="@{'/seasons/edit?id=' + ${s.id}}">edit</a>
         </td>
     </tr>
     </tbody>
