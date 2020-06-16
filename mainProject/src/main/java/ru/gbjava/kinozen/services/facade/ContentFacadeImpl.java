@@ -20,6 +20,7 @@ import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -113,10 +114,13 @@ public class ContentFacadeImpl implements ContentFacade {
     public void likeContentByUser(String login, String contentUrl) {
         User user = userService.findByLogin(login);
         Content content = findContentByUrl(contentUrl);
+        Set<Content> likedContent = user.getLikedContent();
 
-        user.getLikedContent().add(content);
+        if (likedContent.contains(content)) {
+            likedContent.remove(content);
+        } else {
+            likedContent.add(content);
+        }
         userService.save(user);
     }
-
-
 }
