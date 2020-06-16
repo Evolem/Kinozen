@@ -71,7 +71,6 @@ create table if not exists tbl_genre_content
     id_content uuid default uuid_generate_v4() not null
         constraint tbl_genre_content_tbl_content_id_content_fk
         references tbl_content
-            ON DELETE CASCADE
 );
 
 
@@ -98,8 +97,6 @@ create table if not exists tbl_actor_content
     id_content uuid default uuid_generate_v4() not null
         constraint tbl_actor_content_tbl_media_id_content_fk
         references tbl_content
-            ON DELETE CASCADE
-
 );
 
 
@@ -165,9 +162,7 @@ create table if not exists tbl_season
         primary key,
     id_content uuid not null
         constraint tbl_season_tbl_content_id_content_fk
-        references tbl_content (id_content)
-            ON DELETE CASCADE
-,
+        references tbl_content (id_content),
     number_season integer not null,
     description_season varchar(255)
 );
@@ -196,7 +191,6 @@ create table if not exists tbl_director_content
     id_content uuid default uuid_generate_v4() not null
         constraint tbl_director_content_tbl_content_id_content_fk
         references tbl_content (id_content)
-            ON DELETE CASCADE
 );
 
 
@@ -207,8 +201,7 @@ create table if not exists tbl_episode
         primary key,
     id_season uuid not null
         constraint tbl_episode_tbl_season_id_season_fk
-        references tbl_season
-            ON DELETE CASCADE ,
+        references tbl_season,
     number_episode integer not null,
     name_episode varchar(255) not null,
     description_episode varchar(255),
