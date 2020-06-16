@@ -4,14 +4,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Setter
@@ -47,4 +44,11 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_content_like",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_content"))
+    private Set<Content> likedContent;
 }

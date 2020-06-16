@@ -1,7 +1,11 @@
 package ru.gbjava.kinozen.dto;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Role;
 import ru.gbjava.kinozen.validators.Annotations.UserDtoPassword;
 import ru.gbjava.kinozen.validators.Annotations.UserDtoPasswordMatcher;
@@ -44,6 +48,8 @@ public class UserDto {
     private String password;
 
     private Set<Role> roles;
+
+    private Set<Content> likedContent;
 
     private String newPassword1;
     private String newPassword2;

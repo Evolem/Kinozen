@@ -6,6 +6,7 @@ import lombok.Setter;
 import ru.gbjava.kinozen.persistence.entities.Actor;
 import ru.gbjava.kinozen.persistence.entities.Director;
 import ru.gbjava.kinozen.persistence.entities.Genre;
+import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 
 import java.util.Date;
@@ -27,4 +28,5 @@ public class ContentDto {
     private Set<Genre> genres;
     private Set<Actor> actors;
     private Set<Director> directors;
+    private Set<User> likes;
 }

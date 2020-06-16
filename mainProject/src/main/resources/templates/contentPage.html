@@ -55,6 +55,21 @@
                                 </div>
                                 <br>
 
+                                <div>
+                                    <H3>Рейтинг:</H3>
+                                    <br>
+                                    <div>
+                                        <span th:if="${content.likes.size() == 0}">Пока никто не оценил этот контент</span>
+                                        <span th:if="${content.likes.size() > 0}" th:text="'Понравилось: ' + ${content.likes.size()}"></span>
+                                    </div>
+                                    <div sec:authorize="isAuthenticated()">
+                                        <form th:action="@{'/content/like/' + ${content.url}}" method="post">
+                                            <button type="submit">нравится</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <br>
+
                                 <div class="movie__seasons">
                                     <div class="movie__seasons-title">Сезоны:</div>
                                     <div class="movie__seasons-items">

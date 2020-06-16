@@ -37,4 +37,6 @@ public interface ContentFacade {
     ResponseEntity<byte[]> getContentFile(HttpHeaders headers, String uuid);
 
     void uploadContentFile(MultipartFile file, String uuid);
+
+    void likeContentByUser(String login, String contentUrl);
 }
