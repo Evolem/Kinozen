@@ -75,34 +75,33 @@ public class ContentService implements CrudService<Content, UUID> {
         Root<Content> root = criteriaQuery.from(Content.class);
         List<Predicate> predicates = new ArrayList<>();
 
-        if(name != null && !name.isEmpty()){
-            predicates.add(criteriaBuilder.like(root.get("name"), "%"+name+"%"));
+        if (name != null && !name.isEmpty()) {
+            predicates.add(criteriaBuilder.like(root.get("name"), "%" + name + "%"));
 
         }
 
-        if(releasedFrom != null){
+        if (releasedFrom != null) {
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("released"), releasedFrom));
         }
 
-        if(releasedTo != null){
+        if (releasedTo != null) {
             predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("released"), releasedTo));
         }
 
-        if(visible != null){
-            if(visible){
+        if (visible != null) {
+            if (visible) {
                 predicates.add(criteriaBuilder.isTrue(root.get("visible")));
-            }else {
+            } else {
                 predicates.add(criteriaBuilder.isFalse(root.get("visible")));
             }
         }
 
-        if(typeOrdinal != null){
+        if (typeOrdinal != null) {
             predicates.add(criteriaBuilder.equal(root.get("type"), typeOrdinal));
         }
 
         criteriaQuery.select(root);
         criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[]{})));
-
 
         return entityManager.createQuery(criteriaQuery).getResultList();
 
@@ -110,7 +109,7 @@ public class ContentService implements CrudService<Content, UUID> {
 
     public void changeVisible(UUID uuid) {
         Optional<Content> optionalContent = contentRepository.findById(uuid);
-        if (optionalContent.isPresent()){
+        if (optionalContent.isPresent()) {
             Content content = optionalContent.get();
             content.setVisible(!content.getVisible());
             contentRepository.save(content);

@@ -1,17 +1,16 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 
 import javax.persistence.*;
-
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.AUTO;
 
 @Getter
 @Setter
@@ -22,7 +21,7 @@ public class Content {
 
     @Id
     @Column(name = "id_content")
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = AUTO)
     private UUID id;
 
     @Column(name = "name_content")
