@@ -27,7 +27,7 @@ public class EpisodeService implements CrudService<Episode, UUID> {
 
     @Override
     public Episode save(Episode object) {
-       return episodeRepository.save(object);
+        return episodeRepository.save(object);
     }
 
     @Override

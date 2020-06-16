@@ -28,7 +28,7 @@ public class GenreService implements CrudService<Genre, UUID>, UrlService<Genre>
     @Override
     @Transactional
     public Genre save(Genre genre) {
-       return genreRepository.save(genre);
+        return genreRepository.save(genre);
     }
 
     @Override
