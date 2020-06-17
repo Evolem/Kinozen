@@ -69,12 +69,50 @@
                 </div>
             </div>
 
+            <div class="mb-4" th:if="${content.id != null}">
+                <div th:if="${content.type.ordinal() == 0}">
+                    <h3 class="text-muted">Seasons and episodes</h3>
+                    <table class="table table-sm table-bordered table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Link</th>
+                            <th>Episodes</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="s : ${seasons}">
+                            <td>
+                                <a th:href="@{'/content/' + ${s.content.url} + '/' + ${s.url}}"> [[ ${s.url} ]]</a>
+                            </td>
+                            <td>
+                                <div th:each="e : ${s.episodes}">
+                                    <a href="#" th:text="${e.numberEpisode} +'. '+ ${e.name}"></a>
+                                </div>
+                            </td>
+                            <td th:text="${s.description}"></td>
+
+                            <td>
+                                <a class="btn btn-warning  mb-1" th:href="@{'/admin/season/edit/'+ ${(content.id)}}">Edit</a>
+                                <a class="btn btn-danger mb-1" th:href="@{'/admin/season/delete/'+ ${(content.id)}}">Delete</a>
+                                <a class="btn btn-outline-primary  mb-1" th:href="@{'/admin/episode/add/'+ ${(content.id)}}">+ episode</a>
+                            </td>
+
+                        </tr>
+                    </table>
+                    <a class="btn btn-outline-primary mb-1" th:href="@{'/admin/season/add/'+ ${(content.id)}}">Add season</a>
+                </div>
+            </div>
 
             <div class="submit">
                 <button class="btn btn-success btn-lg btn-block mt-2 mb-2" type="submit">Save</button>
             </div>
 
             <a type="button" class="btn btn-secondary btn-lg btn-block mb-2 mt-2" th:href="@{'/admin/content'}">Back</a>
+
+            <div class="mb-4" th:if="${content.id != null}">
+                <a class="btn btn-danger mb-1" th:href="@{'/admin/content/delete/'+ ${(content.id)}}">Delete</a>
+            </div>
 
         </form>
     </div>

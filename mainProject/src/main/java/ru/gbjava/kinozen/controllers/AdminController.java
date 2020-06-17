@@ -7,9 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.gbjava.kinozen.dto.ContentDto;
+import ru.gbjava.kinozen.dto.SeasonDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Season;
+import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.facade.AdminFacade;
 import ru.gbjava.kinozen.utilites.StringConverter;
@@ -68,8 +72,14 @@ public class AdminController {
     @GetMapping("/content/edit/{uuid}")
     public String editContent(@PathVariable("uuid") UUID uuid, Model model) {
         adminFacade.initLinks(model);
-        Content byId = contentService.findById(uuid);
-        model.addAttribute("content", ContentMapper.INSTANCE.toDto(byId));
+        Content content = contentService.findById(uuid);
+
+        if (content.getType() == TypeContent.SERIAL) {
+            Iterable<Season> seasons = adminFacade.getSeasonByContent(content);
+            model.addAttribute("seasons", seasons);
+        }
+
+        model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
         return "contentEdit";
     }
 
@@ -81,7 +91,7 @@ public class AdminController {
         }
 
         contentDto.setUrl(StringConverter.cyrillicToLatin(contentDto.getName()));
-        UUID idContent =contentService.save(ContentMapper.INSTANCE.toEntity(contentDto)).getId();
+        UUID idContent = contentService.save(ContentMapper.INSTANCE.toEntity(contentDto)).getId();
         return "redirect:/admin/content/edit/" + idContent;
     }
 
@@ -102,10 +112,40 @@ public class AdminController {
      * Блок управления сезонами
      */
 
-    @GetMapping ("/seasons")
-    public String getSeasonList(Model model){
+    @GetMapping("/season")
+    public String getSeasonList(Model model) {
         adminFacade.initLinks(model);
         return "adminSeasons";
     }
+
+    @GetMapping("/season/add/{idContent}")
+    public String addSeason(Model model, @PathVariable String idContent) {
+        adminFacade.initLinks(model);
+        SeasonDto seasonDto = new SeasonDto();
+        seasonDto.setIdContent(UUID.fromString(idContent));
+        model.addAttribute("season", seasonDto);
+        return "seasonEdit";
+    }
+
+    @PostMapping("/season/save")
+    public String saveSeason(@ModelAttribute SeasonDto seasonDto, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("message",
+                "сохрание успешно" + "!");
+
+        return "redirect:/admin/content/edit/" + seasonDto.getIdContent();
+    }
+
+//    @GetMapping("/edit")
+//    public String editSeason(Model model, @RequestParam UUID id) {
+//        SeasonDto seasonDto = SeasonMapper.INSTANCE.toDto(seasonService.findById(id));
+//        List<Content> contentList = contentService.findAll();
+//
+//        model.addAttribute("seasonDto", seasonDto);
+//        model.addAttribute("currentContentName", contentService.findById(seasonDto.getContentId()).getName());
+//        model.addAttribute("contentList", contentList);
+//
+//        return "seasonEdit";
+//    }
+
 
 }

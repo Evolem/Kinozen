@@ -11,7 +11,7 @@ import java.util.UUID;
 public class SeasonDto {
 
     private UUID id;
-    private UUID contentId;
+    private UUID idContent;
     private Integer numberSeason;
     private String description;
     private String url;
@@ -20,7 +20,7 @@ public class SeasonDto {
     public String toString() {
         return "SeasonDto{" +
                 "id=" + id +
-                ", contentId=" + contentId +
+                ", contentId=" + idContent +
                 ", numberSeason=" + numberSeason +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +

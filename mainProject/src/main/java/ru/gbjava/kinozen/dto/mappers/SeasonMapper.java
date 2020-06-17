@@ -13,7 +13,7 @@ public interface SeasonMapper {
 
     SeasonMapper INSTANCE = Mappers.getMapper(SeasonMapper.class);
 
-    @Mapping(source = "season.content.id", target = "contentId")
+    @Mapping(source = "season.content.id", target = "idContent")
     SeasonDto toDto(Season season);
 
     Season toEntity(SeasonDto seasonDto);

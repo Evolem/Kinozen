@@ -2,48 +2,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
-<head>
-    <meta charset="UTF-8">
-    <title>Добавление сезона</title>
-</head>
-<body>
 
-<div th:if="${message}">
-    <h2 th:text="${message}"/>
+<head th:replace="blocks/adminHeader.html :: head"></head>
+<body>
+<div th:replace="blocks/adminHeader.html:: header"></div>
+
+<div class="container">
+
+    <!--  TODO плохая реализация if else -->
+    <h1 class="display-4 text-muted">New season</h1>
+
+
+    <div class="container">
+
+        <form class="form-horizontal" th:object="${season}" th:action="@{/admin/season/save}" method="post">
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="idContent">Content id</label>
+                    <input class="form-control" type="text" th:field="*{idContent}"  name="idContent" id="idContent" placeholder="id не сгенерирован, баг!" readonly>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="id">Season id</label>
+                    <input type="date" class="form-control" th:field="*{id}"  name="id" id="id" placeholder="id не сгенерирован" readonly>
+                </div>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="url">Url</label>
+                <input class="form-control" type="text" id="url" th:field="*{url}" placeholder="url не сгенерирован"
+                       readonly>
+            </div>
+
+
+            <div class="form-group">
+                <label for="numberSeason">Number Season</label>
+                <input type="number" id="numberSeason" name="numberSeason" th:field="*{numberSeason}">
+            </div>
+
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" name="description" id="description" th:field="*{description}"></textarea>
+            </div>
+
+                <button class="btn btn-success btn-lg btn-block mt-2 mb-2" type="submit">Save</button>
+
+            <a type="button" class="btn btn-secondary btn-lg btn-block mb-2 mt-2" th:href="@{'/admin/content/edit/' + ${season.idContent}}">Back</a>
+
+
+        </form>
+    </div>
 </div>
 
-<form th:action="@{/seasons/saveSeason}" th:object="${seasonDto}" method="POST">
-    <div class="form-row">
-        <input th:field="*{id}" type="hidden">
-        <div>
-            <label>Описание</label>
-            <input th:field="*{description}" type="text" placeholder="напиши описание">
-        </div>
-        <div>
-            <label>Номер сезона</label>
-            <input th:field="*{numberSeason}" type="number" placeholder="Цена">
-        </div>
-
-        <div>
-            <label>Url</label>
-            <input th:field="*{url}" type="text" placeholder="адресс">
-        </div>
-
-    </div>
-    <div>
-        <div>
-            <label>Content</label>
-            <select th:field="*{contentId}">
-                <option disabled selected th:text="${currentContentName}" th:value="${seasonDto.contentId}"></option>
-                <option th:each="c : ${contentList}" th:text="${c.name}" th:value="${c.id}"/>
-            </select>
-        </div>
-    </div>
-    <div>
-        <button type="submit">Сохранить</button>
-    </div>
-</form>
-
-
+<footer th:replace="blocks/adminFooter.html :: footer"></footer>
 </body>
 </html>

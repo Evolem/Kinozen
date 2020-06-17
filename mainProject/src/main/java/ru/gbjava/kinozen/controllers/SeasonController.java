@@ -29,30 +29,4 @@ public class SeasonController {
         model.addAttribute("seasons", seasonList);
         return "seasonAll";
     }
-
-    @GetMapping("/edit")
-    public String editSeason(Model model, @RequestParam UUID id) {
-        SeasonDto seasonDto = SeasonMapper.INSTANCE.toDto(seasonService.findById(id));
-        List<Content> contentList = contentService.findAll();
-
-        model.addAttribute("seasonDto", seasonDto);
-        model.addAttribute("currentContentName", contentService.findById(seasonDto.getContentId()).getName());
-        model.addAttribute("contentList", contentList);
-
-        return "seasonEdit";
-    }
-
-    @PostMapping("/saveSeason")
-    public String editSeason(@ModelAttribute SeasonDto seasonDto, RedirectAttributes redirectAttributes) {
-
-        Season seasonEntity = seasonService.findById(seasonDto.getId());
-
-        seasonEntity.setContent(contentService.findById(seasonDto.getContentId()));
-        seasonService.save(seasonEntity);
-
-        redirectAttributes.addFlashAttribute("message",
-                "сохрание успешно" + "!");
-
-        return "redirect:/seasons/edit?id=" + seasonDto.getId();
-    }
 }
