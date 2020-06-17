@@ -42,24 +42,21 @@
             </div>
             <div class="col-auto my-1">
                 <div class="custom-control custom-checkbox mr-sm-2">
-                    <input type="checkbox" class="custom-control-input" name="visible" id="visible"
-                           th:value="${false}"/>
+                    <input type="checkbox" class="custom-control-input" name="visible" id="visible" th:value="${false}"/>
                     <label class="custom-control-label" for="visible">unpublished only</label>
                 </div>
             </div>
 
             <div class="col-auto my-1">
-                <button type="submit" class="btn btn-primary">Apply</button>
+                <button type="submit" class="btn btn-primary">Apply filters</button>
             </div>
         </div>
 
     </form>
 
-    <div class="form-row align-items-center">
-        <div class="col-auto my-1">
-            <a th:href="@{'/admin/content/add'}">Add content</a>
-        </div>
-    </div>
+
+        <a type="button" class="btn btn-outline-primary btn-lg btn-block mb-4 mt-4" th:href="@{'/admin/content/add'}">Add new content</a>
+
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
