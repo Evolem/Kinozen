@@ -17,17 +17,6 @@ public class CollectionController {
 
     private final CollectionService collectionService;
 
-    @GetMapping(value = "/collection/{id}")
-    public ResponseEntity<Collection> getCollection(@PathVariable String id) {
-        Collection collection = collectionService.findCollection(id);
-
-        if (collection == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(collection);
-        }
-    }
-
     @GetMapping(value = "/{user}")
     public ResponseEntity<Map<UUID, Collection>> getUserCollection(@PathVariable String user) {
         Map<UUID, Collection> result = collectionService.findAllCollection(user);

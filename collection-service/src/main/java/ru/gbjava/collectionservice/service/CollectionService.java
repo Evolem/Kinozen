@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ru.gbjava.collectionservice.persistance.entity.Collection;
 import ru.gbjava.collectionservice.persistance.repository.CollectionRepository;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +17,13 @@ public class CollectionService {
 
     private final CollectionRepository collectionRepository;
 
-    public Collection findCollection(@NonNull String id) {
-        return collectionRepository.findById(UUID.fromString(id)).orElseThrow(() -> new EntityNotFoundException("Collection not found UUID:" + id));
-    }
-
     public Map<UUID, Collection> findAllCollection(@NonNull String user) {
         List<Collection> collections = collectionRepository.findAllByUser(UUID.fromString(user));
+
+        if (collections.isEmpty()) {
+            return null;
+        }
+
         Map<UUID, Collection> userCollection = new HashMap<>();
         collections.forEach(col -> userCollection.put(col.getId(), col));
         return userCollection;
