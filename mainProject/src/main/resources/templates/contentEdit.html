@@ -10,8 +10,8 @@
 <div class="container">
 
     <!--  TODO плохая реализация if else -->
-    <h1 class="display-4 text-muted" th:if="${content.id != null}">Content Edit</h1>
-    <h1 class="display-4 text-muted" th:unless="${content.id != null}">Add new Content</h1>
+    <h1 class="display-4 text-muted" th:if="${content.id != null}">Content edit</h1>
+    <h1 class="display-4 text-muted" th:unless="${content.id != null}">Add new content</h1>
 
 
     <div class="container">
@@ -33,6 +33,11 @@
                 <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
                     Error</small>
                 <input type="text" class="form-control" id="nameInput" name="name" th:field="*{name}">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" name="description" id="description" th:field="*{description}"></textarea>
             </div>
 
             <div class="form-row align-items-center">

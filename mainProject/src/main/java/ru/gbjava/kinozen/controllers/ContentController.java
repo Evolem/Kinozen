@@ -65,27 +65,6 @@ public class ContentController {
         return "contentPage";
     }
 
-
-    @GetMapping("/add")
-    public String add(Model model) {
-        ContentDto contentDto = new ContentDto();
-
-        model.addAttribute("content", contentDto);
-        return "contentEdit";
-    }
-
-    @PostMapping("/add")
-    public void add(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        contentFacade.saveContent(ContentMapper.INSTANCE.toEntity(contentDto));
-        response.sendRedirect(request.getHeader("referer"));
-    }
-
-    @GetMapping("/delete")
-    public void deleteContent(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        contentFacade.deleteContentById(contentDto.getId());
-        response.sendRedirect(request.getHeader("referer"));
-    }
-
     @PostMapping("/like/{contentUrl}")
     public void likeContent(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
         contentFacade.likeContentByUser(principal.getName(), contentUrl);
