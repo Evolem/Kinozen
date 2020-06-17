@@ -11,11 +11,11 @@ import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.services.ContentService;
+import ru.gbjava.kinozen.services.facade.AdminFacade;
+import ru.gbjava.kinozen.utilites.StringConverter;
 import ru.gbjava.kinozen.validators.ContentValidator;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,9 +24,21 @@ public class AdminController {
 
     private final ContentService contentService;
     private final ContentValidator contentValidator;
+    private final AdminFacade adminFacade;
+
 
     @GetMapping
-    public String getContentList(
+    public String startInfo(Model model) {
+        adminFacade.initLinks(model);
+        return "admin";
+    }
+
+    /**
+     * Блок управления контентом
+     */
+
+    @GetMapping("/content")
+    public String getContentListByFilter(
             Model model,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Date releasedFrom,
@@ -34,63 +46,61 @@ public class AdminController {
             @RequestParam(required = false) Boolean visible,
             @RequestParam(required = false) Integer type
     ) {
-
+        adminFacade.initLinks(model);
         List<Content> contentList = contentService.findAll(
                 name,
                 releasedFrom,
                 releasedTo,
                 visible,
                 type);
+
         model.addAttribute("contents", ContentMapper.INSTANCE.toDtoList(contentList));
-        model.addAttribute("visible", true);
-        return "admin";
+        return "adminContent";
     }
 
-    @GetMapping(value = "/{uuid}")
-    public String show(@PathVariable("uuid") UUID uuid, Model model) {
-        Content byId = contentService.findById(uuid);
-        model.addAttribute("content", ContentMapper.INSTANCE.toDto(byId));
-        return "contentPage";
+    @GetMapping(value = "/content/add")
+    public String addContent(Model model) {
+        adminFacade.initLinks(model);
+        model.addAttribute("content", new ContentDto());
+        return "contentEdit";
     }
 
-    @GetMapping(value = "/edit/{uuid}")
-    public String update(@PathVariable("uuid") UUID uuid, Model model) {
+    @GetMapping(value = "/content/edit/{uuid}")
+    public String editContent(@PathVariable("uuid") UUID uuid, Model model) {
+        adminFacade.initLinks(model);
         Content byId = contentService.findById(uuid);
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(byId));
         return "contentEdit";
     }
 
-    @GetMapping(value = "/delete/{uuid}")
-    public String delete(@PathVariable("uuid") UUID uuid) {
+    @PostMapping(value = "/content/save")
+    public String saveContent(ContentDto contentDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("content", contentDto);
+            return "redirect:/admin/content";
+        }
+
+        contentDto.setUrl(StringConverter.cyrillicToLatin(contentDto.getName()));
+        contentService.save(ContentMapper.INSTANCE.toEntity(contentDto));
+        return "redirect:/admin/content";
+    }
+
+    @GetMapping(value = "/content/delete/{uuid}")
+    public String deleteContent(@PathVariable("uuid") UUID uuid) {
         contentService.deleteById(uuid);
         return "redirect:/admin";
 
     }
 
-    @GetMapping(value = "/visible/{uuid}")
+    @GetMapping(value = "/content/visible/{uuid}")
     public String changeVisible(@PathVariable("uuid") UUID uuid) {
         contentService.changeVisible(uuid);
-        return "redirect:/admin";
+        return "redirect:/admin/content";
     }
 
-
-    @PostMapping
-    public String saveContent(ContentDto contentDto, BindingResult bindingResult, Model model) {
-        contentValidator.validate(contentDto, bindingResult);
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("content", contentDto);
-            return "contentEdit";
-        }
-        contentService.save(ContentMapper.INSTANCE.toEntity(contentDto));
-        return "redirect:/admin";
-    }
-
-
-    @GetMapping("/new")
-    public String newContent(Model model) {
-        model.addAttribute("content", new ContentDto());
-        return "contentEdit";
-    }
+    /**
+     * Блок управления сезонами
+     */
 
 
 }

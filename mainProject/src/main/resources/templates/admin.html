@@ -1,76 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 
-    <title>Панель управления - Kinozel</title>
-</head>
+<head th:replace="blocks/adminHeader.html :: head"></head>
 <body>
-<header>
-</header>
-
-    <div>
-
-        <form th:action="@{/admin}" method="get">
-
-            <div>
-                <input type="text" placeholder="name" name="name">
-            </div>
-
-            <div class="form-group">
-                <input class="form-control select-input" type="date" name="releasedFrom"  id="releasedFrom">
-            </div>
-            <div class="form-group">
-                <input class="form-control select-input" type="date" name="releasedTo" id="releasedTo">
-            </div>
-
-            <select class="custom-select select-input" name="type">
-                <option th:text="'Not selected'" th:value="null">Type</option>
-                <option th:each="type : ${T(ru.gbjava.kinozen.persistence.entities.enums.TypeContent).values()}"
-                        th:value="${type.ordinal()}"
-                        th:text="${type.type}">
-                </option>
-            </select>
-            <div class="form-check">
-                <label class="form-check-label" for="exampleCheck1">Visible only</label>
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="visible" th:value="${visible}"/>
-            </div>
-
-            <button type="submit" class="btn btn-secondary">Select</button>
-        </form>
-        <div class="m-3">
-            <h1 class="m-3 d-inline">Contents</h1>
-            <a class="badge badge-warning ml-4 d-inline" th:href="@{'admin/new'}">+ new Workflow</a>
-        </div>
+<div th:replace="blocks/adminHeader.html:: header"></div>
 
 
 
-        <div class="lead">
-            <table class="table table-striped">
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Released</th>
-                    <th>Type</th>
-                    <th>Visible</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-                <tr th:each="content : ${contents}">
-                    <td><a th:href="@{'/admin/'+ ${content.id}}">[[  ${content.name}  ]]</a></td>
-                    <td th:text="${content.description}">Content description</td>
-                    <td th:text="${content.released}">Released date</td>
-                    <td th:text="${content.type.type}">Type</td>
-                    <td>
-                        <a th:href="@{'/admin/visible/' + ${(content.id)}}"
-                        th:style="${content.visible ? 'color:green' : 'color:red'}">[[  ${content.visible ? 'открыто' : 'закрыто'}  ]]</a>
-                    </td>
-                    <td><a th:href="@{'/admin/edit/'+ ${(content.id)}}">Edit</a></td>
-                    <td><a class="btn btn-danger" th:href="@{'/admin/delete/'+ ${(content.id)}}">Delete</a></td>
-                </tr>
-            </table>
-        </div>
-    </div>
 
+<footer th:replace="blocks/adminFooter.html :: footer"></footer>
 </body>
 </html>

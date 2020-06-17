@@ -58,8 +58,9 @@ public class ContentController {
         model.addAttribute("idEntity", currentEpisode.getId());
         model.addAttribute("description", currentEpisode.getDescription());
         model.addAttribute("episodes", EpisodeMapper.INSTANCE.toDtoList(episodes));
-        model.addAttribute("currentSeason", SeasonMapper.INSTANCE.toDto(currentSeason));
+        model.addAttribute("currentEpisode", currentEpisode);
         model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
+        model.addAttribute("currentSeason", SeasonMapper.INSTANCE.toDto(currentSeason));
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
         return "contentPage";
     }

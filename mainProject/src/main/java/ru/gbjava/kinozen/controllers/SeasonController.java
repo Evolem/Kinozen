@@ -1,4 +1,4 @@
-package ru.gbjava.kinozen.controllers.contents;
+package ru.gbjava.kinozen.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -46,6 +46,7 @@ public class SeasonController {
     public String editSeason(@ModelAttribute SeasonDto seasonDto, RedirectAttributes redirectAttributes) {
 
         Season seasonEntity = seasonService.findById(seasonDto.getId());
+
         seasonEntity.setContent(contentService.findById(seasonDto.getContentId()));
         seasonService.save(seasonEntity);
 

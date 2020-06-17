@@ -1,74 +1,73 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      lang="RU">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div class="container">
-    <div style="text-align: center;">
-        <h1>add Content</h1>
-    </div>
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 
-    <!--  TODO добавить возможность попасть на эту страницу лишь ADMIN   -->
+<head th:replace="blocks/adminHeader.html :: head"></head>
+<body>
+<div th:replace="blocks/adminHeader.html:: header"></div>
+
+<div class="container">
+
+    <!--  TODO плохая реализация if else -->
+    <h1 class="display-4 text-muted" th:if="${content.id != null}">Content Edit</h1>
+    <h1 class="display-4 text-muted" th:unless="${content.id != null}">Add new Content</h1>
+
+
     <div class="container">
 
-        <form class="form-horizontal" th:object="${content}" th:action="@{/admin}" method="post">
-
-            <input type="hidden" th:field="*{id}">
-
+        <form class="form-horizontal" th:object="${content}" th:action="@{/admin/content/save}" method="post">
 
             <div class="form-group">
-                <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</small>
-                <label class="form-check-label" for="nameInput">Name</label>
-                <input type="text" class="form-control select-input" id="nameInput" name="name" th:field="*{name}">
+                <label for="id">UUID</label>
+                <input class="form-control" type="text" id="id" th:field="*{id}" placeholder="id не сгенерирован" readonly>
             </div>
 
             <div class="form-group">
-                <label class="form-check-label" for="description">Description</label>
-                <input type="text" class="form-control select-input" name="description" id="description" th:field="*{description}">
+                <label for="url">Url</label>
+                <input class="form-control" type="text" id="url" th:field="*{url}" placeholder="url не сгенерирован" readonly>
             </div>
 
             <div class="form-group">
-                <label class="form-check-label" for="released">Released</label>
-                <input type="date" class="form-control select-input" name="released" id="released" th:field="*{released}">
+                <label for="nameInput">Name</label>
+                <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+                    Error</small>
+                <input type="text" class="form-control" id="nameInput" name="name" th:field="*{name}">
             </div>
 
-            <div class="form-group">
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <label for="released">Released</label>
+                    <input type="date" class="form-control" name="released" id="released" th:field="*{released}">
+                </div>
+            </div>
+
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <label for="selectType">Content type</label>
+                    <select class="form-control" id="selectType" th:field="*{type}">
+                        <option th:if="*{type!=null}" th:text="*{type.typeName}" th:value="*{type}">Type</option>
+                        <option th:each="type : ${T(ru.gbjava.kinozen.persistence.entities.enums.TypeContent).values()}"
+                                th:value="${type}"
+                                th:text="${type.typeName}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group form-check">
+                <input class="form-check-input" type="checkbox" name="visible" id="visible" th:field="*{visible}">
                 <label class="form-check-label" for="visible">Visible</label>
-                <input type="checkbox" class="form-control select-input" name="visible" id="visible" th:field="*{visible}">
             </div>
-
-            <input type="hidden" th:field="*{url}">
-
-
-<!--            <div class="form-group">-->
-<!--                <label class="form-check-label" for="url">Url</label>-->
-<!--                <input type="file" class="form-control select-input" name="url" id="url" th:field="*{url}">-->
-<!--            </div>-->
-
-            <select th:field="*{type}">
-                <option th:if="*{type!=null}" th:text="*{type.type}" th:value="*{type}">Type</option>
-                <option th:each="type : ${T(ru.gbjava.kinozen.persistence.entities.enums.TypeContent).values()}"
-                        th:value="${type}"
-                        th:text="${type.type}">
-                </option>
-            </select>
-
-            <input type="hidden" th:field="*{genres}">
-            <input type="hidden" th:field="*{actors}">
-            <input type="hidden" th:field="*{directors}">
-
 
             <div class="submit">
-                <button name="Save" type="submit">Save</button>
+                <button class="btn btn-success" type="submit">Save</button>
             </div>
 
         </form>
     </div>
 </div>
 
+<footer th:replace="blocks/adminFooter.html :: footer"></footer>
 </body>
 </html>
