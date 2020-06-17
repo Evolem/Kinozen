@@ -10,7 +10,7 @@ import java.util.Map;
 @Getter
 public class ContentFilter {
     private Specification<Content> spec;
-    private StringBuilder filterDefinition;
+    private final StringBuilder filterDefinition;
 
     public ContentFilter(Map<String, String> map) {
         this.spec = Specification.where(null);
