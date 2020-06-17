@@ -38,7 +38,7 @@ public class AdminController {
      */
 
     @GetMapping("/content")
-    public String getContentListByFilter(
+    public String getContentList(
             Model model,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Date releasedFrom,
@@ -58,14 +58,14 @@ public class AdminController {
         return "adminContent";
     }
 
-    @GetMapping(value = "/content/add")
+    @GetMapping("/content/add")
     public String addContent(Model model) {
         adminFacade.initLinks(model);
         model.addAttribute("content", new ContentDto());
         return "contentEdit";
     }
 
-    @GetMapping(value = "/content/edit/{uuid}")
+    @GetMapping("/content/edit/{uuid}")
     public String editContent(@PathVariable("uuid") UUID uuid, Model model) {
         adminFacade.initLinks(model);
         Content byId = contentService.findById(uuid);
@@ -73,7 +73,7 @@ public class AdminController {
         return "contentEdit";
     }
 
-    @PostMapping(value = "/content/save")
+    @PostMapping("/content/save")
     public String saveContent(ContentDto contentDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("content", contentDto);
@@ -81,18 +81,18 @@ public class AdminController {
         }
 
         contentDto.setUrl(StringConverter.cyrillicToLatin(contentDto.getName()));
-        contentService.save(ContentMapper.INSTANCE.toEntity(contentDto));
-        return "redirect:/admin/content";
+        UUID idContent =contentService.save(ContentMapper.INSTANCE.toEntity(contentDto)).getId();
+        return "redirect:/admin/content/edit/" + idContent;
     }
 
-    @GetMapping(value = "/content/delete/{uuid}")
+    @GetMapping("/content/delete/{uuid}")
     public String deleteContent(@PathVariable("uuid") UUID uuid) {
         contentService.deleteById(uuid);
-        return "redirect:/admin";
+        return "redirect:/admin/content";
 
     }
 
-    @GetMapping(value = "/content/visible/{uuid}")
+    @GetMapping("/content/visible/{uuid}")
     public String changeVisible(@PathVariable("uuid") UUID uuid) {
         contentService.changeVisible(uuid);
         return "redirect:/admin/content";
@@ -102,5 +102,10 @@ public class AdminController {
      * Блок управления сезонами
      */
 
+    @GetMapping ("/seasons")
+    public String getSeasonList(Model model){
+        adminFacade.initLinks(model);
+        return "adminSeasons";
+    }
 
 }
