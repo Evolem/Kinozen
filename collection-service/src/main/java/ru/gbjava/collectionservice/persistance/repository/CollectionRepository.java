@@ -13,5 +13,5 @@ public interface CollectionRepository extends JpaRepository<Collection, UUID> {
 
     List<Collection> findAllByUser(UUID user);
 
-    Optional<Collection> findByUserAndName(UUID user, String name);
+    Optional<Collection> findByUserAndName(String user, String name);
 }
