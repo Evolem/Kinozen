@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.gbjava.kinozen.dto.ContentDto;
-import ru.gbjava.kinozen.dto.DirectorDto;
 import ru.gbjava.kinozen.dto.SeasonDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
-import ru.gbjava.kinozen.dto.mappers.DirectorMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
@@ -40,7 +38,7 @@ public class AdminController {
     @GetMapping
     public String startInfo(Model model) {
         adminFacade.initLinks(model);
-        return "admin";
+        return "adminPanel/adminHome";
     }
 
     /**
@@ -65,14 +63,14 @@ public class AdminController {
                 type);
 
         model.addAttribute("contents", ContentMapper.INSTANCE.toDtoList(contentList));
-        return "adminContent";
+        return "adminPanel/adminContent";
     }
 
     @GetMapping("/content/add")
     public String addContent(Model model) {
         adminFacade.initLinks(model);
         model.addAttribute("content", new ContentDto());
-        return "contentEdit";
+        return "adminPanel/contentEdit";
     }
 
     @GetMapping("/content/edit/{uuid}")
@@ -86,7 +84,7 @@ public class AdminController {
         }
 
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
-        return "contentEdit";
+        return "adminPanel/contentEdit";
     }
 
     @PostMapping("/content/save")
@@ -121,7 +119,7 @@ public class AdminController {
     @GetMapping("/season")
     public String getSeasonList(Model model) {
         adminFacade.initLinks(model);
-        return "adminSeasons";
+        return "adminPanel/adminSeasons";
     }
 
     @GetMapping("/season/add/{idContent}")
@@ -130,14 +128,14 @@ public class AdminController {
         SeasonDto seasonDto = new SeasonDto();
         seasonDto.setContent(contentService.findById(idContent));
         model.addAttribute("season", seasonDto);
-        return "seasonEdit";
+        return "adminPanel/seasonEdit";
     }
 
     @GetMapping("/season/edit/{id}")
     public String editSeason(Model model, @PathVariable UUID id) {
         SeasonDto seasonDto = SeasonMapper.INSTANCE.toDto(adminFacade.findSeasonById(id));
         model.addAttribute("season", seasonDto);
-        return "seasonEdit";
+        return "adminPanel/seasonEdit";
     }
 
     @GetMapping("/season/delete/{id}")
@@ -154,8 +152,5 @@ public class AdminController {
         adminFacade.saveSeason(SeasonMapper.INSTANCE.toEntity(seasonDto));
         return "redirect:/admin/content/edit/" + seasonDto.getContent().getId();
     }
-
-
-
 
 }

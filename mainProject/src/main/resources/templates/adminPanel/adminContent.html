@@ -3,9 +3,9 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 
-<head th:replace="blocks/adminHeader.html :: head"></head>
+<head th:replace="adminPanel/blocks/adminHeader.html :: head"></head>
 <body>
-<div th:replace="blocks/adminHeader.html:: header"></div>
+<div th:replace="adminPanel/blocks/adminHeader.html:: header"></div>
 
 <div class="container containerExtends">
     <h1 class="display-4 text-muted">Сontent management</h1>
@@ -70,7 +70,7 @@
         </tr>
         </thead>
         <tr th:each="content : ${contents}">
-            <td style="width: 17%"><a th:href="@{'/content/'+ ${content.url}}">[[ ${content.name} ]]</a></td>
+            <td style="width: 17%"><a th:href="@{'/admin/content/edit/'+ ${(content.id)}}">[[ ${content.name} ]]</a></td>
             <td style="width: 23%" th:text="${content.description}">Content description</td>
             <td th:text="${#dates.format(content.released, 'dd-MM-yyyy')}">Released date</td>
             <td th:text="${content.type.typeName}">Type</td>
@@ -80,7 +80,8 @@
                     'закрыто'} ]]</a>
             </td>
             <td>
-                <a class="btn btn-warning btn-sm mb-1" th:href="@{'/admin/content/edit/'+ ${(content.id)}}">Edit</a>
+
+                <a class="btn btn-outline-dark btn-sm mb-1" th:href="@{'/content/'+ ${content.url}}">view</a>
                 <span th:if="${content.type.ordinal() == 0}">
                     <a class="btn btn-outline-primary  btn-sm mb-1" th:href="@{'/admin/season/add/'+ ${(content.id)}}">+
                         season</a>
@@ -93,6 +94,6 @@
     </table>
 </div>
 
-<footer th:replace="blocks/adminFooter.html :: footer"></footer>
+<footer th:replace="adminPanel/blocks/adminFooter.html :: footer"></footer>
 </body>
 </html>
