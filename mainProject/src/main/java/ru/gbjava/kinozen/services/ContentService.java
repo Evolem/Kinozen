@@ -39,11 +39,6 @@ public class ContentService implements CrudService<Content, UUID> {
         return contentRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Content not found! " + uuid));
     }
 
-    //todo нужно получить список по типу
-    public List<Content> findAllByTypeContent(TypeContent type) {
-        return contentRepository.findAll();
-    }
-
     @Override
     @Transactional
     public Content save(Content content) {

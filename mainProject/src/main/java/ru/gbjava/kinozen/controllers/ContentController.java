@@ -26,7 +26,6 @@ import java.util.List;
 public class ContentController {
 
     private final ContentFacade contentFacade;
-    //todo поправить логику добавления!
 
     @GetMapping
     public String getAllContent(Model model) {
@@ -58,31 +57,11 @@ public class ContentController {
         model.addAttribute("idEntity", currentEpisode.getId());
         model.addAttribute("description", currentEpisode.getDescription());
         model.addAttribute("episodes", EpisodeMapper.INSTANCE.toDtoList(episodes));
-        model.addAttribute("currentSeason", SeasonMapper.INSTANCE.toDto(currentSeason));
+        model.addAttribute("currentEpisode", currentEpisode);
         model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
+        model.addAttribute("currentSeason", SeasonMapper.INSTANCE.toDto(currentSeason));
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
         return "contentPage";
-    }
-
-
-    @GetMapping("/add")
-    public String add(Model model) {
-        ContentDto contentDto = new ContentDto();
-
-        model.addAttribute("content", contentDto);
-        return "contentEdit";
-    }
-
-    @PostMapping("/add")
-    public void add(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        contentFacade.saveContent(ContentMapper.INSTANCE.toEntity(contentDto));
-        response.sendRedirect(request.getHeader("referer"));
-    }
-
-    @GetMapping("/delete")
-    public void deleteContent(ContentDto contentDto, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        contentFacade.deleteContentById(contentDto.getId());
-        response.sendRedirect(request.getHeader("referer"));
     }
 
     @PostMapping("/like/{contentUrl}")

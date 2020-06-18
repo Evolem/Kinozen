@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Все сезоны</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>Ссылка</th>
+        <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s, iterator : ${seasons}">
+
+        <td>
+            <a th:href="@{'/content/' + ${s.content.url} + '/' + ${s.url}}">[[ ${s.content.name} ]]. Сезон [[ ${s.numberSeason} ]]</a>
+        </td>
+
+        <td>
+            <a th:href="@{'/seasons/edit?id=' + ${s.id}}">edit</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+</body>
+</html>
