@@ -29,7 +29,7 @@ public class CollectionService {
     }
 
     public List<UUID> getWishCollection(@NonNull String user) {
-        Collection collection = collectionRepository.findByUserAndName(UUID.fromString(user), "wish").orElseThrow();
+        Collection collection = collectionRepository.findByUserAndName(user, "wish").orElseThrow();
         List<UUID> result = collection.getContentList().stream().map(Content::getId).collect(Collectors.toList());
         return result;
     }
