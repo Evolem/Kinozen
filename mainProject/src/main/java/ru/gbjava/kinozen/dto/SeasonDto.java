@@ -3,6 +3,8 @@ package ru.gbjava.kinozen.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.gbjava.kinozen.persistence.entities.Content;
+
 import java.util.UUID;
 
 @Getter
@@ -11,19 +13,8 @@ import java.util.UUID;
 public class SeasonDto {
 
     private UUID id;
-    private UUID idContent;
+    private Content content;
     private Integer numberSeason;
     private String description;
     private String url;
-
-    @Override
-    public String toString() {
-        return "SeasonDto{" +
-                "id=" + id +
-                ", contentId=" + idContent +
-                ", numberSeason=" + numberSeason +
-                ", description='" + description + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

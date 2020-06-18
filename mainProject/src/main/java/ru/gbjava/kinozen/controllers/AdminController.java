@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.gbjava.kinozen.dto.ContentDto;
+import ru.gbjava.kinozen.dto.DirectorDto;
 import ru.gbjava.kinozen.dto.SeasonDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
+import ru.gbjava.kinozen.dto.mappers.DirectorMapper;
+import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
@@ -19,6 +22,9 @@ import ru.gbjava.kinozen.services.facade.AdminFacade;
 import ru.gbjava.kinozen.utilites.StringConverter;
 import ru.gbjava.kinozen.validators.ContentValidator;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -119,12 +125,25 @@ public class AdminController {
     }
 
     @GetMapping("/season/add/{idContent}")
-    public String addSeason(Model model, @PathVariable String idContent) {
+    public String addSeason(Model model, @PathVariable UUID idContent) {
         adminFacade.initLinks(model);
         SeasonDto seasonDto = new SeasonDto();
-        seasonDto.setIdContent(UUID.fromString(idContent));
+        seasonDto.setContent(contentService.findById(idContent));
         model.addAttribute("season", seasonDto);
         return "seasonEdit";
+    }
+
+    @GetMapping("/season/edit/{id}")
+    public String editSeason(Model model, @PathVariable UUID id) {
+        SeasonDto seasonDto = SeasonMapper.INSTANCE.toDto(adminFacade.findSeasonById(id));
+        model.addAttribute("season", seasonDto);
+        return "seasonEdit";
+    }
+
+    @GetMapping("/season/delete/{id}")
+    public void deleteSeason( @PathVariable UUID id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        adminFacade.deleteSeasonById(id);
+        response.sendRedirect(request.getHeader("referer"));
     }
 
     @PostMapping("/season/save")
@@ -132,20 +151,11 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("message",
                 "сохрание успешно" + "!");
 
-        return "redirect:/admin/content/edit/" + seasonDto.getIdContent();
+        adminFacade.saveSeason(SeasonMapper.INSTANCE.toEntity(seasonDto));
+        return "redirect:/admin/content/edit/" + seasonDto.getContent().getId();
     }
 
-//    @GetMapping("/edit")
-//    public String editSeason(Model model, @RequestParam UUID id) {
-//        SeasonDto seasonDto = SeasonMapper.INSTANCE.toDto(seasonService.findById(id));
-//        List<Content> contentList = contentService.findAll();
-//
-//        model.addAttribute("seasonDto", seasonDto);
-//        model.addAttribute("currentContentName", contentService.findById(seasonDto.getContentId()).getName());
-//        model.addAttribute("contentList", contentList);
-//
-//        return "seasonEdit";
-//    }
+
 
 
 }

@@ -10,6 +10,7 @@ import ru.gbjava.kinozen.services.SeasonService;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +31,17 @@ public class AdminFacade {
 
     public Iterable<Season> getSeasonByContent(Content content) {
         return seasonService.findSeasonByContent(content);
+    }
+
+    public Season saveSeason(Season season) {
+        return seasonService.save(season);
+    }
+
+    public Season findSeasonById(UUID id) {
+        return seasonService.findById(id);
+    }
+
+    public void deleteSeasonById(UUID id) {
+        seasonService.deleteById(id);
     }
 }

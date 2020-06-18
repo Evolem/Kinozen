@@ -10,7 +10,8 @@
 <div class="container containerExtends">
 
     <!--  TODO плохая реализация if else -->
-    <h1 class="display-4 text-muted">New season</h1>
+    <h1 class="display-4 text-muted" th:unless="${season.id !=null}">New season</h1>
+    <h1 class="display-4 text-muted"th:if="${season.id !=null}">Edit</h1>
 
 
     <div class="container">
@@ -20,7 +21,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="idContent">Content id</label>
-                    <input type="text" class="form-control" th:field="*{idContent}"  name="idContent" id="idContent" placeholder="id не сгенерирован, баг!" readonly>
+                    <input type="text" class="form-control" th:field="*{content.id}" name="idContent" id="idContent" placeholder="id не сгенерирован, баг!" readonly>
                 </div>
 
                 <div class="form-group col-md-6">
@@ -39,7 +40,7 @@
 
             <div class="form-group">
                 <label for="numberSeason">Number Season</label>
-                <input type="number" id="numberSeason" name="numberSeason" th:field="*{numberSeason}">
+                <input type="number" id="numberSeason" name="numberSeason" value="${content.}" th:field="*{numberSeason}">
             </div>
 
 
@@ -50,7 +51,7 @@
 
                 <button class="btn btn-success btn-lg btn-block mt-2 mb-2" type="submit">Save</button>
 
-            <a type="button" class="btn btn-secondary btn-lg btn-block mb-2 mt-2" th:href="@{'/admin/content/edit/' + ${season.idContent}}">Back</a>
+            <a type="button" class="btn btn-secondary btn-lg btn-block mb-2 mt-2" th:href="@{'/admin/content/edit/' + ${season.content.id}}">Back</a>
 
 
         </form>

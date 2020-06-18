@@ -93,8 +93,8 @@
                             <td th:text="${s.description}"></td>
 
                             <td>
-                                <a class="btn btn-warning  mb-1" th:href="@{'/admin/season/edit/'+ ${(content.id)}}">Edit</a>
-                                <a class="btn btn-danger mb-1" th:href="@{'/admin/season/delete/'+ ${(content.id)}}">Delete</a>
+                                <a class="btn btn-warning  mb-1" th:href="@{'/admin/season/edit/'+ ${(s.id)}}">Edit</a>
+                                <a class="btn btn-danger mb-1" th:href="@{'/admin/season/delete/'+ ${(s.id)}}">Delete</a>
                                 <a class="btn btn-outline-primary  mb-1" th:href="@{'/admin/episode/add/'+ ${(content.id)}}">+ episode</a>
                             </td>
 
