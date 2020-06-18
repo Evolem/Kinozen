@@ -20,6 +20,6 @@ create table if not exists tbl_content_collection
             references tbl_collection
 );
 
-create unique index tbl_content_collection_id_content_uindex
+create unique index if not exists tbl_content_collection_id_content_uindex
     on tbl_content_collection (id_content);
 
