@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.gbjava.kinozen.beans.CollectionsBean;
 import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
 import ru.gbjava.kinozen.persistence.entities.Role;
@@ -26,6 +27,8 @@ public class UserService implements UserDetailsService, CrudService<User, UUID> 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
+    private final CollectionsBean collections;
+
     public User findByLogin(String login) {
         return userRepository.findOneByLogin(login).orElseThrow(()-> new RuntimeException("Login not found! " + login));
     }
@@ -41,6 +44,10 @@ public class UserService implements UserDetailsService, CrudService<User, UUID> 
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password");
         }
+
+        //TODO: исправить логику получения id user
+        collections.init(user.getId());
+
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 

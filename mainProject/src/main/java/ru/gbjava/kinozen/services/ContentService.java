@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -62,6 +63,12 @@ public class ContentService implements CrudService<Content, UUID> {
             c.setUrl(StringConverter.cyrillicToLatin(c.getName()));
             contentRepository.save(c);
         }
+    }
+
+    //TODO: пересмотреть логику, это точно bad practices
+    @Transactional
+    public List<Content> findWishContents(List<UUID> contentList) {
+        return contentList.stream().map(content -> contentRepository.findById(content).orElseThrow()).collect(Collectors.toList());
     }
 
     public List<Content> findAll(String name, Date releasedFrom, Date releasedTo, Boolean visible, Integer typeOrdinal) {

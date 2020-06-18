@@ -8,7 +8,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.gbjava.kinozen.beans.CollectionsBean;
+import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.UserDto;
+import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.HistoryService;
@@ -22,6 +25,7 @@ import java.security.Principal;
 public class ProfileController {
     private final UserService userService;
     private final HistoryService historyService;
+    private final CollectionsBean collectionsBean;
 
     @GetMapping
     public String profilePage(final Principal principal, Model model, UserDto userDto) {
@@ -54,5 +58,11 @@ public class ProfileController {
 
         userService.updateFieldsAndSave(principal.getName(), userDto);
         return "redirect:/profile";
+    }
+
+    @GetMapping("/wish")
+    public String getWishCollection(Model model) {
+        model.addAttribute("wishList", collectionsBean.getWishList());
+        return "wishPage";
     }
 }
