@@ -55,7 +55,7 @@ account.addEventListener('click', function (e) {
             '                    <input id="oldPassword" th:field="*{password}"  name="oldPassword" type="password" class="registration__form-input error"\n' +
             '                           placeholder="••••••••••••" value="">\n' +
             '                    <div class="popup__password-eye">\n' +
-            '                        <img th:src="@{/images/icons/eye.png}" name="visibleOldPassword"\n' +
+            '                        <img src="images/icons/eye.png" name="visibleOldPassword"\n' +
             '                             class="registration__eye-img"></div>\n' +
             '                    <div class="popup__error"></div>\n' +
             '                </div>\n' +
@@ -66,7 +66,7 @@ account.addEventListener('click', function (e) {
             '                    <input id="newPassword" th:field="*{newPassword1}" name="newPassword" type="password" class="registration__form-input "\n' +
             '                           placeholder="••••••••••••" value="">\n' +
             '                    <div class="popup__password-eye">\n' +
-            '                        <img th:src="@{/images/icons/eye.png}" name="visibleNewPassword"\n' +
+            '                        <img src="images/icons/eye.png" name="visibleNewPassword"\n' +
             '                             class="registration__eye-img"></div>\n' +
             '                </div>\n' +
             '                <div class="popup__password">' +
@@ -75,7 +75,7 @@ account.addEventListener('click', function (e) {
             '                    <input id="confirmPassword" th:field="*{newPassword2}" name="confirmPassword" type="password" class="registration__form-input"\n' +
             '                           placeholder="••••••••••••" value="">\n' +
             '                    <div class="popup__password-eye">\n' +
-            '                        <img th:src="@{/images/icons/eye.png}" name="visibleConfirmPassword"\n' +
+            '                        <img src="images/icons/eye.png" name="visibleConfirmPassword"\n' +
             '                             class="registration__eye-img">\n' +
             '                    </div>\n' +
             '                </div>\n' +

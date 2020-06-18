@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU"
+      taglib prefix="sec" uri="http://www.springframework.org/security/tags">
 
 <head th:fragment="head">
     <meta charset="utf-8">
@@ -23,10 +24,24 @@
             <a href="#" class="menu__item menu__item--link">Фильмы</a>
             <a href="/kinozen/profile/wish" class="menu__item menu__item--link">Буду смотреть</a>
             <a href="#" class="menu__item menu__search">
-                <img th:src="@{/images/search-icon.png}" src="../static/images/search-icon.png"/><span>Поиск</span></a>
+                <img th:src="@{/images/search-icon.png}"/><span>Поиск</span></a>
         </div>
-        <div class="menu__content-wrapper">
+        <div sec:authorize="!isAuthenticated ()" class="menu__content-wrapper">
             <a class="menu__sign button" href="/kinozen/login">Войти</a>
-            <a class="menu__register button-primary" href="/kinozen/registration">Зарегистрироваться</a></div>
+            <a class="menu__register button-primary" href="/kinozen/registration">Зарегистрироваться</a>
+        </div>
+        <div sec:authorize="isAuthenticated ()" class="menu__content-wrapper">
+            <div class="menu__avatar-wrapper">
+                <div class="profile avatar">
+                    <img src="" class="profile__img">
+                </div>
+            </div>
+            <div class="menu__burger">
+                <div class="menu__burger-line"></div>
+                <div class="menu__burger-line"></div>
+                <div class="menu__burger-line"></div>
+            </div>
+            <script src="js/menu.js"></script>
+        </div>
     </div>
 </div>

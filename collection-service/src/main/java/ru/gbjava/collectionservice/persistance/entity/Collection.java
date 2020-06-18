@@ -18,8 +18,10 @@ public class Collection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+
     @Column(name = "name_user")
     private String user;
+
 
     @Column(name = "name_collection")
     private String name;

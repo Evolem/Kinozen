@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 @Slf4j
 @Data
 @Component
@@ -26,10 +27,12 @@ public class CollectionsBean {
     private final ContentService contentService;
 
     //TODO: найти способ получить user uuid
+
     private String login;
 
     private List<Content> wishList;
     private List<UUID> responseList;
+
 
 //    @PostConstruct
     public void init(String name) {
@@ -49,6 +52,7 @@ public class CollectionsBean {
             }
         } catch (Exception e) {
             log.error(e.getMessage());
+
         }
     }
 

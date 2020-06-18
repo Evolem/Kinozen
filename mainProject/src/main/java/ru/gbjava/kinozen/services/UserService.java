@@ -27,7 +27,7 @@ public class UserService implements UserDetailsService, CrudService<User, UUID> 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-//    private final CollectionsBean collections;
+
 
     public User findByLogin(String login) {
         return userRepository.findOneByLogin(login).orElseThrow(()-> new RuntimeException("Login not found! " + login));
@@ -44,8 +44,8 @@ public class UserService implements UserDetailsService, CrudService<User, UUID> 
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password");
         }
-
-
+      
+      
 
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
