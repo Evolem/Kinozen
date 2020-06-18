@@ -1,66 +1,4 @@
 @charset "UTF-8";
-@font-face {
-    font-family: "circeBold";
-    src: url("../static/fonts/CirceBold.woff") format("woff"), url("../static/fonts/CirceBold.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "circeRegular";
-    src: url("../static/fonts/CirceRegular.woff") format("woff"), url("../static/fonts/CirceRegular.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "circeExtraBold";
-    src: url("../static/fonts/CirceExtraBold.ttf") format("woff"), url("../static/fonts/CirceExtraBold.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "circeLight";
-    src: url("../static/fonts/CirceLight.woff") format("woff"), url("../static/fonts/CirceLight.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "circeExtraLight";
-    src: url("../static/fonts/CirceExtraLight.ttf") format("woff"), url("../static/fonts/CirceExtraLight.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "circeThin";
-    src: url("../static/fonts/CirceThin.woff") format("woff"), url("../static/fonts/CirceThin.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "proximaNovaLight";
-    src: url("../static/fonts/ProximaNovaLight.woff") format("woff"), url("../static/fonts/ProximaNovaLight.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "proximaNovaRegular";
-    src: url("../static/fonts/ProximaNovaRegular.woff") format("woff"), url("../static/fonts/ProximaNovaRegular.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "proximaNovaSemibold";
-    src: url("../static/fonts/ProximaNovaSemibold.woff") format("woff"), url("../static/fonts/ProximaNovaSemibold.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
 
 html,
 body,
@@ -622,6 +560,10 @@ input {
     height: 100%;
     min-height: 100vh;
 }
+.overlayed {
+    height: 100vh !important;
+    overflow: auto;
+}
 
 .content {
     display: flex;
@@ -914,46 +856,160 @@ h2 {
     bottom: 0;
 }
 
-@media (min-width: 1920px) {
-    .on-wide-desktop {
-        display: block;
-    }
-}
-
-@media (min-width: 1440px) and (max-width: 1919.98px) {
-    .on-desktop {
-        display: block;
-    }
-}
-
-@media (min-width: 1024px) and (max-width: 1439.98px) {
-    .on-wide-tablet {
-        display: block;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1023.98px) {
-    .on-tablet {
-        display: block;
-    }
-}
-
-@media (min-width: 0) and (max-width: 767.98px) {
-    .on-phone {
-        display: block;
-    }
+.account-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    background-color: rgba(17, 17, 19, 0.64);
 }
 
 .account {
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    flex-shrink: 0;
+    width: 480px;
     min-height: 100vh;
-    background-color: rgba(25, 26, 29, 0.96);
-    left: 0;
-    top: 0;
-    z-index: 101;
-    overflow-y: scroll;
+    margin-bottom: auto;
+    padding: 60px;
+    box-sizing: border-box;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    background-color: rgba(31, 33, 37, 0.8);
+    z-index: 11;
+}
+
+@supports not ((-webkit-backdrop-filter: blur(12px)) or (backdrop-filter: blur(12px))) {
+    .account {
+        background-color: rgba(31, 33, 37, 0.95);
+    }
+}
+
+.account.account_unauthorised {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account .account__close {
+    position: absolute;
+    top: 32px;
+    right: 100px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.account .account__logo.mobile {
+    display: none;
+}
+
+.account .account__logo img {
+    width: 120px;
+}
+
+.account .account__button {
+    margin-top: 24px;
+    height: 34px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.account .account__profiles {
+    display: flex;
+    flex-direction: column;
+}
+
+.account .account__profiles.open .account__profiles-switcher {
+    transform: rotate(180deg);
+}
+
+.account .account__profiles-switcher {
+    display: none;
+    cursor: pointer;
+}
+
+.account .account__profile {
+    display: flex;
+    align-items: center;
+    margin-top: 24px;
+    order: 2;
+}
+
+.account .account__profile.active {
+    margin-top: 0;
+    margin-bottom: 8px;
+    order: 1;
+}
+
+.account .account__links {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 60px;
+}
+
+.account .account__links .account__link {
+    display: block;
+    width: 100%;
+    font-family: "circeRegular", sans-serif;
+    font-size: 20px;
+    line-height: 64px;
+    color: #fff;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.account .account__links .account__link:hover {
+    opacity: 1;
+}
+
+.account .account__links .account__link.logout {
+    color: #868fa0;
+}
+
+
+
+.profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile .profile__img {
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile .profile__name {
+    margin-left: 24px;
+    font-family: "circeRegular", sans-serif;
+    font-size: 16px;
+    line-height: normal;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.profile:hover .profile__name {
+    opacity: 1;
+}
+
+.profile.active .profile__img {
+    border-color: #fff;
+}
+
+.profile.new .profile__img {
+    border: none;
+}
+
+.profile.new .profile__name {
+    color: #868fa0;
+}
+
+.profile.increased .profile__img {
+    width: 56px;
+    height: 56px;
 }
 
 .account__wrapper {
@@ -1014,11 +1070,6 @@ h2 {
     flex: 1;
 }
 
-.account__links {
-    margin-left: 80px;
-    display: inline-block;
-}
-
 .account__link {
     font-size: 24px;
     line-height: 60px;
@@ -1030,12 +1081,6 @@ h2 {
 
 .account__link:hover {
     color: #fff;
-}
-
-.account__profiles {
-    position: relative;
-    padding: 60px 16px 0 60px;
-    margin-bottom: 32px;
 }
 
 .account__profile {
@@ -1085,409 +1130,6 @@ h2 {
 .account__logo-img {
     width: 100%;
     display: block;
-}
-
-@media (min-width: 1920px) {
-    .account__data {
-        width: 660px;
-    }
-
-    .account__close {
-        right: 100px;
-    }
-
-    .account__logo {
-        width: 160px;
-        height: 46px;
-        margin: 31px 0 60px 100px;
-    }
-
-    .account__links {
-        margin-left: 100px;
-    }
-
-    .account__link {
-        font-size: 32px;
-        line-height: 80px;
-    }
-
-    .account__profiles {
-        padding: 60px 60px 32px 60px;
-    }
-
-    .account__profile.active .account__profile-img {
-        width: 54px;
-        height: 54px;
-        margin-right: 32px;
-    }
-
-    .account__profile-img {
-        width: 46px;
-        height: 46px;
-        margin-right: 24px;
-    }
-
-    .account__profile-img.no-border {
-        border: none;
-    }
-
-    .account__profile-name {
-        font-family: "circeRegular", sans-serif;
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.8);
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-
-    .account__profile-name:hover {
-        color: #fff;
-    }
-
-    .account__own-item {
-        font-size: 24px;
-        line-height: 64px;
-    }
-}
-
-@media (min-width: 1440px) and (max-width: 1919px) {
-    .account__logo {
-        width: 160px;
-        height: 46px;
-        margin: 31px 0 92px 80px;
-    }
-
-    .account__close {
-        top: 37px;
-        right: 76px;
-    }
-}
-
-@media (min-width: 1024px) and (max-width: 1365px) {
-    .account__logo {
-        margin: 35px 0 80px 60px;
-        width: 120px;
-        height: 30px;
-    }
-
-    .account__links {
-        margin-left: 60px;
-    }
-
-    .account__link {
-        font-size: 18px;
-        line-height: 48px;
-    }
-
-    .account__data {
-        width: 320px;
-    }
-
-    .account__close {
-        top: 39px;
-        right: 61px;
-        width: 22px;
-        height: 22px;
-    }
-
-    .account__own {
-        padding: 0 0 24px 40px;
-    }
-
-    .account__own-item {
-        font-size: 16px;
-        line-height: 32px;
-    }
-
-    .account__profiles {
-        padding: 60px 16px 0 40px;
-        overflow: hidden;
-    }
-
-    .account__profile {
-        padding-top: 16px;
-    }
-
-    .account__profile.active .account__profile-img {
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        margin-right: 18px;
-    }
-
-    .account__profile-img {
-        box-sizing: border-box;
-        width: 30px;
-        height: 30px;
-        min-width: 30px;
-    }
-
-    .account__profile-name {
-        font-size: 14px;
-        width: 100%;
-    }
-}
-
-@media (min-width: 1366px) and (max-width: 1439px) {
-    .account__logo {
-        height: 80px;
-        display: flex;
-        align-items: center;
-        margin: 0 0 60px 60px;
-    }
-
-    .account__logo > a {
-        width: 120px;
-        height: 30px;
-    }
-
-    .account__close {
-        top: 24px;
-        right: 60px;
-    }
-
-    .account__profiles {
-        margin-bottom: 50px;
-    }
-
-    .account__profile-img {
-        box-sizing: content-box;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-    .account__data {
-        width: 340px;
-    }
-
-    .account__logo {
-        width: 120px;
-        height: 30px;
-        margin: 31px 0 70px 24px;
-    }
-
-    .account__links {
-        margin-left: 24px;
-    }
-
-    .account__link {
-        font-size: 18px;
-        line-height: 48px;
-    }
-
-    .account__own-item {
-        font-size: 16px;
-        line-height: 32px;
-    }
-
-    .account__close {
-        top: 35px;
-        right: 24px;
-        width: 22px;
-        height: 22px;
-    }
-
-    .account__profile {
-        margin-bottom: 0;
-    }
-
-    .account__profile.active .account__profile-img {
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-    }
-
-    .account__profile:first-child {
-        margin-top: 0;
-    }
-
-    .account__profile-img {
-        width: 30px;
-        height: 30px;
-        min-width: 30px;
-    }
-
-    .account__profile-name {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 767px) {
-    .account {
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
-    }
-
-    .account__wrapper {
-        display: flex;
-        flex-direction: column;
-        min-height: -webkit-fill-available;
-        height: auto;
-    }
-
-    .account__menu {
-        height: 62px;
-        min-height: 62px;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        background-color: rgba(17, 17, 19, 0.6);
-        flex: 0;
-        position: fixed;
-        z-index: 10;
-    }
-
-    .account__logo {
-        margin: 16px 0 0 16px;
-    }
-
-    .account__logo img {
-        width: 120px;
-    }
-
-    .account__close {
-        top: 16px;
-        right: 16px;
-        width: 22px;
-        height: 22px;
-    }
-
-    .account__links {
-        min-height: 0;
-        margin-left: 0;
-        position: relative;
-        left: 0;
-        top: 0;
-        padding: 20px 24px;
-        box-sizing: border-box;
-    }
-
-    .account__data {
-        flex: 1;
-        height: auto;
-        min-height: 0;
-        width: 100%;
-        margin-top: 62px;
-        flex-grow: 0;
-        padding-bottom: 0px;
-    }
-
-    .account__wrap {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .account__links-mobile {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 0;
-        height: auto;
-    }
-
-    .account__link {
-        margin-right: auto;
-        font-size: 16px;
-        line-height: 40px;
-        font-family: "circeRegular", sans-serif;
-    }
-
-    .account__link:nth-child(even) {
-        margin-left: auto;
-        margin-right: 0;
-        margin-top: -40px;
-    }
-
-    .account__link.right {
-        text-align: right;
-    }
-
-    .account__buttons {
-        display: flex;
-        justify-content: space-between;
-        padding: 12px 24px;
-    }
-
-    .account__button.button {
-        font-size: 16px;
-        line-height: 23px;
-        padding: 7px 16px;
-    }
-
-    .account__button.button-primary {
-        font-size: 16px;
-        line-height: 23px;
-        padding: 7px 16px;
-    }
-
-    .account__profiles {
-        padding: 16px 24px;
-        margin: 0;
-    }
-
-    .account__own {
-        position: static;
-        position: initial;
-        margin: 0;
-        padding: 20px 24px;
-        display: flex;
-        box-sizing: border-box;
-        width: 100%;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-
-    .account__own-item {
-        font-size: 14px;
-        line-height: 48px;
-        margin-right: auto;
-    }
-
-    .account__own-item.logout {
-        position: absolute;
-        right: 24px;
-        bottom: 20px;
-    }
-
-    .account__profile {
-        margin-bottom: 0;
-        margin-top: 0;
-    }
-
-    .account__profile.active .account__profile-img {
-        width: 40px;
-        height: 40px;
-        min-width: 40px;
-    }
-
-    .account__profile.active .account__profile-name {
-        font-size: 18px;
-        line-height: 26px;
-        color: #fff;
-    }
-
-    .account__profile-img {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-    }
-
-    .account__profile-name {
-        font-size: 14px;
-        line-height: 20px;
-    }
-
-    .account__profile-arrow {
-        position: absolute;
-        right: 24px;
-        top: 30px;
-    }
-
-    .account__profile-arrow.rotate {
-        transform: rotate(180deg);
-    }
 }
 
 .registration {
@@ -8156,9 +7798,10 @@ picture[data-lazy-loaded].card-item__image-img {
 }
 
 .menu {
-    width: 100%;
-    background-image: linear-gradient(0deg, rgba(25, 26, 29, 0) 2%, rgba(25, 26, 29, 0.8) 97%);
     position: absolute;
+    width: 100vw;
+    height: 88px;
+    background-image: linear-gradient(0deg, rgba(17, 17, 19, 0) 0%, rgba(17, 17, 19, 0.6) 100%);
     z-index: 10;
 }
 
@@ -8176,6 +7819,16 @@ picture[data-lazy-loaded].card-item__image-img {
 .menu__content.desktop {
     display: flex;
 }
+.menu .menu__content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 0 100px;
+    box-sizing: border-box;
+}
 
 .menu__content-wrapper {
     align-items: center;
@@ -8192,6 +7845,9 @@ picture[data-lazy-loaded].card-item__image-img {
     position: relative;
 }
 
+.menu .menu__item + .menu__item {
+    margin-left: 40px;
+}
 .menu__item.menu__item--link:after,
 .menu__item.menu__search span:after {
     content: "";
@@ -8280,6 +7936,24 @@ picture[data-lazy-loaded].card-item__image-img {
     align-self: center;
 }
 
+.menu .menu__burger {
+    margin-left: 40px;
+    -ms-grid-row-align: center;
+    align-self: center;
+    cursor: pointer;
+}
+
+.menu .menu__burger .menu__burger-line {
+    width: 26px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+.menu .menu__burger .menu__burger-line + .menu__burger-line {
+    margin-top: 6px;
+}
+
 .avatar {
     box-sizing: border-box;
     border-radius: 50%;
@@ -8314,267 +7988,6 @@ picture[data-lazy-loaded].card-item__image-img {
     transform: scale(1.1);
 }
 
-@media (min-width: 1920px) {
-    .avatar {
-        width: 48px;
-        height: 48px;
-    }
-
-    .menu {
-        height: 96px;
-    }
-
-    .menu__item {
-        margin-right: 40px;
-        font-size: 20px;
-        line-height: 1;
-    }
-
-    .menu__logo {
-        margin-right: 80px;
-    }
-
-    .menu__content {
-        padding-right: 100px;
-        padding-left: 100px;
-    }
-}
-
-@media (min-width: 1440px) and (max-width: 1919px) {
-    .avatar {
-        width: 48px;
-        height: 48px;
-    }
-
-    .menu {
-        height: 96px;
-    }
-
-    .menu__item {
-        margin-right: 40px;
-        font-size: 16px;
-        line-height: 1;
-    }
-
-    .menu__item.menu__account {
-        margin-right: 40px;
-    }
-
-    .menu__logo {
-        margin-right: 80px;
-    }
-
-    .menu__content {
-        padding-right: 80px;
-        padding-left: 80px;
-    }
-}
-
-@media (min-width: 1024px) and (max-width: 1365px) {
-    .menu {
-        height: 80px;
-    }
-
-    .menu__item {
-        font-size: 14px;
-        line-height: 1;
-        margin-right: 24px;
-    }
-
-    .menu__item.menu__account {
-        margin-right: 24px;
-    }
-
-    .menu__logo {
-        margin-right: 60px;
-        width: 120px;
-        height: 30px;
-    }
-
-    .menu__item-line {
-        width: 24px;
-        height: 3px;
-        margin-top: 5px;
-    }
-
-    .menu__item-line:first-child {
-        margin-top: 0;
-    }
-
-    .menu__content {
-        padding-right: 60px;
-        padding-left: 60px;
-    }
-
-    .avatar {
-        width: 40px;
-        height: 40px;
-    }
-}
-
-@media (min-width: 1366px) and (max-width: 1439px) {
-    .menu {
-        height: 76px;
-    }
-
-    .menu__item {
-        font-size: 14px;
-        line-height: 20px;
-        margin-right: 32px;
-    }
-
-    .menu__item.menu__account {
-        margin-right: 24px;
-    }
-
-    .menu__logo {
-        margin-right: 60px;
-        width: 120px;
-        height: 30px;
-    }
-
-    .menu__item-line {
-        width: 24px;
-        height: 3px;
-        margin-top: 5px;
-    }
-
-    .menu__item-line:first-child {
-        margin-top: 0;
-    }
-
-    .menu__content {
-        padding-right: 60px;
-        padding-left: 60px;
-    }
-
-    .avatar {
-        width: 32px;
-        height: 32px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-    .avatar {
-        width: 32px;
-        height: 32px;
-    }
-
-    .menu {
-        height: 56px;
-    }
-
-    .menu__item {
-        font-size: 14px;
-        line-height: 1;
-        margin-right: 18px;
-    }
-
-    .menu__logo {
-        margin-right: 40px;
-        width: 120px;
-        height: 30px;
-    }
-
-    .menu__item-line {
-        width: 22px;
-        height: 2px;
-        margin-top: 5px;
-    }
-
-    .menu__item-line:first-child {
-        margin-top: 0;
-    }
-
-    .menu__search span {
-        display: none;
-    }
-
-    .menu__content {
-        padding-right: 24px;
-        padding-left: 24px;
-    }
-
-    .avatar img {
-        width: 30px;
-        height: 30px;
-    }
-
-    .menu__item.menu__right.menu__account {
-        margin-right: 16px;
-    }
-}
-
-@media (max-width: 767px) {
-    .avatar {
-        width: 40px;
-        height: 40px;
-    }
-
-    .menu {
-        height: 60px;
-    }
-
-    .menu__content.desktop {
-        display: none;
-    }
-
-    .menu__content.mobile {
-        display: flex;
-        height: auto;
-        padding: 16px 16px 0;
-    }
-
-    .menu__content.mobile .menu__content-wrapper {
-        width: 100%;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-
-    .menu__mobile {
-        display: flex;
-        align-items: center;
-    }
-
-    .menu__item-line {
-        width: 22px;
-        height: 2px;
-        margin-top: 5px;
-    }
-
-    .menu__item-line:first-child {
-        margin-top: 0;
-    }
-
-    .menu__content {
-        box-sizing: border-box;
-        height: 60px;
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-    .menu__content-wrapper {
-        margin-top: 0px;
-    }
-
-    .menu__item {
-        margin-right: 24px;
-    }
-
-    .menu__search span {
-        display: none;
-    }
-
-    .menu__search img {
-        width: 20px;
-        height: 22px;
-        margin-right: 0;
-    }
-
-    .menu__item-logo {
-        width: 120px;
-    }
-}
 
 .movie__bg {
     width: 100%;
@@ -13323,6 +12736,30 @@ video::cue video::-webkit-media-text-track-display {
 
 .account-popup__item:hover:not(.current) .account-popup__item-name {
     color: #fff;
+}
+
+.account_true {
+    flex-shrink: 0;
+    width: 480px;
+    min-height: 100vh;
+    margin-bottom: auto;
+    padding: 60px;
+    box-sizing: border-box;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    background-color: rgba(31, 33, 37, 0.8);
+    z-index: 11;
+}
+
+.account_true .account__profiles {
+    display: flex;
+    flex-direction: column;
+}
+
+.account_true .account__profile.active {
+    margin-top: 0;
+    margin-bottom: 8px;
+    order: 1;
 }
 
 @media (min-width: 1920px) {
