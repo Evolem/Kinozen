@@ -30,6 +30,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public class AdminController {
 
+
+    // todo доделать фасад
     private final ContentService contentService;
     private final ContentValidator contentValidator;
     private final AdminFacade adminFacade;
