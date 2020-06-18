@@ -7,7 +7,7 @@
 <body>
 <div th:replace="blocks/adminHeader.html:: header"></div>
 
-<div class="container-fluid" style="max-width: 1140px">
+<div class="container containerExtends">
     <h1 class="display-4 text-muted">Сontent management</h1>
 
     <form th:action="@{/admin/content}" method="get">
@@ -70,8 +70,8 @@
         </tr>
         </thead>
         <tr th:each="content : ${contents}">
-            <td style="width: 20%"><a th:href="@{'/content/'+ ${content.url}}">[[ ${content.name} ]]</a></td>
-            <td style="width: 25%" th:text="${content.description}">Content description</td>
+            <td style="width: 17%"><a th:href="@{'/content/'+ ${content.url}}">[[ ${content.name} ]]</a></td>
+            <td style="width: 23%" th:text="${content.description}">Content description</td>
             <td th:text="${#dates.format(content.released, 'dd-MM-yyyy')}">Released date</td>
             <td th:text="${content.type.typeName}">Type</td>
             <td>
