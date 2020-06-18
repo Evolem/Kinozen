@@ -3,11 +3,12 @@ package ru.gbjava.collectionservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
-import ru.gbjava.collectionservice.dto.WishCollectionDto;
 import ru.gbjava.collectionservice.persistance.entity.Collection;
+import ru.gbjava.collectionservice.persistance.entity.Content;
 import ru.gbjava.collectionservice.persistance.repository.CollectionRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,14 +28,9 @@ public class CollectionService {
         return userCollection;
     }
 
-    public WishCollectionDto getWishCollection(@NonNull String user) {
+    public List<UUID> getWishCollection(@NonNull String user) {
         Collection collection = collectionRepository.findByUserAndName(UUID.fromString(user), "wish").orElseThrow();
-
-        WishCollectionDto wishCollection = new WishCollectionDto();
-        wishCollection.setId(collection.getId());
-        wishCollection.setContents(new ArrayList<>());
-        collection.getContentList().forEach(content -> wishCollection.getContents().add(content.getId()));
-
-        return wishCollection;
+        List<UUID> result = collection.getContentList().stream().map(Content::getId).collect(Collectors.toList());
+        return result;
     }
 }

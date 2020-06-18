@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import ru.gbjava.collectionservice.dto.WishCollectionDto;
 import ru.gbjava.collectionservice.persistance.entity.Collection;
 import ru.gbjava.collectionservice.service.CollectionService;
 
@@ -30,25 +29,14 @@ public class CollectionController {
         }
     }
 
-//    @GetMapping(value = "/wish/{user}")
-//    public ResponseEntity<WishCollectionDto> getWishCollection(@PathVariable String user) {
-//        WishCollectionDto result = collectionService.getWishCollection(user);
-//
-//        if (result == null) {
-//            return ResponseEntity.notFound().build();
-//        } else {
-//            return ResponseEntity.ok(result);
-//        }
-//    }
-
     @GetMapping(value = "/wish/{user}")
     public ResponseEntity<List<UUID>> getWishCollection(@PathVariable String user) {
-        WishCollectionDto result = collectionService.getWishCollection(user);
+        List<UUID> result = collectionService.getWishCollection(user);
 
         if (result == null) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(result.getContents());
+            return ResponseEntity.ok(result);
         }
     }
 }
