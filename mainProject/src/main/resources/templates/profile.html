@@ -52,27 +52,10 @@
             <head th:replace="blocks/footer.html :: footer"></head>
         </div>
 
-        <div>
-            <table class="table table-hover">
-                <thead class="thead-light">
-                <tr>
-                    <th>Дата просмотра</th>
-                    <th>Название</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="historyRecord: ${history}">
-                    <td th:text = "${historyRecord.getDate()}"></td>
-                    <td>
-                        <a th:href="@{'/content/' + ${historyRecord.getContent().getUrl()}}"> [[ ${historyRecord.getContent().getName()} ]] </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        
 
     </div>
 </div>
-<script src="../static/js/profile.js"></script>
+<script th:src="@{/js/profile.js}"></script>
 </body>
 </html>
