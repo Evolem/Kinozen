@@ -11,17 +11,21 @@
 
     <!--  TODO плохая реализация if else -->
     <h1 class="display-4 text-muted" th:unless="${season.id !=null}">New season</h1>
-    <h1 class="display-4 text-muted"th:if="${season.id !=null}">Edit</h1>
+    <h1 class="display-4 text-muted" th:if="${season.id !=null}">Edit</h1>
+
+    <blockquote class="blockquote">
+        <footer class="blockquote-footer" th:text="${season.content.name}"></footer>
+    </blockquote>
 
 
-    <div class="container">
 
         <form class="form-horizontal" th:object="${season}" th:action="@{/admin/season/save}" method="post">
+
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="idContent">Content id</label>
-                    <input type="text" class="form-control" th:field="*{content.id}" name="idContent" id="idContent" placeholder="id не сгенерирован, баг!" readonly>
+                    <input type="text" class="form-control" th:field="*{content}" name="idContent" id="idContent" placeholder="contentName не получен, баг!" readonly>
                 </div>
 
                 <div class="form-group col-md-6">
@@ -40,7 +44,7 @@
 
             <div class="form-group">
                 <label for="numberSeason">Number Season</label>
-                <input type="number" id="numberSeason" name="numberSeason" value="${content.}" th:field="*{numberSeason}">
+                <input type="number" class="form-control" id="numberSeason" name="numberSeason" value="${content.}" th:field="*{numberSeason}">
             </div>
 
 
@@ -56,7 +60,6 @@
 
         </form>
     </div>
-</div>
 
 <footer th:replace="adminPanel/blocks/adminFooter.html :: footer"></footer>
 </body>

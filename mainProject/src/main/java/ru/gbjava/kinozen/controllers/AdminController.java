@@ -138,11 +138,6 @@ public class AdminController {
         return "adminPanel/seasonEdit";
     }
 
-    @GetMapping("/season/delete/{id}")
-    public void deleteSeason( @PathVariable UUID id, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        adminFacade.deleteSeasonById(id);
-        response.sendRedirect(request.getHeader("referer"));
-    }
 
     @PostMapping("/season/save")
     public String saveSeason(@ModelAttribute SeasonDto seasonDto, RedirectAttributes redirectAttributes) {
@@ -152,5 +147,12 @@ public class AdminController {
         adminFacade.saveSeason(SeasonMapper.INSTANCE.toEntity(seasonDto));
         return "redirect:/admin/content/edit/" + seasonDto.getContent().getId();
     }
+
+    @GetMapping("/season/delete/{id}")
+    public void deleteSeason( @PathVariable UUID id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        adminFacade.deleteSeasonById(id);
+        response.sendRedirect(request.getHeader("referer"));
+    }
+
 
 }

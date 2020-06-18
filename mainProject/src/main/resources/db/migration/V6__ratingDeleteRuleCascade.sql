@@ -12,3 +12,7 @@ alter table tbl_content_like
 		foreign key (id_content) references tbl_content
 			on delete cascade;
 
+alter table tbl_season alter column url_season set not null;
+
+drop index tbl_season_url_season_uindex;
+
