@@ -19,25 +19,25 @@
 
     <div class="container">
 
-        <form method="POST" enctype="multipart/form-data" th:action="@{'/admin/content/uploadImage'}">
+<!--        <form method="POST" enctype="multipart/form-data" th:action="@{'/admin/content/uploadImage'}">-->
 
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                </div>
-                <div class="custom-file">
-                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"
-                           aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="inputGroupFile01">[[ ${content.imageName}]]</label>
-                </div>
-            </div>
+<!--            <div class="input-group mb-3">-->
+<!--                <div class="input-group-prepend">-->
+<!--                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>-->
+<!--                </div>-->
+<!--                <div class="custom-file">-->
+<!--                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"-->
+<!--                           aria-describedby="inputGroupFileAddon01">-->
+<!--                    <label class="custom-file-label" for="inputGroupFile01">[[ ${content.imageName}]]</label>-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <input class="btn btn-outline-primary mb-1" type="submit" value="Upload"/>
+<!--            <input class="btn btn-outline-primary mb-1" type="submit" value="Upload"/>-->
 
-        </form>
+<!--        </form>-->
 
 
-        <form class="form-horizontal" th:object="${content}" th:action="@{/admin/content/save}" method="post">
+        <form class="form-horizontal" enctype="multipart/form-data" th:object="${content}" th:action="@{/admin/content/save}" method="post">
 
             <div class="form-group">
                 <label for="id">UUID</label>
@@ -61,6 +61,16 @@
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea class="form-control" name="description" id="description" th:field="*{description}"></textarea>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">[[ ${content.imageName}]]</label>
+                </div>
             </div>
 
             <div class="form-row align-items-center">

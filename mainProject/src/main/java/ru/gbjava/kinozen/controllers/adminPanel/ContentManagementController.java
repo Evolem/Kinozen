@@ -84,30 +84,18 @@ public class ContentManagementController {
     }
 
     @PostMapping("/save")
-    public String saveContent(ContentDto contentDto, BindingResult bindingResult, Model model) {
+    public String saveContent(@RequestParam(required = false, name = "file") MultipartFile file,
+                              ContentDto contentDto,
+                              BindingResult bindingResult,
+                              Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("content", contentDto);
             return "redirect:/admin/content";
         }
 
-        contentDto.setUrl(StringConverter.cyrillicToLatin(contentDto.getName()));
-        UUID idContent = contentService.save(ContentMapper.INSTANCE.toEntity(contentDto)).getId();
-        return "redirect:/admin/content/edit/" + idContent;
-    }
-
-    @PostMapping("/uploadImage")
-    public void handleFileUpload(@RequestParam(required = false, name = "file") MultipartFile file,
-                                 @ModelAttribute Content content,
-                                 RedirectAttributes redirectAttributes,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) throws IOException {
-
+        Content content = contentService.save(ContentMapper.INSTANCE.toEntity(contentDto));
         storageFacade.uploadImageContent(file, content);
-
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
-
-        response.sendRedirect(request.getHeader("referer"));
+        return "redirect:/admin/content/edit/" + content.getId();
     }
 
 

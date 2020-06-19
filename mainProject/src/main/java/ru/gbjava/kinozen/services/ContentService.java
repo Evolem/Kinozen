@@ -43,6 +43,7 @@ public class ContentService implements CrudService<Content, UUID> {
     @Override
     @Transactional
     public Content save(Content content) {
+        content.setUrl(StringConverter.cyrillicToLatin(content.getName()));
         return contentRepository.save(content);
     }
 
