@@ -1,6 +1,8 @@
 package ru.gbjava.kinozen.services.facade;
 
+import feign.RetryableException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ContentFacadeImpl implements ContentFacade {
@@ -90,7 +93,7 @@ public class ContentFacadeImpl implements ContentFacade {
 
     @Override
     public void checkTypeAndSetupModel(Model model, Content content) {
-        if(content.getType().ordinal() == 0){
+        if (content.getType().ordinal() == 0) {
             List<Season> seasons = findAllSeasonByContent(content);
             model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
         } else {
@@ -102,7 +105,13 @@ public class ContentFacadeImpl implements ContentFacade {
 
     @Override
     public ResponseEntity<byte[]> getContentFile(HttpHeaders headers, String uuid) {
-        return playerFeignClient.getContentFile(headers, uuid);
+        ResponseEntity<byte[]> responseEntity = null;
+        try {
+            responseEntity = playerFeignClient.getContentFile(headers, uuid);
+        } catch (RetryableException e) {
+            log.error(e.getMessage());
+        }
+        return responseEntity;
     }
 
     @Override
