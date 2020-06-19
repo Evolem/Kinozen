@@ -1,12 +1,8 @@
 package ru.gbjava.kinozen.services.storage;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
@@ -21,13 +17,13 @@ import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-
-@Service
-@RequiredArgsConstructor
 public class FileSystemStorageService implements StorageService {
 
-    @Value("${files.storage.video_download}")
-    private Path rootLocation;
+    private final Path rootLocation;
+
+    public FileSystemStorageService(Path rootLocation) {
+        this.rootLocation = rootLocation;
+    }
 
     @Override
     public String store(MultipartFile file) {

@@ -24,6 +24,7 @@ public class ContentDto {
     private Date released;
     private Boolean visible;
     private String url;
+    private String imageName;
     private TypeContent type;
     private Set<Genre> genres;
     private Set<Actor> actors;

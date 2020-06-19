@@ -39,6 +39,9 @@ public class Content {
     @Column(name = "url_content")
     private String url;
 
+    @Column(name = "img_content")
+    private String imageName;
+
     @Column(name = "type_content")
     @Enumerated(EnumType.ORDINAL)
     private TypeContent type;

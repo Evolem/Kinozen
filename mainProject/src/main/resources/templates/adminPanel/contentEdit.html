@@ -13,8 +13,29 @@
     <h1 class="display-4 text-muted" th:if="${content.id != null}">[[ ${content.name} ]]</h1>
     <h1 class="display-4 text-muted" th:unless="${content.id != null}">Add new content</h1>
 
+    <div th:if="${message}">
+        <h2 th:text="${message}"/>
+    </div>
 
     <div class="container">
+
+        <form method="POST" enctype="multipart/form-data" th:action="@{'/admin/content/uploadImage'}">
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"
+                           aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">[[ ${content.imageName}]]</label>
+                </div>
+            </div>
+
+            <input class="btn btn-outline-primary mb-1" type="submit" value="Upload"/>
+
+        </form>
+
 
         <form class="form-horizontal" th:object="${content}" th:action="@{/admin/content/save}" method="post">
 
@@ -94,13 +115,16 @@
 
                             <td>
                                 <a class="btn btn-warning  mb-1" th:href="@{'/admin/season/edit/'+ ${(s.id)}}">Edit</a>
-                                <a class="btn btn-danger mb-1" th:href="@{'/admin/season/delete/'+ ${(s.id)}}">Delete</a>
-                                <a class="btn btn-outline-primary  mb-1" th:href="@{'/admin/episode/add/'+ ${(content.id)}}">+ episode</a>
+                                <a class="btn btn-danger mb-1"
+                                   th:href="@{'/admin/season/delete/'+ ${(s.id)}}">Delete</a>
+                                <a class="btn btn-outline-primary  mb-1"
+                                   th:href="@{'/admin/episode/add/'+ ${(content.id)}}">+ episode</a>
                             </td>
 
                         </tr>
                     </table>
-                    <a class="btn btn-outline-primary mb-1" th:href="@{'/admin/season/add/'+ ${(content.id)}}">Add season</a>
+                    <a class="btn btn-outline-primary mb-1" th:href="@{'/admin/season/add/'+ ${(content.id)}}">Add
+                        season</a>
                 </div>
             </div>
 

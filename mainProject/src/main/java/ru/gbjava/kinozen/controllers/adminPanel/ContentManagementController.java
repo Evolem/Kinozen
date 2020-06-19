@@ -1,53 +1,47 @@
-package ru.gbjava.kinozen.controllers;
+package ru.gbjava.kinozen.controllers.adminPanel;
 
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.gbjava.kinozen.dto.ContentDto;
-import ru.gbjava.kinozen.dto.SeasonDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
-import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.facade.AdminFacade;
+import ru.gbjava.kinozen.services.facade.StorageFacade;
 import ru.gbjava.kinozen.utilites.StringConverter;
 import ru.gbjava.kinozen.validators.ContentValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/content")
 @RequiredArgsConstructor
-public class AdminController {
+public class ContentManagementController {
 
 
     // todo доделать фасад
     private final ContentService contentService;
     private final ContentValidator contentValidator;
     private final AdminFacade adminFacade;
-
-
-    @GetMapping
-    public String startInfo(Model model) {
-        adminFacade.initLinks(model);
-        return "adminPanel/adminHome";
-    }
+    private final StorageFacade storageFacade;
 
     /**
      * Блок управления контентом
      */
 
-    @GetMapping("/content")
+    @GetMapping
     public String getContentList(
             Model model,
             @RequestParam(required = false) String name,
@@ -68,14 +62,14 @@ public class AdminController {
         return "adminPanel/adminContent";
     }
 
-    @GetMapping("/content/add")
+    @GetMapping("/add")
     public String addContent(Model model) {
         adminFacade.initLinks(model);
         model.addAttribute("content", new ContentDto());
         return "adminPanel/contentEdit";
     }
 
-    @GetMapping("/content/edit/{uuid}")
+    @GetMapping("/edit/{uuid}")
     public String editContent(@PathVariable("uuid") UUID uuid, Model model) {
         adminFacade.initLinks(model);
         Content content = contentService.findById(uuid);
@@ -89,7 +83,7 @@ public class AdminController {
         return "adminPanel/contentEdit";
     }
 
-    @PostMapping("/content/save")
+    @PostMapping("/save")
     public String saveContent(ContentDto contentDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("content", contentDto);
@@ -101,59 +95,33 @@ public class AdminController {
         return "redirect:/admin/content/edit/" + idContent;
     }
 
-    @GetMapping("/content/delete/{uuid}")
+    @PostMapping("/uploadImage")
+    public void handleFileUpload(@RequestParam(required = false, name = "file") MultipartFile file,
+                                 @ModelAttribute Content content,
+                                 RedirectAttributes redirectAttributes,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) throws IOException {
+
+        storageFacade.uploadImageContent(file, content);
+
+        redirectAttributes.addFlashAttribute("message",
+                "You successfully uploaded " + file.getOriginalFilename() + "!");
+
+        response.sendRedirect(request.getHeader("referer"));
+    }
+
+
+    @GetMapping("/delete/{uuid}")
     public String deleteContent(@PathVariable("uuid") UUID uuid) {
         contentService.deleteById(uuid);
         return "redirect:/admin/content";
 
     }
 
-    @GetMapping("/content/visible/{uuid}")
+    @GetMapping("/visible/{uuid}")
     public String changeVisible(@PathVariable("uuid") UUID uuid) {
         contentService.changeVisible(uuid);
         return "redirect:/admin/content";
-    }
-
-    /**
-     * Блок управления сезонами
-     */
-
-    @GetMapping("/season")
-    public String getSeasonList(Model model) {
-        adminFacade.initLinks(model);
-        return "adminPanel/adminSeasons";
-    }
-
-    @GetMapping("/season/add/{idContent}")
-    public String addSeason(Model model, @PathVariable UUID idContent) {
-        adminFacade.initLinks(model);
-        SeasonDto seasonDto = new SeasonDto();
-        seasonDto.setContent(contentService.findById(idContent));
-        model.addAttribute("season", seasonDto);
-        return "adminPanel/seasonEdit";
-    }
-
-    @GetMapping("/season/edit/{id}")
-    public String editSeason(Model model, @PathVariable UUID id) {
-        SeasonDto seasonDto = SeasonMapper.INSTANCE.toDto(adminFacade.findSeasonById(id));
-        model.addAttribute("season", seasonDto);
-        return "adminPanel/seasonEdit";
-    }
-
-
-    @PostMapping("/season/save")
-    public String saveSeason(@ModelAttribute SeasonDto seasonDto, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("message",
-                "сохрание успешно" + "!");
-
-        adminFacade.saveSeason(SeasonMapper.INSTANCE.toEntity(seasonDto));
-        return "redirect:/admin/content/edit/" + seasonDto.getContent().getId();
-    }
-
-    @GetMapping("/season/delete/{id}")
-    public void deleteSeason( @PathVariable UUID id, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        adminFacade.deleteSeasonById(id);
-        response.sendRedirect(request.getHeader("referer"));
     }
 
 
