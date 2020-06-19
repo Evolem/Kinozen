@@ -1,5 +1,6 @@
 package ru.gbjava.kinozen.services.storage;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.FileSystemUtils;
@@ -11,12 +12,11 @@ import ru.gbjava.kinozen.utilites.FileNameGenerator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+@Slf4j
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
@@ -88,6 +88,18 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    }
+
+    @Override
+    public void deleteByMame(String imageName) {
+        Path path = rootLocation.resolve(imageName);
+        try {
+            Files.delete(path);
+        } catch (NoSuchFileException e) {
+            log.error("No such: " + path);
+        }  catch (IOException e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Override

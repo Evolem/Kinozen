@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
@@ -14,13 +13,8 @@ import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.facade.AdminFacade;
-import ru.gbjava.kinozen.services.facade.StorageFacade;
-import ru.gbjava.kinozen.utilites.StringConverter;
 import ru.gbjava.kinozen.validators.ContentValidator;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -30,16 +24,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ContentManagementController {
 
+    /**
+     * Управление контентом
+     */
 
     // todo доделать фасад
     private final ContentService contentService;
     private final ContentValidator contentValidator;
     private final AdminFacade adminFacade;
-    private final StorageFacade storageFacade;
-
-    /**
-     * Блок управления контентом
-     */
 
     @GetMapping
     public String getContentList(
@@ -51,13 +43,7 @@ public class ContentManagementController {
             @RequestParam(required = false) Integer type
     ) {
         adminFacade.initLinks(model);
-        List<Content> contentList = contentService.findAll(
-                name,
-                releasedFrom,
-                releasedTo,
-                visible,
-                type);
-
+        List<Content> contentList = adminFacade.getContentsByFilers(name, releasedFrom, releasedTo, visible, type);
         model.addAttribute("contents", ContentMapper.INSTANCE.toDtoList(contentList));
         return "adminPanel/adminContent";
     }
@@ -93,8 +79,8 @@ public class ContentManagementController {
             return "redirect:/admin/content";
         }
 
-        Content content = contentService.save(ContentMapper.INSTANCE.toEntity(contentDto));
-        storageFacade.uploadImageContent(file, content);
+        Content content = adminFacade.saveContent(ContentMapper.INSTANCE.toEntity(contentDto), file);
+
         return "redirect:/admin/content/edit/" + content.getId();
     }
 

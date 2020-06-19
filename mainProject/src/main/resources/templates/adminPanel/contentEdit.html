@@ -19,38 +19,24 @@
 
     <div class="container">
 
-<!--        <form method="POST" enctype="multipart/form-data" th:action="@{'/admin/content/uploadImage'}">-->
+        <form class="form-horizontal" enctype="multipart/form-data" th:object="${content}"
+              th:action="@{/admin/content/save}" method="post">
 
-<!--            <div class="input-group mb-3">-->
-<!--                <div class="input-group-prepend">-->
-<!--                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>-->
-<!--                </div>-->
-<!--                <div class="custom-file">-->
-<!--                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"-->
-<!--                           aria-describedby="inputGroupFileAddon01">-->
-<!--                    <label class="custom-file-label" for="inputGroupFile01">[[ ${content.imageName}]]</label>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <input class="btn btn-outline-primary mb-1" type="submit" value="Upload"/>-->
-
-<!--        </form>-->
-
-
-        <form class="form-horizontal" enctype="multipart/form-data" th:object="${content}" th:action="@{/admin/content/save}" method="post">
-
+            <!-- UUID -->
             <div class="form-group">
                 <label for="id">UUID</label>
                 <input class="form-control" type="text" id="id" th:field="*{id}" placeholder="id не сгенерирован"
                        readonly>
             </div>
 
+            <!-- URL -->
             <div class="form-group">
                 <label for="url">Url</label>
                 <input class="form-control" type="text" id="url" th:field="*{url}" placeholder="url не сгенерирован"
                        readonly>
             </div>
 
+            <!-- Имя -->
             <div class="form-group">
                 <label for="nameInput">Name</label>
                 <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
@@ -58,27 +44,33 @@
                 <input type="text" class="form-control" id="nameInput" name="name" th:field="*{name}">
             </div>
 
+            <!-- Описание -->
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea class="form-control" name="description" id="description" th:field="*{description}"></textarea>
             </div>
 
+            <!-- Загрузка изображения -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="inputGroupFile01">[[ ${content.imageName}]]</label>
+                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"
+                           aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">[[
+                        ${content.imageName}]]</label>
                 </div>
             </div>
 
             <div class="form-row align-items-center">
+                <!-- Выбор даты -->
                 <div class="col-auto my-1">
                     <label for="released">Released</label>
                     <input type="date" class="form-control" name="released" id="released" th:field="*{released}">
                 </div>
 
+                <!-- Выбор типа -->
                 <div class="col-auto my-1">
                     <label for="selectType">Content type</label>
                     <select class="form-control" id="selectType" th:field="*{type}">
@@ -92,6 +84,7 @@
 
             </div>
 
+            <!-- Установка видимости -->
             <div class="form-group mt-4">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="visible" id="visible"
@@ -100,6 +93,7 @@
                 </div>
             </div>
 
+            <!-- Вывод сезонов, если сериал -->
             <div class="mb-4" th:if="${content.id != null}">
                 <div th:if="${content.type.ordinal() == 0}">
                     <h3 class="text-muted">Seasons and episodes</h3>
@@ -138,6 +132,8 @@
                 </div>
             </div>
 
+
+            <!-- Действие -->
             <div class="submit">
                 <button class="btn btn-success btn-lg btn-block mt-2 mb-2" type="submit">Save</button>
             </div>
