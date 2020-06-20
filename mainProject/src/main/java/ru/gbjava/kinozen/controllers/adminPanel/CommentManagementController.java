@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.services.facade.AdminFacade;
 
 @Controller
-@RequestMapping("/admin/users")
+@RequestMapping("/admin/comments")
 @RequiredArgsConstructor
-public class UserManagementController {
+public class CommentManagementController {
 
     /**
-     *  Управление пользователями
+     * Управление комментариями
      */
 
     private final AdminFacade adminFacade;
@@ -21,7 +21,6 @@ public class UserManagementController {
     @GetMapping
     public String startInfo(Model model) {
         adminFacade.initLinks(model);
-        return "adminPanel/users";
+        return "adminPanel/comments";
     }
-
 }
