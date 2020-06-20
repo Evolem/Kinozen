@@ -87,13 +87,13 @@ public class FileStorageService implements StorageService {
     }
 
     @Override
-    public void deleteFileByMame(String imageName) {
+    public void deleteFileByName(String imageName) {
         Path path = rootLocation.resolve(imageName);
         try {
             Files.delete(path);
             log.info("Delete success :" + path.toString());
         } catch (NoSuchFileException e) {
-            log.error("No such: " + path);
+            log.error("Delete file by name (no such): " + path);
         } catch (IOException e) {
             log.error("IOException" + e.getMessage());
         }

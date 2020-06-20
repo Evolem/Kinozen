@@ -20,5 +20,5 @@ public interface StorageService {
 
     void deleteAll();
 
-    void deleteFileByMame(String imageName);
+    void deleteFileByName(String imageName);
 }

@@ -83,7 +83,7 @@ public class AdminFacade {
         if (!file.isEmpty()) {
             try {
                 if (!Objects.isNull(content.getImageName())) {
-                    storageService.deleteFileByMame(content.getImageName());
+                    storageService.deleteFileByName(content.getImageName());
                 }
                 content.setImageName(storageService.store(file));
                 contentService.save(content);
@@ -92,7 +92,20 @@ public class AdminFacade {
                 log.error(e.getMessage());
             }
         }
+        log.warn("Upload image: file is empty");
         return false;
+    }
+
+    public Content findContentById(UUID uuid) {
+        return contentService.findById(uuid);
+    }
+
+    public void deleteContentById(UUID uuid) {
+        contentService.deleteById(uuid);
+    }
+
+    public void changeVisible(UUID uuid) {
+        contentService.changeVisible(uuid);
     }
 }
 

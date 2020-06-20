@@ -28,8 +28,6 @@ public class ContentManagementController {
      * Управление контентом
      */
 
-    // todo доделать фасад
-    private final ContentService contentService;
     private final ContentValidator contentValidator;
     private final AdminFacade adminFacade;
 
@@ -58,7 +56,7 @@ public class ContentManagementController {
     @GetMapping("/edit/{uuid}")
     public String editContent(@PathVariable("uuid") UUID uuid, Model model) {
         adminFacade.initLinks(model);
-        Content content = contentService.findById(uuid);
+        Content content = adminFacade.findContentById(uuid);
 
         if (content.getType() == TypeContent.SERIAL) {
             Iterable<Season> seasons = adminFacade.getSeasonByContent(content);
@@ -74,7 +72,8 @@ public class ContentManagementController {
                               ContentDto contentDto,
                               BindingResult bindingResult,
                               Model model) {
-        if (bindingResult.hasErrors()) {
+
+        if (bindingResult.hasErrors()) { //todo
             model.addAttribute("content", contentDto);
             return "redirect:/admin/content";
         }
@@ -86,14 +85,14 @@ public class ContentManagementController {
 
     @GetMapping("/delete/{uuid}")
     public String deleteContent(@PathVariable("uuid") UUID uuid) {
-        contentService.deleteById(uuid);
+        adminFacade.deleteContentById(uuid);
         return "redirect:/admin/content";
 
     }
 
     @GetMapping("/visible/{uuid}")
     public String changeVisible(@PathVariable("uuid") UUID uuid) {
-        contentService.changeVisible(uuid);
+        adminFacade.changeVisible(uuid);
         return "redirect:/admin/content";
     }
 
