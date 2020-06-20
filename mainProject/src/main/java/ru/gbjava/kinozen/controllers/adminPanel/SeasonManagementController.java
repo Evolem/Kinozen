@@ -12,6 +12,7 @@ import ru.gbjava.kinozen.services.facade.AdminFacade;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -20,14 +21,18 @@ import java.util.UUID;
 public class SeasonManagementController {
 
     /**
-     *  Управление сезонами
+     * Управление сезонами
      */
 
     private final AdminFacade adminFacade;
 
+    @ModelAttribute("links")
+    public Map<String, String> getLinksForMenu() {
+        return adminFacade.initLinks();
+    }
+
     @GetMapping("/add/{idContent}")
     public String addSeason(Model model, @PathVariable UUID idContent) {
-        adminFacade.initLinks(model);
         SeasonDto seasonDto = new SeasonDto();
         seasonDto.setContent(adminFacade.findContentById(idContent));
         model.addAttribute("season", seasonDto);

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.persistence.entities.Content;
@@ -15,6 +14,7 @@ import ru.gbjava.kinozen.services.storage.FileStorageService;
 import ru.gbjava.kinozen.services.storage.StorageService;
 
 import javax.annotation.PostConstruct;
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -38,13 +38,13 @@ public class AdminFacadeImpl implements AdminFacade{
     }
 
     // todo
-    public void initLinks(Model model) {
+    public Map<String, String> initLinks() {
         Map<String, String> links = new HashMap<>();
         links.put("content", "Content management");
         links.put("comment", "Comments");
         links.put("banner", "Banners");
         links.put("user", "Users");
-        model.addAttribute("links", links);
+        return links;
     }
 
     public Iterable<Season> getSeasonByContent(Content content) {
@@ -107,6 +107,18 @@ public class AdminFacadeImpl implements AdminFacade{
     public void changeVisible(UUID uuid) {
         contentService.changeVisible(uuid);
     }
+
+    @Override
+    public Path getContentImageLocation() {
+        return contentImageLocation;
+    }
+
+    @Override
+    public BufferedImage getContentImage(String id) {
+        return null;
+    }
+
+
 }
 
 

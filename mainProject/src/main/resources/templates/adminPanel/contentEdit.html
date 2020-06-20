@@ -50,19 +50,24 @@
                 <textarea class="form-control" name="description" id="description" th:field="*{description}"></textarea>
             </div>
 
-            <!-- Загрузка изображения -->
-            <input type="text" hidden  name="name" th:field="*{imageName}">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+            <!-- Изображение -->
+            <div class="row">
+                <div class="col-sm">
+                    <!-- Загрузка изображения -->
+                    <input type="text" hidden name="name" th:field="*{imageName}">
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile02"/>
+                            <label class="custom-file-label" for="inputGroupFile02">[[ ${content.imageName}]]</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="custom-file">
-                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"
-                           aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="inputGroupFile01">[[ ${content.imageName}]]</label>
+
+                <div class="col-sm">
+                    <!-- Показ изображения -->
+                    <img src="" alt="..." class="img-thumbnail">
                 </div>
             </div>
-
 
             <div class="form-row align-items-center">
                 <!-- Выбор даты -->
@@ -150,5 +155,15 @@
 </div>
 
 <footer th:replace="adminPanel/blocks/adminFooter.html :: footer"></footer>
+
+<script>
+    $('#inputGroupFile02').on('change', function () {
+        //get the file name
+        var fileName = $(this).val();
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileName);
+    })
+</script>
+
 </body>
 </html>

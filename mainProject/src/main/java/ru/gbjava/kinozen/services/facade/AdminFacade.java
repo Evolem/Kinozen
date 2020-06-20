@@ -1,17 +1,19 @@
 package ru.gbjava.kinozen.services.facade;
 
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
 
+import java.awt.image.BufferedImage;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface AdminFacade {
 
-    void initLinks(Model model);
+    Map<String, String> initLinks();
 
     Iterable<Season> getSeasonByContent(Content content);
 
@@ -31,5 +33,7 @@ public interface AdminFacade {
 
     void changeVisible(UUID uuid);
 
+    Path getContentImageLocation();
 
+    BufferedImage getContentImage(String id);
 }

@@ -16,6 +16,7 @@ import ru.gbjava.kinozen.validators.ContentValidator;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -31,6 +32,11 @@ public class ContentManagementController {
     private final ContentValidator contentValidator;
     private final AdminFacade adminFacade;
 
+    @ModelAttribute("links")
+    public Map<String, String> getLinksForMenu() {
+        return adminFacade.initLinks();
+    }
+
     @GetMapping
     public String getContentList(
             Model model,
@@ -40,7 +46,7 @@ public class ContentManagementController {
             @RequestParam(required = false) Boolean visible,
             @RequestParam(required = false) Integer type
     ) {
-        adminFacade.initLinks(model);
+        
         List<Content> contentList = adminFacade.getContentsByFilers(name, releasedFrom, releasedTo, visible, type);
         model.addAttribute("contents", ContentMapper.INSTANCE.toDtoList(contentList));
         return "adminPanel/adminContent";
@@ -48,14 +54,14 @@ public class ContentManagementController {
 
     @GetMapping("/add")
     public String addContent(Model model) {
-        adminFacade.initLinks(model);
+        
         model.addAttribute("content", new ContentDto());
         return "adminPanel/contentEdit";
     }
 
     @GetMapping("/edit/{uuid}")
     public String editContent(@PathVariable("uuid") UUID uuid, Model model) {
-        adminFacade.initLinks(model);
+        
         Content content = adminFacade.findContentById(uuid);
 
         if (content.getType() == TypeContent.SERIAL) {
