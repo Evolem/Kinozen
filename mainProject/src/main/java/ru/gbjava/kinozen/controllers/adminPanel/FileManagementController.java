@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("/admin/storage")
 @RequiredArgsConstructor
-public class FileUploadController {
+public class FileManagementController {
 //
 //    //todo
 //

@@ -10,7 +10,7 @@ import ru.gbjava.kinozen.services.facade.AdminFacade;
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
-public class WelcomeAdminController {
+public class WelcomeController {
     private final AdminFacade adminFacade;
 
     @GetMapping
