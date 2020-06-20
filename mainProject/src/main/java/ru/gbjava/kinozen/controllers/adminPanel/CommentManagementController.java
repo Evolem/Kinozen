@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.services.facade.AdminFacade;
 
 @Controller
-@RequestMapping("/admin/comments")
+@RequestMapping("/admin/comment")
 @RequiredArgsConstructor
 public class CommentManagementController {
 

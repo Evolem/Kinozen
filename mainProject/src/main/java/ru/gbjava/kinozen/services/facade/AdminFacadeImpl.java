@@ -41,9 +41,9 @@ public class AdminFacadeImpl implements AdminFacade{
     public void initLinks(Model model) {
         Map<String, String> links = new HashMap<>();
         links.put("content", "Content management");
-        links.put("comments", "Comments");
-        links.put("banners", "Banners");
-        links.put("users", "Users");
+        links.put("comment", "Comments");
+        links.put("banner", "Banners");
+        links.put("user", "Users");
         model.addAttribute("links", links);
     }
 
