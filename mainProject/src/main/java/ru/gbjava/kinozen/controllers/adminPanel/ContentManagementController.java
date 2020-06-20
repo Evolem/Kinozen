@@ -11,7 +11,6 @@ import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
-import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.facade.AdminFacade;
 import ru.gbjava.kinozen.validators.ContentValidator;
 
@@ -28,6 +27,7 @@ public class ContentManagementController {
      * Управление контентом
      */
 
+    //todo
     private final ContentValidator contentValidator;
     private final AdminFacade adminFacade;
 
@@ -82,7 +82,6 @@ public class ContentManagementController {
         return "redirect:/admin/content/edit/" + content.getId();
     }
 
-
     @GetMapping("/delete/{uuid}")
     public String deleteContent(@PathVariable("uuid") UUID uuid) {
         adminFacade.deleteContentById(uuid);
@@ -95,6 +94,5 @@ public class ContentManagementController {
         adminFacade.changeVisible(uuid);
         return "redirect:/admin/content";
     }
-
 
 }

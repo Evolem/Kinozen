@@ -11,6 +11,11 @@ import ru.gbjava.kinozen.services.facade.AdminFacade;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class WelcomeController {
+
+    /**
+     * Страница приветствия
+     */
+
     private final AdminFacade adminFacade;
 
     @GetMapping
