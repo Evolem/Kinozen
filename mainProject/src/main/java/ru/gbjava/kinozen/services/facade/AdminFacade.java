@@ -5,14 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.SeasonService;
-import ru.gbjava.kinozen.services.storage.FileSystemStorageService;
+import ru.gbjava.kinozen.services.storage.FileStorageService;
 import ru.gbjava.kinozen.services.storage.StorageService;
 
 import javax.annotation.PostConstruct;
@@ -34,13 +33,13 @@ public class AdminFacade {
 
     @PostConstruct
     private void init() {
-        this.contentImageService = new FileSystemStorageService(contentImageLocation);
+        this.contentImageService = new FileStorageService(contentImageLocation);
         this.contentImageService.init();
     }
 
     // todo
     public void initLinks(Model model) {
-        Map<String, String> links = new TreeMap<>();
+        Map<String, String> links = new HashMap<>();
         links.put("content", "Content management");
         links.put("comments", "Comments");
         links.put("banners", "Banners");
@@ -70,23 +69,30 @@ public class AdminFacade {
 
     public Content saveContent(Content content, MultipartFile file) {
         content = contentService.save(content);
-        return uploadImageContent(content, file, contentImageService);
+        if (!file.isEmpty()) {
+            if (!uploadImageForContent(content, file, contentImageService)) {
+                log.error("Image not uploaded for " + content.getName());
+            }
+        }
+        log.info("Save success: " + content.getName());
+        return content;
     }
 
-    // private
-    private Content uploadImageContent(Content content, MultipartFile file, StorageService storageService) {
-        if (!Objects.isNull(file)) {
+    // todo нужна проверка на тип файла
+    private boolean uploadImageForContent(Content content, MultipartFile file, StorageService storageService) {
+        if (!file.isEmpty()) {
             try {
-                if (!content.getImageName().isEmpty()) {
-                    storageService.deleteByMame(content.getImageName());
+                if (!Objects.isNull(content.getImageName())) {
+                    storageService.deleteFileByMame(content.getImageName());
                 }
                 content.setImageName(storageService.store(file));
-                return contentService.save(content);
+                contentService.save(content);
+                return true;
             } catch (StorageException e) {
                 log.error(e.getMessage());
             }
         }
-        throw new StorageException("MultipartFile is null");
+        return false;
     }
 }
 

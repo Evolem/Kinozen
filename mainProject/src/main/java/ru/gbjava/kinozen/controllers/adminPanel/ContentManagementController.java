@@ -80,7 +80,6 @@ public class ContentManagementController {
         }
 
         Content content = adminFacade.saveContent(ContentMapper.INSTANCE.toEntity(contentDto), file);
-
         return "redirect:/admin/content/edit/" + content.getId();
     }
 

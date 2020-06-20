@@ -17,21 +17,18 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 @Slf4j
-public class FileSystemStorageService implements StorageService {
+public class FileStorageService implements StorageService {
 
     private final Path rootLocation;
 
-    public FileSystemStorageService(Path rootLocation) {
+    public FileStorageService(Path rootLocation) {
         this.rootLocation = rootLocation;
     }
 
     @Override
     public String store(MultipartFile file) {
-
         String[] fileNameArr = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
         String extension = fileNameArr[fileNameArr.length - 1];
-
-        // Использование утилиты для генерации имен
         String filename = String.format("%s" + "." + "%s", FileNameGenerator.generate(rootLocation), extension);
 
         try {
@@ -47,7 +44,6 @@ public class FileSystemStorageService implements StorageService {
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
-
         return filename;
     }
 
@@ -91,14 +87,15 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void deleteByMame(String imageName) {
+    public void deleteFileByMame(String imageName) {
         Path path = rootLocation.resolve(imageName);
         try {
             Files.delete(path);
+            log.info("Delete success :" + path.toString());
         } catch (NoSuchFileException e) {
             log.error("No such: " + path);
-        }  catch (IOException e) {
-            log.error(e.getMessage());
+        } catch (IOException e) {
+            log.error("IOException" + e.getMessage());
         }
     }
 
