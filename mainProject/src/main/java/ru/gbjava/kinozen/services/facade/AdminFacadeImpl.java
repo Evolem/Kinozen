@@ -7,6 +7,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
+import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.entities.utils.ImageEntity;
@@ -120,8 +121,13 @@ public class AdminFacadeImpl implements AdminFacade {
     }
 
     @Override
-    public Resource getContentImage (String imageName) {
-        return contentImageManager.loadAsResource(imageName);
+    public Resource getContentImage(String imageName) {
+        try {
+            return contentImageManager.loadAsResource(imageName);
+        } catch (StorageFileNotFoundException e) {
+            log.error(e.getMessage());
+        }
+        return null;
     }
 
 }
