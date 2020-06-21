@@ -6,22 +6,9 @@ account.addEventListener('click', function (e) {
         let menu = document.querySelector('.active');
         menu.className = 'settings__menu-title ';
         e.target.parentElement.className = 'settings__menu-title active';
-        if (e.target.textContent == "Профили") {
-            content.innerHTML = '<div class="settings-item">' +
-                '<h1>Профили</h1>' +
-                '<div class="settings-item__content flex settings-item__profiles">' +
-                '<div class="settings-item__profile active">' +
-                '<img class="settings-item__profile-img" src="https://s80658.cdn.ngenix.net/i/avatars/avatar1.jpg">' +
-                '<div class="settings-item__profile-title">Мой профиль</div>' +
-                '<div class="settings-item__profile-edit">Редактировать</div>' +
-                '</div><div class="settings-item__profile settings-item__profile_new">' +
-                '<img class="settings-item__profile-img" th:src="@{/images/icons/eye.png}">' +
-                '<div class="settings-item__profile-title">Новый профиль</div>' +
-                '</div>' +
-                '</div>' +
-                '</div>';
-        } else
-            if (e.target.textContent == "Аккаунт") {
+        if (e.target.textContent == "История просмотра") {
+
+        } else if (e.target.textContent == "Аккаунт") {
             content.innerHTML = '<div class="settings-item">\n' +
                 '        <h1>Аккаунт</h1>\n' +
                 '        <div class="settings-item__account">\n' +
@@ -43,8 +30,7 @@ account.addEventListener('click', function (e) {
                 '            <div class="button m-top-16">Выйти из аккаунта</div>\n' +
                 '        </div>';
         }
-    } else
-        if (e.target.id.includes('passwords')) {
+    } else if (e.target.id.includes('passwords')) {
         let reg = document.querySelector(".wrapper .settings-page-wrapper")
         let div = '<div class="popup">\n' +
             '            <div class="popup__wrapper player-error">\n' +
@@ -90,7 +76,8 @@ account.addEventListener('click', function (e) {
     } else if (e.target.className.includes('btn btn_block btn btn_outline')) {
         let reg = document.querySelector(".popup");
         reg.remove();
-    } if (e.target.id.includes('E-mail')) {
+    }
+    if (e.target.id.includes('E-mail')) {
         let reg = document.querySelector(".wrapper .settings-page-wrapper")
         let div = '<div class="popup">\n' +
             '        <div class="popup__wrapper player-error">\n' +
@@ -105,3 +92,8 @@ account.addEventListener('click', function (e) {
         reg.insertAdjacentHTML('afterend', div);
     }
 })
+
+function historyAjax() {
+    let url = /profile/;
+    $('.settings__content').load(url);
+}

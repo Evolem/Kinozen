@@ -27,10 +27,19 @@ public class ContentController {
 
     private final ContentFacade contentFacade;
 
-    @GetMapping
-    public String getAllContent(Model model) {
+    @GetMapping("/serial")
+    public String getAllSerial(Model model) {
         Iterable<ContentDto> dtoList = ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent());
         model.addAttribute("contentList", dtoList);
+        model.addAttribute("type", 0);
+        return "contentAll";
+    }
+
+    @GetMapping("/films")
+    public String getAllFilms(Model model) {
+        Iterable<ContentDto> dtoList = ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent());
+        model.addAttribute("contentList", dtoList);
+        model.addAttribute("type", 1);
         return "contentAll";
     }
 
