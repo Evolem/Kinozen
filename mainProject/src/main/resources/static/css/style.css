@@ -1012,126 +1012,6 @@ h2 {
     height: 56px;
 }
 
-.account__wrapper {
-    display: flex;
-    height: 100%;
-    min-height: 650px;
-}
-
-.account__data {
-    background-color: rgba(17, 17, 19, 0.6);
-    position: relative;
-    width: 440px;
-    display: flex;
-    flex-direction: column;
-}
-
-.account__close {
-    position: absolute;
-    top: 30px;
-    right: 80px;
-    cursor: pointer;
-    z-index: 2;
-    width: 32px;
-    height: 32px;
-}
-
-.account__close img {
-    width: 100%;
-}
-
-.account__own {
-    padding: 0 0 24px 60px;
-}
-
-.account__own-item {
-    font-family: "circeRegular", sans-serif;
-    font-size: 18px;
-    line-height: 48px;
-    cursor: pointer;
-    display: block;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.account__own-item.logout {
-    color: rgba(86, 92, 103, 0.8);
-}
-
-.account__own-item.logout:hover {
-    color: #565c67;
-}
-
-.account__own-item:hover {
-    color: #fff;
-}
-
-.account__menu {
-    position: relative;
-    flex: 1;
-}
-
-.account__link {
-    font-size: 24px;
-    line-height: 60px;
-    font-family: "circeRegular", sans-serif;
-    cursor: pointer;
-    display: block;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.account__link:hover {
-    color: #fff;
-}
-
-.account__profile {
-    display: flex;
-    align-items: center;
-    padding-top: 24px;
-    cursor: pointer;
-}
-
-.account__profile:first-child {
-    padding-top: 0;
-}
-
-.account__profile.active .account__profile-img {
-    width: 44px;
-    height: 44px;
-    border: 2px solid #fff;
-    margin-right: 24px;
-}
-
-.account__profile-img {
-    width: 38px;
-    height: 38px;
-    border: 1px solid #565c67;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 16px;
-}
-
-.account__profile-img.no-border {
-    border: none;
-}
-
-.account__profile-name {
-    font-family: "circeRegular", sans-serif;
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.8);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
-.account__profile-name:hover {
-    color: #fff;
-}
-
-.account__logo-img {
-    width: 100%;
-    display: block;
-}
-
 .registration {
     width: 100%;
     min-height: 100vh;
@@ -21077,5 +20957,11 @@ a.href {
     color: #ffffff;
     letter-spacing: 0;
     line-height: 16px;
+}
+
+@media (min-width: 1920px) {
+    .on-wide-desktop {
+        display: block;
+    }
 }
 

@@ -18,7 +18,8 @@
                             <div class="breadcrumbs__item">
                                 <a class="breadcrumbs__href" href="/kinozen">Главная</a> /
                             </div>
-                            <div class="breadcrumbs__item">Сериалы</div>
+                            <div th:if="${type == 0}" class="breadcrumbs__item">Сериалы</div>
+                            <div th:if="${type == 1}" class="breadcrumbs__item">Фильмы</div>
                         </div>
                         <h1>Сериалы онлайн</h1>
                         <div class="catalogue__seo-description">.</div>
@@ -28,18 +29,30 @@
                         </div>
                     </div>
                     <div>
-                        <div class="catalogue__wrapper">
-                            <a th:each="content, iterator : ${contentList}" class="card-item card-item-series"
+                        <div th:if="${type == 0}" class="catalogue__wrapper">
+                            <a th:each="content, iterator : ${contentList}" th:if="${content.type.ordinal() == 0}"
+                               class="card-item card-item-series"
                                th:href="@{'/content/' + ${content.url}}">
                                 <div class="card-item__image" th:href="${content.getUrl()}">
                                     <div th:data-lazy="${content.visible}" class="card-item__image-img">
-                                        <img th:src="@{images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}"
-                                             src="../static/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg"
+                                        <img th:src="@{/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}"
                                              th:alt="${content.name}"/>
                                     </div>
                                 </div>
                                 <div class="card-item__title" th:text="${content.name}"></div>
                             </a>
+                        </div>
+                        <div th:if="${type == 1}" class="catalogue__wrapper">
+                            <a th:each="content, iterator : ${contentList}" th:if="${content.type.ordinal() == 1}"
+                               class="card-item card-item-series"
+                               th:href="@{'/content/' + ${content.url}}">
+                                <div class="card-item__image" th:href="${content.getUrl()}">
+                                    <div th:data-lazy="${content.visible}" class="card-item__image-img">
+                                        <img th:src="@{/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}"
+                                             th:alt="${content.name}"/>
+                                    </div>
+                                </div>
+                                <div class="card-item__title" th:text="${content.name}"></div>
                             </a>
                         </div>
                         <button as="button" class="btn btn_primary">Загрузить еще</button>

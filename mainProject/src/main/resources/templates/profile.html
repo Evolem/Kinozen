@@ -14,14 +14,15 @@
                 <div class="settings">
                     <div class="settings__left padTop">
                         <div class="breadcrumbs">
-                            <div class="breadcrumbs__item"><a class="breadcrumbs__href" href="/">Главная</a>&nbsp;/&nbsp;
+                            <div class="breadcrumbs__item">
+                                <a class="breadcrumbs__href" href="/kinozen">Главная</a>&nbsp;/&nbsp;
                             </div>
                             <div class="breadcrumbs__item">Настройки</div>
                         </div>
                         <h1>Настройки</h1>
                         <div class="settings__menu">
                             <div class="settings__menu-title active">
-                                <div class="settings__menu-title_text">Профили</div>
+                                <div class="settings__menu-title_text">История просмотра</div>
                             </div>
                             <div class="settings__menu-title">
                                 <div class="settings__menu-title_text">Аккаунт</div>
@@ -30,31 +31,26 @@
                     </div>
                     <div class="settings__right padTop">
                         <div class="settings__content">
-                            <div class="settings-item">
-                                <h1>Профили</h1>
-                                <div class="settings-item__content flex settings-item__profiles">
-                                    <div class="settings-item__profile active">
-                                        <img class="settings-item__profile-img" src="">
-                                        <div class="settings-item__profile-title">Мой профиль</div>
-                                        <div class="settings-item__profile-edit">Редактировать</div>
-                                    </div>
-                                    <div class="settings-item__profile settings-item__profile_new">
-                                        <img class="settings-item__profile-img"
-                                             src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGNpcmNsZSBzdHJva2U9IiM1NjVDNjciIHN0cm9rZS13aWR0aD0iMiIgY3g9IjYwIiBjeT0iNjAiIHI9IjU5Ii8+CiAgICA8cGF0aCBkPSJNNjEuNSA1OWgyNy4yNWExLjI1IDEuMjUgMCAwIDEgMCAyLjVINjEuNXYyNy4yNWExLjI1IDEuMjUgMCAwIDEtMi41IDBWNjEuNUgzMS4yNWExLjI1IDEuMjUgMCAwIDEgMC0yLjVINTlWMzEuMjVhMS4yNSAxLjI1IDAgMCAxIDIuNSAwVjU5eiIgZmlsbD0iIzU2NUM2NyIvPgogIDwvZz4KPC9zdmc+Cg==">
-                                        <div class="settings-item__profile-title">Новый профиль</div>
-                                    </div>
+                            <div th:each="historyRecord: ${history}">
+                                <div class="my-history__titile" th:text="${historyRecord.getDate()}"></div>
+                                <div class="my-history">
+                                    <div class="my-history-card">
+                                        <a class="card-item card-item-episodes">
+                                            <div class="card-item__image"></div>
+                                            <div class="card-item__title"
+                                                 th:text="${historyRecord.getContent().getName()}"></div>
+                                            <div class="card-item__title-subtitle">111</div>
+                                        </a></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <head th:replace="blocks/footer.html :: footer"></head>
         </div>
-
-        
-
+        <head th:replace="blocks/footer.html :: footer"></head>
     </div>
+</div>
 </div>
 <script th:src="@{/js/profile.js}"></script>
 </body>
