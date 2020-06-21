@@ -5,10 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import ru.gbjava.collectionservice.dto.WishCollectionDto;
 import ru.gbjava.collectionservice.persistance.entity.Collection;
 import ru.gbjava.collectionservice.service.CollectionService;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,8 +30,8 @@ public class CollectionController {
     }
 
     @GetMapping(value = "/wish/{user}")
-    public ResponseEntity<List<UUID>> getWishCollection(@PathVariable String user) {
-        List<UUID> result = collectionService.getWishCollection(user);
+    public ResponseEntity<WishCollectionDto> getWishCollection(@PathVariable String user) {
+        WishCollectionDto result = collectionService.getWishCollection(user);
 
         if (result == null) {
             return ResponseEntity.notFound().build();

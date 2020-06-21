@@ -6,15 +6,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
+import ru.gbjava.kinozen.dto.WishCollectionDto;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.feign.clients.CollectionFeignClient;
 
-import javax.annotation.PostConstruct;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @Slf4j
@@ -26,15 +24,11 @@ public class CollectionsBean {
     private final CollectionFeignClient collectionFeignClient;
     private final ContentService contentService;
 
-    //TODO: найти способ получить user uuid
-
     private String login;
-
+    private WishCollectionDto wishCollection;
     private List<Content> wishList;
-    private List<UUID> responseList;
 
 
-//    @PostConstruct
     public void init(String name) {
         if (login == null || !login.equals(name)) {
             login = name;
@@ -44,15 +38,14 @@ public class CollectionsBean {
 
     public void refreshWish() {
         try {
-            responseList = collectionFeignClient.getWishCollection(login).getBody();
-            if (responseList == null) {
-                wishList = new ArrayList<>();
+            wishCollection = collectionFeignClient.getWishCollection(login).getBody();
+            if (wishCollection != null) {
+                wishList = contentService.findWishContents(wishCollection.getContents());
             } else {
-                wishList = contentService.findWishContents(responseList);
+                wishList = new ArrayList<>();
             }
         } catch (Exception e) {
             log.error(e.getMessage());
-
         }
     }
 
