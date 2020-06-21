@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.gbjava.kinozen.dto.SeasonDto;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
+import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.services.facade.AdminFacade;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +34,11 @@ public class SeasonManagementController {
 
     @GetMapping("/add/{idContent}")
     public String addSeason(Model model, @PathVariable UUID idContent) {
+        Content content = adminFacade.findContentById(idContent);
         SeasonDto seasonDto = new SeasonDto();
-        seasonDto.setContent(adminFacade.findContentById(idContent));
+        seasonDto.setContent(content);
+        seasonDto.setNumberSeason(adminFacade.getSeasonsByContent(content).size() + 1);
+        seasonDto.setDescription("Описание отсутствует");
         model.addAttribute("season", seasonDto);
         return "adminPanel/seasonEdit";
     }

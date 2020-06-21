@@ -54,21 +54,17 @@ public class ContentManagementController {
 
     @GetMapping("/add")
     public String addContent(Model model) {
-        
         model.addAttribute("content", new ContentDto());
         return "adminPanel/contentEdit";
     }
 
     @GetMapping("/edit/{uuid}")
     public String editContent(@PathVariable("uuid") UUID uuid, Model model) {
-        
         Content content = adminFacade.findContentById(uuid);
-
         if (content.getType() == TypeContent.SERIAL) {
-            Iterable<Season> seasons = adminFacade.getSeasonByContent(content);
+            Iterable<Season> seasons = adminFacade.getSeasonsByContent(content);
             model.addAttribute("seasons", seasons);
         }
-
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
         return "adminPanel/contentEdit";
     }
@@ -92,7 +88,6 @@ public class ContentManagementController {
     public String deleteContent(@PathVariable("uuid") UUID uuid) {
         adminFacade.deleteContentById(uuid);
         return "redirect:/admin/content";
-
     }
 
     @GetMapping("/visible/{uuid}")

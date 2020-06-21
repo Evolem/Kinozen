@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
-import ru.gbjava.kinozen.services.storage.StorageService;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;

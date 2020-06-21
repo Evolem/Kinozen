@@ -56,16 +56,16 @@
                     <!-- Загрузка изображения -->
                     <input type="text" hidden name="name" th:field="*{imageName}">
                     <div class="input-group mb-3">
-                        <div class="custom-file">
+                        <div class="custom-file" id="custom-file">
                             <input type="file" name="file" class="custom-file-input" id="inputGroupFile02"/>
-                            <label class="custom-file-label" for="inputGroupFile02">[[ ${content.imageName}]]</label>
+                            <label class="custom-file-label" for="inputGroupFile02">Choose image</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm">
-                    <!-- Показ изображения -->
-                    <img src="" alt="..." class="img-thumbnail">
+                <!-- Показ изображения -->
+                <div class="col-sm" th:if="${content.imageName != null}">
+                    <img th:src="@{'/image/content/' + ${content.imageName}}" alt="..." class="img-thumbnail">
                 </div>
             </div>
 
@@ -103,7 +103,7 @@
             <div class="mb-4" th:if="${content.id != null}">
                 <div th:if="${content.type.ordinal() == 0}">
                     <h3 class="text-muted">Seasons and episodes</h3>
-                    <table class="table table-sm table-bordered table-striped">
+                    <table class="table table-bordered table-striped">
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">Link</th>
@@ -140,14 +140,19 @@
 
 
             <!-- Действие -->
-            <div class="submit">
-                <button class="btn btn-success btn-lg btn-block mt-2 mb-2" type="submit">Save</button>
-            </div>
-
-            <a type="button" class="btn btn-secondary btn-lg btn-block mb-2 mt-2" th:href="@{'/admin/content'}">Back</a>
-
-            <div class="mb-4" th:if="${content.id != null}">
-                <a class="btn btn-danger mb-1" th:href="@{'/admin/content/delete/'+ ${(content.id)}}">Delete</a>
+            <div class="row">
+                <div class="col-sm">
+                    <button class="btn btn-success btn-lg btn-block mt-2 mb-2" type="submit">Save</button>
+                </div>
+                <div class="col-sm">
+                    <a type="button" class="btn btn-secondary btn-lg btn-block mb-2 mt-2" th:href="@{'/admin/content'}">Back</a>
+                </div>
+                <div class="col-sm">
+                    <div class="mb-4" th:if="${content.id != null}">
+                        <a class="btn btn-danger btn-lg btn-block mb-2 mt-2"
+                           th:href="@{'/admin/content/delete/'+ ${(content.id)}}">Delete</a>
+                    </div>
+                </div>
             </div>
 
         </form>

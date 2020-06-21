@@ -17,16 +17,15 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 @Slf4j
-public class FileStorageService implements StorageService {
+public class FileManager {
 
     private final Path rootLocation;
 
-    public FileStorageService(Path rootLocation) {
+    public FileManager(Path rootLocation) {
         this.rootLocation = rootLocation;
     }
 
-    @Override
-    public String store(MultipartFile file) {
+    public String upload(MultipartFile file) {
         String[] fileNameArr = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
         String extension = fileNameArr[fileNameArr.length - 1];
         String filename = String.format("%s" + "." + "%s", FileNameGenerator.generate(rootLocation), extension);
@@ -44,10 +43,10 @@ public class FileStorageService implements StorageService {
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
+        log.info("Upload success: " + rootLocation.resolve(filename));
         return filename;
     }
 
-    @Override
     public Stream<Path> loadAll() {
         try {
             return Files.walk(this.rootLocation, 1)
@@ -59,34 +58,28 @@ public class FileStorageService implements StorageService {
 
     }
 
-    @Override
     public Path load(String filename) {
         return rootLocation.resolve(filename);
     }
 
-    @Override
     public Resource loadAsResource(String filename) {
         try {
-            Path file = load(filename);
-            Resource resource = new UrlResource(file.toUri());
+            Resource resource = new UrlResource(rootLocation.resolve(filename).toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
                 throw new StorageFileNotFoundException(
                         "Could not read file: " + filename);
-
             }
         } catch (MalformedURLException e) {
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
 
-    @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
 
-    @Override
     public void deleteFileByName(String imageName) {
         Path path = rootLocation.resolve(imageName);
         try {
@@ -99,7 +92,6 @@ public class FileStorageService implements StorageService {
         }
     }
 
-    @Override
     public void init() {
         try {
             Files.createDirectories(rootLocation);
