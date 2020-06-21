@@ -34,5 +34,6 @@ public interface AdminFacade {
 
     void changeVisible(UUID uuid);
 
-    BufferedImage getContentImage(String imageName);
+    FileManager getImageManager();
+
 }

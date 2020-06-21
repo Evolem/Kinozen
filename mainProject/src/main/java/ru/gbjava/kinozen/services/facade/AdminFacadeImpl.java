@@ -122,15 +122,9 @@ public class AdminFacadeImpl implements AdminFacade {
         contentService.changeVisible(uuid);
     }
 
-    @SneakyThrows
     @Override
-    public BufferedImage getContentImage(String imageName) {
-        try {
-            return ImageIO.read(imageManger.loadAsResource(imageName).getFile());
-        } catch (StorageFileNotFoundException e) {
-            log.error("Could not read content image file: null");
-        }
-        return null;
+    public FileManager getImageManager() {
+        return imageManger;
     }
 
 }

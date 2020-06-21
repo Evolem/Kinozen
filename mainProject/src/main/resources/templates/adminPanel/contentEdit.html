@@ -50,25 +50,6 @@
                 <textarea class="form-control" name="description" id="description" th:field="*{description}"></textarea>
             </div>
 
-            <!-- Изображение -->
-            <div class="row">
-                <div class="col-sm">
-                    <!-- Загрузка изображения -->
-                    <input type="text" hidden name="name" th:field="*{imageName}">
-                    <div class="input-group mb-3">
-                        <div class="custom-file" id="custom-file">
-                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile02"/>
-                            <label class="custom-file-label" for="inputGroupFile02">Choose image</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Показ изображения -->
-                <div class="col-sm" th:if="${content.imageName != null}">
-                    <img th:src="@{'/image/content/' + ${content.imageName}}" alt="..." class="img-thumbnail">
-                </div>
-            </div>
-
             <div class="form-row align-items-center">
                 <!-- Выбор даты -->
                 <div class="col-auto my-1">
@@ -96,6 +77,25 @@
                     <input class="form-check-input" type="checkbox" name="visible" id="visible"
                            th:field="*{visible}">
                     <label class="form-check-label" for="visible">Visible</label>
+                </div>
+            </div>
+
+            <!-- Изображение -->
+            <div class="row">
+                <div class="col-sm">
+                    <!-- Загрузка изображения -->
+                    <input type="text" hidden name="name" th:field="*{imageName}">
+                    <div class="input-group mb-3">
+                        <div class="custom-file" id="custom-file">
+                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile02"/>
+                            <label class="custom-file-label" for="inputGroupFile02">Choose image</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Показ изображения -->
+                <div class="col-sm" th:if="${content.imageName != null}">
+                    <img th:src="@{'/image/content/' + ${content.imageName}}" th:alt="${content.imageName}" class="img-thumbnail" style="max-height: 200px">
                 </div>
             </div>
 
