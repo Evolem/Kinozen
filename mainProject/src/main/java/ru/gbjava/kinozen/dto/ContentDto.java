@@ -30,4 +30,5 @@ public class ContentDto {
     private Set<Actor> actors;
     private Set<Director> directors;
     private Set<User> likes;
+    private String trailerLink;
 }

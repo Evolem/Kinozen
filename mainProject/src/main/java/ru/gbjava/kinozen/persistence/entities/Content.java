@@ -7,6 +7,7 @@ import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.persistence.entities.utils.ImageEntity;
 
 import javax.persistence.*;
+import java.net.URL;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
@@ -41,8 +42,8 @@ public class Content extends ImageEntity {
     @Column(name = "url_content")
     private String url;
 
-//    @Column(name = "img_content")
-//    private String imageName;
+    @Column(name = "trailer_link")
+    private String trailerLink;
 
     @Column(name = "type_content")
     @Enumerated(EnumType.ORDINAL)
