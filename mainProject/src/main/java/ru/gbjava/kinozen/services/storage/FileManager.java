@@ -19,6 +19,8 @@ import java.util.stream.Stream;
 @Slf4j
 public class FileManager {
 
+    //todo FileManager переделать в утилиту
+
     private final Path rootLocation;
 
     public FileManager(Path rootLocation) {

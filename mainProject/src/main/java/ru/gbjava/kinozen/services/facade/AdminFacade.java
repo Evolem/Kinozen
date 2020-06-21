@@ -1,12 +1,10 @@
 package ru.gbjava.kinozen.services.facade;
 
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
-import ru.gbjava.kinozen.services.storage.FileManager;
 
-import java.awt.image.BufferedImage;
-import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +32,6 @@ public interface AdminFacade {
 
     void changeVisible(UUID uuid);
 
-    FileManager getImageManager();
+    Resource getContentImage(String imageName);
 
 }

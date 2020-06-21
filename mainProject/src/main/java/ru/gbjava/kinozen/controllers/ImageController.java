@@ -14,11 +14,12 @@ import ru.gbjava.kinozen.services.facade.AdminFacade;
 @RequestMapping("/image")
 public class ImageController {
 
+    // Возможно тут будет другой фасад, FileManager надо переделать в утилиту
     private final AdminFacade adminFacade;
 
     @GetMapping(value = "/content/{imageName}")
     public @ResponseBody
     Resource getContentImage(@PathVariable String imageName) {
-        return adminFacade.getImageManager().loadAsResource(imageName);
+        return adminFacade.getContentImage(imageName);
     }
 }

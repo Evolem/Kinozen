@@ -1,13 +1,12 @@
 package ru.gbjava.kinozen.services.facade;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
-import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.entities.utils.ImageEntity;
@@ -16,8 +15,6 @@ import ru.gbjava.kinozen.services.SeasonService;
 import ru.gbjava.kinozen.services.storage.FileManager;
 
 import javax.annotation.PostConstruct;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -32,12 +29,12 @@ public class AdminFacadeImpl implements AdminFacade {
     @Value("${files.storage.video_download}")
     private Path contentImageLocation;
 
-    private FileManager imageManger;
+    private FileManager contentImageManager;
 
     @PostConstruct
     private void init() {
-        this.imageManger = new FileManager(contentImageLocation);
-        this.imageManger.init();
+        this.contentImageManager = new FileManager(contentImageLocation);
+        this.contentImageManager.init();
     }
 
     // todo
@@ -80,7 +77,7 @@ public class AdminFacadeImpl implements AdminFacade {
     public Content saveContent(Content content, MultipartFile file) {
         content = contentService.save(content);
         if (!file.isEmpty()) {
-            if (uploadImageForEntity(content, file, imageManger)) {
+            if (uploadImageForEntity(content, file, contentImageManager)) {
                 contentService.save(content);
             } else {
                 log.warn("Image not uploaded for " + content.getName());
@@ -123,8 +120,8 @@ public class AdminFacadeImpl implements AdminFacade {
     }
 
     @Override
-    public FileManager getImageManager() {
-        return imageManger;
+    public Resource getContentImage (String imageName) {
+        return contentImageManager.loadAsResource(imageName);
     }
 
 }
