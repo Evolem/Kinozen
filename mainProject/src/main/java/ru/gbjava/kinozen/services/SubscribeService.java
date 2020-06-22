@@ -40,7 +40,8 @@ public class SubscribeService {
     }
 
     @Transactional
-    public void subscribeUserToGenre(User user, Genre genre){
+    public void subscribeUserToGenre(String login, Genre genre) {
+        User user = userService.findByLogin(login);
         Set<Genre> userGenreSubscribeList = user.getGenreSubscribeList();
 
         if (userGenreSubscribeList.contains(genre)) {
@@ -53,7 +54,8 @@ public class SubscribeService {
     }
 
     @Transactional
-    public void subscribeUserToActor(User user, Actor actor){
+    public void subscribeUserToActor(String login, Actor actor){
+        User user = userService.findByLogin(login);
         Set<Actor> userActorSubscribeList = user.getActorSubscribeList();
 
         if (userActorSubscribeList.contains(actor)) {
