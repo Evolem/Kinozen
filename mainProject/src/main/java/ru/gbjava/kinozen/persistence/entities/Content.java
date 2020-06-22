@@ -60,4 +60,7 @@ public class Content extends ImageEntity {
 
     @ManyToMany(mappedBy = "likedContent")
     Set<User> likes;
+
+    @ManyToMany(mappedBy = "dislikedContent")
+    Set<User> dislikes;
 }

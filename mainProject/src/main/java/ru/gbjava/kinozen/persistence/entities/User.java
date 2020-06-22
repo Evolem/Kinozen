@@ -51,4 +51,11 @@ public class User {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_content"))
     private Set<Content> likedContent;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_content_dislike",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_content"))
+    private Set<Content> dislikedContent;
 }

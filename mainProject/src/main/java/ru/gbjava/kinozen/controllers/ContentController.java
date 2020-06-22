@@ -78,4 +78,10 @@ public class ContentController {
         contentFacade.likeContentByUser(principal.getName(), contentUrl);
         response.sendRedirect(request.getHeader("referer"));
     }
+
+    @PostMapping("/dislike/{contentUrl}")
+    public void dislikeContent(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
+        contentFacade.dislikeContentByUser(principal.getName(), contentUrl);
+        response.sendRedirect(request.getHeader("referer"));
+    }
 }

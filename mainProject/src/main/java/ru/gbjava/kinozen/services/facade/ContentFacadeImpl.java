@@ -124,12 +124,32 @@ public class ContentFacadeImpl implements ContentFacade {
         User user = userService.findByLogin(login);
         Content content = findContentByUrl(contentUrl);
         Set<Content> likedContent = user.getLikedContent();
+        Set<Content> dislikedContent = user.getDislikedContent();
 
         if (likedContent.contains(content)) {
             likedContent.remove(content);
         } else {
             likedContent.add(content);
         }
+
+        dislikedContent.remove(content);
+        userService.save(user);
+    }
+
+    @Override
+    public void dislikeContentByUser(String login, String contentUrl) {
+        User user = userService.findByLogin(login);
+        Content content = findContentByUrl(contentUrl);
+        Set<Content> likedContent = user.getLikedContent();
+        Set<Content> dislikedContent = user.getDislikedContent();
+
+        if (dislikedContent.contains(content)) {
+            dislikedContent.remove(content);
+        } else {
+            dislikedContent.add(content);
+        }
+
+        likedContent.remove(content);
         userService.save(user);
     }
 }

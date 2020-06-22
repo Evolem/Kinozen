@@ -39,4 +39,6 @@ public interface ContentFacade {
     void uploadContentFile(MultipartFile file, String uuid);
 
     void likeContentByUser(String login, String contentUrl);
+
+    void dislikeContentByUser(String login, String contentUrl);
 }

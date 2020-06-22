@@ -77,9 +77,21 @@
                                             </div>
                                             <div class="movie__data-col movie__data-col_title">Рейтинг:</div>
                                             <div class="movie__data-col movie__data-col_content">
-                                                <span th:if="${content.likes.size() == 0}">Пока никто не оценил этот контент</span>
+                                                <span th:if="${content.likes.size() == 0 && content.dislikes.size() == 0}">Пока никто не оценил этот контент</span>
                                                 <span th:if="${content.likes.size() > 0}"
                                                       th:text="'Понравилось: ' + ${content.likes.size()}"></span>
+                                                <span th:if="${content.dislikes.size() > 0}"
+                                                      th:text="'Не понравилось: ' + ${content.dislikes.size()}"></span>
+                                                <div sec:authorize="isAuthenticated()">
+                                                    <form th:action="@{'/content/like/' + ${content.url}}" method="post">
+                                                        <button class="menu__sign button" type="submit">нравится</button>
+                                                    </form>
+                                                </div>
+                                                <div sec:authorize="isAuthenticated()">
+                                                    <form th:action="@{'/content/dislike/' + ${content.url}}" method="post">
+                                                        <button class="menu__sign button" type="submit">не нравится</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
