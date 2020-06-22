@@ -119,4 +119,8 @@ public class ContentService implements CrudService<Content, UUID> {
 
 
     }
+
+    public Set<Content> getNewContents(){
+        return contentRepository.getNewContents();
+    }
 }
