@@ -81,6 +81,17 @@
                                                 <span th:if="${content.likes.size() > 0}"
                                                       th:text="'Понравилось: ' + ${content.likes.size()}"></span>
                                             </div>
+                                            <div sec:authorize="isAuthenticated()" >
+                                                <!--/*@thymesVar id="isWished" type="java.lang.Boolean"*/-->
+                                                <div >
+                                                    <span th:if = "${isWished}">Запланировано</span>
+                                                </div>
+                                                <div th:unless="${isWished}">
+                                                    <form th:action="@{/profile/wish/add/{id}/{url}(id=${content.id}, url=${content.url})}" method="post">
+                                                        <button type="submit">Запланировать</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

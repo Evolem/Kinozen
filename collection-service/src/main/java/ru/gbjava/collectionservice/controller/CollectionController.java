@@ -2,10 +2,9 @@ package ru.gbjava.collectionservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.gbjava.collectionservice.dto.WishCollectionDto;
+import ru.gbjava.collectionservice.dto.WishContentDto;
 import ru.gbjava.collectionservice.persistance.entity.Collection;
 import ru.gbjava.collectionservice.service.CollectionService;
 
@@ -38,5 +37,10 @@ public class CollectionController {
         } else {
             return ResponseEntity.ok(result);
         }
+    }
+
+    @PostMapping(value = "wish/add")
+    public void addWishContent(@RequestBody WishContentDto wishContent) {
+        collectionService.addWishContent(wishContent);
     }
 }

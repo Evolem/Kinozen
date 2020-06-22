@@ -46,6 +46,7 @@ public class ContentController {
     @GetMapping("/{contentUrl}")
     public String getContentByUrl(Model model, @PathVariable String contentUrl) {
         Content content = contentFacade.findContentByUrl(contentUrl);
+        contentFacade.checkWished(model, content);
         contentFacade.checkTypeAndSetupModel(model, content);
         return "contentPage";
     }
