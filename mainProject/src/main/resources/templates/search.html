@@ -17,7 +17,7 @@
 
     <h1>Поиск</h1>
 
-    <form th:action="@{/search/result}" method="GET">
+    <form th:action="@{/search/results}" method="GET">
         <div class="input-group">
             <input class="form-control" th:value="${param.name}" name="name" type="text"
                    placeholder="Название фильма"/>

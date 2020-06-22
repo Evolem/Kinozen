@@ -17,7 +17,12 @@ public class ContentFilter {
         this.filterDefinition = new StringBuilder();
         if (map.containsKey("name") && !map.get("name").isEmpty()) {
             String name = map.get("name");
-            spec = spec.and(ContentSpecifications.nameContains(name));
+            spec = spec.or(ContentSpecifications.nameContains(name));
+            filterDefinition.append("&name=").append(name);
+        }
+        if (map.containsKey("name") && !map.get("name").isEmpty()) {
+            String name = map.get("name").substring(0, 1).toUpperCase() + map.get("name").substring(1);;
+            spec = spec.or(ContentSpecifications.nameContains(name));
             filterDefinition.append("&name=").append(name);
         }
     }
