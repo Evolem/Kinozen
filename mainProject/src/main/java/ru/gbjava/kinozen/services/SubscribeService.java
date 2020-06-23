@@ -18,7 +18,8 @@ public class SubscribeService {
     private final ContentService contentService;
     private final UserService userService;
 
-    public Set<Content> getContentSubscribeList (User user){
+    public Set<Content> getContentSubscribeList (String login){
+        User user = userService.findByLogin(login);
         Set<Content> contentSubscribeList = new HashSet<>();
         for(Content newContent: contentService.getNewContents()){
             for(Genre newContentGenre: newContent.getGenres()){
@@ -65,6 +66,16 @@ public class SubscribeService {
         }
         user.setActorSubscribeList(userActorSubscribeList);
         userService.save(user);
+    }
+
+    public boolean isUserSubscribedToGenre(String login, Genre genre){
+        User user = userService.findByLogin(login);
+        return user.getGenreSubscribeList().contains(genre);
+    }
+
+    public boolean isUserSubscribedToActor(String login, Actor actor){
+        User user = userService.findByLogin(login);
+        return user.getActorSubscribeList().contains(actor);
     }
 
 }
