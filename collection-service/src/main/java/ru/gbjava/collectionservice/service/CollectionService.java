@@ -46,4 +46,9 @@ public class CollectionService {
     public void addWishContent(WishContentDto wishContent) {
         contentRepository.saveContent(wishContent.getId(), wishContent.getIdCollection());
     }
+
+    @Transactional
+    public void deleteWishContent(String idContent, String idCollection) {
+        contentRepository.deleteContent(UUID.fromString(idContent), collectionRepository.findById(UUID.fromString(idCollection)).orElseThrow());
+    }
 }

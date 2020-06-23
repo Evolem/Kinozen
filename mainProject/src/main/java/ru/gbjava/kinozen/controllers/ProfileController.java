@@ -70,4 +70,10 @@ public class ProfileController {
         collectionsBean.addWish(id);
         return "redirect:/content/"+url;
     }
+
+    @PostMapping(value = "/wish/delete/{id}/{url}")
+    public String deleteWishContent(@PathVariable String id, @PathVariable String url) {
+        collectionsBean.deleteWish(id);
+        return "redirect:/content/"+url;
+    }
 }

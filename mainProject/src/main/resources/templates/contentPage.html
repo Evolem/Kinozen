@@ -83,8 +83,11 @@
                                             </div>
                                             <div sec:authorize="isAuthenticated()" >
                                                 <!--/*@thymesVar id="isWished" type="java.lang.Boolean"*/-->
-                                                <div >
-                                                    <span th:if = "${isWished}">Запланировано</span>
+                                                <div th:if = "${isWished}">
+                                                    <span>Запланировано</span>
+                                                    <form th:action="@{/profile/wish/delete/{id}/{url}(id=${content.id}, url=${content.url})}" method="post">
+                                                        <button type="submit">Не буду смотреть</button>
+                                                    </form>
                                                 </div>
                                                 <div th:unless="${isWished}">
                                                     <form th:action="@{/profile/wish/add/{id}/{url}(id=${content.id}, url=${content.url})}" method="post">

@@ -43,4 +43,10 @@ public class CollectionController {
     public void addWishContent(@RequestBody WishContentDto wishContent) {
         collectionService.addWishContent(wishContent);
     }
+
+    @DeleteMapping(value = "wish/delete/{idContent}/{idCollection}")
+    public void deleteWishContent(@PathVariable String idContent, @PathVariable String idCollection) {
+        collectionService.deleteWishContent(idContent, idCollection);
+    }
+
 }

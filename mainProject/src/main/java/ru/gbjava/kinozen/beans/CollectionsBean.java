@@ -61,6 +61,17 @@ public class CollectionsBean {
         wishList.add(content);
     }
 
+    public void deleteWish(String idContent) {
+        collectionFeignClient.deleteWishContent(idContent, String.valueOf(wishCollection.getId()));
+
+        for(Content con : wishList) {
+            if (con.getId().equals(UUID.fromString(idContent))) {
+                wishList.remove(con);
+                return;
+            }
+        }
+    }
+
     public boolean isWished(Content content) {
         for(Content con : wishList) {
             if (con.getId().equals(content.getId())) {

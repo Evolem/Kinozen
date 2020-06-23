@@ -2,10 +2,7 @@ package ru.gbjava.kinozen.services.feign.clients;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import ru.gbjava.kinozen.dto.WishCollectionDto;
 import ru.gbjava.kinozen.dto.WishContentDto;
 
@@ -17,4 +14,7 @@ public interface CollectionFeignClient {
 
     @PostMapping(value = "/wish/add")
     void addWishContent(@RequestBody WishContentDto contentDto);
+
+    @DeleteMapping(value = "/wish/delete/{idContent}/{idCollection}")
+    void deleteWishContent(@PathVariable String idContent, @PathVariable String idCollection);
 }
