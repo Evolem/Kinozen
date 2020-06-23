@@ -2,6 +2,10 @@ package ru.gbjava.kinozen.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.gbjava.kinozen.dto.ActorDto;
+import ru.gbjava.kinozen.dto.GenreDto;
+import ru.gbjava.kinozen.dto.mappers.ActorMapper;
+import ru.gbjava.kinozen.dto.mappers.GenreMapper;
 import ru.gbjava.kinozen.persistence.entities.Actor;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Genre;
@@ -68,14 +72,14 @@ public class SubscribeService {
         userService.save(user);
     }
 
-    public boolean isUserSubscribedToGenre(String login, Genre genre){
+    public boolean isUserSubscribedToGenre(String login, GenreDto genreDto){
         User user = userService.findByLogin(login);
-        return user.getGenreSubscribeList().contains(genre);
+        return user.getGenreSubscribeList().contains(GenreMapper.INSTANCE.toEntity(genreDto));
     }
 
-    public boolean isUserSubscribedToActor(String login, Actor actor){
+    public boolean isUserSubscribedToActor(String login, ActorDto actorDto){
         User user = userService.findByLogin(login);
-        return user.getActorSubscribeList().contains(actor);
+        return user.getActorSubscribeList().contains(ActorMapper.INSTANCE.toEntity(actorDto));
     }
 
 }
