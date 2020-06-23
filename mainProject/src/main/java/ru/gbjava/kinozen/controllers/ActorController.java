@@ -26,9 +26,13 @@ public class ActorController {
     private final SubscribeService subscribeService;
 
     @GetMapping("/{url}")
-    public String getActorByUrl(Model model, @PathVariable String url) {
+    public String getActorByUrl(Model model, @PathVariable String url, Principal principal) {
         ActorDto actorDto = ActorMapper.INSTANCE.toDto(actorService.findByUrl(url));
         model.addAttribute("actor", actorDto);
+        if (principal != null){
+            model.addAttribute("isUserSubscribedToActor",
+                    subscribeService.isUserSubscribedToActor(principal.getName(), actorDto));
+        }
         return "actorPage";
     }
 
@@ -39,7 +43,7 @@ public class ActorController {
         return "actorAll";
     }
 
-    @PostMapping /* /actor - endpoint для добавления новго актера */
+    @PostMapping /* /actor - endpoint для добавления нового актера */
     public void add(ActorDto actorDto, HttpServletRequest request, HttpServletResponse response) throws IOException {
         actorService.save(ActorMapper.INSTANCE.toEntity(actorDto));
         response.sendRedirect(request.getHeader("referer"));
