@@ -32,9 +32,13 @@ public class GenreController {
     }
 
     @GetMapping("/{url}")
-    public String getGenreByUrl(Model model, @PathVariable String url) {
+    public String getGenreByUrl(Model model, @PathVariable String url, Principal principal) {
         GenreDto genreDto = GenreMapper.INSTANCE.toDto(genreService.findByUrl(url));
         model.addAttribute("genre", genreDto);
+        if (principal != null){
+            model.addAttribute("isUserSubscribedToGenre",
+                    subscribeService.isUserSubscribedToGenre(principal.getName(), genreDto));
+        }
         return "genrePage";
     }
 
