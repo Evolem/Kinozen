@@ -49,6 +49,16 @@ public class CollectionService {
 
     @Transactional
     public void deleteWishContent(String idContent, String idCollection) {
+        //TODO: переделать
         contentRepository.deleteContent(UUID.fromString(idContent), collectionRepository.findById(UUID.fromString(idCollection)).orElseThrow());
+    }
+
+    @Transactional
+    public void createWishCollection(String login) {
+        Collection collection = Collection.builder()
+                .name("wish")
+                .user(login)
+                .build();
+        collectionRepository.save(collection);
     }
 }

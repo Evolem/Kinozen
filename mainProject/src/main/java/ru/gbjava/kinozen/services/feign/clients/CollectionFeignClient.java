@@ -17,4 +17,7 @@ public interface CollectionFeignClient {
 
     @DeleteMapping(value = "/wish/delete/{idContent}/{idCollection}")
     void deleteWishContent(@PathVariable String idContent, @PathVariable String idCollection);
+
+    @PostMapping(value = "/wish/create")
+    void createWishCollection(@RequestBody String login);
 }

@@ -49,4 +49,9 @@ public class CollectionController {
         collectionService.deleteWishContent(idContent, idCollection);
     }
 
+    @PostMapping(value = "/wish/create")
+    public void createWishCollection(@RequestBody String login) {
+        collectionService.createWishCollection(login);
+    }
+
 }

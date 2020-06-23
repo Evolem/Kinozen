@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.dto.UserDto;
+import ru.gbjava.kinozen.services.feign.clients.CollectionFeignClient;
 import ru.gbjava.kinozen.validators.RegUserDtoValidator;
 
 /**
@@ -25,6 +26,7 @@ public class RegistrationController {
     //todo фасад?
     private final UserService userService;
     private final RegUserDtoValidator regUserDtoValidator;
+    private final CollectionFeignClient collectionFeignClient;
 
     @GetMapping
     public String showReg(Model model){
@@ -41,6 +43,7 @@ public class RegistrationController {
             return "registration";
         }
         userService.saveNewUser(userDto);
+        collectionFeignClient.createWishCollection(userDto.getLogin());
         return "redirect:/profile";
     }
 }
