@@ -55,7 +55,7 @@ public class GenreController {
         response.sendRedirect(request.getHeader("referer"));
     }
 
-    @PostMapping("/like/{genreUrl}")
+    @PostMapping("/subscribe/{genreUrl}")
     public void likeContent(@PathVariable String genreUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
         subscribeService.subscribeUserToGenre(principal.getName(), genreService.findByUrl(genreUrl));
         response.sendRedirect(request.getHeader("referer"));
