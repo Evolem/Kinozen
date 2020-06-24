@@ -23,25 +23,40 @@ public class SubscribeService {
     private final UserService userService;
 
     public Set<Content> getContentSubscribeList (String login){
-        User user = userService.findByLogin(login);
         Set<Content> contentSubscribeList = new HashSet<>();
+        contentSubscribeList.addAll(getContentSubscribeListByActor(login));
+        contentSubscribeList.addAll(getContentSubscribeListByGenre(login));
+        return contentSubscribeList;
+    }
+
+    public Set<Content> getContentSubscribeListByActor (String login){
+        User user = userService.findByLogin(login);
+        Set<Content> contentSubscribeListByActor = new HashSet<>();
         for(Content newContent: contentService.getNewContents()){
-            for(Genre newContentGenre: newContent.getGenres()){
-                for(Genre subscribeGenre: user.getGenreSubscribeList()){
-                    if(newContentGenre.equals(subscribeGenre)){
-                        contentSubscribeList.add(newContent);
-                    }
-                }
-            }
             for(Actor newContentActor: newContent.getActors()){
                 for(Actor subscribeActor: user.getActorSubscribeList()){
                     if(newContentActor.equals(subscribeActor)){
-                        contentSubscribeList.add(newContent);
+                        contentSubscribeListByActor.add(newContent);
                     }
                 }
             }
         }
-        return contentSubscribeList;
+        return contentSubscribeListByActor;
+    }
+
+    public Set<Content> getContentSubscribeListByGenre (String login){
+        User user = userService.findByLogin(login);
+        Set<Content> contentSubscribeListByGenre = new HashSet<>();
+        for(Content newContent: contentService.getNewContents()){
+            for(Genre newContentGenre: newContent.getGenres()){
+                for(Genre subscribeGenre: user.getGenreSubscribeList()){
+                    if(newContentGenre.equals(subscribeGenre)){
+                        contentSubscribeListByGenre.add(newContent);
+                    }
+                }
+            }
+        }
+        return contentSubscribeListByGenre;
     }
 
     @Transactional
