@@ -48,11 +48,43 @@
                         </div>
                     </div>
                 </div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Новинки по подписке на актеров</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="newByActor, iterator : ${newsByActor}">
+                            <td>
+                                <a th:href="@{'/actor/' + ${newByActor.url}}"> [[ ${newByActor.name} ]] </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Новинки по подписке на жанры</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="newByGenre, iterator : ${newsByGenre}">
+                        <td>
+                            <a th:href="@{'/genre/' + ${newByGenre.url}}"> [[ ${newByGenre.name} ]] </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
             </div>
             <head th:replace="blocks/footer.html :: footer"></head>
         </div>
+    </div>
 
-        
+</div>
 
     </div>
 </div>
