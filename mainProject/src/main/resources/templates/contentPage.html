@@ -82,6 +82,50 @@
                                     <button type="submit">применить</button>
                                 </form>
 
+                                <!-- Работа с комментариями начало-->
+
+                                <br>
+                                <br>
+                                <div th:if="${not #lists.isEmpty(comment)}">
+                                    <table class="table table-hover">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th>Пользователь</th>
+                                            <th>Комментарий</th>
+                                            <th>Дата комментария</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr th:each="comm, iterator : ${comment}">
+                                            <td th:text="${comm.getUser().getName()}"></td>
+                                            <td th:text="${comm.getTextComment()}"/>
+                                            <td th:text="${#dates.format(comm.getDateComment(), 'dd-MM-yyyy')}"/>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <br>
+                                <p sec:authorize="isAnonymous()"
+                                   th:text="'Только зарегистрированные пользователи могут оставлять комментарии'"/>
+
+                                <div sec:authorize="isAuthenticated()")>
+                                <div th:if="${idEntity} != null">
+                                <form action="#" th:action="@{/comment/addComment}" method="POST">
+                                    <div>
+                                        <input  name="textComment" type="text"
+                                                th:placeholder="'Ваш комментарий'"/>
+                                        <button type="submit" th:text="'Комментировать'"  name="idEntity"
+                                                th:value="${idEntity}"></button>
+                                    </div>
+                                </form>
+                                </div>
+                                </div>
+                                <!-- Работа с комментариями конец-->
+
+
+
 
                             </div>
                         </div>
@@ -151,7 +195,7 @@
                                             <div class="movie__data-col movie__data-col_content">
                                                 <span itemprop="productionCompany"></span>
                                             </div>
-                                            <div class="movie__data-col movie__data-col_title">Примьеры:</div>
+                                            <div class="movie__data-col movie__data-col_title">Премьеры:</div>
                                             <div class="movie__data-col movie__data-col_content">
                                                 <span itemprop="productionCompany"
                                                       th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></span>
@@ -160,6 +204,11 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
+
+
 
                             <div class="movie__recommendations">
                                 <div class="movie__recommendations-title">Вам понравится</div>
@@ -189,7 +238,11 @@
                                     </div>
                                 </div>
                             </div>
+
                             <head th:replace="blocks/footer.html :: footer"></head>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -197,6 +250,13 @@
 
         </div>
     </div>
+
 </div>
+
+
+
+
+
+
 </body>
 </html>

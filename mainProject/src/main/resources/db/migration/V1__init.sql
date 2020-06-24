@@ -238,7 +238,7 @@ insert into tbl_content(id_content ,name_content, description_content, released_
 insert into tbl_content(id_content ,name_content, description_content, released_content, visible_content, type_content, url_content) values ('86a38fc4-a9a6-45e8-a6c8-08aac7949f25','Интерстеллар', 'тут описание', '2020-05-27', true, 1,'interstellar');
 
 
--- Заполенение Жанров
+-- Заполнение Жанров
 insert into tbl_genre(id_genre ,name_genre, url_genre) values ('295c4a70-f4ca-4e49-8cd7-3542c53f4925','аниме','anime');
 insert into tbl_genre(id_genre ,name_genre, url_genre) values ('57ebe16d-f03c-4042-8383-af34d6eb5797','биографический','biograficheskiy');
 insert into tbl_genre(id_genre ,name_genre, url_genre) values ('2873a8ec-cbdd-4d3c-947f-f78d598862fc','боевик','boyevik');
@@ -342,7 +342,7 @@ insert into tbl_actor_content(id_actor, id_content) VALUES ('b2154a81-f5d7-4c63-
 insert into tbl_director(id_director, firstname_director, lastname_director, description_director, url_director)
 values ('cc959d7b-ba6a-4458-be47-6e8cca63bafb', 'Алексей', 'Петров', 'Андройд и учитель Нолана, собрал все в мире нагрды и снял лучшие фильмы', 'alex-petrov');
 
--- связка режиисера и контента
+-- связка режиcсера и контента
 insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','1740acb5-a8c6-43f8-b8e1-faa74c92ea4a');
 insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','8d0f77af-0679-4b53-a0ac-5f655c991ef0');
 insert into tbl_director_content(id_director, id_content) VALUES ('cc959d7b-ba6a-4458-be47-6e8cca63bafb','68c2769d-2e9f-4dd7-b322-1d5124a05bef');
@@ -370,12 +370,7 @@ insert into tbl_episode(id_episode, id_season, number_episode, name_episode, des
 
 
 -- добавление комментариев к фильму
-insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
-insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
-insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
-insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
-insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
-insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '86a38fc4-a9a6-45e8-a6c8-08aac7949f25', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2020-05-27');
-
-
+insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '742da102-b403-4934-9f3c-b74a5ce07860', 'Это комментарий №1. Неплохо! ', '2020-06-11');
+insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '742da102-b403-4934-9f3c-b74a5ce07860', 'Это комментарий №2. Могло быть и лучше...', '2020-06-10');
+insert into tbl_comment (id_user, id_entity, text_comment, date_comment) values ('ef39e14f-8e9e-4bd6-894f-3b7e99cf8089', '473cb191-5152-468a-adf0-3f690c087ea9', 'Комментарии излишни...', '2020-05-27');
 

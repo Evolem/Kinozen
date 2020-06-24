@@ -27,6 +27,7 @@ public class CommentService implements CrudService<Comment, UUID> {
         return commentRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Comment Not Found! " + uuid));
     }
 
+
     @Override
     @Transactional
     public Comment save(Comment comment) {
@@ -42,5 +43,12 @@ public class CommentService implements CrudService<Comment, UUID> {
     public List<Comment> findCommentsByUser(User user) {
         return commentRepository.findCommentsByUser(user);
     }
+
+    //поиск комментариев по uuid episode
+
+    public List<Comment> findAllCommentByEpisodeID(UUID idEpisode) {
+        return commentRepository.findAllCommentByEpisodeID(idEpisode);
+    }
+
 
 }
