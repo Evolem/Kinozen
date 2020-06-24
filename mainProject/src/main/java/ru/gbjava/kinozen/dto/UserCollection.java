@@ -1,17 +1,14 @@
-package ru.gbjava.collectionservice.dto;
+package ru.gbjava.kinozen.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
 
-
 @Getter
 @Setter
-@Builder
-public class WishCollectionDto {
+public class UserCollection {
 
     private UUID id;
     private String name;

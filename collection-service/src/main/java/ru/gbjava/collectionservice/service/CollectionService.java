@@ -4,23 +4,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.gbjava.collectionservice.dto.WishCollectionDto;
-import ru.gbjava.collectionservice.dto.WishContentDto;
+import ru.gbjava.collectionservice.dto.CollectionDto;
 import ru.gbjava.collectionservice.persistance.entity.Collection;
-import ru.gbjava.collectionservice.persistance.entity.Content;
 import ru.gbjava.collectionservice.persistance.repository.CollectionRepository;
-import ru.gbjava.collectionservice.persistance.repository.ContentRepository;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class CollectionService {
 
     private final CollectionRepository collectionRepository;
-    private final ContentRepository contentRepository;
 
+    // зачем тут map ?
     public Map<UUID, Collection> findAllCollection(@NonNull String user) {
         List<Collection> collections = collectionRepository.findAllByUser(user);
 
@@ -33,32 +32,33 @@ public class CollectionService {
         return userCollection;
     }
 
-    public WishCollectionDto getWishCollection(@NonNull String user) {
+    public CollectionDto getCollectionByUserName(@NonNull String user) {
         Collection collection = collectionRepository.findByUserAndName(user, "wish").orElseThrow();
-        return WishCollectionDto.builder()
+        return CollectionDto.builder()
                 .id(collection.getId())
                 .name(collection.getName())
-                .contents(collection.getContentList().stream().map(Content::getId).collect(Collectors.toList()))
+                .contents(collectionRepository.testAllContentByCollection(collection.getId()))
                 .build();
     }
 
     @Transactional
-    public void addWishContent(WishContentDto wishContent) {
-        contentRepository.saveContent(wishContent.getId(), wishContent.getIdCollection());
+    public void addContentToCollection(UUID idContent, UUID idCollection) {
+        collectionRepository.saveContent(idContent, idCollection);
     }
 
+    //todo переделать
     @Transactional
-    public void deleteWishContent(String idContent, String idCollection) {
-        //TODO: переделать
-        contentRepository.deleteContent(UUID.fromString(idContent), collectionRepository.findById(UUID.fromString(idCollection)).orElseThrow());
+    public void deleteContentFromCollection(String idContent, String idCollection) {
+        collectionRepository.deleteContent(UUID.fromString(idContent), collectionRepository.findById(UUID.fromString(idCollection)).orElseThrow());
     }
 
+    //todo переделать входные данные
     @Transactional
-    public void createWishCollection(String login) {
+    public Collection createCollection(String login) {
         Collection collection = Collection.builder()
                 .name("wish")
                 .user(login)
                 .build();
-        collectionRepository.save(collection);
+        return collectionRepository.save(collection);
     }
 }

@@ -5,11 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import ru.gbjava.kinozen.beans.CollectionsBean;
-import ru.gbjava.kinozen.dto.ContentDto;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import ru.gbjava.kinozen.beans.WishList;
 import ru.gbjava.kinozen.dto.UserDto;
-import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.HistoryService;
@@ -23,12 +23,12 @@ import java.security.Principal;
 public class ProfileController {
     private final UserService userService;
     private final HistoryService historyService;
-    private final CollectionsBean collectionsBean;
+    private final WishList wishList;
 
     @GetMapping
     public String profilePage(final Principal principal, Model model, UserDto userDto) {
+        wishList.getUserId();
         final User user = userService.findByLogin(principal.getName());
-        collectionsBean.init(principal.getName());
         model.addAttribute("userDto", UserMapper.INSTANCE.toDto(user));
         model.addAttribute("history", historyService.findHistoryByUserId(user.getId()));
         return "profile";
@@ -60,20 +60,20 @@ public class ProfileController {
     }
 
     @GetMapping("/wish")
-    public String getWishCollection(Model model) {
-        model.addAttribute("wishList", collectionsBean.getWishList());
+    public String getWishList(Model model) {
+//        model.addAttribute("wishList", wishList.getContents());
         return "wishPage";
     }
 
-    @PostMapping(value = "/wish/add/{id}/{url}")
-    public String addWishContent(@PathVariable String id, @PathVariable String url) {
-        collectionsBean.addWish(id);
-        return "redirect:/content/"+url;
-    }
+//    @PostMapping(value = "/wish/add/{id}/{url}")
+//    public String addContentToWishList(@PathVariable String id, @PathVariable String url) {
+//        wishList.addWish(id);
+//        return "redirect:/content/"+url;
+//    }
 
-    @PostMapping(value = "/wish/delete/{id}/{url}")
-    public String deleteWishContent(@PathVariable String id, @PathVariable String url) {
-        collectionsBean.deleteWish(id);
-        return "redirect:/content/"+url;
-    }
+//    @PostMapping(value = "/wish/delete/{id}/{url}")
+//    public String deleteContentFromWishList(@PathVariable String id, @PathVariable String url) {
+//        wishList.deleteWish(id);
+//        return "redirect:/content/"+url;
+//    }
 }

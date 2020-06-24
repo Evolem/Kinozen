@@ -5,12 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import ru.gbjava.kinozen.beans.CollectionsBean;
+import ru.gbjava.kinozen.beans.WishList;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
@@ -38,7 +36,7 @@ public class ContentFacadeImpl implements ContentFacade {
     private final EpisodeService episodeService;
     private final PlayerFeignClient playerFeignClient;
     private final UserService userService;
-    private final CollectionsBean collectionsBean;
+    private final WishList wishList;
 
     @Override
     public List<Content> findAllContent() {
@@ -139,10 +137,10 @@ public class ContentFacadeImpl implements ContentFacade {
 
     @Override
     public void checkWished(Model model, Content content) {
-        Boolean isWished = Boolean.FALSE;
-        if (collectionsBean.getWishList() != null) {
-         isWished =  collectionsBean.isWished(content);
-        }
-        model.addAttribute("isWished", isWished);
+//        Boolean isWished = Boolean.FALSE;
+//        if (wishList.getContents() != null) {
+//         isWished =  wishList.isWished(content);
+//        }
+//        model.addAttribute("isWished", isWished);
     }
 }

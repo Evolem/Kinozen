@@ -2,9 +2,10 @@ package ru.gbjava.collectionservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import ru.gbjava.collectionservice.dto.WishCollectionDto;
-import ru.gbjava.collectionservice.dto.WishContentDto;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.gbjava.collectionservice.persistance.entity.Collection;
 import ru.gbjava.collectionservice.service.CollectionService;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/collection")
 public class CollectionController {
 
     private final CollectionService collectionService;
@@ -28,30 +30,5 @@ public class CollectionController {
         }
     }
 
-    @GetMapping(value = "/wish/{user}")
-    public ResponseEntity<WishCollectionDto> getWishCollection(@PathVariable String user) {
-        WishCollectionDto result = collectionService.getWishCollection(user);
-
-        if (result == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(result);
-        }
-    }
-
-    @PostMapping(value = "wish/add")
-    public void addWishContent(@RequestBody WishContentDto wishContent) {
-        collectionService.addWishContent(wishContent);
-    }
-
-    @DeleteMapping(value = "wish/delete/{idContent}/{idCollection}")
-    public void deleteWishContent(@PathVariable String idContent, @PathVariable String idCollection) {
-        collectionService.deleteWishContent(idContent, idCollection);
-    }
-
-    @PostMapping(value = "/wish/create")
-    public void createWishCollection(@RequestBody String login) {
-        collectionService.createWishCollection(login);
-    }
 
 }

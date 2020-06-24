@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -30,6 +29,4 @@ public class Collection {
     @Column(name = "name_collection")
     private String name;
 
-    @OneToMany(mappedBy = "collection")
-    private List<Content> contentList;
 }

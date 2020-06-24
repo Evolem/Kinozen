@@ -1,12 +1,14 @@
 package ru.gbjava.kinozen.beans;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
-import ru.gbjava.kinozen.dto.WishCollectionDto;
+import ru.gbjava.kinozen.dto.UserCollection;
 import ru.gbjava.kinozen.dto.WishContentDto;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.services.ContentService;
@@ -16,19 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
 @Slf4j
-@Data
+@Setter
+@Getter
+@RequiredArgsConstructor
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class CollectionsBean {
+public class tmpUserCollection {
 
     private final CollectionFeignClient collectionFeignClient;
     private final ContentService contentService;
 
     private String login;
-    private WishCollectionDto wishCollection;
-    private List<Content> wishList;
+    private UserCollection userCollection;
+    private List<Content> contents;
 
 
     public void init(String name) {
@@ -39,41 +42,41 @@ public class CollectionsBean {
     }
 
     public void refreshWish() {
-        try {
-            wishCollection = collectionFeignClient.getWishCollection(login).getBody();
-            if (wishCollection != null) {
-                wishList = contentService.findWishContents(wishCollection.getContents());
-            } else {
-                wishList = new ArrayList<>();
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+//        try {
+//            userCollection = collectionFeignClient.getWishList(login).getBody();
+//            if (userCollection != null) {
+//                contents = contentService.findWishContents(userCollection.getContents());
+//            } else {
+//                contents = new ArrayList<>();
+//            }
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
     }
 
     public void addWish(String id) {
         Content content = contentService.findById(UUID.fromString(id));
         WishContentDto wishContentDto = WishContentDto.builder()
                 .id(content.getId())
-                .idCollection(wishCollection.getId())
+                .idCollection(userCollection.getId())
                 .build();
-        collectionFeignClient.addWishContent(wishContentDto);
-        wishList.add(content);
+        collectionFeignClient.addContentToWishList(wishContentDto);
+        contents.add(content);
     }
 
     public void deleteWish(String idContent) {
-        collectionFeignClient.deleteWishContent(idContent, String.valueOf(wishCollection.getId()));
+        collectionFeignClient.deleteContentFromWishList(idContent, String.valueOf(userCollection.getId()));
 
-        for(Content con : wishList) {
+        for(Content con : contents) {
             if (con.getId().equals(UUID.fromString(idContent))) {
-                wishList.remove(con);
+                contents.remove(con);
                 return;
             }
         }
     }
 
     public boolean isWished(Content content) {
-        for(Content con : wishList) {
+        for(Content con : contents) {
             if (con.getId().equals(content.getId())) {
                 return true;
             }
