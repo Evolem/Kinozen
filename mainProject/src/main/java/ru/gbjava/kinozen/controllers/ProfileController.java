@@ -15,6 +15,7 @@ import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.HistoryService;
+import ru.gbjava.kinozen.services.SubscribeService;
 import ru.gbjava.kinozen.services.UserService;
 
 import java.security.Principal;
@@ -26,6 +27,7 @@ public class ProfileController {
     private final UserService userService;
     private final HistoryService historyService;
     private final CollectionsBean collectionsBean;
+    private final SubscribeService subscribeService;
 
     @GetMapping
     public String profilePage(final Principal principal, Model model, UserDto userDto) {
@@ -33,6 +35,8 @@ public class ProfileController {
         collectionsBean.init(principal.getName());
         model.addAttribute("userDto", UserMapper.INSTANCE.toDto(user));
         model.addAttribute("history", historyService.findHistoryByUserId(user.getId()));
+        model.addAttribute("newsByActor", subscribeService.getContentSubscribeListByActor(principal.getName()));
+        model.addAttribute("newsByGenre", subscribeService.getContentSubscribeListByGenre(principal.getName()));
         return "profile";
     }
 
