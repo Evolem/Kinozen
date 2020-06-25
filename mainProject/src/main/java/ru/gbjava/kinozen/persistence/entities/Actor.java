@@ -45,6 +45,9 @@ public class Actor {
             inverseJoinColumns = @JoinColumn(name = "id_content"))
     private Set<Content> contents;
 
+    @ManyToMany(mappedBy = "actorSubscribeList")
+    Set<User> actorSubscribers;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
