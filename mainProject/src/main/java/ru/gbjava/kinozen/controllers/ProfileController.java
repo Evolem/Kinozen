@@ -5,22 +5,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.gbjava.kinozen.services.WishListService;
+import org.springframework.web.bind.annotation.*;
+import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.services.wishlist.WishListService;
 import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.HistoryService;
 import ru.gbjava.kinozen.services.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/profile")
 public class ProfileController {
+
+    // todo facade
     private final UserService userService;
     private final HistoryService historyService;
     private final WishListService wishListService;
@@ -70,9 +75,9 @@ public class ProfileController {
 //        return "redirect:/content/"+url;
 //    }
 
-//    @PostMapping(value = "/wish/delete/{id}/{url}")
-//    public String deleteContentFromWishList(@PathVariable String id, @PathVariable String url) {
-//        wishList.deleteWish(id);
-//        return "redirect:/content/"+url;
-//    }
+    @GetMapping(value = "/wish/delete/{idContent}")
+    public void deleteContentFromWishList(@PathVariable UUID idContent, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        wishListService.deleteWish(idContent);
+        response.sendRedirect(request.getHeader("referer"));
+    }
 }

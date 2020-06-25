@@ -1,16 +1,17 @@
-package ru.gbjava.collectionservice.dto;
+package ru.gbjava.kinozen.dto;
 
-import lombok.Builder;
+
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
+@NoArgsConstructor
 public class WishDto {
-
     private String id;
     private String userId;
-    private String contentId;
+    private ContentDto content;
     private String added;
 }

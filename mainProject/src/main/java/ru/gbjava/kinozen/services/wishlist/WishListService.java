@@ -1,4 +1,4 @@
-package ru.gbjava.kinozen.services;
+package ru.gbjava.kinozen.services.wishlist;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,13 +9,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
-import ru.gbjava.kinozen.beans.Wish;
-import ru.gbjava.kinozen.beans.WishDto;
+import ru.gbjava.kinozen.dto.WishDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
+import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.services.ContentService;
+import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.services.feign.clients.CollectionFeignClient;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,11 +53,13 @@ public class WishListService {
         try {
             List<Wish> tmpWishList = collectionFeignClient.getWishList(userId).getBody();
             wishList.clear();
-            //todo получение Content внутри wish, пока так
+            //todo если прилетит id_content, который удален в основной базе, то лист не загрузится
+            //todo получение Content внутри wish, пока так:
             if (tmpWishList != null) {
                 for (Wish wish : tmpWishList) {
                     WishDto wishDto = new WishDto();
                     wishDto.setId(wish.getId());
+                    wishDto.setUserId(wish.getUserId());
                     wishDto.setContent(ContentMapper.INSTANCE.toDto(contentService.findById(UUID.fromString(wish.getContentId()))));
                     wishDto.setAdded(wish.getAdded());
                     wishList.add(wishDto);
@@ -66,9 +71,40 @@ public class WishListService {
         }
     }
 
+    public void addWish(UUID idContent) {
+        Date date = new Date();
+        Wish wish = Wish.builder()
+                .userId(userId.toString())
+                .contentId(idContent.toString())
+                .added(date.toString())
+                .build();
+
+        // wishList.add(w);
+        collectionFeignClient.addContentToWishList(wish);
+        refresh();
+    }
+
+
     public List<WishDto> getWishList() {
         return wishList;
     }
 
+    public boolean isWished(Content content) {
+        for (WishDto w : wishList) {
+            if (w.getContent().getId().equals(content.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public void deleteWish(UUID idContent) {
+        for (WishDto w : wishList) {
+            if (w.getContent().getId().toString().equals(idContent.toString())) {
+                collectionFeignClient.deleteContentFromWishList(UUID.fromString(w.getId()));
+                wishList.remove(w);
+                return;
+            }
+        }
+    }
 }

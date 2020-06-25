@@ -1,4 +1,4 @@
-package ru.gbjava.kinozen.beans;
+package ru.gbjava.kinozen.services.wishlist;
 
 import lombok.Builder;
 import lombok.Getter;

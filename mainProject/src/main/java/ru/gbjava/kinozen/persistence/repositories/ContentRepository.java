@@ -14,6 +14,6 @@ public interface ContentRepository extends JpaRepository<Content, UUID> {
 
     Optional<Content> findContentByUrl(@NonNull String url);
 
-    @Query("SELECT c FROM Content c WHERE c.id IN :ids" )
+    @Query("SELECT c FROM Content c WHERE c.id IN :ids")
     List<Content> findByInventoryIds(@Param("ids") List<UUID> ids);
 }

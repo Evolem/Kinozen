@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import ru.gbjava.kinozen.services.WishListService;
+import ru.gbjava.kinozen.services.wishlist.WishListService;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
@@ -137,10 +137,6 @@ public class ContentFacadeImpl implements ContentFacade {
 
     @Override
     public void checkWished(Model model, Content content) {
-//        Boolean isWished = Boolean.FALSE;
-//        if (wishList.getContents() != null) {
-//         isWished =  wishList.isWished(content);
-//        }
-//        model.addAttribute("isWished", isWished);
+        model.addAttribute("isWished", wishListService.isWished(content));
     }
 }

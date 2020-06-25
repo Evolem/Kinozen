@@ -26,9 +26,7 @@
                                th:href="@{'/content/' + ${w.content.url}}">
                                 <div class="card-item__image" th:href="${w.content.getUrl()}">
                                     <div th:data-lazy="${w.content.visible}" class="card-item__image-img">
-                                        <img th:src="@{images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}"
-                                             src="../static/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg"
-                                             th:alt="${w.content.imageName}"/>
+                                        <img th:src="@{'/image/content/' + ${w.content.imageName}}" th:alt="${w.content.imageName}"/>
                                     </div>
                                 </div>
                                 <div class="card-item__title" th:text="${w.content.name}"></div>

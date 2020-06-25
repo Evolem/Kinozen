@@ -85,12 +85,10 @@
                                                 <!--/*@thymesVar id="isWished" type="java.lang.Boolean"*/-->
                                                 <div th:if = "${isWished}">
                                                     <span>Запланировано</span>
-                                                    <form th:action="@{/profile/wish/delete/{id}/{url}(id=${content.id}, url=${content.url})}" method="post">
-                                                        <button type="submit">Не буду смотреть</button>
-                                                    </form>
+                                                    <a th:href="@{'/profile/wish/delete/' + ${content.id}}">не буду смотреть</a>
                                                 </div>
                                                 <div th:unless="${isWished}">
-                                                    <form th:action="@{/profile/wish/add/{id}/{url}(id=${content.id}, url=${content.url})}" method="post">
+                                                    <form th:action="@{/profile/wish/add/{url}(id=${content.id}, url=${content.url})}" method="post">
                                                         <button type="submit">Запланировать</button>
                                                     </form>
                                                 </div>

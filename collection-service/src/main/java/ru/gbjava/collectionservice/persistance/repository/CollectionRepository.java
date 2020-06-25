@@ -21,7 +21,6 @@ public interface CollectionRepository extends JpaRepository<Collection, UUID> {
     @Query(value = "SELECT Cast(c.id_content as varchar) FROM tbl_content_collection c WHERE id_collection = :col", nativeQuery = true)
     List<UUID> testAllContentByCollection(@Param("col") UUID id);
 
-    @Modifying
     @Query(value = "SELECT c.id_content FROM tbl_content_collection c INNER JOIN tbl_collection cc on c.id_collection = cc.id_collection WHERE cc.name_user = :name_user", nativeQuery = true)
     List<UUID> findAllContentByUserName(@Param("name_user") String name);
 

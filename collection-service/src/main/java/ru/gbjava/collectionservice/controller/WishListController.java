@@ -30,7 +30,7 @@ public class WishListController {
             return ResponseEntity.ok(wishDto);
     }
 
-    @DeleteMapping(value = "/remove/{wishId}")
+    @GetMapping(value = "/delete/{wishId}")
     public void deleteWishContent(@PathVariable UUID wishId) {
         wishListService.deleteById(wishId);
     }
