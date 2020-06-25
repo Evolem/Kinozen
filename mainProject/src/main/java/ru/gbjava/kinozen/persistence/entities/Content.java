@@ -54,4 +54,13 @@ public class Content {
 
     @ManyToMany(mappedBy = "likedContent")
     Set<User> likes;
+
+    @ManyToMany(mappedBy = "actorSubscribeList")
+    Set<User> actorSubscribers;
+
+    @ManyToMany(mappedBy = "genreSubscribeList")
+    Set<User> genreSubscribers;
+
+    @ManyToMany(mappedBy = "contentSubscribeList")
+    Set<User> contentSubscribers;
 }
