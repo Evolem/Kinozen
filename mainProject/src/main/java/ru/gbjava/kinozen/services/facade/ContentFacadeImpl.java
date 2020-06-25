@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import ru.gbjava.kinozen.beans.WishList;
+import ru.gbjava.kinozen.services.WishListService;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
@@ -36,7 +36,7 @@ public class ContentFacadeImpl implements ContentFacade {
     private final EpisodeService episodeService;
     private final PlayerFeignClient playerFeignClient;
     private final UserService userService;
-    private final WishList wishList;
+    private final WishListService wishListService;
 
     @Override
     public List<Content> findAllContent() {
