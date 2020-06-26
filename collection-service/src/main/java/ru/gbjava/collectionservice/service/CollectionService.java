@@ -17,6 +17,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CollectionService {
 
+    //todo в процессе
+
     private final CollectionRepository collectionRepository;
 
     // зачем тут map ?
