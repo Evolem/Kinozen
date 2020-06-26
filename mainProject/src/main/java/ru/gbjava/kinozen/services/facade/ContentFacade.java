@@ -41,4 +41,6 @@ public interface ContentFacade {
     void likeContentByUser(String login, String contentUrl);
 
     void dislikeContentByUser(String login, String contentUrl);
+
+    List<Content> findMostPopularContent();
 }

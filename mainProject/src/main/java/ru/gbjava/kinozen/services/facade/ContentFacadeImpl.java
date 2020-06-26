@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -35,6 +36,8 @@ public class ContentFacadeImpl implements ContentFacade {
     private final EpisodeService episodeService;
     private final PlayerFeignClient playerFeignClient;
     private final UserService userService;
+
+    private final int LIMIT_POPULARITY = 60;
 
     @Override
     public List<Content> findAllContent() {
@@ -151,5 +154,23 @@ public class ContentFacadeImpl implements ContentFacade {
 
         likedContent.remove(content);
         userService.save(user);
+    }
+
+    @Override
+    public List<Content> findMostPopularContent() {
+        List<Content> contentList = contentService.findAll();
+        return contentList.stream()
+                .filter(content -> calculateRating(content.getLikes().size(), content.getDislikes().size()) > LIMIT_POPULARITY)
+                .sorted((c1, c2) -> calculateRating(c2.getLikes().size(), c2.getDislikes().size())
+                        .compareTo(calculateRating(c1.getLikes().size(), c1.getDislikes().size())))
+                .limit(5)
+                .collect(Collectors.toList());
+    }
+
+    private Integer calculateRating(double likes, double dislikes) {
+        if (likes == 0) {
+            return 0;
+        }
+        return (int) (likes / (likes + dislikes) * 100);
     }
 }

@@ -16,7 +16,9 @@ public class HomeController {
     @GetMapping
     public String index(Model model){
         Iterable<ContentDto> dtoList = ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent());
+        Iterable<ContentDto> popularContent = ContentMapper.INSTANCE.toDtoList(contentFacade.findMostPopularContent());
         model.addAttribute("contentList", dtoList);
+        model.addAttribute("popularContentList", popularContent);
         return "index";
     }
 }
