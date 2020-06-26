@@ -8334,6 +8334,7 @@ picture[data-lazy-loaded].card-item__image-img {
 
 .movie__data-col_title {
     color: #565c67;
+    line-height: 30px;
 }
 
 @media (min-width: 1920px) {

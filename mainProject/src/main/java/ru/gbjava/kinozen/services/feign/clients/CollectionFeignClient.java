@@ -3,7 +3,7 @@ package ru.gbjava.kinozen.services.feign.clients;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.gbjava.kinozen.services.wishlist.Wish;
+import ru.gbjava.kinozen.services.wishlist.WishDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,14 +12,12 @@ import java.util.UUID;
 public interface CollectionFeignClient {
 
     @GetMapping(value = "/wish/list/{userId}")
-    ResponseEntity<List<Wish>> getWishList(@PathVariable UUID userId);
+    ResponseEntity<List<WishDto>> getWishList(@PathVariable UUID userId);
 
     @PostMapping(value = "/wish/add")
-    void addContentToWishList(@RequestBody Wish wish);
+    ResponseEntity<WishDto> addContentToWishList(@RequestBody WishDto wishDto);
 
     @DeleteMapping(value = "/wish/delete/{idWish}")
     void deleteContentFromWishList(@PathVariable UUID idWish);
 
-    @PostMapping(value = "/wish/create")
-    void createWishList(@RequestBody String login);
 }

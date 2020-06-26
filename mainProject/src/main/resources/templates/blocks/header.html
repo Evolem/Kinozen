@@ -22,7 +22,7 @@
             </a>
             <a href="/kinozen/content/serial" class="menu__item menu__item--link">Сериалы</a>
             <a href="/kinozen/content/films" class="menu__item menu__item--link">Фильмы</a>
-            <a href="/kinozen/profile/wish" class="menu__item menu__item--link">Буду смотреть</a>
+            <a href="/kinozen/profile/wishlist" class="menu__item menu__item--link">Буду смотреть</a>
             <a href="#" class="menu__item menu__search">
                 <img th:src="@{/images/search-icon.png}"/><span>Поиск</span></a>
         </div>
@@ -31,7 +31,7 @@
             <a class="menu__register button-primary" href="/kinozen/registration">Зарегистрироваться</a>
         </div>
         <div sec:authorize="isAuthenticated ()" class="menu__content-wrapper">
-            <a class="menu__sign button" href="/kinozen/profile">Аккаунт</a>
+            <a class="menu__sign button" href="/kinozen/profile" th:text="${#authentication.name}"></a>
             <form th:action="@{/logout}" method="post">
                 <button class=" menu__register button-primary">Выход</button>
             </form>

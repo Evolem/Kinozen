@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.services.wishlist.WishListService;
 import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
@@ -31,7 +30,7 @@ public class ProfileController {
     private final WishListService wishListService;
 
     @GetMapping
-    public String profilePage(final Principal principal, Model model, UserDto userDto) {
+    public String profilePage(final Principal principal, Model model) {
         final User user = userService.findByLogin(principal.getName());
         model.addAttribute("userDto", UserMapper.INSTANCE.toDto(user));
         model.addAttribute("history", historyService.findHistoryByUserId(user.getId()));
@@ -63,21 +62,29 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/wish")
+    //-----------------------------------------------------------------------
+
+    /**
+     * WishList
+     */
+
+    @GetMapping("/wishlist")
     public String getWishListService(Model model) {
         model.addAttribute("wishList", wishListService.getWishList());
         return "wishPage";
     }
 
-//    @PostMapping(value = "/wish/add/{id}/{url}")
-//    public String addContentToWishList(@PathVariable String id, @PathVariable String url) {
-//        wishList.addWish(id);
-//        return "redirect:/content/"+url;
-//    }
+    @GetMapping(value = "/wishlist/add/{id}")
+    public void addContentToWishList(@PathVariable UUID id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        wishListService.addWish(id);
+        response.sendRedirect(request.getHeader("referer"));
+    }
 
-    @GetMapping(value = "/wish/delete/{idContent}")
+    @GetMapping(value = "/wishlist/delete/{idContent}")
     public void deleteContentFromWishList(@PathVariable UUID idContent, HttpServletRequest request, HttpServletResponse response) throws IOException {
         wishListService.deleteWish(idContent);
         response.sendRedirect(request.getHeader("referer"));
     }
+
+    //-----------------------------------------------------------------------
 }

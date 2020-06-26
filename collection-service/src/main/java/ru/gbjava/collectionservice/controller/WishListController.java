@@ -27,10 +27,11 @@ public class WishListController {
     @PostMapping(value = "/add")
     public ResponseEntity<WishDto> addContentToCollection(@RequestBody WishDto wishDto) {
         // collectionService.addWishContent(wishDto);
+        System.out.println(wishDto);
             return ResponseEntity.ok(wishDto);
     }
 
-    @GetMapping(value = "/delete/{wishId}")
+    @DeleteMapping(value = "/delete/{wishId}")
     public void deleteWishContent(@PathVariable UUID wishId) {
         wishListService.deleteById(wishId);
     }

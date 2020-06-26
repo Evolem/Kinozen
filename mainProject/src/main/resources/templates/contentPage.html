@@ -37,12 +37,14 @@
                                     <div class="breadcrumbs__item">
                                         <a class="breadcrumbs__href" href="/kinozen/content/serial">Сериалы</a>&nbsp;/&nbsp;
                                     </div>
-                                    <div th:if="${currentSeason == null}" class="breadcrumbs__item" th:text="${content.name}"></div>
+                                    <div th:if="${currentSeason == null}" class="breadcrumbs__item"
+                                         th:text="${content.name}"></div>
                                     <div th:if="${currentSeason != null}" class="breadcrumbs__item">
                                         <a class="breadcrumbs__href" th:href="@{'/content/' + ${content.url}}"
                                            th:text="${content.name}"></a>
                                     </div>
-                                    <div th:if="${currentSeason != null}" class="breadcrumbs__item" th:text="'/ Cезон ' + ${currentSeason.numberSeason}"></div>
+                                    <div th:if="${currentSeason != null}" class="breadcrumbs__item"
+                                         th:text="'/ Cезон ' + ${currentSeason.numberSeason}"></div>
                                 </div>
                                 <div class="movie__logo">
                                     <span th:text="${content.name}"></span>
@@ -81,23 +83,22 @@
                                                 <span th:if="${content.likes.size() > 0}"
                                                       th:text="'Понравилось: ' + ${content.likes.size()}"></span>
                                             </div>
-                                            <div sec:authorize="isAuthenticated()" >
+                                            <div sec:authorize="isAuthenticated()">
                                                 <!--/*@thymesVar id="isWished" type="java.lang.Boolean"*/-->
-                                                <div th:if = "${isWished}">
-                                                    <span>Запланировано</span>
-                                                    <a th:href="@{'/profile/wish/delete/' + ${content.id}}">не буду смотреть</a>
+                                                <div th:if="${isWished}">
+                                                    <a th:href="@{'/profile/wishlist/delete/' + ${content.id}}"
+                                                       class="button">Запланировано</a>
                                                 </div>
                                                 <div th:unless="${isWished}">
-                                                    <form th:action="@{/profile/wish/add/{url}(id=${content.id}, url=${content.url})}" method="post">
-                                                        <button type="submit">Запланировать</button>
-                                                    </form>
+                                                    <a th:href="@{'/profile/wishlist/add/' + ${content.id}}" class="button">Смотреть позже</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="movie__seasons">
-                                    <div th:if="${content.type.ordinal() == 0}"  class="movie__seasons-title">Сезоны:</div>
+                                    <div th:if="${content.type.ordinal() == 0}" class="movie__seasons-title">Сезоны:
+                                    </div>
                                     <div class="movie__seasons-items">
                                         <a class="movie__seasons-item"
                                            th:each="s, iterator : ${seasons}"
@@ -112,12 +113,12 @@
                                         <select name="episode">
                                             <option th:text="'Выберите серию'" th:value="null"></option>
                                             <!--suppress ThymeleafVariablesResolveInspection -->
-                                            <option th:each="e : ${episodes}"
+                                            <option type="submit" th:each="e : ${episodes}"
                                                     th:value="${e.numberEpisode}"
                                                     th:text="${e.numberEpisode}+ '. ' + ${e.name}">
                                             </option>
                                         </select>
-                                        <button type="submit">применить</button>
+                                        <!--                                        <button type="submit">применить</button>-->
                                     </form>
                                 </div>
                             </div>

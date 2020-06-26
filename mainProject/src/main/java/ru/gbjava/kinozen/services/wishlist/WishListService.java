@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
-import ru.gbjava.kinozen.dto.WishDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.services.ContentService;
@@ -17,9 +16,11 @@ import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.services.feign.clients.CollectionFeignClient;
 
 import javax.annotation.PostConstruct;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -38,7 +39,7 @@ public class WishListService {
 
     @PostConstruct
     private void init() {
-        this.wishList = new ArrayList<>();
+        wishList = new ArrayList<>();
         // Инициализация user id для получения wishlist
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -51,36 +52,24 @@ public class WishListService {
 
     public void refresh() {
         try {
-            List<Wish> tmpWishList = collectionFeignClient.getWishList(userId).getBody();
             wishList.clear();
-            //todo если прилетит id_content, который удален в основной базе, то лист не загрузится
-            //todo получение Content внутри wish, пока так:
-            if (tmpWishList != null) {
-                for (Wish wish : tmpWishList) {
-                    WishDto wishDto = new WishDto();
-                    wishDto.setId(wish.getId());
-                    wishDto.setUserId(wish.getUserId());
-                    wishDto.setContent(ContentMapper.INSTANCE.toDto(contentService.findById(UUID.fromString(wish.getContentId()))));
-                    wishDto.setAdded(wish.getAdded());
-                    wishList.add(wishDto);
-                }
+            wishList = collectionFeignClient.getWishList(userId).getBody();
+            for (WishDto w : Objects.requireNonNull(wishList)) {
+                w.setContent(ContentMapper.INSTANCE.toDto(contentService.findById(UUID.fromString(w.getContentId()))));
             }
-
         } catch (Exception e) {
             log.error("Ошибка при получении wishlist: " + e.getMessage());
         }
     }
 
     public void addWish(UUID idContent) {
-        Date date = new Date();
-        Wish wish = Wish.builder()
+        OffsetDateTime dateTime = OffsetDateTime.now();
+        WishDto wishDto = WishDto.builder()
                 .userId(userId.toString())
                 .contentId(idContent.toString())
-                .added(date.toString())
+                .added(dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE))
                 .build();
-
-        // wishList.add(w);
-        collectionFeignClient.addContentToWishList(wish);
+        collectionFeignClient.addContentToWishList(wishDto);
         refresh();
     }
 
