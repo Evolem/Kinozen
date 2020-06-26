@@ -18,8 +18,9 @@
                             <div class="breadcrumbs__item">
                                 <a class="breadcrumbs__href" href="/kinozen">Главная</a> /
                             </div>
-<!--                            <div th:if="${#request.getContextPath() == 'serial'}" class="breadcrumbs__item">Сериалы</div>-->
-<!--                            <div th:if="${#request.getContextPath() == 'films'}" class="breadcrumbs__item">Фильмы</div>-->
+                            <div th:text="${''}"></div>
+                            <div th:if="${#request.getContextPath() == 'serial'}" class="breadcrumbs__item">Сериалы</div>
+                            <div th:if="${#request.getContextPath() == 'films'}" class="breadcrumbs__item">Фильмы</div>
                         </div>
                         <h1>Сериалы онлайн</h1>
                         <div class="catalogue__seo-description">.</div>

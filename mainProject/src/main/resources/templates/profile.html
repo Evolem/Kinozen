@@ -36,13 +36,18 @@
                                 <div class="my-history">
                                     <div class="my-history-card">
                                         <a class="card-item card-item-episodes">
-                                            <div class="card-item__image"></div>
+                                            <div class="card-item__image">
+                                                <img  class="card-item__image-img" th:src="@{'/image/content/' + ${historyRecord.content.imageName}}"
+                                                     th:alt="${historyRecord.content.name}"/>
+                                            </div>
                                             <div class="card-item__title"
                                                  th:text="${historyRecord.getContent().getName()}"></div>
-                                            <div class="card-item__title-subtitle">111</div>
+                                            <div class="card-item__title-subtitle" th:text="${historyRecord.content.type.typeName}"></div>
                                         </a></div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
