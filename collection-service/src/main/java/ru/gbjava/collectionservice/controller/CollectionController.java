@@ -17,6 +17,8 @@ import java.util.UUID;
 @RequestMapping("/collection")
 public class CollectionController {
 
+    //todo контроллер для коллекций
+
     private final CollectionService collectionService;
 
     @GetMapping(value = "/{user}")

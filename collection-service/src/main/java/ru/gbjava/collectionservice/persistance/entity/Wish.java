@@ -32,13 +32,4 @@ public class Wish {
     @Column (name = "added_wishlist")
     private Date added;
 
-    @Override
-    public String toString() {
-        return "Wish{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", contentId=" + contentId +
-                ", added=" + added +
-                '}';
-    }
 }
