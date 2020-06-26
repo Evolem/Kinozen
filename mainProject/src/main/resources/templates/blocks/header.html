@@ -17,7 +17,7 @@
 <div th:fragment="menu" class="menu">
     <div class="menu__content desktop">
         <div class="menu__content-wrapper">
-            <a class="menu__item menu__logo" href="/kinozen/">
+            <a class="menu__item menu__logo" th:href="@{'/'}">
                 <img th:src="@{/images/log.png}" src="../static/images/log.png" class="menu__item-logo"/>
             </a>
             <a href="/kinozen/content/serial" class="menu__item menu__item--link">Сериалы</a>
