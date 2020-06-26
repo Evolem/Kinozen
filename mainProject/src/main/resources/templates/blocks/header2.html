@@ -1,41 +1,67 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU"
-      taglib prefix="sec" uri="http://www.springframework.org/security/tags">
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+<html lang="en">
 
 <head th:fragment="head">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>Kinozen</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.min.css}">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/kinozen.css}">
 
 </head>
-
-<div th:fragment="menu" class="menu">
-    <div class="menu__content desktop">
-        <div class="menu__content-wrapper">
-            <a class="menu__item menu__logo" style="font-family: 'origami_making'; font-size: 24px" th:href="@{'/'}">
-                <span>KinoZen</span>
+<header th:fragment="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand mt-1" th:href="@{'/'}">
+                <span style="font-family: 'origami_making'; font-size: 23px">KinoZen</span>
             </a>
-            <a href="/kinozen/content/serial" class="menu__item menu__item--link">Сериалы</a>
-            <a href="/kinozen/content/films" class="menu__item menu__item--link">Фильмы</a>
-            <a href="/kinozen/profile/wishlist" class="menu__item menu__item--link">Буду смотреть</a>
-            <a href="#" class="menu__item menu__search">
-                <img th:src="@{/images/search-icon.png}"/><span>Поиск</span></a>
-        </div>
-        <div sec:authorize="!isAuthenticated ()" class="menu__content-wrapper">
-            <a class="menu__sign button" href="/kinozen/login">Войти</a>
-            <a class="menu__register button-primary" href="/kinozen/registration">Зарегистрироваться</a>
-        </div>
-        <div sec:authorize="isAuthenticated ()" class="menu__content-wrapper">
-            <a class="menu__sign button" href="/kinozen/profile" th:text="${#authentication.name}"></a>
-            <form th:action="@{/logout}" method="post">
-                <button class=" menu__register button-primary">Выход</button>
-            </form>
-        </div>
+
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/content/serial'}">Сериалы</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/content/films'}">Фильмы</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/profile/wishlist'}">Буду смотреть</a>
+                    </li>
+
+                </ul>
+
+                <div>
+                    <div sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-info btn-sm mr-2" href="/kinozen/login">Войти</a>
+                        <a class="btn btn-info btn-sm" href="/kinozen/registration">Зарегистрироваться</a>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a class="btn btn-outline-info btn-sm mr-2" href="/kinozen/profile" th:text="${#authentication.name}"></a>
+                        <form th:action="@{/logout}" method="post" style="display: inline;">
+                            <button class="btn btn-info btn-sm">Выход</button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </nav>
     </div>
-</div>
+</header>

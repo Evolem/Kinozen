@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html ang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="blocks/header.html :: head"></head>
+
+<body class="custom_class">
+<div id="__next">
+    <div class="wrapper">
+        <div class="wrapper">
+            <head th:replace="blocks/header.html :: menu"></head>
+            <div class="content">
+                <div id="slider" class="main-slider">
+                    <div class="main-slider__arrows">
+                        <img class="main-slider__arrow main-slider__arrows-left" th:src="@{images/left.png}"
+                             src="../static/images/left.png"/>
+                        <img class="main-slider__arrow main-slider__arrows-right" th:src="@{images/right.png}"
+                             src="../static/images/right.png"/>
+                    </div>
+                    <div class="main-slider__wrapper">
+                        <div class="main-slider__bg">
+                            <img th:src="@{/image/content/1.jpeg}"
+                                 class="main-slider__bg-img" alt="bannerImage">
+                        </div>
+                        <div class="main-slider__content">
+                            <a class="main-slider__title" href="#">
+                                <img th:src="@{/trim/e/94/90ecf1d759d1a9d28eaa034551442e94-750-6287322b42ba4163b021e5d005c13be8.png}"
+                                     alt="null"/>
+                            </a>
+                            <div class="main-slider__quote">
+                                <div class="main-slider__text">Возвращение революционного сериала о поиске Бога в
+                                    современном мире
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-slider__shade"></div>
+                    </div>
+                    <div class="main-slider__lines">
+                        <div class="main-slider__line" style="width:calc((100% - 16*14px) / 15)">
+                            <div class="main-slider__line-active" style="animation-duration:10s"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showcase">
+                    <!-- todo Новинки -->
+                    <div class="showcase-item ">
+                        <div class="component-header">
+                            <div class="component-header__title">Новинки</div>
+                        </div>
+                        <div class="video-line" type="editors">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <div th:each="content, iterator : ${contentList}"
+                                         class="swiper-slide video-line__item">
+                                        <a th:href="@{'/content/' + ${content.url}}"
+                                           class="card-item card-item-editors">
+                                            <div class="card-item__image">
+                                                <img th:src="@{images/play.png}" class="card-item__play"/>
+                                                <img class="card-item__image-img"
+                                                     th:src="@{'/image/content/' + ${content.imageName}}"
+                                                     th:alt="${content.imageName}"/>
+                                            </div>
+                                            <div class="card-item__title" th:text="${content.name}"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-button-next">
+                                    <div class="swiper-button-next-arrow"></div>
+                                </div>
+                                <div class="swiper-button-prev">
+                                    <div class="swiper-button-prev-arrow"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wishlist -->
+                    <div sec:authorize="isAuthenticated()">
+                        <div class="showcase-item">
+                            <div class="component-header">
+                                <div class="component-header__title">Смотреть позже</div>
+                            </div>
+                            <div class="video-line" type="editors">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        <div th:each="w, iterator : ${wishlist}"
+                                             class="swiper-slide video-line__item">
+                                            <a th:href="@{'/content/' + ${w.content.url}}"
+                                               class="card-item card-item-editors">
+                                                <div class="card-item__image">
+                                                    <img th:src="@{images/play.png}" class="card-item__play"/>
+                                                    <img class="card-item__image-img"
+                                                         th:src="@{'/image/content/' + ${w.content.imageName}}"
+                                                         th:alt="${w.content.imageName}"/>
+                                                </div>
+                                                <div class="card-item__title" th:text="${w.content.name}"></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-button-next">
+                                        <div class="swiper-button-next-arrow"></div>
+                                    </div>
+                                    <div class="swiper-button-prev">
+                                        <div class="swiper-button-prev-arrow"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="seo-block showcase__seo-block">
+                <div class="seo-block__wrapper">
+                    <div class="seo-block__title">Kinozen — сериалы онлайн в русской озвучке и на
+                        английском языке с субтитрами.
+                    </div>
+                    <div class="seo-block__description">«Игра престолов», «Мир Дикого Запада», «Эйфория», «Чернобыль» и
+                        сотни других сериалов в оригинале с субтитрами и на русском языке.
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="blocks/footer.html :: footer"></footer>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/index.js}"></script>
+</body>
+</html>

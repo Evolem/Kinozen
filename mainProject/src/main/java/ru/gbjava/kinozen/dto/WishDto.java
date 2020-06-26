@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import ru.gbjava.kinozen.dto.ContentDto;
 
 @Getter
 @Setter
