@@ -235,6 +235,16 @@ input {
     position: relative;
 }
 
+@font-face {
+    font-family: 'origami_making';
+    src: url('../fonts/origami_making.eot');
+    src: url('../fonts/origami_making.eot') format('embedded-opentype'),
+    url('../fonts/origami_making.woff2') format('woff2'),
+    url('../fonts/origami_making.woff') format('woff'),
+    url('../fonts/origami_making.ttf') format('truetype'),
+    url('../fonts/origami_making.svg#origami_making') format('svg');
+}
+
 @-webkit-keyframes example-one-anim-1 {
     0% {
         clip: rect(80px, 450px, 73px, 0);

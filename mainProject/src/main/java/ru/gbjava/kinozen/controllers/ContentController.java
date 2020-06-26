@@ -47,7 +47,6 @@ public class ContentController {
         return "contentPage";
     }
 
-
     @GetMapping("/{contentUrl}/{seasonUrl}")
     public String getSeasonByUrl(Model model,
                                  @PathVariable String contentUrl,

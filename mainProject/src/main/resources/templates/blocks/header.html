@@ -11,14 +11,13 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/style_1.css}"/>
     <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
-
 </head>
 
 <div th:fragment="menu" class="menu">
     <div class="menu__content desktop">
         <div class="menu__content-wrapper">
-            <a class="menu__item menu__logo" th:href="@{'/'}">
-                <img th:src="@{/images/log.png}" src="../static/images/log.png" class="menu__item-logo"/>
+            <a class="menu__item menu__logo" style="font-family: 'origami_making'; font-size: 24px" th:href="@{'/'}">
+                <span>KinoZen</span>
             </a>
             <a href="/kinozen/content/serial" class="menu__item menu__item--link">Сериалы</a>
             <a href="/kinozen/content/films" class="menu__item menu__item--link">Фильмы</a>
