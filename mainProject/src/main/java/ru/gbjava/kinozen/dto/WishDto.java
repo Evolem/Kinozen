@@ -1,9 +1,8 @@
-package ru.gbjava.kinozen.services.wishlist;
+package ru.gbjava.kinozen.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.gbjava.kinozen.dto.ContentDto;
 

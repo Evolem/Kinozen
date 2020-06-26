@@ -7,6 +7,7 @@ import ru.gbjava.collectionservice.dto.WishDto;
 import ru.gbjava.collectionservice.persistance.entity.Wish;
 import ru.gbjava.collectionservice.service.WishListService;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,15 +21,13 @@ public class WishListController {
     @GetMapping(value = "/list/{userId}")
     public ResponseEntity<List<Wish>> getWishList(@PathVariable UUID userId) {
         List<Wish> wishList = wishListService.getWishListByUserId(userId);
-
         return ResponseEntity.ok(wishList);
     }
 
     @PostMapping(value = "/add")
-    public ResponseEntity<WishDto> addContentToCollection(@RequestBody WishDto wishDto) {
-        // collectionService.addWishContent(wishDto);
-        System.out.println(wishDto);
-            return ResponseEntity.ok(wishDto);
+    public ResponseEntity<WishDto> addContentToCollection(@RequestBody WishDto wishDto) throws ParseException {
+        wishListService.save(wishDto);
+        return ResponseEntity.ok(wishDto);
     }
 
     @DeleteMapping(value = "/delete/{wishId}")

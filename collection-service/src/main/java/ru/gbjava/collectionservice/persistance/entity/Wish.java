@@ -1,8 +1,6 @@
 package ru.gbjava.collectionservice.persistance.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -11,8 +9,10 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tbl_wish")
 public class Wish {
 
@@ -32,4 +32,13 @@ public class Wish {
     @Column (name = "added_wishlist")
     private Date added;
 
+    @Override
+    public String toString() {
+        return "Wish{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", contentId=" + contentId +
+                ", added=" + added +
+                '}';
+    }
 }
