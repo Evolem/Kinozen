@@ -41,4 +41,8 @@ public interface ContentFacade {
     void likeContentByUser(String login, String contentUrl);
 
     void checkWished(Model model, Content content);
+
+    List<Content> findAllSerials();
+
+    List<Content> findAllFilms();
 }

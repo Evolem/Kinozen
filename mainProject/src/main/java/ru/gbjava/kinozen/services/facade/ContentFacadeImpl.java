@@ -139,4 +139,14 @@ public class ContentFacadeImpl implements ContentFacade {
     public void checkWished(Model model, Content content) {
         model.addAttribute("isWished", wishListService.isWished(content));
     }
+
+    @Override
+    public List<Content> findAllSerials() {
+        return contentService.findAllSerials();
+    }
+
+    @Override
+    public List<Content> findAllFilms() {
+        return contentService.findAllFilms();
+    }
 }
