@@ -67,4 +67,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "id_actor")
     )
     private Set<Actor> actorSubscribeList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_subscribe_content",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_content")
+    )
+    private Set<Content> contentSubscribeList;
 }
