@@ -12,6 +12,7 @@ import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
+import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.services.SubscribeService;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
 
@@ -41,8 +42,7 @@ public class ContentController {
         Content content = contentFacade.findContentByUrl(contentUrl);
         ContentDto contentDto = ContentMapper.INSTANCE.toDto(content);
         contentFacade.checkTypeAndSetupModel(model, content);
-        if (principal != null){
-            System.out.println(subscribeService.isUserSubscribedToContent(principal.getName(), content));
+        if (principal != null && content.getType() == TypeContent.SERIAL){
             model.addAttribute("isUserSubscribedToContent",
                     subscribeService.isUserSubscribedToContent(principal.getName(), content));
         }
