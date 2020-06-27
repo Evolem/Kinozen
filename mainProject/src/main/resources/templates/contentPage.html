@@ -131,6 +131,15 @@
                                 </div>
                             </div>
 
+                            <div th:if="${content.type.ordinal() == 0}" sec:authorize="isAuthenticated()">
+                                <form th:unless="${isUserSubscribedToContent}" th:action="@{'/content/subscribe/' + ${content.url}}" method="post" class="btn btn-warning">
+                                    <button th:type="submit">подписаться</button>
+                                </form>
+                                <form th:if="${isUserSubscribedToContent}" th:action="@{'/content/subscribe/' + ${content.url}}"  method="post" class="btn btn-danger">
+                                    <button th:type="submit">отписаться</button>
+                                </form>
+                            </div>
+
                             <!--                            <div class="movie__description">-->
 
                             <!--                                <div class="movie__description-data ">-->
