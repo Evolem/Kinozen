@@ -20,6 +20,18 @@ public class SubscribeService {
     private final ContentService contentService;
     private final UserService userService;
 
+    private Optional<Season> getLastSeason(Set<Season> seasons){
+        int maxNumber = 0;
+        Season lastSeason = null;
+        for(Season s: seasons){
+            if(maxNumber < s.getNumberSeason()){
+                maxNumber = s.getNumberSeason();
+                lastSeason = s;
+            }
+        }
+        return Optional.ofNullable(lastSeason);
+    }
+
     public Set<Content> getContentSubscribeList (String login){
         Set<Content> contentSubscribeList = new HashSet<>();
         contentSubscribeList.addAll(getContentSubscribeListByActor(login));
@@ -57,14 +69,15 @@ public class SubscribeService {
         return contentSubscribeListByGenre;
     }
 
-    public List<Episode> getEpisodeSubscribeList(String login){
+    public List<Episode> getEpisodeSubscribeList(String login) throws Exception {
         User user = userService.findByLogin(login);
         List<Episode> newEpisodes = new ArrayList<>();
         Date date = new Date();
         date.setTime(date.getTime() - (DAYS + 1) * 24 * 3600 *1000);
 
         for(Content c: user.getContentSubscribeList()){
-            for (Episode e: getLastSeason(c.getSeasons()).getEpisodes()){
+            Season lastSeason = getLastSeason(c.getSeasons()).orElseThrow(() -> new Exception("No such season found"));
+            for (Episode e: lastSeason.getEpisodes()){
                 if(date.before(e.getDate())){
                     newEpisodes.add(e);
                 }
@@ -73,16 +86,19 @@ public class SubscribeService {
         return  newEpisodes;
     }
 
-    Season getLastSeason(Set<Season> seasons){
-        int maxNumber = 0;
-        Season lastSeason = null;
-        for(Season s: seasons){
-            if(maxNumber < s.getNumberSeason()){
-                maxNumber = s.getNumberSeason();
-                lastSeason = s;
-            }
-        }
-        return lastSeason;
+    public boolean isUserSubscribedToGenre(String login, GenreDto genreDto){
+        User user = userService.findByLogin(login);
+        return user.getGenreSubscribeList().contains(GenreMapper.INSTANCE.toEntity(genreDto));
+    }
+
+    public boolean isUserSubscribedToActor(String login, ActorDto actorDto){
+        User user = userService.findByLogin(login);
+        return user.getActorSubscribeList().contains(ActorMapper.INSTANCE.toEntity(actorDto));
+    }
+
+    public boolean isUserSubscribedToContent(String login, Content content){
+        User user = userService.findByLogin(login);
+        return user.getContentSubscribeList().contains(content);
     }
 
     @Transactional
@@ -113,14 +129,18 @@ public class SubscribeService {
         userService.save(user);
     }
 
-    public boolean isUserSubscribedToGenre(String login, GenreDto genreDto){
+    @Transactional
+    public void subscribeUserToContent(String login, Content content){
         User user = userService.findByLogin(login);
-        return user.getGenreSubscribeList().contains(GenreMapper.INSTANCE.toEntity(genreDto));
-    }
+        Set<Content> userContentSubscribeList = user.getContentSubscribeList();
 
-    public boolean isUserSubscribedToActor(String login, ActorDto actorDto){
-        User user = userService.findByLogin(login);
-        return user.getActorSubscribeList().contains(ActorMapper.INSTANCE.toEntity(actorDto));
+        if (userContentSubscribeList.contains(content)) {
+            userContentSubscribeList.remove(content);
+        } else {
+            userContentSubscribeList.add(content);
+        }
+        user.setContentSubscribeList(userContentSubscribeList);
+        userService.save(user);
     }
 
 }
