@@ -50,7 +50,7 @@ public class ActorController {
     }
 
     @PostMapping("/subscribe/{actorUrl}")
-    public void likeContent(@PathVariable String actorUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
+    public void subscribe(@PathVariable String actorUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
         subscribeService.subscribeUserToActor(principal.getName(), actorService.findByUrl(actorUrl));
         response.sendRedirect(request.getHeader("referer"));
     }
