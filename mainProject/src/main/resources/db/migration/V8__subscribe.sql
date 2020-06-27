@@ -18,6 +18,3 @@ create table if not exists tbl_subscribe_genre
             references tbl_genre
 );
 
-alter table tbl_episode
-    add released_episode date;
-
