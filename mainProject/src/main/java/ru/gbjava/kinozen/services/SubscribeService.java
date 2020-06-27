@@ -6,18 +6,16 @@ import ru.gbjava.kinozen.dto.ActorDto;
 import ru.gbjava.kinozen.dto.GenreDto;
 import ru.gbjava.kinozen.dto.mappers.ActorMapper;
 import ru.gbjava.kinozen.dto.mappers.GenreMapper;
-import ru.gbjava.kinozen.persistence.entities.Actor;
-import ru.gbjava.kinozen.persistence.entities.Content;
-import ru.gbjava.kinozen.persistence.entities.Genre;
-import ru.gbjava.kinozen.persistence.entities.User;
+import ru.gbjava.kinozen.persistence.entities.*;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class SubscribeService {
+
+    private final int DAYS = 7;
 
     private final ContentService contentService;
     private final UserService userService;
@@ -57,6 +55,34 @@ public class SubscribeService {
             }
         }
         return contentSubscribeListByGenre;
+    }
+
+    public List<Episode> getEpisodeSubscribeList(String login){
+        User user = userService.findByLogin(login);
+        List<Episode> newEpisodes = new ArrayList<>();
+        Date date = new Date();
+        date.setTime(date.getTime() - (DAYS + 1) * 24 * 3600 *1000);
+
+        for(Content c: user.getContentSubscribeList()){
+            for (Episode e: getLastSeason(c.getSeasons()).getEpisodes()){
+                if(date.before(e.getDate())){
+                    newEpisodes.add(e);
+                }
+            }
+        }
+        return  newEpisodes;
+    }
+
+    Season getLastSeason(Set<Season> seasons){
+        int maxNumber = 0;
+        Season lastSeason = null;
+        for(Season s: seasons){
+            if(maxNumber < s.getNumberSeason()){
+                maxNumber = s.getNumberSeason();
+                lastSeason = s;
+            }
+        }
+        return lastSeason;
     }
 
     @Transactional
