@@ -79,6 +79,21 @@
                     </tbody>
                 </table>
 
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Новинки по подписке на жанры</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="newEpisode, iterator : ${newEpisodes}">
+                        <td>
+                            [[ ${newEpisode.name} ]]
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
             </div>
             <head th:replace="blocks/footer.html :: footer"></head>
         </div>
