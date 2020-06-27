@@ -25,7 +25,7 @@ public interface AdminFacade {
 
     List<Content> getContentsByFilers(String name, Date releasedFrom, Date releasedTo, Boolean visible, Integer type);
 
-    Content saveContent(Content content, MultipartFile file);
+    Content saveContent(Content content, MultipartFile file, MultipartFile video);
 
     Content findContentById(UUID uuid);
 

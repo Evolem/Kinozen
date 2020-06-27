@@ -15,9 +15,11 @@ import ru.gbjava.kinozen.persistence.entities.utils.ImageEntity;
 import ru.gbjava.kinozen.services.ContentService;
 import ru.gbjava.kinozen.services.EpisodeService;
 import ru.gbjava.kinozen.services.SeasonService;
+import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 import ru.gbjava.kinozen.services.storage.FileManager;
 
 import javax.annotation.PostConstruct;
+
 import java.nio.file.Path;
 import java.util.*;
 
@@ -29,6 +31,7 @@ public class AdminFacadeImpl implements AdminFacade {
     private final SeasonService seasonService;
     private final ContentService contentService;
     private final EpisodeService episodeService;
+    private final PlayerFeignClient playerFeignClient;
 
     @Value("${files.storage.video_download}")
     private Path contentImageLocation;
@@ -78,7 +81,7 @@ public class AdminFacadeImpl implements AdminFacade {
     }
 
     @Override
-    public Content saveContent(Content content, MultipartFile file) {
+    public Content saveContent(Content content, MultipartFile file, MultipartFile video) {
         content = contentService.save(content);
         if (!file.isEmpty()) {
             if (uploadImageForEntity(content, file, contentImageManager)) {
@@ -86,6 +89,10 @@ public class AdminFacadeImpl implements AdminFacade {
             } else {
                 log.warn("Image not uploaded for " + content.getName());
             }
+        }
+
+        if (!video.isEmpty()) {
+            playerFeignClient.uploadContentFile(video, String.valueOf(content.getId()));
         }
         log.info("Save success: " + content.getName());
         return content;
@@ -116,6 +123,7 @@ public class AdminFacadeImpl implements AdminFacade {
     @Override
     public void deleteContentById(UUID uuid) {
         contentService.deleteById(uuid);
+        playerFeignClient.deleteContentFile(String.valueOf(uuid));
     }
 
     @Override

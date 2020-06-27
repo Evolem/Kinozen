@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,7 +51,7 @@ public class ContentFileService {
         }
 
         try {
-            if (file.getBytes().length != 0) {
+            if (!file.isEmpty()) {
                 String uploadedFileName = FileNameGenerator.generate(STORAGE) + ".mp4";
                 Path targetLocation = STORAGE.resolve(uploadedFileName);
                 Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
@@ -110,5 +111,11 @@ public class ContentFileService {
         if (contentFile == null || !contentFile.getContent().equals(UUID.fromString(content))) {
             contentFile = repository.findByContent(UUID.fromString(content)).orElseThrow(() -> new EntityNotFoundException("File not found: " + content));
         }
+    }
+
+    @Transactional
+    public void deleteContentFile(String id) {
+        repository.deleteByContent(UUID.fromString(id));
+        log.info("File, UUID: {} has been successfully uploaded!", id);
     }
 }

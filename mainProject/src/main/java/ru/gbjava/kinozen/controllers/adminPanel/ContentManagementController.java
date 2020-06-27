@@ -1,6 +1,7 @@
 package ru.gbjava.kinozen.controllers.adminPanel;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,6 +72,7 @@ public class ContentManagementController {
 
     @PostMapping("/save")
     public String saveContent(@RequestParam(required = false, name = "file") MultipartFile file,
+                              @RequestParam(required = false, name = "video") MultipartFile video,
                               ContentDto contentDto,
                               BindingResult bindingResult,
                               Model model) {
@@ -80,7 +82,7 @@ public class ContentManagementController {
             return "redirect:/admin/content";
         }
 
-        Content content = adminFacade.saveContent(ContentMapper.INSTANCE.toEntity(contentDto), file);
+        Content content = adminFacade.saveContent(ContentMapper.INSTANCE.toEntity(contentDto), file, video);
         return "redirect:/admin/content/edit/" + content.getId();
     }
 

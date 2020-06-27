@@ -12,4 +12,6 @@ import java.util.UUID;
 public interface ContentFileRepository extends JpaRepository<ContentFile, Long> {
 
     Optional<ContentFile> findByContent(UUID content);
+
+    void deleteByContent(UUID content);
 }

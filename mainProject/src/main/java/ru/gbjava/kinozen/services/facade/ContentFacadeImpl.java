@@ -116,11 +116,6 @@ public class ContentFacadeImpl implements ContentFacade {
     }
 
     @Override
-    public void uploadContentFile(MultipartFile file, String uuid) {
-        playerFeignClient.uploadContentFile(file, uuid);
-    }
-
-    @Override
     public void likeContentByUser(String login, String contentUrl) {
         User user = userService.findByLogin(login);
         Content content = findContentByUrl(contentUrl);

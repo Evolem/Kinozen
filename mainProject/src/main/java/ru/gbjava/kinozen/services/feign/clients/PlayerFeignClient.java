@@ -12,6 +12,9 @@ public interface PlayerFeignClient {
     @GetMapping(value = "/video/{uuid}", produces = "application/octet-stream")
     ResponseEntity<byte[]> getContentFile(@RequestHeader HttpHeaders headers, @PathVariable String uuid);
 
-    @PostMapping(value = "/video/{uuid}", consumes = "multipart/form-data")
-    void uploadContentFile(@RequestParam("file") MultipartFile file, @PathVariable String uuid);
+    @PostMapping(value = "/video/upload", headers = "Content-Type: multipart/form-data", consumes = "multipart/form-data")
+    void uploadContentFile(@RequestBody MultipartFile file, @RequestParam("id") String uuid);
+
+    @DeleteMapping(value = "/video/delete/{id}")
+    void deleteContentFile(@PathVariable String id);
 }
