@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.beans.CollectionsBean;
-import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.UserDto;
-import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
+import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.HistoryService;
 import ru.gbjava.kinozen.services.SubscribeService;
@@ -37,6 +36,8 @@ public class ProfileController {
         model.addAttribute("history", historyService.findHistoryByUserId(user.getId()));
         model.addAttribute("newsByActor", subscribeService.getContentSubscribeListByActor(principal.getName()));
         model.addAttribute("newsByGenre", subscribeService.getContentSubscribeListByGenre(principal.getName()));
+        model.addAttribute("newEpisodes", subscribeService.getEpisodeSubscribeList(principal.getName()));
+
         return "profile";
     }
 
