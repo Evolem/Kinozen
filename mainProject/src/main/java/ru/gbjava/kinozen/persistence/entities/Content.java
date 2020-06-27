@@ -7,6 +7,7 @@ import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -57,4 +58,7 @@ public class Content {
 
     @ManyToMany(mappedBy = "contentSubscribeList")
     Set<User> contentSubscribers;
+
+    @OneToMany(mappedBy = "content")
+    private Set<Season> seasons;
 }
