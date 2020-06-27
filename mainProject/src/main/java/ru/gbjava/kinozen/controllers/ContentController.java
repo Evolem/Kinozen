@@ -12,6 +12,7 @@ import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
+import ru.gbjava.kinozen.services.SubscribeService;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import java.util.List;
 public class ContentController {
 
     private final ContentFacade contentFacade;
+    private final SubscribeService subscribeService;
 
     @GetMapping
     public String getAllContent(Model model) {
@@ -35,9 +37,15 @@ public class ContentController {
     }
 
     @GetMapping("/{contentUrl}")
-    public String getContentByUrl(Model model, @PathVariable String contentUrl) {
+    public String getContentByUrl(Model model, @PathVariable String contentUrl, Principal principal) {
         Content content = contentFacade.findContentByUrl(contentUrl);
+        ContentDto contentDto = ContentMapper.INSTANCE.toDto(content);
         contentFacade.checkTypeAndSetupModel(model, content);
+        if (principal != null){
+            System.out.println(subscribeService.isUserSubscribedToContent(principal.getName(), content));
+            model.addAttribute("isUserSubscribedToContent",
+                    subscribeService.isUserSubscribedToContent(principal.getName(), content));
+        }
         return "contentPage";
     }
 
@@ -67,6 +75,12 @@ public class ContentController {
     @PostMapping("/like/{contentUrl}")
     public void likeContent(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
         contentFacade.likeContentByUser(principal.getName(), contentUrl);
+        response.sendRedirect(request.getHeader("referer"));
+    }
+
+    @PostMapping("/subscribe/{contentUrl}")
+    public void subscribe(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
+        subscribeService.subscribeUserToContent(principal.getName(), contentFacade.findContentByUrl(contentUrl));
         response.sendRedirect(request.getHeader("referer"));
     }
 }
