@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gbjava.kinozen.beans.CollectionsBean;
 import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
-import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.User;
 import ru.gbjava.kinozen.services.HistoryService;
 import ru.gbjava.kinozen.services.SubscribeService;
@@ -29,7 +28,7 @@ public class ProfileController {
     private final SubscribeService subscribeService;
 
     @GetMapping
-    public String profilePage(final Principal principal, Model model, UserDto userDto) {
+    public String profilePage(final Principal principal, Model model, UserDto userDto) throws Exception {
         final User user = userService.findByLogin(principal.getName());
         collectionsBean.init(principal.getName());
         model.addAttribute("userDto", UserMapper.INSTANCE.toDto(user));
