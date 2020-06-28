@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
+import ru.gbjava.kinozen.persistence.entities.utils.ImageEntity;
 
 import javax.persistence.*;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +20,8 @@ import static javax.persistence.GenerationType.AUTO;
 @NoArgsConstructor
 @Entity
 @Table(name = "tbl_content")
-public class Content {
+@AttributeOverride(name = "imageName", column = @Column(name = "img_content"))
+public class Content extends ImageEntity {
 
     @Id
     @Column(name = "id_content")
@@ -39,6 +42,9 @@ public class Content {
 
     @Column(name = "url_content")
     private String url;
+
+    @Column(name = "trailer_link")
+    private String trailerLink;
 
     @Column(name = "type_content")
     @Enumerated(EnumType.ORDINAL)

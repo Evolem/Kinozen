@@ -1,21 +1,19 @@
 package ru.gbjava.kinozen.services.facade;
 
+import feign.RetryableException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+import ru.gbjava.kinozen.persistence.entities.*;
+import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
+import ru.gbjava.kinozen.services.*;
+import ru.gbjava.kinozen.services.wishlist.WishListService;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
-import ru.gbjava.kinozen.persistence.entities.Content;
-import ru.gbjava.kinozen.persistence.entities.Episode;
-import ru.gbjava.kinozen.persistence.entities.Season;
-import ru.gbjava.kinozen.persistence.entities.User;
-import ru.gbjava.kinozen.services.ContentService;
-import ru.gbjava.kinozen.services.EpisodeService;
-import ru.gbjava.kinozen.services.SeasonService;
-import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
 import java.util.List;
@@ -23,6 +21,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ContentFacadeImpl implements ContentFacade {
@@ -32,6 +31,8 @@ public class ContentFacadeImpl implements ContentFacade {
     private final EpisodeService episodeService;
     private final PlayerFeignClient playerFeignClient;
     private final UserService userService;
+    private final WishListService wishListService;
+    private final GenreService genreService;
 
     @Override
     public List<Content> findAllContent() {
@@ -68,10 +69,8 @@ public class ContentFacadeImpl implements ContentFacade {
         return episodeService.findAllBySeason(season);
     }
 
-    //todo переделать исключение
     @Override
     public Episode getEpisodeFromListByNumber(List<Episode> episodes, Integer episodeNumber) throws RuntimeException {
-
         if (Objects.isNull(episodeNumber)) {
             for (Episode e : episodes) {
                 if (e.getNumberEpisode() == 1) {
@@ -90,7 +89,7 @@ public class ContentFacadeImpl implements ContentFacade {
 
     @Override
     public void checkTypeAndSetupModel(Model model, Content content) {
-        if(content.getType().ordinal() == 0){
+        if (content.getType().ordinal() == 0) {
             List<Season> seasons = findAllSeasonByContent(content);
             model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
         } else {
@@ -102,7 +101,13 @@ public class ContentFacadeImpl implements ContentFacade {
 
     @Override
     public ResponseEntity<byte[]> getContentFile(HttpHeaders headers, String uuid) {
-        return playerFeignClient.getContentFile(headers, uuid);
+        ResponseEntity<byte[]> responseEntity = null;
+        try {
+            responseEntity = playerFeignClient.getContentFile(headers, uuid);
+        } catch (RetryableException e) {
+            log.error(e.getMessage());
+        }
+        return responseEntity;
     }
 
     @Override
@@ -122,5 +127,48 @@ public class ContentFacadeImpl implements ContentFacade {
             likedContent.add(content);
         }
         userService.save(user);
+    }
+
+    @Override
+    public void checkWished(Model model, Content content) {
+        model.addAttribute("isWished", wishListService.isWished(content));
+    }
+
+    @Override
+    public List<Content> findAllSerials() {
+        return contentService.findAllSerials();
+    }
+
+    @Override
+    public List<Content> findAllFilms() {
+        return contentService.findAllFilms();
+    }
+
+    //todo переделать в один метод
+    @Override
+    public void modelSetupForFilms(Model model, UUID idGenre) {
+        if (Objects.isNull(idGenre)) {
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(findAllFilms()));
+        } else {
+            Genre genre = genreService.findById(idGenre);
+            model.addAttribute("selectedGenre", genre.getName());
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentService.findAllFilmsByGenre(genre)));
+        }
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("typeName", "Фильмы");
+    }
+
+    //todo переделать в один метод
+    @Override
+    public void modelSetupForSerials(Model model, UUID idGenre) {
+        if (Objects.isNull(idGenre)) {
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(findAllSerials()));
+        } else {
+            Genre genre = genreService.findById(idGenre);
+            model.addAttribute("selectedGenre", genre.getName());
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentService.findAllSerialsByGenre(genre)));
+        }
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("typeName", "Сериалы");
     }
 }

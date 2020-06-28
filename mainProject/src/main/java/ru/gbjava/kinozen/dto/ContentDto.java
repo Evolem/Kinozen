@@ -24,9 +24,11 @@ public class ContentDto {
     private Date released;
     private Boolean visible;
     private String url;
+    private String imageName;
     private TypeContent type;
     private Set<Genre> genres;
     private Set<Actor> actors;
     private Set<Director> directors;
     private Set<User> likes;
+    private String trailerLink;
 }

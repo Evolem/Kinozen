@@ -1,47 +1,37 @@
 package ru.gbjava.kinozen.services.facade;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+import org.springframework.core.io.Resource;
+import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Season;
-import ru.gbjava.kinozen.services.ContentService;
-import ru.gbjava.kinozen.services.SeasonService;
 
-import java.util.LinkedHashMap;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@Service
-@RequiredArgsConstructor
-public class AdminFacade {
+public interface AdminFacade {
 
-    private final SeasonService seasonService;
-    private final ContentService contentService;
+    Map<String, String> initLinks();
 
-    // todo реализовать на уровне бд
-    public void initLinks(Model model) {
-        Map<String, String> links = new LinkedHashMap<>();
-        links.put("content", "Content management");
-        links.put("comments", "Comments");
-        links.put("banners", "Banners");
-        links.put("users", "Users");
-        model.addAttribute("links", links);
-    }
+    List<Season> getSeasonsByContent(Content content);
 
-    public Iterable<Season> getSeasonByContent(Content content) {
-        return seasonService.findSeasonByContent(content);
-    }
+    Season saveSeason(Season season);
 
-    public Season saveSeason(Season season) {
-        return seasonService.save(season);
-    }
+    Season findSeasonById(UUID id);
 
-    public Season findSeasonById(UUID id) {
-        return seasonService.findById(id);
-    }
+    void deleteSeasonById(UUID id);
 
-    public void deleteSeasonById(UUID id) {
-        seasonService.deleteById(id);
-    }
+    List<Content> getContentsByFilers(String name, Date releasedFrom, Date releasedTo, Boolean visible, Integer type);
+
+    Content saveContent(Content content, MultipartFile file);
+
+    Content findContentById(UUID uuid);
+
+    void deleteContentById(UUID uuid);
+
+    void changeVisible(UUID uuid);
+
+    Resource getContentImage(String imageName);
+
 }

@@ -9,20 +9,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{/css/style_1.css}"/>
-    <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
-
+<!--    <link rel="stylesheet" th:href="@{/css/style_1.css}"/>-->
+<!--    <link rel="stylesheet" th:href="@{/css/style_2.css}"/>-->
 </head>
 
 <div th:fragment="menu" class="menu">
     <div class="menu__content desktop">
         <div class="menu__content-wrapper">
-            <a class="menu__item menu__logo" href="/kinozen/">
-                <img th:src="@{/images/log.png}" src="../static/images/log.png" class="menu__item-logo"/>
+            <a class="menu__item menu__logo" style="font-family: 'origami_making'; font-size: 24px" th:href="@{'/'}">
+                <span>KinoZen</span>
             </a>
-            <a href="/kinozen/content" class="menu__item menu__item--link">Сериалы</a>
-            <a href="#" class="menu__item menu__item--link">Фильмы</a>
-            <a href="/kinozen/profile/wish" class="menu__item menu__item--link">Буду смотреть</a>
+            <a href="/kinozen/content/serial" class="menu__item menu__item--link">Сериалы</a>
+            <a href="/kinozen/content/films" class="menu__item menu__item--link">Фильмы</a>
+            <a href="/kinozen/profile/wishlist" class="menu__item menu__item--link">Буду смотреть</a>
             <a href="#" class="menu__item menu__search">
                 <img th:src="@{/images/search-icon.png}"/><span>Поиск</span></a>
         </div>
@@ -31,17 +30,10 @@
             <a class="menu__register button-primary" href="/kinozen/registration">Зарегистрироваться</a>
         </div>
         <div sec:authorize="isAuthenticated ()" class="menu__content-wrapper">
-            <div class="menu__avatar-wrapper">
-                <div class="profile avatar">
-                    <img src="" class="profile__img">
-                </div>
-            </div>
-            <div class="menu__burger">
-                <div class="menu__burger-line"></div>
-                <div class="menu__burger-line"></div>
-                <div class="menu__burger-line"></div>
-            </div>
-            <script th:src="@{/js/menu.js}"></script>
+            <a class="menu__sign button" href="/kinozen/profile" th:text="${#authentication.name}"></a>
+            <form th:action="@{/logout}" method="post">
+                <button class=" menu__register button-primary">Выход</button>
+            </form>
         </div>
     </div>
 </div>

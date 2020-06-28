@@ -1,31 +1,93 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
-      lang="en">
-<head>
-    <title>Профиль</title>
-    <head th:replace="blocks/header.html :: head"></head>
-</head>
-<body class="custom_class">
-<div id="__next">
-    <div class="wrapper settings-page-wrapper">
-        <div class="wrapper settings-page-wrapper">
-            <head th:replace="blocks/header.html :: menu"></head>
-            <div class="content ">
-                <div class="settings">
-                    <div class="settings__left padTop">
-                        <div class="breadcrumbs">
-                            <div class="breadcrumbs__item"><a class="breadcrumbs__href" href="/">Главная</a>&nbsp;/&nbsp;
-                            </div>
-                            <div class="breadcrumbs__item">Настройки</div>
-                        </div>
-                        <h1>Настройки</h1>
-                        <div class="settings__menu">
-                            <div class="settings__menu-title active">
-                                <div class="settings__menu-title_text">Профили</div>
-                            </div>
-                            <div class="settings__menu-title">
-                                <div class="settings__menu-title_text">Аккаунт</div>
-                            </div>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+<head th:replace="blocks/header2.html :: head"></head>
+<body>
+<div th:replace="blocks/header2.html:: header"></div>
+
+<div class="container">
+
+    <!--    <h1 class="display-4 text-muted" th:text="${#authentication.name}"></h1>-->
+    <h1 class="mt-4 mb-4 text-white-50 display-4">Профиль</h1>
+
+    <!-- todo breadcrumb  начало-->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent ">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item active" aria-current="page">todo</li>
+        </ol>
+    </nav>
+    <!-- todo breadcrumb конец-->
+
+    <!-- меню начало -->
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist" aria-orientation="vertical">
+        <li class="nav-item mr-2" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+               aria-selected="true">История</a>
+        </li>
+        <li class="nav-item mr-2" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+               aria-selected="false">Смотреть позже</a>
+        </li>
+        <li class="nav-item mr-2" role="presentation">
+            <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings"
+               aria-selected="false">Настройки</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+            <ul class="list-unstyled">
+                <li class="media mb-3 mt-3" th:each="h: ${history}">
+                    <img th:src="@{'/image/content/' + ${h.content.imageName}}"
+                         class="mr-3 image-normalize rounded" th:alt="${h.content.imageName}"
+                         style="width: 64px; height: 64px">
+                    <div class="media-body">
+                        <a th:href="@{'/content/' + ${h.content.url}}">
+                            <h5 class="mt-0 mb-1" th:text="${h.content.name}"></h5>
+                        </a>
+                        <span class="mt-0 mb-1 text-white-50" th:text="${h.date}"></span>
+                    </div>
+                </li>
+            </ul>
+
+
+        </div>
+        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <ul class="list-unstyled">
+                <li class="media mb-3 mt-3" th:each="w: ${wishList}">
+                    <img th:src="@{'/image/content/' + ${w.content.imageName}}"
+                         class="mr-3 image-normalize rounded" th:alt="${w.content.imageName}"
+                         style="width: 64px; height: 64px">
+                    <div class="media-body">
+                        <a th:href="@{'/content/' + ${w.content.url}}">
+                            <h5 class="mt-0 mb-1" th:text="${w.content.name}"></h5>
+                        </a>
+                        <span class="mt-0 mb-1 text-white-50" th:text="${w.content.description}"></span>
+                    </div>
+
+                </li>
+            </ul>
+
+
+        </div>
+        <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+            <div class="mt-4">
+                <form action="#" th:action="@{/profile/change}" th:object="${userDto}" method="POST">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label text-white-50">E-mail</label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{email}" class="form-control border-dark bg-dark text-white" th:value="*{email}"
+                                   th:placeholder="Email"/>
+                            <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}"
+                                   th:errors="*{email}">Email Error</small>
                         </div>
                     </div>
                     <div class="settings__right padTop">
@@ -100,9 +162,44 @@
     </div>
 
 </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label text-white-50">Имя</label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{name}" class="form-control border-dark bg-dark text-white" th:value="*{name}"
+                                   th:placeholder="Name"/>
+                            <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}"
+                                   th:errors="*{name}">Name Error</small>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label text-white-50">Текущий пароль</label>
+                        <div class="col-sm-10">
+                            <input type="password" th:field="*{password}" class="form-control border-dark bg-dark text-white"
+                                   th:placeholder="Password"/>
+                            <small class="form-text text-muted" th:if="${#fields.hasErrors('password')}"
+                                   th:errors="*{password}">Password Error</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-warning btn-sm mt-2 mr-2">Сохранить изменения</button>
+                    <a th:href="@{~/kinozen/profile/password}" class="btn btn-outline-warning btn-sm mt-2 mr-2" role="button">Сменить
+                        пароль</a>
+
+
+                </form>
+            </div>
+
+        </div>
+
 
     </div>
+    <!-- Tab panes end -->
 </div>
-<script th:src="@{/js/profile.js}"></script>
+
+<!-- меню конец -->
+
+
+
+<footer th:replace="blocks/footer2.html :: footer"></footer>
 </body>
 </html>

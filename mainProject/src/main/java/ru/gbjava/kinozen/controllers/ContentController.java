@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/content")
@@ -30,10 +31,15 @@ public class ContentController {
     private final ContentFacade contentFacade;
     private final SubscribeService subscribeService;
 
-    @GetMapping
-    public String getAllContent(Model model) {
-        Iterable<ContentDto> dtoList = ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent());
-        model.addAttribute("contentList", dtoList);
+    @GetMapping(value = "/serials")
+    public String getAllSerial(Model model, @RequestParam(required = false) UUID genre) {
+        contentFacade.modelSetupForSerials(model, genre);
+        return "contentAll";
+    }
+
+    @GetMapping(value = "/films")
+    public String getAllFilms(Model model, @RequestParam(required = false) UUID genre) {
+        contentFacade.modelSetupForFilms(model, genre);
         return "contentAll";
     }
 
@@ -41,6 +47,7 @@ public class ContentController {
     public String getContentByUrl(Model model, @PathVariable String contentUrl, Principal principal) {
         Content content = contentFacade.findContentByUrl(contentUrl);
         ContentDto contentDto = ContentMapper.INSTANCE.toDto(content);
+        contentFacade.checkWished(model, content);
         contentFacade.checkTypeAndSetupModel(model, content);
         if (principal != null && content.getType() == TypeContent.SERIAL){
             model.addAttribute("isUserSubscribedToContent",
@@ -48,7 +55,6 @@ public class ContentController {
         }
         return "contentPage";
     }
-
 
     @GetMapping("/{contentUrl}/{seasonUrl}")
     public String getSeasonByUrl(Model model,

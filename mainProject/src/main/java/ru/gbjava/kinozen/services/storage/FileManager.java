@@ -1,12 +1,9 @@
 package ru.gbjava.kinozen.services.storage;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
@@ -15,27 +12,24 @@ import ru.gbjava.kinozen.utilites.FileNameGenerator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+@Slf4j
+public class FileManager {
 
-@Service
-@RequiredArgsConstructor
-public class FileSystemStorageService implements StorageService {
+    //todo FileManager переделать в утилиту
 
-    @Value("${files.storage.video_download}")
-    private Path rootLocation;
+    private final Path rootLocation;
 
-    @Override
-    public String store(MultipartFile file) {
+    public FileManager(Path rootLocation) {
+        this.rootLocation = rootLocation;
+    }
 
+    public String upload(MultipartFile file) {
         String[] fileNameArr = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
         String extension = fileNameArr[fileNameArr.length - 1];
-
-        // Использование утилиты для генерации имен
         String filename = String.format("%s" + "." + "%s", FileNameGenerator.generate(rootLocation), extension);
 
         try {
@@ -51,11 +45,10 @@ public class FileSystemStorageService implements StorageService {
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
-
+        log.info("Upload success: " + rootLocation.resolve(filename));
         return filename;
     }
 
-    @Override
     public Stream<Path> loadAll() {
         try {
             return Files.walk(this.rootLocation, 1)
@@ -67,34 +60,40 @@ public class FileSystemStorageService implements StorageService {
 
     }
 
-    @Override
     public Path load(String filename) {
         return rootLocation.resolve(filename);
     }
 
-    @Override
     public Resource loadAsResource(String filename) {
         try {
-            Path file = load(filename);
-            Resource resource = new UrlResource(file.toUri());
+            Resource resource = new UrlResource(rootLocation.resolve(filename).toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
                 throw new StorageFileNotFoundException(
                         "Could not read file: " + filename);
-
             }
         } catch (MalformedURLException e) {
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
 
-    @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
 
-    @Override
+    public void deleteFileByName(String imageName) {
+        Path path = rootLocation.resolve(imageName);
+        try {
+            Files.deleteIfExists(path);
+            log.info("Delete success :" + path.toString());
+        } catch (NoSuchFileException e) {
+            log.error("Delete file by name (no such): " + path);
+        } catch (IOException e) {
+            log.error("IOException" + e.getMessage());
+        }
+    }
+
     public void init() {
         try {
             Files.createDirectories(rootLocation);
