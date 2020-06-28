@@ -148,110 +148,6 @@
             </div>
         </div>
 
-                            <H3 th:if="${currentEpisode != null}" style="margin-bottom: 10px">
-                                <span th:text="'Эпизод ' + ${currentEpisode.numberEpisode} + '. ' + ${currentEpisode.name}"></span>
-                            </H3>
-
-                            <div th:if="${idEntity != null}">
-                                <div class="movie__playVideo" style="margin-bottom: 50px">
-                                    <video controls width="850" height="440">
-                                        <source th:src="@{/player/video/{id}(id=${idEntity})}"
-                                                type="video/mp4">
-                                    </video>
-                                </div>
-                            </div>
-
-                            <div th:if="${content.type.ordinal() == 0}" sec:authorize="isAuthenticated()">
-                                <form th:unless="${isUserSubscribedToContent}" th:action="@{'/content/subscribe/' + ${content.url}}" method="post" class="btn btn-warning">
-                                    <button th:type="submit">подписаться</button>
-                                </form>
-                                <form th:if="${isUserSubscribedToContent}" th:action="@{'/content/subscribe/' + ${content.url}}"  method="post" class="btn btn-danger">
-                                    <button th:type="submit">отписаться</button>
-                                </form>
-                            </div>
-
-                            <!--                            <div class="movie__description">-->
-
-                            <!--                                <div class="movie__description-data ">-->
-                            <!--                                    <div class="">-->
-                            <!--                                        <div class="movie__description-data_text">-->
-                            <!--                                            <span itemprop="description" th:text="${content.description}"></span>-->
-                            <!--                                        </div>-->
-                            <!--                                        <div class="description-persons movie__data-wrapper">-->
-                            <!--                                            <div class="movie__data-col movie__data-col_title">Жанр:</div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_content">-->
-                            <!--                                                <div th:each="g, iterator : ${content.genres}">-->
-                            <!--                                                    <span itemprop="director" th:text="${g.getName()}"></span>-->
-                            <!--                                                </div>-->
-                            <!--                                            </div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_title">Режиссеры:</div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_content">-->
-                            <!--                                                <div th:each="d, iterator : ${content.directors}">-->
-                            <!--                                                    <span itemprop="director"-->
-                            <!--                                                          th:text="${d.firstName + ' ' + d.lastName}"></span>-->
-                            <!--                                                </div>-->
-                            <!--                                            </div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_title">В ролях:</div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_content">-->
-                            <!--                                                <div th:each="a, iterator : ${content.actors}">-->
-                            <!--                                                    <span itemprop="actor"-->
-                            <!--                                                          th:text="${a.firstName + ' ' + a.lastName}"></span>-->
-                            <!--                                                </div>-->
-                            <!--                                            </div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_title">Страна:</div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_content">-->
-                            <!--                                                <div>-->
-                            <!--                                                    <span itemprop="countryOfOrigin"></span>-->
-                            <!--                                                </div>-->
-                            <!--                                            </div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_title">Производство:</div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_content">-->
-                            <!--                                                <span itemprop="productionCompany"></span>-->
-                            <!--                                            </div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_title">Примьеры:</div>-->
-                            <!--                                            <div class="movie__data-col movie__data-col_content">-->
-                            <!--                                                <span itemprop="productionCompany"-->
-                            <!--                                                      th:text="${#dates.format(content.released, 'dd-MM-yyyy')}"></span>-->
-                            <!--                                            </div>-->
-                            <!--                                        </div>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-
-                            <!--                            <div class="movie__recommendations">-->
-                            <!--                                <div class="movie__recommendations-title">Вам понравится</div>-->
-                            <!--                                <div class="video-line" type="editors">-->
-                            <!--                                    <div class="swiper-container swiper-container-initialized swiper-container-horizontal">-->
-                            <!--                                        <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">-->
-                            <!--                                            <div class="swiper-slide video-line__item swiper-slide-active"-->
-                            <!--                                                 style="width: 372.833px; margin-right: 20px;">-->
-                            <!--                                                <a class="card-item card-item-editors">-->
-                            <!--                                                    <div class="card-item__image">-->
-                            <!--                                                        <div class="card-item__image-img" data-lazy-loaded=""></div>-->
-                            <!--                                                    </div>-->
-                            <!--                                                    <div class="card-item__title"></div>-->
-                            <!--                                                </a>-->
-                            <!--                                            </div>-->
-                            <!--                                        </div>-->
-                            <!--                                        <div class="swiper-button-next swiper-button-disabled" tabindex="0"-->
-                            <!--                                             role="button" aria-label="Next slide" aria-disabled="true">-->
-                            <!--                                            <div class="swiper-button-next-arrow"></div>-->
-                            <!--                                        </div>-->
-                            <!--                                        <div class="swiper-button-prev swiper-button-disabled" tabindex="0"-->
-                            <!--                                             role="button" aria-label="Previous slide" aria-disabled="true">-->
-                            <!--                                            <div class="swiper-button-prev-arrow"></div>-->
-                            <!--                                        </div>-->
-                            <!--                                        <span class="swiper-notification" aria-live="assertive"-->
-                            <!--                                              aria-atomic="true"></span>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-
-                            <head th:replace="blocks/footer.html :: footer"></head>
-                        </div>
-                    </div>
-                </div>
-            </div>
         <div class="collapse" id="move-watch">
             <div class="">
                 <!-- playerzen начало -->
@@ -293,6 +189,15 @@
         <!-- playerzen конец -->
     </div>
     <!-- блок просмотра сериала конец -->
+
+    <div th:if="${content.type.ordinal() == 0}" sec:authorize="isAuthenticated()">
+        <form th:unless="${isUserSubscribedToContent}" th:action="@{'/content/subscribe/' + ${content.url}}" method="post" class="btn btn-warning">
+            <button th:type="submit">подписаться</button>
+        </form>
+        <form th:if="${isUserSubscribedToContent}" th:action="@{'/content/subscribe/' + ${content.url}}"  method="post" class="btn btn-danger">
+            <button th:type="submit">отписаться</button>
+        </form>
+    </div>
 
 </div>
 <!-- Content конец-->
