@@ -25,12 +25,13 @@ public class HomeController {
     private final WishListService wishListService;
 
     @GetMapping
-    public String index(Model model, Principal principal){
+    public String index(Model model, Principal principal) throws Exception {
 
         Iterable<ContentDto> dtoList = ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent());
         model.addAttribute("contentList", dtoList);
         if (Objects.nonNull(principal)){
-            model.addAttribute("news", subscribeService.getContentSubscribeList(principal.getName()));
+            model.addAttribute("newContents", subscribeService.getContentSubscribeList(principal.getName()));
+            model.addAttribute("newEpisodes", subscribeService.getEpisodeSubscribeList(principal.getName()));
             model.addAttribute("wishlist", wishListService.getWishList());
         }
         model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent()));
