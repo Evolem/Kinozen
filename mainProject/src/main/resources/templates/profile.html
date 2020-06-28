@@ -122,54 +122,55 @@
 
     </div>
     <!-- Tab panes end -->
+
+    <table>
+        <thead>
+        <tr>
+            <th>Новинки по подписке на актеров</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="newByActor, iterator : ${newsByActor}">
+            <td>
+                <a th:href="@{'/actor/' + ${newByActor.url}}"> [[ ${newByActor.name} ]] </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Новинки по подписке на жанры</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="newByGenre, iterator : ${newsByGenre}">
+            <td>
+                <a th:href="@{'/genre/' + ${newByGenre.url}}"> [[ ${newByGenre.name} ]] </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Новинки по подписке на жанры</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="newEpisode, iterator : ${newEpisodes}">
+            <td>
+                [[ ${newEpisode.name} ]]
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <!-- меню конец -->
-<table>
-    <thead>
-    <tr>
-        <th>Новинки по подписке на актеров</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="newByActor, iterator : ${newsByActor}">
-        <td>
-            <a th:href="@{'/actor/' + ${newByActor.url}}"> [[ ${newByActor.name} ]] </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<table>
-    <thead>
-    <tr>
-        <th>Новинки по подписке на жанры</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="newByGenre, iterator : ${newsByGenre}">
-        <td>
-            <a th:href="@{'/genre/' + ${newByGenre.url}}"> [[ ${newByGenre.name} ]] </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<table>
-    <thead>
-    <tr>
-        <th>Новинки по подписке на жанры</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="newEpisode, iterator : ${newEpisodes}">
-        <td>
-            [[ ${newEpisode.name} ]]
-        </td>
-    </tr>
-    </tbody>
-</table>
-
 
 <footer th:replace="blocks/footer2.html :: footer"></footer>
 </body>
