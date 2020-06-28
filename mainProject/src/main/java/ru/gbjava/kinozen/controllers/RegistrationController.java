@@ -7,15 +7,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.dto.UserDto;
+import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.validators.RegUserDtoValidator;
-
-/**
- * Created by IntelliJ Idea.
- * User: Якимов В.Н.
- * E-mail: yakimovvn@bk.ru
- */
 
 @Controller
 @RequiredArgsConstructor

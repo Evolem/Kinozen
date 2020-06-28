@@ -85,7 +85,7 @@ public class FileManager {
     public void deleteFileByName(String imageName) {
         Path path = rootLocation.resolve(imageName);
         try {
-            Files.delete(path);
+            Files.deleteIfExists(path);
             log.info("Delete success :" + path.toString());
         } catch (NoSuchFileException e) {
             log.error("Delete file by name (no such): " + path);
