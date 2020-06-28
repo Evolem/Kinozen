@@ -8,17 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+import ru.gbjava.kinozen.persistence.entities.*;
+import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
+import ru.gbjava.kinozen.services.*;
 import ru.gbjava.kinozen.services.wishlist.WishListService;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
-import ru.gbjava.kinozen.persistence.entities.Content;
-import ru.gbjava.kinozen.persistence.entities.Episode;
-import ru.gbjava.kinozen.persistence.entities.Season;
-import ru.gbjava.kinozen.persistence.entities.User;
-import ru.gbjava.kinozen.services.ContentService;
-import ru.gbjava.kinozen.services.EpisodeService;
-import ru.gbjava.kinozen.services.SeasonService;
-import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
 import java.util.List;
@@ -37,6 +32,7 @@ public class ContentFacadeImpl implements ContentFacade {
     private final PlayerFeignClient playerFeignClient;
     private final UserService userService;
     private final WishListService wishListService;
+    private final GenreService genreService;
 
     @Override
     public List<Content> findAllContent() {
@@ -73,10 +69,8 @@ public class ContentFacadeImpl implements ContentFacade {
         return episodeService.findAllBySeason(season);
     }
 
-    //todo переделать исключение
     @Override
     public Episode getEpisodeFromListByNumber(List<Episode> episodes, Integer episodeNumber) throws RuntimeException {
-
         if (Objects.isNull(episodeNumber)) {
             for (Episode e : episodes) {
                 if (e.getNumberEpisode() == 1) {
@@ -148,5 +142,33 @@ public class ContentFacadeImpl implements ContentFacade {
     @Override
     public List<Content> findAllFilms() {
         return contentService.findAllFilms();
+    }
+
+    //todo переделать в один метод
+    @Override
+    public void modelSetupForFilms(Model model, UUID idGenre) {
+        if (Objects.isNull(idGenre)) {
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(findAllFilms()));
+        } else {
+            Genre genre = genreService.findById(idGenre);
+            model.addAttribute("selectedGenre", genre.getName());
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentService.findAllFilmsByGenre(genre)));
+        }
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("typeName", "Фильмы");
+    }
+
+    //todo переделать в один метод
+    @Override
+    public void modelSetupForSerials(Model model, UUID idGenre) {
+        if (Objects.isNull(idGenre)) {
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(findAllSerials()));
+        } else {
+            Genre genre = genreService.findById(idGenre);
+            model.addAttribute("selectedGenre", genre.getName());
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentService.findAllSerialsByGenre(genre)));
+        }
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("typeName", "Сериалы");
     }
 }

@@ -34,6 +34,7 @@ public class ProfileController {
         final User user = userService.findByLogin(principal.getName());
         model.addAttribute("userDto", UserMapper.INSTANCE.toDto(user));
         model.addAttribute("history", historyService.findHistoryByUserId(user.getId()));
+        model.addAttribute("wishList", wishListService.getWishList());
         return "profile";
     }
 

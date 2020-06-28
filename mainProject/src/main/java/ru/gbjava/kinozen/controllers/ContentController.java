@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/content")
@@ -27,15 +28,15 @@ public class ContentController {
 
     private final ContentFacade contentFacade;
 
-    @GetMapping("/serial")
-    public String getAllSerial(Model model) {
-        model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentFacade.findAllSerials()));
+    @GetMapping(value = "/serials")
+    public String getAllSerial(Model model, @RequestParam(required = false) UUID genre) {
+        contentFacade.modelSetupForSerials(model, genre);
         return "contentAll";
     }
 
-    @GetMapping("/films")
-    public String getAllFilms(Model model) {
-        model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentFacade.findAllFilms()));
+    @GetMapping(value = "/films")
+    public String getAllFilms(Model model, @RequestParam(required = false) UUID genre) {
+        contentFacade.modelSetupForFilms(model, genre);
         return "contentAll";
     }
 

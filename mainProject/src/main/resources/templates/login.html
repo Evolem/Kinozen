@@ -1,79 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Авторизация</title>
-    <head th:replace="blocks/header.html :: head"></head>
-</head>
-<body class="custom_class">
-<div id="__next">
-    <div class="registration" style="background-color: black">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 
-        <a class="registration__content-logo" style="font-family: 'origami_making'; font-size: 24px" th:href="@{'/'}">
-            <span>KinoZen</span>
-        </a>
+<head th:replace="blocks/header2.html :: head"></head>
+<body>
+<div th:replace="blocks/header2.html:: header"></div>
 
-        <a class="registration__close" href="/kinozen">
-            <img th:src="@{images/close.png}" src="images/close.png">
-        </a>
-        <div class="registration__content">
-            <div class="registration__content-title">Вход в аккаунт</div>
-            <div class="registration__form-title">Войдите для доступа к подписке и списку избранного</div>
-            <div class="registration__form">
-                <div class="registration__form-content">
-                    <div class="registration__form-switcher">
-                        <div class="registration__form-switcher_item active">Логин</div>
-                        <div class="registration__form-switcher_item ">E-mail</div>
-                    </div>
-                    <form th:action="@{/authenticateTheUser}" method="post">
-                        <div class="registration__form-inputs">
-                            <div class="registration__form-input_wrapper">
-                                <input type="text" name="username" class="registration__form-input"
-                                       id="exampleInputEmail1" aria-describedby="emailHelp"
-                                       placeholder="Введите логин"/>
-                            </div>
-                            <div class="registration__form-input_wrapper">
-                                <input type="password" name="password" class="registration__form-input"
-                                       id="exampleInputPassword1" placeholder="Введите пароль"/>
-                                <div class="registration__eye">
-                                    <img th:src="@{/images/icons/eye.png}" class="registration__eye-img"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="registration__form-forgot">Забыли пароль?</div>
-                        <div>
-                        </div>
-                        <button class="registration__form-button active ">Войти</button>
-                    </form>
-                    <div class="registration__social">
-                        <div class="registration__social-title">Или войдите с помощью социальных сетей</div>
-                        <div class="registration__social-wrapper">
-                            <div class="registration__social-item">
-                                    <span style="transition:opacity 0.5s;opacity:0.6">
-                                        <button type="button" class="registration__social-img metro">
-                                            <img src=""/>
-                                        </button>
-                                    </span>
-                            </div>
-                            <div class="registration__social-item">
-                                <img src="" class="registration__social-img"/></div>
-                            <div class="registration__social-item">
-                                <img src="" class="registration__social-img"/></div>
-                            <div class="registration__social-item">
-                                <img src="" class="registration__social-img"/></div>
-                            <div class="registration__social-item">
-                                <img src="" class="registration__social-img"/></div>
-                        </div>
-                    </div>
-                    <div class="registration__no-account">Ещё нет аккаунта?
-                        <a class="registration__no-account_link" href="#">Зарегистрируйтесь!</a>
-                    </div>
-                </div>
+<div class="container mt-4 mb-4">
+
+    <div class="row justify-content-md-center">
+
+
+        <div class="col-md-auto bg-dark p-5 m-3 rounded shadow-lg">
+            <div class="text-white mb-4 text-center">
+                <div class="display-4" style="font-size: 34px">Вход в аккаунт</div>
+                <div class="text-white-50" style="font-size: 14px">Войдите для доступа ко всем функциям</div>
             </div>
-        </div>
-        <head th:replace="blocks/registration_footer.html :: registration__footer"></head>
-    </div>
-</div>
-<script th:src="@{/js/login.js}"></script>
-</body>
 
+
+            <form th:action="@{/authenticateTheUser}" method="post">
+                <div class="form-group">
+                    <label for="login" class="text-white">Login</label>
+                    <input type="text" name="username" class="form-control" id="login">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="text-white">Password</label>
+                    <input type="password" name="password" class="form-control" id="password">
+                </div>
+                <button type="submit" class="btn btn-outline-warning btn-block">Войти</button>
+            </form>
+            <div class="mt-4">
+                <span class="text-white">Ещё нет аккаунта?</span> <a class="text-warning" th:href="@{'/registration'}">Зарегистрируйтесь!</a>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+<footer th:replace="blocks/footer2.html :: footer"></footer>
+</body>
 </html>
