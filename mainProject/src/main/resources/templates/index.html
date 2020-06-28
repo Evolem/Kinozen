@@ -127,7 +127,7 @@
                             <div class="video-line" type="editors">
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper">
-                                        <div th:each="newContent, iterator : ${news}"
+                                        <div th:each="newContent, iterator : ${newContents}"
                                              class="swiper-slide video-line__item">
                                             <a th:href="@{'/content/' + ${newContent.url}}"
                                                class="card-item card-item-editors">
@@ -140,6 +140,12 @@
                                                 <div class="card-item__title" th:text="${newContent.name}"></div>
                                             </a>
                                         </div>
+
+                                        <div class="component-header__title">Новые эпизоды</div>
+                                        <div th:each="newEpisode, iterator : ${newEpisodes}">
+                                            <div class="card-item__title" th:text="${newEpisode.name}"></div>
+                                        </div>
+
                                         <div class="swiper-button-next">
                                             <div class="swiper-button-next-arrow"></div>
                                         </div>
