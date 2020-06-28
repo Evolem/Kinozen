@@ -7,17 +7,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
+import ru.gbjava.kinozen.services.wishlist.WishListService;
+
+import java.security.Principal;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
 
     private final ContentFacade contentFacade;
+    private final WishListService wishListService;
+
     @GetMapping
-    public String index(Model model){
-        Iterable<ContentDto> dtoList = ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent());
+    public String index(Model model, Principal principal) {
+        if (Objects.nonNull(principal)) {
+            model.addAttribute("wishlist", wishListService.getWishList());
+        }
         Iterable<ContentDto> popularContent = ContentMapper.INSTANCE.toDtoList(contentFacade.findMostPopularContent());
-        model.addAttribute("contentList", dtoList);
+
+        model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent()));
         model.addAttribute("popularContentList", popularContent);
         return "index";
     }

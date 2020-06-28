@@ -8,16 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+import ru.gbjava.kinozen.persistence.entities.*;
+import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
+import ru.gbjava.kinozen.services.*;
+import ru.gbjava.kinozen.services.wishlist.WishListService;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
-import ru.gbjava.kinozen.persistence.entities.Content;
-import ru.gbjava.kinozen.persistence.entities.Episode;
-import ru.gbjava.kinozen.persistence.entities.Season;
-import ru.gbjava.kinozen.persistence.entities.User;
-import ru.gbjava.kinozen.services.ContentService;
-import ru.gbjava.kinozen.services.EpisodeService;
-import ru.gbjava.kinozen.services.SeasonService;
-import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
 
 import java.util.List;
@@ -36,6 +32,8 @@ public class ContentFacadeImpl implements ContentFacade {
     private final EpisodeService episodeService;
     private final PlayerFeignClient playerFeignClient;
     private final UserService userService;
+    private final WishListService wishListService;
+    private final GenreService genreService;
 
     private final int LIMIT_POPULARITY = 60;
 
@@ -154,6 +152,49 @@ public class ContentFacadeImpl implements ContentFacade {
 
         likedContent.remove(content);
         userService.save(user);
+    }
+
+    @Override
+    public void checkWished(Model model, Content content) {
+        model.addAttribute("isWished", wishListService.isWished(content));
+    }
+
+    @Override
+    public List<Content> findAllSerials() {
+        return contentService.findAllSerials();
+    }
+
+    @Override
+    public List<Content> findAllFilms() {
+        return contentService.findAllFilms();
+    }
+
+    //todo переделать в один метод
+    @Override
+    public void modelSetupForFilms(Model model, UUID idGenre) {
+        if (Objects.isNull(idGenre)) {
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(findAllFilms()));
+        } else {
+            Genre genre = genreService.findById(idGenre);
+            model.addAttribute("selectedGenre", genre.getName());
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentService.findAllFilmsByGenre(genre)));
+        }
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("typeName", "Фильмы");
+    }
+
+    //todo переделать в один метод
+    @Override
+    public void modelSetupForSerials(Model model, UUID idGenre) {
+        if (Objects.isNull(idGenre)) {
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(findAllSerials()));
+        } else {
+            Genre genre = genreService.findById(idGenre);
+            model.addAttribute("selectedGenre", genre.getName());
+            model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentService.findAllSerialsByGenre(genre)));
+        }
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("typeName", "Сериалы");
     }
 
     @Override

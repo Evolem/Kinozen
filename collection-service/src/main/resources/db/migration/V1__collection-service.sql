@@ -1,10 +1,12 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 create table if not exists tbl_collection
 (
-	id_collection uuid not null
-		constraint tbl_collection_pk
-			primary key,
-	name_user varchar(255) not null,
-	name_collection varchar(255) not null
+    id_collection uuid default uuid_generate_v4() not null
+        constraint tbl_collection_pk
+            primary key,
+    name_user varchar(255) not null,
+    name_collection varchar(255) not null
 );
 
 create unique index if not exists tbl_collection_id_collection_uindex
@@ -12,16 +14,11 @@ create unique index if not exists tbl_collection_id_collection_uindex
 
 create table if not exists tbl_content_collection
 (
-    id_content uuid not null
-        constraint tbl_content_collection_pk
-            primary key,
+    id_content uuid not null,
     id_collection uuid not null
         constraint tbl_content_collection_tbl_collection_id_collection_fk
             references tbl_collection
 );
-
-create unique index if not exists tbl_content_collection_id_content_uindex
-    on tbl_content_collection (id_content);
 
 
 insert into tbl_collection(id_collection, name_user, name_collection) values ('f97ee60c-a2fd-4a0c-a042-da92554d13eb', 'admin', 'wish');

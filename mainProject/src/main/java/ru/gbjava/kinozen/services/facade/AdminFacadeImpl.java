@@ -92,7 +92,7 @@ public class AdminFacadeImpl implements AdminFacade {
     private boolean uploadImageForEntity(ImageEntity imageEntity, MultipartFile file, FileManager fileManager) {
         if (!file.isEmpty()) {
             try {
-                if (!Objects.isNull(imageEntity.getImageName())) {
+                if (Objects.nonNull(imageEntity.getImageName())) {
                     fileManager.deleteFileByName(imageEntity.getImageName());
                 }
                 imageEntity.setImageName(fileManager.upload(file));

@@ -2,162 +2,214 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
-<head>
-    <title>[[ ${content.name} ]]</title>
-    <head th:replace="blocks/header.html :: head"></head>
-</head>
-<body class="custom_class">
-<div id="__next">
-    <div class="wrapper">
-        <div class="wrapper">
-            <head th:replace="blocks/header.html :: menu"></head>
-            <div class="content ">
-                <div class="movie" itemscope="" itemtype="">
-                    <div class="movie__wrapper">
-                        <div class="movie__bg">
-                            <img th:src="@{/images/d781b63575af29fb87c066e933ec10b7-10934-50ec73dd18914659b88afadcb0d99dcb.jpg}"
-                                 class="movie__bg-image" th:alt="${content.name}"
-                                 style="transform: translate3d(0px, 0%, 0px);">
-                            <div class="movie__bg-shade"></div>
-                            <div class="movie__left-shade"></div>
-                            <div class="movie__header">
-                                <div th:if="${content.type.ordinal() == 1}" class="breadcrumbs">
-                                    <div class="breadcrumbs__item">
-                                        <a class="breadcrumbs__href" href="/kinozen">Главная</a>&nbsp;/&nbsp;
-                                    </div>
-                                    <div class="breadcrumbs__item">
-                                        <a class="breadcrumbs__href" href="/kinozen/content/films">Фильмы</a>&nbsp;/&nbsp;
-                                    </div>
-                                    <div class="breadcrumbs__item" th:text="${content.name}"></div>
-                                </div>
-                                <div th:if="${content.type.ordinal() == 0}" class="breadcrumbs">
-                                    <div class="breadcrumbs__item">
-                                        <a class="breadcrumbs__href" href="/kinozen">Главная</a>/&nbsp;
-                                    </div>
-                                    <div class="breadcrumbs__item">
-                                        <a class="breadcrumbs__href" href="/kinozen/content/serial">Сериалы</a>&nbsp;/&nbsp;
-                                    </div>
-                                    <div th:if="${currentSeason == null}" class="breadcrumbs__item" th:text="${content.name}"></div>
-                                    <div th:if="${currentSeason != null}" class="breadcrumbs__item">
-                                        <a class="breadcrumbs__href" th:href="@{'/content/' + ${content.url}}"
-                                           th:text="${content.name}"></a>
-                                    </div>
-                                    <div th:if="${currentSeason != null}" class="breadcrumbs__item" th:text="'/ Cезон ' + ${currentSeason.numberSeason}"></div>
-                                </div>
-                                <div class="movie__logo">
-                                    <span th:text="${content.name}"></span>
-                                    <span th:if="${currentSeason != null}"
-                                          th:text="'| Cезон ' + ${currentSeason.numberSeason}"></span>
-                                </div>
-                                <div class="movie__original-title"></div>
-                                <div class="movie__description-data no-trailer">
-                                    <div class="movie__description-additional_no-trailer" style="width: 1000px">
-                                        <div class="movie__description-data_text">
-                                            <div class="movie__data-col movie__data-col_title">Описание
-                                                <span th:if="${currentSeason != null}" th:text="'сезона:'"></span>
-                                                <span th:unless="${currentSeason != null}">
-                                                    <span th:if="${content.type.ordinal() == 0}"
-                                                          th:text="'сериала:'"></span>
-                                                    <span th:if="${content.type.ordinal() == 1}"
-                                                          th:text="'фильма:'"></span>
-                                                </span>
-                                            </div>
-                                            <span itemprop="description" th:text="${description}"></span>
-                                            <div class="movie__data-col movie__data-col_title">Режиссеры:</div>
-                                            <div class="movie__data-col movie__data-col_content"
-                                                 th:each="d, iterator : ${content.directors}">
-                                                <span itemprop="director"
-                                                      th:text="${d.firstName} + ' ' + ${d.lastName}"></span>
-                                            </div>
-                                            <div class="movie__data-col movie__data-col_title">В ролях:</div>
-                                            <div class="movie__data-col movie__data-col_content"
-                                                 th:each="a, iterator : ${content.actors}">
-                                                <span itemprop="actor"
-                                                      th:text="${a.firstName} + ' ' + ${a.lastName}"></span>
-                                            </div>
-                                            <div class="movie__data-col movie__data-col_title">Рейтинг:</div>
-                                            <div class="movie__data-col movie__data-col_content">
-                                                <span th:if="${content.likes.size() == 0 && content.dislikes.size() == 0}">Пока никто не оценил этот контент</span>
-                                                <span th:if="${content.likes.size() > 0}"
-                                                      th:text="'Понравилось: ' + ${content.likes.size()}"></span>
-                                                <span th:if="${content.dislikes.size() > 0}"
-                                                      th:text="'Не понравилось: ' + ${content.dislikes.size()}"></span>
-                                                <div sec:authorize="isAuthenticated()">
-                                                    <form th:action="@{'/content/like/' + ${content.url}}" method="post">
-                                                        <button class="menu__sign button" type="submit">нравится</button>
-                                                    </form>
-                                                </div>
-                                                <div sec:authorize="isAuthenticated()">
-                                                    <form th:action="@{'/content/dislike/' + ${content.url}}" method="post">
-                                                        <button class="menu__sign button" type="submit">не нравится</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie__seasons">
-                                    <div th:if="${content.type.ordinal() == 0}"  class="movie__seasons-title">Сезоны:</div>
-                                    <div class="movie__seasons-items">
-                                        <a class="movie__seasons-item"
-                                           th:each="s, iterator : ${seasons}"
-                                           th:href="@{'/content/' + ${content.url} + '/' + ${s.url}}"
-                                           th:text="${s.numberSeason}">
-                                        </a>
-                                    </div>
-                                </div>
-                                <br>
-                                <div th:if="${episodes != null}">
-                                    <form th:action="@{''}" method="get">
-                                        <select name="episode">
-                                            <option th:text="'Выберите серию'" th:value="null"></option>
-                                            <!--suppress ThymeleafVariablesResolveInspection -->
-                                            <option th:each="e : ${episodes}"
-                                                    th:value="${e.numberEpisode}"
-                                                    th:text="${e.numberEpisode}+ '. ' + ${e.name}">
-                                            </option>
-                                        </select>
-                                        <button type="submit">применить</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="movie__content">
-                            <div class="movie__title">
-                                <div class="movie__title-elem movie__title-buttons"></div>
-                                <div class="movie__title-elem movie__title-text ">
-                                    <h1 itemprop="name"></h1>
-                                </div>
-                            </div>
-                            <H3 th:if="${currentEpisode != null}" style="margin-bottom: 10px">
-                                <span th:text="'Эпизод ' + ${currentEpisode.numberEpisode} + '. ' + ${currentEpisode.name}"></span>
-                            </H3>
 
-                            <div th:if="${idEntity != null}">
-                                <div class="movie__playVideo" style="margin-bottom: 50px">
-                                    <video controls width="850" height="440">
-                                        <source th:src="@{/player/video/{id}(id=${idEntity})}"
-                                                type="video/mp4">
-                                    </video>
-                                </div>
-                            </div>
-                            <div>
-                                <div th:if="${idEntity == null}" class="movie__playVideo" style="margin-bottom: 50px">
-                                    <iframe width="850" height="440" src="https://www.youtube.com/embed/dB_pB2v1FZQ"
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <head th:replace="blocks/footer.html :: footer"></head>
-                        </div>
+<head th:replace="blocks/header2.html :: head"></head>
+<body>
+<div th:replace="blocks/header2.html:: header"></div>
+
+<div class="container">
+    <!-- Content начало-->
+    <div class="card bg-transparent text-white mt-4 shadow">
+        <div class="img-black rounded overflow-hidden">
+            <img th:src="@{'/image/content/' + ${content.imageName}}" class="image-normalize" style="height: 500px;">
+        </div>
+        <div class="card-img-overlay" style="z-index: 3">
+            <!-- todo breadcrumb  начало-->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Library</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Data</li>
+                </ol>
+            </nav>
+            <!-- todo breadcrumb конец-->
+
+            <!-- загаловок начало-->
+            <div>
+                <h1 class="card-title text-white display-4" th:text="${content.name}"></h1>
+                <!-- номер сезона и серии начало-->
+                <div th:if="${content.type.ordinal() == 0}">
+                    <span class="badge badge-light" th:if="${currentEpisode !=null}"
+                          th:text="'Cезон ' + ${currentSeason.numberSeason} + ' | ' + 'Эпизод '+ ${currentEpisode.numberEpisode} + '' "></span>
+                </div>
+                <!-- номер сезона и серии конец-->
+            </div>
+            <!-- загаловок конец-->
+
+
+            <!-- Жанры начало-->
+            <div class="">
+                <span class="text-white-50">Жанры:</span>
+                <span th:each="g : ${content.genres}"
+                      th:text="${g.name} + ' '"></span>
+            </div>
+            <!-- Жанры конец-->
+
+            <!-- дата выхода начало-->
+            <div class="">
+                <span class="text-white-50">Дата выхода:</span>
+                <span th:text="${content.released.toLocaleString()}"></span>
+            </div>
+            <!-- дата выхода конец-->
+
+            <!-- directors начало-->
+            <div class="">
+                <span class="text-white-50">Режисер:</span>
+                <span itemprop="director" th:each="d : ${content.directors}"
+                      th:text="${d.firstName} + ' ' + ${d.lastName}"></span>
+            </div>
+            <!-- directors конец-->
+
+            <!-- actors начало-->
+            <div class="">
+                <span class="text-white-50">В ролях:</span>
+                <span itemprop="actor" th:each="a : ${content.actors}"
+                      th:text="${a.firstName} + ' ' + ${a.lastName} + ' '"></span>
+            </div>
+            <!-- actors конец-->
+
+            <!-- description начало -->
+            <p class="card-text text-white-50" th:text="${content.description}"></p>
+            <!-- description конец-->
+
+            <!-- seasons начало -->
+            <div th:if="${content.type.ordinal() == 0}" class="text-white mb-1">Сезоны:</div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a type="button" class="btn btn-outline-warning" th:each="s, iterator : ${seasons}"
+                   th:href="@{'/content/' + ${content.url} + '/' + ${s.url}}" th:text="${s.numberSeason}"></a>
+            </div>
+            <!-- seasons конец -->
+
+            <!-- episodes начало -->
+            <div class="mt-2 " th:if="${episodes != null}">
+                <div class="text-white mb-1">Эпизод:</div>
+                <div class="dropdown d-inline">
+                    <a class="btn btn-outline-warning btn-sm dropdown-toggle"
+                       th:text="${currentEpisode.numberEpisode} + '. ' +  ${currentEpisode.name}" href="#" role="button"
+                       id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" th:if="${currentEpisode != null}"
+                           th:each="e : ${episodes}"
+                           th:text="${e.numberEpisode} + '. ' +  ${e.name}"
+                           th:href="@{'season-' + ${currentSeason.numberSeason} + '?episode=' + ${e.numberEpisode}}">
+
+                        </a>
+
                     </div>
                 </div>
             </div>
+            <!-- episodes конец -->
 
+            <!-- isWished начало -->
+            <div class="" sec:authorize="isAuthenticated()">
+                <div th:unless="${episodes != null}">
+                    <!--/*@thymesVar id="isWished" type="java.lang.Boolean"*/-->
+                    <div th:if="${isWished}">
+                        <a th:href="@{'/profile/wishlist/delete/' + ${content.id}}"
+                           class="btn btn-outline-warning float-right">Запланировано</a>
+                    </div>
+                    <div th:unless="${isWished}">
+                        <a th:href="@{'/profile/wishlist/add/' + ${content.id}}" class="btn btn-warning float-right">Смотреть
+                            позже</a>
+                    </div>
+                </div>
+            </div>
+            <!-- isWished конец -->
         </div>
     </div>
-</div>
 
+    <div class="movie__data-col movie__data-col_title">Рейтинг:</div>
+    <div class="movie__data-col movie__data-col_content">
+        <span th:if="${content.likes.size() == 0 && content.dislikes.size() == 0}">Пока никто не оценил этот контент</span>
+        <span th:if="${content.likes.size() > 0}"
+              th:text="'Понравилось: ' + ${content.likes.size()}"></span>
+        <span th:if="${content.dislikes.size() > 0}"
+              th:text="'Не понравилось: ' + ${content.dislikes.size()}"></span>
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{'/content/like/' + ${content.url}}" method="post">
+                <button class="menu__sign button" type="submit">нравится</button>
+            </form>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{'/content/dislike/' + ${content.url}}" method="post">
+                <button class="menu__sign button" type="submit">не нравится</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- блок кино начало -->
+    <div class="mt-4" th:if="${content.type.ordinal() == 1}">
+        <p>
+            <button class="btn btn btn-outline-light mr-4" type="button" data-toggle="collapse"
+                    data-target="#move-trailer"
+                    aria-expanded="false" aria-controls="collapseExample">
+                Трейлер
+            </button>
+            <button class="btn btn btn-outline-light mr-4" type="button" data-toggle="collapse"
+                    data-target="#move-watch"
+                    aria-expanded="false" aria-controls="collapseExample">
+                Фильм
+            </button>
+        </p>
+
+        <div class="collapse" id="move-trailer">
+            <div class="">
+                <!-- трейлер начало -->
+                <div class="mt-3">
+                    <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+                <!-- трейлер конец -->
+            </div>
+        </div>
+
+        <div class="collapse" id="move-watch">
+            <div class="">
+                <!-- playerzen начало -->
+                <div th:if="${idEntity != null}">
+                    <div class="mt-3">
+                        <video controls width="100%" height="440">
+                            <source th:src="@{/player/video/{id}(id=${idEntity})}"
+                                    type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                <!-- playerzen конец -->
+            </div>
+        </div>
+    </div>
+    <!-- блок кино конец -->
+
+    <!-- блок просмотра сериала начало -->
+    <div th:if="${content.type.ordinal() == 0}">
+        <!-- трейлер начало -->
+        <div class="mt-4" th:unless="${idEntity != null}">
+            <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+        </div>
+        <!-- трейлер конец -->
+
+
+        <!-- playerzen начало -->
+        <div th:if="${idEntity != null}">
+            <div class="mt-4">
+                <video controls width="100%" height="440">
+                    <source th:src="@{/player/video/{id}(id=${idEntity})}"
+                            type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <!-- playerzen конец -->
+    </div>
+    <!-- блок просмотра сериала конец -->
+
+</div>
+<!-- Content конец-->
+<footer th:replace="blocks/footer2.html :: footer"></footer>
 </body>
 </html>

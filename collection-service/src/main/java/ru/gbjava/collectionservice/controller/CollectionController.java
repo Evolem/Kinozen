@@ -4,17 +4,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gbjava.collectionservice.persistance.entity.Collection;
 import ru.gbjava.collectionservice.service.CollectionService;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/collection")
 public class CollectionController {
+
+    //todo контроллер для коллекций
 
     private final CollectionService collectionService;
 
@@ -29,14 +32,5 @@ public class CollectionController {
         }
     }
 
-    @GetMapping(value = "/wish/{user}")
-    public ResponseEntity<List<UUID>> getWishCollection(@PathVariable String user) {
-        List<UUID> result = collectionService.getWishCollection(user);
 
-        if (result == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(result);
-        }
-    }
 }
