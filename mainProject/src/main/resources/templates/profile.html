@@ -90,78 +90,6 @@
                                    th:errors="*{email}">Email Error</small>
                         </div>
                     </div>
-                    <div class="settings__right padTop">
-                        <div class="settings__content">
-                            <div class="settings-item">
-                                <h1>Профили</h1>
-                                <div class="settings-item__content flex settings-item__profiles">
-                                    <div class="settings-item__profile active">
-                                        <img class="settings-item__profile-img" src="">
-                                        <div class="settings-item__profile-title">Мой профиль</div>
-                                        <div class="settings-item__profile-edit">Редактировать</div>
-                                    </div>
-                                    <div class="settings-item__profile settings-item__profile_new">
-                                        <img class="settings-item__profile-img"
-                                             src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGNpcmNsZSBzdHJva2U9IiM1NjVDNjciIHN0cm9rZS13aWR0aD0iMiIgY3g9IjYwIiBjeT0iNjAiIHI9IjU5Ii8+CiAgICA8cGF0aCBkPSJNNjEuNSA1OWgyNy4yNWExLjI1IDEuMjUgMCAwIDEgMCAyLjVINjEuNXYyNy4yNWExLjI1IDEuMjUgMCAwIDEtMi41IDBWNjEuNUgzMS4yNWExLjI1IDEuMjUgMCAwIDEgMC0yLjVINTlWMzEuMjVhMS4yNSAxLjI1IDAgMCAxIDIuNSAwVjU5eiIgZmlsbD0iIzU2NUM2NyIvPgogIDwvZz4KPC9zdmc+Cg==">
-                                        <div class="settings-item__profile-title">Новый профиль</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Новинки по подписке на актеров</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="newByActor, iterator : ${newsByActor}">
-                            <td>
-                                <a th:href="@{'/actor/' + ${newByActor.url}}"> [[ ${newByActor.name} ]] </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Новинки по подписке на жанры</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="newByGenre, iterator : ${newsByGenre}">
-                        <td>
-                            <a th:href="@{'/genre/' + ${newByGenre.url}}"> [[ ${newByGenre.name} ]] </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Новинки по подписке на жанры</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="newEpisode, iterator : ${newEpisodes}">
-                        <td>
-                            [[ ${newEpisode.name} ]]
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-            <head th:replace="blocks/footer.html :: footer"></head>
-        </div>
-    </div>
-
-</div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label text-white-50">Имя</label>
                         <div class="col-sm-10">
@@ -197,7 +125,50 @@
 </div>
 
 <!-- меню конец -->
+<table>
+    <thead>
+    <tr>
+        <th>Новинки по подписке на актеров</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="newByActor, iterator : ${newsByActor}">
+        <td>
+            <a th:href="@{'/actor/' + ${newByActor.url}}"> [[ ${newByActor.name} ]] </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
+<table>
+    <thead>
+    <tr>
+        <th>Новинки по подписке на жанры</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="newByGenre, iterator : ${newsByGenre}">
+        <td>
+            <a th:href="@{'/genre/' + ${newByGenre.url}}"> [[ ${newByGenre.name} ]] </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>Новинки по подписке на жанры</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="newEpisode, iterator : ${newEpisodes}">
+        <td>
+            [[ ${newEpisode.name} ]]
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 
 <footer th:replace="blocks/footer2.html :: footer"></footer>
