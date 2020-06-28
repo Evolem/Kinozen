@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
+import ru.gbjava.kinozen.persistence.entities.Genre;
 import ru.gbjava.kinozen.persistence.entities.Season;
 
 import java.io.IOException;
@@ -41,4 +42,13 @@ public interface ContentFacade {
     void likeContentByUser(String login, String contentUrl);
 
     void checkWished(Model model, Content content);
+
+    List<Content> findAllSerials();
+
+    List<Content> findAllFilms();
+
+    void modelSetupForFilms(Model model, UUID genre);
+
+    void modelSetupForSerials(Model model, UUID genre);
+
 }

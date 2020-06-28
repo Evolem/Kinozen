@@ -1,12 +1,11 @@
 package ru.gbjava.kinozen.services;
 
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Genre;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.persistence.repositories.ContentRepository;
 import ru.gbjava.kinozen.utilites.StringConverter;
@@ -33,6 +32,14 @@ public class ContentService implements CrudService<Content, UUID> {
     @Override
     public List<Content> findAll() {
         return contentRepository.findAll();
+    }
+
+    public List<Content> findAllSerials() {
+        return contentRepository.findAllByType(TypeContent.SERIAL);
+    }
+
+    public List<Content> findAllFilms() {
+        return contentRepository.findAllByType(TypeContent.FILM);
     }
 
     @Override
@@ -67,9 +74,10 @@ public class ContentService implements CrudService<Content, UUID> {
     }
 
     //TODO: пересмотреть логику, это точно bad practices
-    @Transactional
     public List<Content> findWishContents(List<UUID> contentList) {
         return contentList.stream().map(content -> contentRepository.findById(content).orElseThrow()).collect(Collectors.toList());
+
+
     }
 
     public List<Content> findAll(String name, Date releasedFrom, Date releasedTo, Boolean visible, Integer typeOrdinal) {
@@ -119,5 +127,13 @@ public class ContentService implements CrudService<Content, UUID> {
         }
 
 
+    }
+
+    public List<Content> findAllFilmsByGenre(Genre genre) {
+        return contentRepository.findAllByTypeAndGenres(TypeContent.FILM, genre);
+    }
+
+    public List<Content> findAllSerialsByGenre(Genre genre) {
+        return contentRepository.findAllByTypeAndGenres(TypeContent.SERIAL, genre);
     }
 }

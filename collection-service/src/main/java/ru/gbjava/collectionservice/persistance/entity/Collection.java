@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -22,14 +21,10 @@ public class Collection {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-
     @Column(name = "name_user")
     private String user;
-
 
     @Column(name = "name_collection")
     private String name;
 
-    @OneToMany(mappedBy = "collection")
-    private List<Content> contentList;
 }

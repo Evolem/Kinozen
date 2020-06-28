@@ -2,29 +2,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
-<head>
-    <meta charset="UTF-8">
-    <title>Все жанры</title>
-</head>
-<body>
 
-<table>
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="g, iterator : ${genres}">
-        <td th:text="${g.id}"></td>
-        <td>
-            <a th:href="@{'/genre/' + ${g.url}}">[[ ${g.name} ]]</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<br>
-<a th:href="@{'/genre/?param=re'}">Сгенерировать url всем сущностям</a>
+<head th:replace="blocks/header2.html :: head"></head>
+<body>
+<div th:replace="blocks/header2.html:: header"></div>
+
+<div class="container">
+    <h1 class="mt-4 mb-4 text-white display-4"><span>Жанры</span></h1>
+
+    <!-- todo breadcrumb  начало-->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item active" aria-current="page">todo</li>
+        </ol>
+    </nav>
+    <!-- todo breadcrumb конец-->
+
+    <div class="row justify-content-md-center">
+        <div class="col bg-dark m-3 rounded shadow-lg">
+            <table class="rounded table table-striped table-dark table-borderless">
+                <thead>
+                <tr>
+                    <th class="text-white">Название</th>
+                    <th class="text-white">Содержит</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="g, iterator : ${genres}">
+                    <td>
+                        <a th:href="@{'/genre/' + ${g.url}}" style="text-transform: capitalize" th:text="${g.name}"></a>
+                    </td>
+                    <td th:text="${g.getContents().size()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:replace="blocks/footer2.html :: footer"></footer>
 </body>
 </html>

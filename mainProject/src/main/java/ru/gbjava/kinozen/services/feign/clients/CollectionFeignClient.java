@@ -3,21 +3,29 @@ package ru.gbjava.kinozen.services.feign.clients;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.gbjava.kinozen.dto.WishCollectionDto;
-import ru.gbjava.kinozen.dto.WishContentDto;
+import ru.gbjava.kinozen.dto.WishDto;
+
+import java.util.List;
+import java.util.UUID;
 
 @FeignClient(name = "collectionFeignClient", url = "${collection.service.url}")
 public interface CollectionFeignClient {
 
-    @GetMapping(value = "/wish/{user}")
-    ResponseEntity<WishCollectionDto> getWishCollection(@PathVariable String user);
+    /**
+     * Wishlist
+     */
+
+    @GetMapping(value = "/wish/list/{userId}")
+    ResponseEntity<List<WishDto>> getWishList(@PathVariable UUID userId);
 
     @PostMapping(value = "/wish/add")
-    void addWishContent(@RequestBody WishContentDto contentDto);
+    ResponseEntity<WishDto> addContentToWishList(@RequestBody WishDto wishDto);
 
-    @DeleteMapping(value = "/wish/delete/{idContent}/{idCollection}")
-    void deleteWishContent(@PathVariable String idContent, @PathVariable String idCollection);
+    @DeleteMapping(value = "/wish/delete/{idWish}")
+    void deleteContentFromWishList(@PathVariable UUID idWish);
 
-    @PostMapping(value = "/wish/create")
-    void createWishCollection(@RequestBody String login);
+    /**
+     * UserCollections
+     */
+
 }
