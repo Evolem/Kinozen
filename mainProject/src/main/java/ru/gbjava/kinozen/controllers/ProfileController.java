@@ -8,8 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.gbjava.kinozen.beans.CollectionsBean;
 import org.springframework.web.bind.annotation.*;
+import ru.gbjava.kinozen.beans.UserCollection;
 import ru.gbjava.kinozen.services.wishlist.WishListService;
 import ru.gbjava.kinozen.dto.UserDto;
 import ru.gbjava.kinozen.dto.mappers.UserMapper;
@@ -32,13 +32,12 @@ public class ProfileController {
     // todo facade
     private final UserService userService;
     private final HistoryService historyService;
-    private final CollectionsBean collectionsBean;
+    private final UserCollection userCollection;
     private final SubscribeService subscribeService;
     private final WishListService wishListService;
 
     @GetMapping
     public String profilePage(final Principal principal, Model model, UserDto userDto) throws Exception {
-    public String profilePage(final Principal principal, Model model) {
         final User user = userService.findByLogin(principal.getName());
         model.addAttribute("userDto", UserMapper.INSTANCE.toDto(user));
         model.addAttribute("history", historyService.findHistoryByUserId(user.getId()));
