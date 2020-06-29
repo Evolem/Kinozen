@@ -125,7 +125,7 @@ public class AdminFacadeImpl implements AdminFacade {
         try {
             return contentImageManager.loadAsResource(imageName);
         } catch (StorageFileNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("contentImageManager: " + e.getMessage());
         }
         return null;
     }

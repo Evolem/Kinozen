@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -33,6 +34,8 @@ public class ContentFacadeImpl implements ContentFacade {
     private final UserService userService;
     private final WishListService wishListService;
     private final GenreService genreService;
+
+    private final int LIMIT_POPULARITY = 60;
 
     @Override
     public List<Content> findAllContent() {
@@ -69,8 +72,10 @@ public class ContentFacadeImpl implements ContentFacade {
         return episodeService.findAllBySeason(season);
     }
 
+    //todo переделать исключение
     @Override
     public Episode getEpisodeFromListByNumber(List<Episode> episodes, Integer episodeNumber) throws RuntimeException {
+
         if (Objects.isNull(episodeNumber)) {
             for (Episode e : episodes) {
                 if (e.getNumberEpisode() == 1) {
@@ -120,12 +125,32 @@ public class ContentFacadeImpl implements ContentFacade {
         User user = userService.findByLogin(login);
         Content content = findContentByUrl(contentUrl);
         Set<Content> likedContent = user.getLikedContent();
+        Set<Content> dislikedContent = user.getDislikedContent();
 
         if (likedContent.contains(content)) {
             likedContent.remove(content);
         } else {
             likedContent.add(content);
         }
+
+        dislikedContent.remove(content);
+        userService.save(user);
+    }
+
+    @Override
+    public void dislikeContentByUser(String login, String contentUrl) {
+        User user = userService.findByLogin(login);
+        Content content = findContentByUrl(contentUrl);
+        Set<Content> likedContent = user.getLikedContent();
+        Set<Content> dislikedContent = user.getDislikedContent();
+
+        if (dislikedContent.contains(content)) {
+            dislikedContent.remove(content);
+        } else {
+            dislikedContent.add(content);
+        }
+
+        likedContent.remove(content);
         userService.save(user);
     }
 
@@ -170,5 +195,23 @@ public class ContentFacadeImpl implements ContentFacade {
         }
         model.addAttribute("genres", genreService.findAll());
         model.addAttribute("typeName", "Сериалы");
+    }
+
+    @Override
+    public List<Content> findMostPopularContent() {
+        List<Content> contentList = contentService.findAll();
+        return contentList.stream()
+                .filter(content -> calculateRating(content.getLikes().size(), content.getDislikes().size()) > LIMIT_POPULARITY)
+                .sorted((c1, c2) -> calculateRating(c2.getLikes().size(), c2.getDislikes().size())
+                        .compareTo(calculateRating(c1.getLikes().size(), c1.getDislikes().size())))
+                .limit(5)
+                .collect(Collectors.toList());
+    }
+
+    private Integer calculateRating(double likes, double dislikes) {
+        if (likes == 0) {
+            return 0;
+        }
+        return (int) (likes / (likes + dislikes) * 100);
     }
 }

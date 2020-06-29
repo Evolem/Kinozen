@@ -67,12 +67,19 @@ public class ContentController {
         model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
         model.addAttribute("currentSeason", SeasonMapper.INSTANCE.toDto(currentSeason));
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
+        contentFacade.checkWished(model, content);
         return "contentPage";
     }
 
     @PostMapping("/like/{contentUrl}")
     public void likeContent(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
         contentFacade.likeContentByUser(principal.getName(), contentUrl);
+        response.sendRedirect(request.getHeader("referer"));
+    }
+
+    @PostMapping("/dislike/{contentUrl}")
+    public void dislikeContent(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
+        contentFacade.dislikeContentByUser(principal.getName(), contentUrl);
         response.sendRedirect(request.getHeader("referer"));
     }
 }

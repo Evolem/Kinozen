@@ -59,6 +59,11 @@ body {
     position: relative;
 }
 
+.carousel-inner img{
+    max-height: 450px;
+    /*object-fit: cover;*/
+}
+
 .img-black:after {
     content: '';
     position: absolute;

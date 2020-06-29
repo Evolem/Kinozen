@@ -50,6 +50,7 @@ public class UserDto {
     private Set<Role> roles;
 
     private Set<Content> likedContent;
+    private Set<Content> dislikedContent;
 
     private String newPassword1;
     private String newPassword2;
