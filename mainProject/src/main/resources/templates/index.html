@@ -67,51 +67,71 @@
 
     <!-- Wishlist начало-->
     <div sec:authorize="isAuthenticated()">
-        <h3 class="mt-4 mb-4 text-white">Смотреть позже</h3>
-        <div class="flex-wrap d-flex align-items-start">
-            <a th:href="@{'/content/' + ${w.content.url}}" class="m-3" style="width: 15rem;" th:each="w: ${wishlist}">
-                <img th:src="@{'/images/misc/no_image.png'}" th:if="${w.content.imageName == null}" th:alt="${w.content.imageName}" class="card-img-top">
-                <img th:src="@{'/image/content/' + ${w.content.imageName}}" th:unless="${w.content.imageName == null}" th:alt="${w.content.imageName}" class="card-img-top rounded image-normalize" style="height: 150px;">
-                <div class="">
-                    <div class="mt-2 text-white-50" th:text="${w.content.name}"></div>
-                </div>
-            </a>
+        <div th:unless="${wishlist.isEmpty()}">
+            <h3 class="mt-4 mb-4 text-white">Смотреть позже</h3>
+            <div class="flex-wrap d-flex align-items-start">
+                <a th:href="@{'/content/' + ${w.content.url}}" class="m-3" style="width: 15rem;"
+                   th:each="w: ${wishlist}">
+                    <img th:src="@{'/images/misc/no_image.png'}" th:if="${w.content.imageName == null}"
+                         th:alt="${w.content.imageName}" class="card-img-top">
+                    <img th:src="@{'/image/content/' + ${w.content.imageName}}"
+                         th:unless="${w.content.imageName == null}" th:alt="${w.content.imageName}"
+                         class="card-img-top rounded image-normalize" style="height: 150px;">
+                    <div class="">
+                        <div class="mt-2 text-white-50" th:text="${w.content.name}"></div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
     <!-- Wishlist конец-->
 
-    <div class="showcase-item ">
-        <div class="component-header">
-            <div class="component-header__title">Самое популярное у зрителей</div>
-            <a class="component-header__link"
-               href="#"></a>
-        </div>
-        <div class="video-line" type="editors">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div th:each="content, iterator : ${popularContentList}"
-                         class="swiper-slide video-line__item">
-                        <a th:href="@{'/content/' + ${content.url}}"
-                           class="card-item card-item-editors">
-                            <div class="card-item__image">
-                                <img th:src="@{images/play.png}" class="card-item__play"/>
-                                <img class="card-item__image-img"
-                                     th:src="@{/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}"
-                                     th:alt="${content.name}"/>
-                            </div>
-                            <div class="card-item__title" th:text="${content.name}"></div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-button-next">
-                    <div class="swiper-button-next-arrow"></div>
-                </div>
-                <div class="swiper-button-prev">
-                    <div class="swiper-button-prev-arrow"></div>
-                </div>
+    <!-- popularContentList начало-->
+    <h3 class="mt-4 mb-4 text-white">Самое популярное у зрителей</h3>
+    <div class="flex-wrap d-flex align-items-start">
+        <a th:href="@{'/content/' + ${content.url}}" class="m-3" style="width: 15rem;"
+           th:each="content: ${popularContentList}">
+            <img th:src="@{'/images/misc/no_image.png'}" th:if="${content.imageName == null}"
+                 th:alt="${content.imageName}" class="card-img-top">
+            <img th:src="@{'/image/content/' + ${content.imageName}}" th:unless="${content.imageName == null}"
+                 th:alt="${content.imageName}" class="card-img-top rounded image-normalize" style="height: 150px;">
+            <div class="">
+                <div class="mt-2 text-white-50" th:text="${content.name}"></div>
             </div>
-        </div>
+        </a>
     </div>
+    <!-- popularContentList конец-->
+
+
+    <!--    <div class="showcase-item ">-->
+    <!--        <div class="component-header">-->
+    <!--            <div class="component-header__title">Самое популярное у зрителей</div>-->
+    <!--            <a class="component-header__link"-->
+    <!--               href="#"></a>-->
+    <!--        </div>-->
+    <!--        <div class="video-line" type="editors">-->
+    <!--            <div class="swiper-container">-->
+    <!--                <div class="swiper-wrapper">-->
+    <!--                    <div th:each="content, iterator : ${popularContentList}" class="swiper-slide video-line__item">-->
+    <!--                        <a th:href="@{'/content/' + ${content.url}}"-->
+    <!--                           class="card-item card-item-editors">-->
+    <!--                            <div class="card-item__image">-->
+    <!--                                <img th:src="@{images/play.png}" class="card-item__play"/>-->
+    <!--                                <img class="card-item__image-img" th:src="@{/images/c1fc9bf190bddab5840791e958526a73-10936-66a6e4e69f404d1a89fb2f6c67dc7187.jpg}" th:alt="${content.name}"/>-->
+    <!--                            </div>-->
+    <!--                            <div class="card-item__title" th:text="${content.name}"></div>-->
+    <!--                        </a>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="swiper-button-next">-->
+    <!--                    <div class="swiper-button-next-arrow"></div>-->
+    <!--                </div>-->
+    <!--                <div class="swiper-button-prev">-->
+    <!--                    <div class="swiper-button-prev-arrow"></div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
 
 </div>

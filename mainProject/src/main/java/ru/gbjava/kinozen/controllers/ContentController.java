@@ -67,6 +67,7 @@ public class ContentController {
         model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
         model.addAttribute("currentSeason", SeasonMapper.INSTANCE.toDto(currentSeason));
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
+        contentFacade.checkWished(model, content);
         return "contentPage";
     }
 
