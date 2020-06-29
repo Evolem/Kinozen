@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.gbjava.kinozen.persistence.entities.Content;
-import ru.gbjava.kinozen.persistence.entities.Episode;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -19,5 +17,4 @@ public class SeasonDto {
     private Integer numberSeason;
     private String description;
     private String url;
-    private List<Episode> episodes;
 }

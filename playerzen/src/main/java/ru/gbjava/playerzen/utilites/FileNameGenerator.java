@@ -15,7 +15,7 @@ public class FileNameGenerator {
     // 1. Проверяет только переданную папку, вложенные папки не проверяются;
     // 2. Если папка пуста или нету файлов с номером в имени - возвращается 1;
 
-    public static String generate(Path fileFolder) {
+    public String generate(Path fileFolder) {
         try (Stream<Path> walk = Files.walk(fileFolder, 1)) {
             Optional<Integer> max = walk
                     .filter(Files::isRegularFile)
@@ -31,11 +31,11 @@ public class FileNameGenerator {
         }
     }
 
-    private static int getNumberInName(Path file) {
+    private int getNumberInName(Path file) {
         return Integer.parseInt(file.toString().replaceAll("[.][^.]+$", ""));
     }
 
-    private static boolean isOnlyNumbersInNameExceptExtension(Path fileName) {
+    private boolean isOnlyNumbersInNameExceptExtension(Path fileName) {
         String nameWithoutExtension = fileName.toString().replaceAll("[.][^.]+$", "");
         return nameWithoutExtension.matches("[0-9]+");
     }

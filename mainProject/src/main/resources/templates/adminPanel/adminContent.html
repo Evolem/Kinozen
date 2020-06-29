@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+<head th:replace="adminPanel/blocks/adminHeader.html :: head"></head>
+<body>
+<div th:replace="adminPanel/blocks/adminHeader.html:: header"></div>
+
+<div class="container containerExtends">
+    <h1 class="display-4 text-muted">Сontent management</h1>
+
+    <form th:action="@{/admin/content}" method="get">
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" placeholder="name" name="name" id="name">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="releasedFrom">Date from</label>
+                <input type="date" class="form-control" placeholder="name" name="releasedFrom" id="releasedFrom">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="releasedTo">Date to</label>
+                <input type="date" class="form-control" placeholder="name" name="releasedTo" id="releasedTo">
+            </div>
+        </div>
+
+        <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+                <label class="mr-sm-2 sr-only" for="type">Type content</label>
+                <select class="custom-select mr-sm-2" name="type" id="type">
+                    <option th:text="'Тип'" th:value="null">empty</option>
+                    <option th:each="type : ${T(ru.gbjava.kinozen.persistence.entities.enums.TypeContent).values()}"
+                            th:value="${type.ordinal()}"
+                            th:text="${type.typeName}">
+                    </option>
+                </select>
+            </div>
+            <div class="col-auto my-1">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                    <input type="checkbox" class="custom-control-input" name="visible" id="visible"
+                           th:value="${false}"/>
+                    <label class="custom-control-label" for="visible">unpublished only</label>
+                </div>
+            </div>
+
+            <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary">Apply filters</button>
+            </div>
+        </div>
+
+    </form>
+
+    <a type="button" class="btn btn-outline-primary btn-lg btn-block mb-4 mt-4" th:href="@{'/admin/content/add'}">Add
+        new content</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Released</th>
+            <th>Type</th>
+            <th>Visible</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tr th:each="content : ${contents}">
+            <td style="width: 17%"><a th:href="@{'/admin/content/edit/'+ ${(content.id)}}">[[ ${content.name} ]]</a></td>
+            <td style="width: 23%" th:text="${content.description}">Content description</td>
+            <td th:text="${#dates.format(content.released, 'dd-MM-yyyy')}">Released date</td>
+            <td th:text="${content.type.typeName}">Type</td>
+            <td>
+                <a th:href="@{'/admin/content/visible/' + ${(content.id)}}"
+                   th:style="${content.visible ? 'color:green' : 'color:red'}">[[ ${content.visible ? 'открыто' :
+                    'закрыто'} ]]</a>
+            </td>
+            <td>
+
+                <a class="btn btn-outline-dark btn-sm mb-1" th:href="@{'/content/'+ ${content.url}}">view</a>
+                <span th:if="${content.type.ordinal() == 0}">
+                    <a class="btn btn-outline-primary  btn-sm mb-1" th:href="@{'/admin/season/add/'+ ${(content.id)}}">+
+                        season</a>
+                    <a class="btn btn-outline-primary  btn-sm mb-1" th:href="@{'/admin/episode/add/'+ ${(content.id)}}">+
+                        episode</a>
+                </span>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+<footer th:replace="adminPanel/blocks/adminFooter.html :: footer"></footer>
+</body>
+</html>

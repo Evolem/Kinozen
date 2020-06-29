@@ -7,15 +7,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.dto.UserDto;
+import ru.gbjava.kinozen.services.UserService;
 import ru.gbjava.kinozen.validators.RegUserDtoValidator;
-
-/**
- * Created by IntelliJ Idea.
- * User: Якимов В.Н.
- * E-mail: yakimovvn@bk.ru
- */
 
 @Controller
 @RequiredArgsConstructor
@@ -28,7 +22,7 @@ public class RegistrationController {
 
     @GetMapping
     public String showReg(Model model){
-        model.addAttribute("userPojo", new UserDto());
+        model.addAttribute("userDto", new UserDto());
         return "registration";
     }
 
@@ -37,7 +31,7 @@ public class RegistrationController {
         regUserDtoValidator.validate(userDto, bindingResult);
 
         if(bindingResult.hasErrors()) {
-            model.addAttribute("userPojo", userDto);
+            model.addAttribute("userDto", userDto);
             return "registration";
         }
         userService.saveNewUser(userDto);
