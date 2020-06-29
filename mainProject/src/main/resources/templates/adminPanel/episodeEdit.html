@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+<head th:replace="adminPanel/blocks/adminHeader.html :: head"></head>
+<body>
+<div th:replace="adminPanel/blocks/adminHeader.html:: header"></div>
+
+<div class="container containerExtends">
+
+    <!--  TODO плохая реализация if else -->
+    <h1 class="display-4 text-muted" th:unless="${episode.id !=null}">New episode</h1>
+    <h1 class="display-4 text-muted" th:if="${episode.id !=null}">Edit</h1>
+
+    <blockquote class="blockquote">
+        <footer class="blockquote-footer" th:text="${episode.name}"></footer>
+    </blockquote>
+
+    <form class="form-horizontal" th:object="${episode}" th:action="@{/admin/episode/save}" method="post">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idSeason">Season id</label>
+                <input type="text" class="form-control" th:field="*{season.id}" name="idSeason" id="idSeason"
+                       placeholder="seassonId не получен, баг!" readonly>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="idEpisode">Episode id</label>
+                <input type="text" class="form-control" th:field="*{id}" name="idEpisode" id="idEpisode"
+                       placeholder="id не сгенерирован" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="nameInput">Name</label>
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+                Error</small>
+            <input type="text" class="form-control" id="nameInput" name="name" th:field="*{name}">
+        </div>
+
+        <div class="form-group">
+            <label for="numberEpisode">Number Episode</label>
+            <input type="number" class="form-control" id="numberEpisode" name="numberEpisode" value="${content.}"
+                   th:field="*{numberEpisode}">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" name="description" id="description" th:field="*{description}"></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <button class="btn btn-success btn-lg btn-block mt-2 mb-2" type="submit">Save</button>
+            </div>
+            <div class="col-sm">
+                <a type="button" class="btn btn-secondary btn-lg btn-block mb-2 mt-2"
+                   th:href="@{'/admin/content/edit/' + ${episode.season.content.id}}">Back</a>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+<footer th:replace="adminPanel/blocks/adminFooter.html :: footer"></footer>
+</body>
+</html>
