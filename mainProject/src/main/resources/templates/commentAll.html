@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Test Comment Page</title>
+    <link rel="stylesheet" th:href="@{../static/css/stylesheet.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+</head>
+
+
+<body>
+
+<div>
+    <h3>Комментарии пользователей </h3>
+    </div>
+    <br>
+    <br>
+    <div th:if="${not #lists.isEmpty(commentList)}">
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th>Пользователь</th>
+                <th>Комментарий</th>
+                <th>Дата комментария</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="comm, iterator : ${commentList}">
+                <td th:text="${comm.getUser().getName()}"></td>
+                <td th:text="${comm.getTextComment()}"/>
+                <td th:text="${#dates.format(comm.getDateComment(), 'dd-MM-yyyy')}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

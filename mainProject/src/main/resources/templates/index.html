@@ -50,7 +50,7 @@
     <!--Баннеры конец-->
 
     <!-- Новинки начало-->
-    <h3 class="mt-4 mb-4 text-white">Новинки</h3>
+    <h3 class="mt-4 mb-4 text-white font-weight-light">Новинки</h3>
     <div class="owl-carousel text-white">
         <div class="" th:each="content: ${contentList}" style="width: 15rem;">
             <a th:href="@{'/content/' + ${content.url}}" class="m-3" >
@@ -69,7 +69,7 @@
     <!-- Wishlist начало-->
     <div sec:authorize="isAuthenticated()">
         <div th:unless="${wishlist.isEmpty()}">
-            <h3 class="mt-4 mb-4 text-white">Смотреть позже</h3>
+            <h3 class="mt-4 mb-4 text-white font-weight-light">Смотреть позже</h3>
             <div class="owl-carousel text-white">
                 <div class="" th:each="w: ${wishlist}" style="width: 15rem;">
                     <a th:href="@{'/content/' + ${w.content.url}}" class="m-3" >
@@ -88,7 +88,7 @@
     <!-- Wishlist конец-->
 
     <!-- popularContentList начало-->
-    <h3 class="mt-4 mb-4 text-white">Самое популярное у зрителей</h3>
+    <h3 class="mt-4 mb-4 text-white font-weight-light">Самое популярное у зрителей</h3>
     <div class="owl-carousel text-white">
         <div class="" th:each="content: ${popularContentList}" style="width: 15rem;">
             <a th:href="@{'/content/' + ${content.url}}" class="m-3" >

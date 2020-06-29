@@ -43,4 +43,9 @@ public class CommentService implements CrudService<Comment, UUID> {
         return commentRepository.findCommentsByUser(user);
     }
 
+    public List<Comment> findAllCommentByIdEntity(UUID idEntity) {
+        return commentRepository.findAllByIdEntity(idEntity);
+    }
+
+
 }

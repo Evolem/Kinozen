@@ -8,14 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import ru.gbjava.kinozen.persistence.entities.*;
-import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
-import ru.gbjava.kinozen.services.*;
-import ru.gbjava.kinozen.services.wishlist.WishListService;
+import ru.gbjava.kinozen.dto.mappers.CommentMapper;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
+import ru.gbjava.kinozen.persistence.entities.*;
+import ru.gbjava.kinozen.services.*;
 import ru.gbjava.kinozen.services.feign.clients.PlayerFeignClient;
+import ru.gbjava.kinozen.services.wishlist.WishListService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -34,6 +35,8 @@ public class ContentFacadeImpl implements ContentFacade {
     private final UserService userService;
     private final WishListService wishListService;
     private final GenreService genreService;
+    private final CommentService commentService;
+    private final HistoryService historyService;
 
     private final int LIMIT_POPULARITY = 60;
 
@@ -99,6 +102,8 @@ public class ContentFacadeImpl implements ContentFacade {
             model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
         } else {
             model.addAttribute("idEntity", content.getId());
+            List<Comment> comments = findAllCommentByIdEntity(content.getId()); //Ищем комментарии
+            model.addAttribute("comments", CommentMapper.INSTANCE.toDtoList(comments)); //отправляем на страничку список DTO comment
         }
         model.addAttribute("content", ContentMapper.INSTANCE.toDto(content));
         model.addAttribute("description", content.getDescription());
@@ -206,6 +211,26 @@ public class ContentFacadeImpl implements ContentFacade {
                         .compareTo(calculateRating(c1.getLikes().size(), c1.getDislikes().size())))
                 .limit(5)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Comment> findAllCommentByIdEntity(UUID id) {
+        return commentService.findAllCommentByIdEntity(id);
+    }
+
+    @Override
+    public void saveComment(Comment comment) {
+
+        if (comment.getText().trim().length() != 0) //проверка на пустоту строки
+            commentService.save(comment);
+    }
+
+    @Override
+    public void updateHistory(Principal principal, Content content) {
+        if (Objects.nonNull(principal)) {
+            historyService.save(userService.findByLogin(principal.getName()).getId(), content.getId());
+        }
+
     }
 
     private Integer calculateRating(double likes, double dislikes) {
