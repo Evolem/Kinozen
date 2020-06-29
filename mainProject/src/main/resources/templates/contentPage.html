@@ -231,44 +231,40 @@
     <!-- блок просмотра сериала конец -->
 
     <!-- Работа с комментариями начало-->
-
-    <br>
-    <br>
-    <div th:if="${not #lists.isEmpty(comment)}">
-        <table class="table table-hover">
-            <thead class="thead-light">
-            <tr>
-                <th>Пользователь</th>
-                <th>Комментарий</th>
-                <th>Дата комментария</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="comm, iterator : ${comment}">
-                <td th:text="${comm.getUser().getName()}"></td>
-                <td th:text="${comm.getTextComment()}"/>
-                <td th:text="${#dates.format(comm.getDateComment(), 'dd-MM-yyyy')}"/>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-    <p sec:authorize="isAnonymous()"
-       th:text="'Только зарегистрированные пользователи могут оставлять комментарии'"/>
-
-    <div sec:authorize="isAuthenticated()")>
-        <div th:if="${idEntity} != null">
-            <form action="#" th:action="@{/comment/addComment}" method="POST">
-                <div>
-                    <input  name="textComment" type="text"
-                            th:placeholder="'Ваш комментарий'"/>
-                    <button type="submit" th:text="'Комментировать'"  name="idEntity"
-                            th:value="${idEntity}"></button>
+    <div class="ml-3 mr-3">
+        <div th:if="${comments != null}">
+            <h3 class="mt-4 mb-4 text-white font-weight-light">Комментарии</h3>
+            <div class="list-group">
+                <div class="list-group-item list-group-item bg-dark mb-2 rounded" th:each="c, iterator : ${comments}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <span class="mb-1 font-weight-bold text-white" th:text=" '@' + ${c.user.name}"></span>
+                        <small class="text-muted" th:text="${c.dateComment}">3</small>
+                    </div>
+                    <span class="text-white-50" th:text="${c.textComment}"></span>
                 </div>
-            </form>
+            </div>
+
         </div>
+
+
+        <div sec:authorize="isAnonymous()">
+            <span class="text-warning">Только зарегистрированные пользователи могут оставлять комментарии.</span>
+        </div>
+        <div class="mt-2" sec:authorize="isAuthenticated()">
+            <div th:if="${idEntity} != null">
+                <form th:action="@{/comment/addComment}" method="POST">
+                    <div class="form-group col-11 m-auto">
+                        <label class="text-white font-weight-light text-white-50" for="comment">Ваш комментарий</label>
+                        <textarea class="form-control" name="textComment" id="comment" type="text" th:placeholder="'Ваш комментарий'"> </textarea>
+                        <button  class="btn btn-outline-warning mt-3" type="submit" th:text="'Комментировать'" name="idEntity" th:value="${idEntity}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
     </div>
     <!-- Работа с комментариями конец-->
 

@@ -55,6 +55,7 @@ public class WishListService {
         try {
             wishList.clear();
             wishList = collectionFeignClient.getWishList(userId).getBody();
+            //todo не забыть обработать тут исключение, иначе лист не прогрузится
             for (WishDto w : Objects.requireNonNull(wishList)) {
                 w.setContent(ContentMapper.INSTANCE.toDto(contentService.findById(UUID.fromString(w.getContentId()))));
             }
