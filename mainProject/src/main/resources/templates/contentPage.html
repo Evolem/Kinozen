@@ -9,11 +9,11 @@
 
 <div class="container">
     <!-- Content начало-->
-    <div class="card bg-transparent text-white mt-4 shadow">
-        <div class="img-black rounded overflow-hidden">
-            <img th:src="@{'/image/content/' + ${content.imageName}}" class="image-normalize" style="height: 550px;">
+    <div class="content-info-wrap bg-transparent text-white mt-4 shadow rounded overflow-hidden">
+        <div class="img-black image-normalize">
+            <img th:src="@{'/image/content/' + ${content.imageName}}" class="image-normalize">
         </div>
-        <div class="card-img-overlay" style="z-index: 3">
+        <div class="card-img-overlay content-info" style="z-index: 3">
             <!-- todo breadcrumb  начало-->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb" style="background-color: rgba(0, 0, 0, 0.18);">
@@ -90,7 +90,7 @@
                     <!-- seasons конец -->
 
                     <!-- description начало -->
-                    <div class="mt-2">
+                    <div class="mt-2 mb-2">
                         <p class="card-text text-white font-italic" th:text="${content.description}"></p>
                         <!-- description конец-->
                     </div>
@@ -147,9 +147,20 @@
         </div>
     </div>
 
-    <h3 class="mt-4 mb-4 text-white font-weight-light" th:if="${currentEpisode !=null}" th:text="'Cезон ' + ${currentSeason.numberSeason} + '. ' + 'Эпизод '+ ${currentEpisode.numberEpisode} + '.'"></h3>
+    <h3 class="mt-4 mb-4 text-white font-weight-light" th:if="${currentEpisode !=null}"
+        th:text="'Cезон ' + ${currentSeason.numberSeason} + '. ' + 'Эпизод '+ ${currentEpisode.numberEpisode} + '.'"></h3>
 
-    <!-- блок просмотра сериала начало -->
+    <!-- блок просмотра начало -->
+
+    <!-- трейлер начало -->
+    <div class="mt-4" th:unless="${idEntity != null}">
+        <h3 class="mt-4 mb-4 text-white font-weight-light">Трейлер</h3>
+        <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+    </div>
+    <!-- трейлер конец -->
 
     <div class="row mt-4">
         <div class="col">
@@ -169,36 +180,35 @@
             <!-- episodes начало -->
             <div class="overflow-auto" style="height: 440px">
                 <div class="text-white mb-2">Эпизоды:</div>
-                    <ul class="list-group">
-                        <a class="btn btn btn-outline-light btn-sm mb-3 mr-3 text-left" th:if="${currentEpisode != null}"
-                           th:each="e : ${episodes}" th:text="${e.numberEpisode} + '. ' +  ${e.name}"
-                           th:href="@{'season-' + ${currentSeason.numberSeason} + '?episode=' + ${e.numberEpisode}}"></a>
-                    </ul>
+                <ul class="list-group">
+                    <a class="btn btn btn-outline-light btn-sm mb-3 mr-3 text-left" th:if="${currentEpisode != null}"
+                       th:each="e : ${episodes}" th:text="${e.numberEpisode} + '. ' +  ${e.name}"
+                       th:href="@{'season-' + ${currentSeason.numberSeason} + '?episode=' + ${e.numberEpisode}}"></a>
+                </ul>
             </div>
 
             <!-- episodes конец -->
 
-            <div th:if="${content.type.ordinal() == 0}">
-                <!-- трейлер начало -->
-                <div class="mt-4" th:unless="${idEntity != null}">
-                    <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
-                <!-- трейлер конец -->
+            <!-- трейлер начало -->
+            <div class="mt-4" th:unless="${idEntity != null}">
+                <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
             </div>
+            <!-- трейлер конец -->
         </div>
 
     </div>
-    <!-- блок просмотра сериала конец -->
+    <!-- блок просмотра  конец -->
 
     <!-- Работа с комментариями начало-->
     <div class="">
         <div th:if="${comments != null}">
             <h3 class="mt-4 mb-4 text-white font-weight-light">Комментарии</h3>
             <div class="list-group">
-                <div class="list-group-item list-group-item mb-2 rounded" style="background-color: #2d2d2d" th:each="c, iterator : ${comments}">
+                <div class="list-group-item list-group-item mb-2 rounded" style="background-color: #2d2d2d"
+                     th:each="c, iterator : ${comments}">
                     <div class="d-flex w-100 justify-content-between">
                         <span class="mb-1 font-weight-bold text-white" th:text=" '@' + ${c.user.name}"></span>
                         <small class="text-muted" th:text="${c.dateComment}">3</small>
@@ -210,11 +220,11 @@
         </div>
 
 
-        <div sec:authorize="isAnonymous()">
-            <span class="text-warning">Только зарегистрированные пользователи могут оставлять комментарии.</span>
-        </div>
-        <div class="mt-2" sec:authorize="isAuthenticated()">
-            <div th:if="${idEntity} != null">
+        <div th:if="${idEntity} != null">
+            <div sec:authorize="isAnonymous()">
+                <span class="text-warning">Только зарегистрированные пользователи могут оставлять комментарии.</span>
+            </div>
+            <div class="mt-2" sec:authorize="isAuthenticated()">
                 <form th:action="@{/comment/addComment}" method="POST">
                     <div class="form-group m-auto">
                         <label class="text-white font-weight-light text-white-50" for="comment">Ваш комментарий</label>
@@ -231,8 +241,29 @@
     </div>
     <!-- Работа с комментариями конец-->
 
+    <!-- popularContentList начало-->
+    <div th:if="${idEntity} == null">
+        <h3 class="text-white font-weight-light">Вам может понравится</h3>
+        <div class="owl-carousel text-white">
+            <div class="" th:each="content: ${popularContentList}" style="width: 15rem;">
+                <a th:href="@{'/content/' + ${content.url}}" class="m-3">
+                    <img th:src="@{'/images/misc/no_image.png'}" th:if="${content.imageName == null}"
+                         th:alt="${content.imageName}" class="card-img-top">
+                    <img th:src="@{'/image/content/' + ${content.imageName}}" th:unless="${content.imageName == null}"
+                         th:alt="${content.imageName}" class="card-img-top rounded image-normalize"
+                         style="height: 150px;">
+                    <div class="">
+                        <div class="mt-2 text-white-50" th:text="${content.name}"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- popularContentList конец-->
+
 </div>
 <!-- Content конец-->
 <footer th:replace="blocks/footer2.html :: footer"></footer>
+<script th:src="@{/js/enable-carousel.js}"></script>
 </body>
 </html>

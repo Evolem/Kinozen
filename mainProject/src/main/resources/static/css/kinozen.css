@@ -43,6 +43,7 @@ body {
 .image-normalize {
     width: 100%;
     object-fit: cover;
+    height: 100%;
 }
 
 .vignette {
@@ -56,7 +57,7 @@ body {
 }
 
 .img-black{
-    position: relative;
+    position: absolute;
 }
 
 .carousel-inner img{
@@ -109,4 +110,18 @@ body {
 
 .owl-dots{
     display: none;
+}
+
+.content-info-wrap{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+}
+
+.content-info{
+    position: relative;
 }

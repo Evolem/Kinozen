@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+import ru.gbjava.kinozen.dto.ContentDto;
 import ru.gbjava.kinozen.dto.mappers.CommentMapper;
 import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.dto.mappers.SeasonMapper;
@@ -100,6 +101,9 @@ public class ContentFacadeImpl implements ContentFacade {
         if (content.getType().ordinal() == 0) {
             List<Season> seasons = findAllSeasonByContent(content);
             model.addAttribute("seasons", SeasonMapper.INSTANCE.toDtoList(seasons));
+
+            Iterable<ContentDto> popularContent = ContentMapper.INSTANCE.toDtoList(findMostPopularContent());
+            model.addAttribute("popularContentList", popularContent);
         } else {
             model.addAttribute("idEntity", content.getId());
             List<Comment> comments = findAllCommentByIdEntity(content.getId()); //Ищем комментарии
