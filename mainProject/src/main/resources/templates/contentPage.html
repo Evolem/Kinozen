@@ -9,35 +9,36 @@
 
 <div class="container">
     <!-- Content начало-->
-    <div class="card bg-transparent text-white mt-4 shadow">
-        <div class="img-black rounded overflow-hidden">
-            <img th:src="@{'/image/content/' + ${content.imageName}}" class="image-normalize" style="height: 550px;">
+    <div class="content-info-wrap bg-transparent text-white mt-4 shadow rounded overflow-hidden">
+        <div class="img-black image-normalize">
+            <img th:src="@{'/image/content/' + ${content.imageName}}" class="image-normalize">
         </div>
-        <div class="card-img-overlay" style="z-index: 3">
+        <div class="card-img-overlay content-info" style="z-index: 3">
             <!-- todo breadcrumb  начало-->
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent">
+                <ol class="breadcrumb" style="background-color: rgba(0, 0, 0, 0.18);">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data</li>
+                    <li class="breadcrumb-item"><a href="#">Library 2</a></li>
+
                 </ol>
             </nav>
             <!-- todo breadcrumb конец-->
 
             <!-- загаловок начало-->
             <div>
-                <h1 class="card-title text-white display-4" th:text="${content.name}"></h1>
+                <h1 class="card-title text-white display-4">
+                    <span th:text="${content.name}"></span>
+                </h1>
                 <!-- номер сезона и серии начало-->
                 <div th:if="${content.type.ordinal() == 0}">
-                    <span class="badge badge-light" th:if="${currentEpisode !=null}"
-                          th:text="'Cезон ' + ${currentSeason.numberSeason} + ' | ' + 'Эпизод '+ ${currentEpisode.numberEpisode} + '' "></span>
                 </div>
                 <!-- номер сезона и серии конец-->
             </div>
             <!-- загаловок конец-->
 
             <div class="row">
-                <div class="col-sm">
+                <div class="col-sm-7">
                     <!-- Жанры начало-->
                     <div class="">
                         <span class="text-white-50">Жанры:</span>
@@ -48,7 +49,7 @@
 
                     <!-- дата выхода начало-->
                     <div class="">
-                        <span class="text-white-50">Дата выхода:</span>
+                        <span class="text-white-50">Премьера:</span>
                         <span th:text="${content.released.toLocaleString()}"></span>
                     </div>
                     <!-- дата выхода конец-->
@@ -76,44 +77,31 @@
 
                     <!-- Рейтинг конец-->
 
-                    <!-- description начало -->
-                    <p class="card-text text-white-50" th:text="${content.description}"></p>
-                    <!-- description конец-->
-
                     <!-- seasons начало -->
-                    <div th:if="${content.type.ordinal() == 0}" class="text-white mb-1">Сезоны:</div>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <a type="button" class="btn btn-outline-warning" th:each="s, iterator : ${seasons}"
-                           th:href="@{'/content/' + ${content.url} + '/' + ${s.url}}" th:text="${s.numberSeason}"></a>
+                    <div>
+                        <div th:if="${content.type.ordinal() == 0}" class="d-inline-block text-white-50 mb-1">Сезоны:
+                        </div>
+                        <div class="d-inline-block">
+                            <a class="btn btn-outline-warning btn-sm m-1" th:each="s, iterator : ${seasons}"
+                               th:href="@{'/content/' + ${content.url} + '/' + ${s.url}}"
+                               th:text="${s.numberSeason}"></a>
+                        </div>
                     </div>
                     <!-- seasons конец -->
 
-                    <!-- episodes начало -->
-                    <div class="mt-2 " th:if="${episodes != null}">
-                        <div class="text-white mb-1">Эпизод:</div>
-                        <div class="dropdown d-inline">
-                            <a class="btn btn-outline-warning btn-sm dropdown-toggle"
-                               th:text="${currentEpisode.numberEpisode} + '. ' +  ${currentEpisode.name}" href="#"
-                               role="button"
-                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" th:if="${currentEpisode != null}"
-                                   th:each="e : ${episodes}"
-                                   th:text="${e.numberEpisode} + '. ' +  ${e.name}"
-                                   th:href="@{'season-' + ${currentSeason.numberSeason} + '?episode=' + ${e.numberEpisode}}">
-                                </a>
-                            </div>
-                        </div>
+                    <!-- description начало -->
+                    <div class="mt-2 mb-2">
+                        <p class="card-text text-white font-italic" th:text="${content.description}"></p>
+                        <!-- description конец-->
                     </div>
-                    <!-- episodes конец -->
+
                 </div>
 
                 <div class="col">
                     <!-- isWished начало -->
                     <div class="" sec:authorize="isAuthenticated()">
                         <div>
-                            <!--                        <div th:unless="${episodes != null}">-->
+                            <!--  <div th:unless="${episodes != null}">-->
                             <!--/*@thymesVar id="isWished" type="java.lang.Boolean"*/-->
                             <div th:if="${isWished}">
                                 <a th:href="@{'/profile/wishlist/delete/' + ${content.id}}"
@@ -159,83 +147,68 @@
         </div>
     </div>
 
+    <h3 class="mt-4 mb-4 text-white font-weight-light" th:if="${currentEpisode !=null}"
+        th:text="'Cезон ' + ${currentSeason.numberSeason} + '. ' + 'Эпизод '+ ${currentEpisode.numberEpisode} + '.'"></h3>
 
-    <!-- блок кино начало -->
-    <div class="mt-4" th:if="${content.type.ordinal() == 1}">
-        <p>
-            <button class="btn btn btn-outline-light mr-4" type="button" data-toggle="collapse"
-                    data-target="#move-trailer"
-                    aria-expanded="false" aria-controls="collapseExample">
-                Трейлер
-            </button>
-            <button class="btn btn btn-outline-light mr-4" type="button" data-toggle="collapse"
-                    data-target="#move-watch"
-                    aria-expanded="false" aria-controls="collapseExample">
-                Фильм
-            </button>
-        </p>
+    <!-- блок просмотра начало -->
 
-        <div class="collapse" id="move-trailer">
-            <div class="">
-                <!-- трейлер начало -->
-                <div class="mt-3">
-                    <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
-                <!-- трейлер конец -->
-            </div>
-        </div>
-
-        <div class="collapse" id="move-watch">
-            <div class="">
-                <!-- playerzen начало -->
-                <div th:if="${idEntity != null}">
-                    <div class="mt-3">
-                        <video controls width="100%" height="440">
-                            <source th:src="@{/player/video/{id}(id=${idEntity})}"
-                                    type="video/mp4">
-                        </video>
-                    </div>
-                </div>
-                <!-- playerzen конец -->
-            </div>
-        </div>
+    <!-- трейлер начало -->
+    <div class="mt-4" th:unless="${idEntity != null}">
+        <h3 class="mt-4 mb-4 text-white font-weight-light">Трейлер</h3>
+        <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
     </div>
-    <!-- блок кино конец -->
+    <!-- трейлер конец -->
 
-    <!-- блок просмотра сериала начало -->
-    <div th:if="${content.type.ordinal() == 0}">
-        <!-- трейлер начало -->
-        <div class="mt-4" th:unless="${idEntity != null}">
-            <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-        </div>
-        <!-- трейлер конец -->
-
-
-        <!-- playerzen начало -->
-        <div th:if="${idEntity != null}">
-            <div class="mt-4">
-                <video controls width="100%" height="440">
-                    <source th:src="@{/player/video/{id}(id=${idEntity})}"
-                            type="video/mp4">
-                </video>
+    <div class="row mt-4">
+        <div class="col">
+            <!-- playerzen начало -->
+            <div th:if="${idEntity != null}">
+                <div class="">
+                    <video controls width="100%" height="440">
+                        <source th:src="@{/player/video/{id}(id=${idEntity})}"
+                                type="video/mp4">
+                    </video>
+                </div>
             </div>
+            <!-- playerzen конец -->
         </div>
-        <!-- playerzen конец -->
+
+        <div class="col-3" th:if="${episodes != null}">
+            <!-- episodes начало -->
+            <div class="overflow-auto" style="height: 440px">
+                <div class="text-white mb-2">Эпизоды:</div>
+                <ul class="list-group">
+                    <a class="btn btn btn-outline-light btn-sm mb-3 mr-3 text-left" th:if="${currentEpisode != null}"
+                       th:each="e : ${episodes}" th:text="${e.numberEpisode} + '. ' +  ${e.name}"
+                       th:href="@{'season-' + ${currentSeason.numberSeason} + '?episode=' + ${e.numberEpisode}}"></a>
+                </ul>
+            </div>
+
+            <!-- episodes конец -->
+
+            <!-- трейлер начало -->
+            <div class="mt-4" th:unless="${idEntity != null}">
+                <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+            <!-- трейлер конец -->
+        </div>
+
     </div>
-    <!-- блок просмотра сериала конец -->
+    <!-- блок просмотра  конец -->
 
     <!-- Работа с комментариями начало-->
-    <div class="ml-3 mr-3">
+    <div class="">
         <div th:if="${comments != null}">
             <h3 class="mt-4 mb-4 text-white font-weight-light">Комментарии</h3>
             <div class="list-group">
-                <div class="list-group-item list-group-item bg-dark mb-2 rounded" th:each="c, iterator : ${comments}">
+                <div class="list-group-item list-group-item mb-2 rounded" style="background-color: #2d2d2d"
+                     th:each="c, iterator : ${comments}">
                     <div class="d-flex w-100 justify-content-between">
                         <span class="mb-1 font-weight-bold text-white" th:text=" '@' + ${c.user.name}"></span>
                         <small class="text-muted" th:text="${c.dateComment}">3</small>
@@ -247,29 +220,50 @@
         </div>
 
 
-        <div sec:authorize="isAnonymous()">
-            <span class="text-warning">Только зарегистрированные пользователи могут оставлять комментарии.</span>
-        </div>
-        <div class="mt-2" sec:authorize="isAuthenticated()">
-            <div th:if="${idEntity} != null">
+        <div th:if="${idEntity} != null">
+            <div sec:authorize="isAnonymous()">
+                <span class="text-warning">Только зарегистрированные пользователи могут оставлять комментарии.</span>
+            </div>
+            <div class="mt-2" sec:authorize="isAuthenticated()">
                 <form th:action="@{/comment/addComment}" method="POST">
-                    <div class="form-group col-11 m-auto">
+                    <div class="form-group m-auto">
                         <label class="text-white font-weight-light text-white-50" for="comment">Ваш комментарий</label>
-                        <textarea class="form-control" name="textComment" id="comment" type="text" th:placeholder="'Ваш комментарий'"> </textarea>
-                        <button  class="btn btn-outline-warning mt-3" type="submit" th:text="'Комментировать'" name="idEntity" th:value="${idEntity}"></button>
+                        <textarea class="form-control" name="textComment" id="comment" type="text"
+                                  th:placeholder="'Ваш комментарий'"> </textarea>
+                        <button class="btn btn-outline-warning mt-3" type="submit" th:text="'Комментировать'"
+                                name="idEntity" th:value="${idEntity}"></button>
                     </div>
                 </form>
             </div>
         </div>
 
 
-
-
     </div>
     <!-- Работа с комментариями конец-->
+
+    <!-- popularContentList начало-->
+    <div th:if="${idEntity} == null">
+        <h3 class="text-white font-weight-light">Вам может понравится</h3>
+        <div class="owl-carousel text-white">
+            <div class="" th:each="content: ${popularContentList}" style="width: 15rem;">
+                <a th:href="@{'/content/' + ${content.url}}" class="m-3">
+                    <img th:src="@{'/images/misc/no_image.png'}" th:if="${content.imageName == null}"
+                         th:alt="${content.imageName}" class="card-img-top">
+                    <img th:src="@{'/image/content/' + ${content.imageName}}" th:unless="${content.imageName == null}"
+                         th:alt="${content.imageName}" class="card-img-top rounded image-normalize"
+                         style="height: 150px;">
+                    <div class="">
+                        <div class="mt-2 text-white-50" th:text="${content.name}"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- popularContentList конец-->
 
 </div>
 <!-- Content конец-->
 <footer th:replace="blocks/footer2.html :: footer"></footer>
+<script th:src="@{/js/enable-carousel.js}"></script>
 </body>
 </html>
