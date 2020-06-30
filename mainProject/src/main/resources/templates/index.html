@@ -237,39 +237,63 @@
     <!--Баннеры конец-->
 
     <!-- Новинки начало-->
-    <h3 class="mt-4 mb-4 text-white">Новинки</h3>
-    <div class="flex-wrap d-flex align-items-start">
-        <a th:href="@{'/content/' + ${content.url}}" class="m-3" style="width: 15rem;"
-           th:each="content: ${contentList}">
-            <img th:src="@{'/images/misc/no_image.png'}" th:if="${content.imageName == null}"
-                 th:alt="${content.imageName}" class="card-img-top">
-            <img th:src="@{'/image/content/' + ${content.imageName}}" th:unless="${content.imageName == null}"
-                 th:alt="${content.imageName}" class="card-img-top rounded image-normalize" style="height: 150px;">
-            <div class="">
-                <div class="mt-2 text-white-50" th:text="${content.name}"></div>
-            </div>
-        </a>
+    <h3 class="mt-4 mb-4 text-white font-weight-light">Новинки</h3>
+    <div class="owl-carousel text-white">
+        <div class="" th:each="content: ${contentList}" style="width: 15rem;">
+            <a th:href="@{'/content/' + ${content.url}}" class="m-3" >
+                <img th:src="@{'/images/misc/no_image.png'}" th:if="${content.imageName == null}"
+                     th:alt="${content.imageName}" class="card-img-top">
+                <img th:src="@{'/image/content/' + ${content.imageName}}" th:unless="${content.imageName == null}"
+                     th:alt="${content.imageName}" class="card-img-top rounded image-normalize" style="height: 150px;">
+                <div class="">
+                    <div class="mt-2 text-white-50" th:text="${content.name}"></div>
+                </div>
+            </a>
+        </div>
     </div>
     <!-- Новинки конец-->
 
     <!-- Wishlist начало-->
     <div sec:authorize="isAuthenticated()">
-        <h3 class="mt-4 mb-4 text-white">Смотреть позже</h3>
-        <div class="flex-wrap d-flex align-items-start">
-            <a th:href="@{'/content/' + ${w.content.url}}" class="m-3" style="width: 15rem;" th:each="w: ${wishlist}">
-                <img th:src="@{'/images/misc/no_image.png'}" th:if="${w.content.imageName == null}" th:alt="${w.content.imageName}" class="card-img-top">
-                <img th:src="@{'/image/content/' + ${w.content.imageName}}" th:unless="${w.content.imageName == null}" th:alt="${w.content.imageName}" class="card-img-top rounded image-normalize" style="height: 150px;">
-                <div class="">
-                    <div class="mt-2 text-white-50" th:text="${w.content.name}"></div>
+        <div th:unless="${wishlist.isEmpty()}">
+            <h3 class="mt-4 mb-4 text-white font-weight-light">Смотреть позже</h3>
+            <div class="owl-carousel text-white">
+                <div class="" th:each="w: ${wishlist}" style="width: 15rem;">
+                    <a th:href="@{'/content/' + ${w.content.url}}" class="m-3" >
+                        <img th:src="@{'/images/misc/no_image.png'}" th:if="${w.content.imageName == null}"
+                             th:alt="${w.content.imageName}" class="card-img-top">
+                        <img th:src="@{'/image/content/' + ${w.content.imageName}}" th:unless="${w.content.imageName == null}"
+                             th:alt="${w.content.imageName}" class="card-img-top rounded image-normalize" style="height: 150px;">
+                        <div class="">
+                            <div class="mt-2 text-white-50" th:text="${w.content.name}"></div>
+                        </div>
+                    </a>
                 </div>
-            </a>
+            </div>
         </div>
     </div>
     <!-- Wishlist конец-->
 
+    <!-- popularContentList начало-->
+    <h3 class="mt-4 mb-4 text-white font-weight-light">Самое популярное у зрителей</h3>
+    <div class="owl-carousel text-white">
+        <div class="" th:each="content: ${popularContentList}" style="width: 15rem;">
+            <a th:href="@{'/content/' + ${content.url}}" class="m-3" >
+                <img th:src="@{'/images/misc/no_image.png'}" th:if="${content.imageName == null}"
+                     th:alt="${content.imageName}" class="card-img-top">
+                <img th:src="@{'/image/content/' + ${content.imageName}}" th:unless="${content.imageName == null}"
+                     th:alt="${content.imageName}" class="card-img-top rounded image-normalize" style="height: 150px;">
+                <div class="">
+                    <div class="mt-2 text-white-50" th:text="${content.name}"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- popularContentList конец-->
 
 </div>
 
 <footer th:replace="blocks/footer2.html :: footer"></footer>
+<script th:src="@{/js/enable-carousel.js}"></script>
 </body>
 </html>

@@ -11,7 +11,11 @@ import java.util.UUID;
 
 public interface CommentRepository extends JpaRepository<Comment, UUID> {
 
+    //Поиск по ID
     Optional<Comment> findById(@NonNull UUID id);
 
+    //Список по пользователю
     List<Comment> findCommentsByUser(@NonNull User user);
+
+    List<Comment> findAllByIdEntity(UUID idEntity);
 }

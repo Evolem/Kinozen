@@ -124,7 +124,9 @@
                             </td>
                             <td>
                                 <div th:each="e : ${s.episodes}">
-                                    <a href="#" th:text="${e.numberEpisode} +'. '+ ${e.name}"></a>
+                                    <a th:href="@{/content/{contentUrl}/{seasonUrl}(contentUrl=${s.content.url}, seasonUrl=${s.url}, episode=${e.numberEpisode})}" th:text="${e.numberEpisode} +'. '+ ${e.name}"></a>
+                                    <a class="btn btn-warning  mb-1" th:href="@{/admin/episode/edit/{id}(id=${e.id})}" th:text="edit"></a>
+                                    <a class="btn btn-danger mb-1" th:href="@{/admin/episode/delete/{id}(id=${e.id})}" th:text="delete"></a>
                                 </div>
                             </td>
                             <td th:text="${s.description}"></td>
@@ -134,7 +136,7 @@
                                 <a class="btn btn-danger mb-1"
                                    th:href="@{'/admin/season/delete/'+ ${(s.id)}}">Delete</a>
                                 <a class="btn btn-outline-primary  mb-1"
-                                   th:href="@{'/admin/episode/add/'+ ${(content.id)}}">+ episode</a>
+                                   th:href="@{'/admin/episode/add/'+ ${(s.id)}}">+ episode</a>
                             </td>
 
                         </tr>

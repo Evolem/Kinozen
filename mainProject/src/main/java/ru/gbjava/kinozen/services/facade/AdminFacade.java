@@ -3,6 +3,7 @@ package ru.gbjava.kinozen.services.facade;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
 
 import java.util.Date;
@@ -34,4 +35,9 @@ public interface AdminFacade {
 
     Resource getContentImage(String imageName);
 
+    Episode findEpisodeById(UUID id);
+
+    Episode saveEpisode(Episode episode);
+
+    void deleteEpisodeById(UUID id);
 }

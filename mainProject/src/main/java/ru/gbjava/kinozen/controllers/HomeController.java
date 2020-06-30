@@ -34,7 +34,10 @@ public class HomeController {
             model.addAttribute("newEpisodes", subscribeService.getEpisodeSubscribeList(principal.getName()));
             model.addAttribute("wishlist", wishListService.getWishList());
         }
+        Iterable<ContentDto> popularContent = ContentMapper.INSTANCE.toDtoList(contentFacade.findMostPopularContent());
+
         model.addAttribute("contentList", ContentMapper.INSTANCE.toDtoList(contentFacade.findAllContent()));
+        model.addAttribute("popularContentList", popularContent);
         return "index";
     }
 }

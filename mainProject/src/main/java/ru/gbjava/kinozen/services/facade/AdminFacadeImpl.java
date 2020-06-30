@@ -9,9 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.gbjava.kinozen.exceptions.StorageException;
 import ru.gbjava.kinozen.exceptions.StorageFileNotFoundException;
 import ru.gbjava.kinozen.persistence.entities.Content;
+import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.entities.utils.ImageEntity;
 import ru.gbjava.kinozen.services.ContentService;
+import ru.gbjava.kinozen.services.EpisodeService;
 import ru.gbjava.kinozen.services.SeasonService;
 import ru.gbjava.kinozen.services.storage.FileManager;
 
@@ -26,6 +28,7 @@ public class AdminFacadeImpl implements AdminFacade {
 
     private final SeasonService seasonService;
     private final ContentService contentService;
+    private final EpisodeService episodeService;
 
     @Value("${files.storage.video_download}")
     private Path contentImageLocation;
@@ -125,11 +128,25 @@ public class AdminFacadeImpl implements AdminFacade {
         try {
             return contentImageManager.loadAsResource(imageName);
         } catch (StorageFileNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("contentImageManager: " + e.getMessage());
         }
         return null;
     }
 
+    @Override
+    public Episode findEpisodeById(UUID id) {
+        return episodeService.findById(id);
+    }
+
+    @Override
+    public Episode saveEpisode(Episode episode) {
+        return episodeService.save(episode);
+    }
+
+    @Override
+    public void deleteEpisodeById(UUID id) {
+        episodeService.deleteById(id);
+    }
 }
 
 
