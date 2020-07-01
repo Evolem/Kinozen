@@ -1,6 +1,10 @@
 package ru.gbjava.kinozen.services;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -140,4 +144,10 @@ public class ContentService implements CrudService<Content, UUID> {
     public List<Content> findAllSerialsByGenre(Genre genre) {
         return contentRepository.findAllByTypeAndGenres(TypeContent.SERIAL, genre);
     }
+
+    public Page<Content> findAll(Specification<Content> spec, Pageable pageable) {
+        return contentRepository.findAll(spec, pageable);
+    }
+
+
 }
