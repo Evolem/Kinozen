@@ -6,6 +6,7 @@ import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.repositories.EpisodeRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +28,7 @@ public class EpisodeService implements CrudService<Episode, UUID> {
 
     @Override
     public Episode save(Episode object) {
+        object.setAdded(new Date());
         return episodeRepository.save(object);
     }
 

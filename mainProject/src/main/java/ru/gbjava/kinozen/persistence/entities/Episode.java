@@ -33,9 +33,9 @@ public class Episode {
     @Column(name = "description_episode")
     private String description;
 
-    @Column(name = "released_episode")
+    @Column(name = "added_episode")
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date added;
 
     @Column(name = "img_episode")
     private String imageName;

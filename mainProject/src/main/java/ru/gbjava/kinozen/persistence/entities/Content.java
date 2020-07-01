@@ -7,9 +7,7 @@ import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.persistence.entities.utils.ImageEntity;
 
 import javax.persistence.*;
-import java.net.URL;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 

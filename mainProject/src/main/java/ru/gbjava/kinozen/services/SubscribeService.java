@@ -78,7 +78,7 @@ public class SubscribeService {
         for(Content c: user.getContentSubscribeList()){
             Season lastSeason = getLastSeason(c.getSeasons()).orElseThrow(() -> new Exception("No such season found"));
             for (Episode e: lastSeason.getEpisodes()){
-                if(date.before(e.getDate())){
+                if(date.before(e.getAdded())){
                     newEpisodes.add(e);
                 }
             }

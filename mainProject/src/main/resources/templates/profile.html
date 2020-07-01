@@ -22,156 +22,142 @@
     </nav>
     <!-- todo breadcrumb конец-->
 
+
     <!-- меню начало -->
-
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist" aria-orientation="vertical">
-        <li class="nav-item mr-2" role="presentation">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-               aria-selected="true">История</a>
-        </li>
-        <li class="nav-item mr-2" role="presentation">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-               aria-selected="false">Смотреть позже</a>
-        </li>
-        <li class="nav-item mr-2" role="presentation">
-            <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings"
-               aria-selected="false">Настройки</a>
-        </li>
-    </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
-            <ul class="list-unstyled">
-                <li class="media mb-3 mt-3" th:each="h: ${history}">
-                    <img th:src="@{'/image/content/' + ${h.content.imageName}}"
-                         class="mr-3 image-normalize rounded" th:alt="${h.content.imageName}"
-                         style="width: 64px; height: 64px">
-                    <div class="media-body">
-                        <a th:href="@{'/content/' + ${h.content.url}}">
-                            <h5 class="mt-0 mb-1" th:text="${h.content.name}"></h5>
-                        </a>
-                        <span class="mt-0 mb-1 text-white-50" th:text="${h.date}"></span>
-                    </div>
-                </li>
-            </ul>
-
-
-        </div>
-        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            <ul class="list-unstyled">
-                <li class="media mb-3 mt-3" th:each="w: ${wishList}">
-                    <img th:src="@{'/image/content/' + ${w.content.imageName}}"
-                         class="mr-3 image-normalize rounded" th:alt="${w.content.imageName}"
-                         style="width: 64px; height: 64px">
-                    <div class="media-body">
-                        <a th:href="@{'/content/' + ${w.content.url}}">
-                            <h5 class="mt-0 mb-1" th:text="${w.content.name}"></h5>
-                        </a>
-                        <span class="mt-0 mb-1 text-white-50" th:text="${w.content.description}"></span>
-                    </div>
-
-                </li>
-            </ul>
-
-
-        </div>
-        <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-            <div class="mt-4">
-                <form action="#" th:action="@{/profile/change}" th:object="${userDto}" method="POST">
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label text-white-50">E-mail</label>
-                        <div class="col-sm-10">
-                            <input type="text" th:field="*{email}" class="form-control border-dark bg-dark text-white" th:value="*{email}"
-                                   th:placeholder="Email"/>
-                            <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}"
-                                   th:errors="*{email}">Email Error</small>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label text-white-50">Имя</label>
-                        <div class="col-sm-10">
-                            <input type="text" th:field="*{name}" class="form-control border-dark bg-dark text-white" th:value="*{name}"
-                                   th:placeholder="Name"/>
-                            <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}"
-                                   th:errors="*{name}">Name Error</small>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label text-white-50">Текущий пароль</label>
-                        <div class="col-sm-10">
-                            <input type="password" th:field="*{password}" class="form-control border-dark bg-dark text-white"
-                                   th:placeholder="Password"/>
-                            <small class="form-text text-muted" th:if="${#fields.hasErrors('password')}"
-                                   th:errors="*{password}">Password Error</small>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-warning btn-sm mt-2 mr-2">Сохранить изменения</button>
-                    <a th:href="@{~/kinozen/profile/password}" class="btn btn-outline-warning btn-sm mt-2 mr-2" role="button">Сменить
-                        пароль</a>
-
-
-                </form>
+    <div class="row mg-3">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#history" role="tab"
+                   aria-controls="v-pills-home" aria-selected="true">История</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#wishlist" role="tab"
+                   aria-controls="v-pills-profile" aria-selected="false">Смотреть позже</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#subscriptions" role="tab"
+                   aria-controls="v-pills-settings" aria-selected="false">Подписки</a>
+                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#settings" role="tab"
+                   aria-controls="v-pills-messages" aria-selected="false">Настройки</a>
             </div>
-
         </div>
+        <div class="col-9 rounded shadow bg-dark" >
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="history" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
+                    <!-- history начало-->
+                    <ul class="list-unstyled">
+                        <li class="media mb-3 mt-3" th:each="h: ${history}">
+                            <img th:src="@{'/image/content/' + ${h.content.imageName}}"
+                                 class="mr-3 image-normalize rounded" th:alt="${h.content.imageName}"
+                                 style="width: 64px; height: 64px">
+                            <div class="media-body">
+                                <a th:href="@{'/content/' + ${h.content.url}}">
+                                    <h5 class="mt-0 mb-1" th:text="${h.content.name}"></h5>
+                                </a>
+                                <span class="mt-0 mb-1 text-white-50" th:text="${h.date}"></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- history конец-->
+                </div>
+                <div class="tab-pane fade" id="wishlist" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <!-- wishList начало-->
+                    <ul class="list-unstyled">
+                        <li class="media mb-3 mt-3" th:each="w: ${wishList}">
+                            <img th:src="@{'/image/content/' + ${w.content.imageName}}"
+                                 class="mr-3 image-normalize rounded" th:alt="${w.content.imageName}"
+                                 style="width: 64px; height: 64px">
+                            <div class="media-body">
+                                <a th:href="@{'/content/' + ${w.content.url}}">
+                                    <h5 class="mt-0 mb-1" th:text="${w.content.name}"></h5>
+                                </a>
+                                <span class="mt-0 mb-1 text-white-50" th:text="${w.content.description}"></span>
+                            </div>
+
+                        </li>
+                    </ul>
+                    <!-- wishList конец-->
+                </div>
+
+                <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                    <!-- Подписки начало-->
+                    <ul class="list-unstyled">
+                        <div class="m-4 text-white-50" th:if="${newEpisodes.isEmpty()}">Пусто</div>
+                        <li class="media mb-3 mt-3" th:each="e: ${newEpisodes}">
+                            <img th:src="@{'/image/content/' + ${e.season.content.imageName}}"
+                                 class="mr-3 image-normalize rounded" th:alt="${e.season.content.imageName}"
+                                 style="width: 64px; height: 64px">
+                            <div class="media-body">
+                                <a th:href="@{'/content/' + ${e.season.content.url} + '/' + ${e.season.url} + '?episode=' + ${e.numberEpisode}}">
+                                    <h5 class="mt-0 mb-1" th:text="${e.season.content.name}"></h5>
+                                </a>
+                                <span class="mt-0 mb-1 text-white-50"
+                                      th:text="'Сезон ' + ${e.season.numberSeason} + ', эпизод ' + ${e.numberEpisode} + '. ' + ${e.name}"></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- Подписки конец-->
+
+                </div>
+
+                <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <!-- настройки начало-->
+                    <div class="pt-4 pb-4">
+                        <form action="#" th:action="@{/profile/change}" th:object="${userDto}" method="POST">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-white-50">E-mail</label>
+                                <div class="col-sm-10">
+                                    <input type="text" th:field="*{email}"
+                                           class="form-control"
+                                           th:value="*{email}"
+                                           th:placeholder="Email"/>
+                                    <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}"
+                                           th:errors="*{email}">Email Error</small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-white-50">Имя</label>
+                                <div class="col-sm-10">
+                                    <input type="text" th:field="*{name}"
+                                           class="form-control"
+                                           th:value="*{name}"
+                                           th:placeholder="Name"/>
+                                    <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}"
+                                           th:errors="*{name}">Name Error</small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-white-50">Текущий пароль</label>
+                                <div class="col-sm-10">
+                                    <input type="password" th:field="*{password}"
+                                           class="form-control"
+                                           th:placeholder="Password"/>
+                                    <small class="form-text text-muted" th:if="${#fields.hasErrors('password')}"
+                                           th:errors="*{password}">Password Error</small>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-warning btn-sm mt-2 mr-2">Сохранить изменения</button>
+                            <a th:href="@{~/kinozen/profile/password}" class="btn btn-outline-warning btn-sm mt-2 mr-2"
+                               role="button">Сменить
+                                пароль</a>
 
 
+                        </form>
+                    </div>
+                    <!-- настройки конец-->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- Tab panes end -->
-
-    <table>
-        <thead>
-        <tr>
-            <th>Новинки по подписке на актеров</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="newByActor, iterator : ${newsByActor}">
-            <td>
-                <a th:href="@{'/actor/' + ${newByActor.url}}"> [[ ${newByActor.name} ]] </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-        <tr>
-            <th>Новинки по подписке на жанры</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="newByGenre, iterator : ${newsByGenre}">
-            <td>
-                <a th:href="@{'/genre/' + ${newByGenre.url}}"> [[ ${newByGenre.name} ]] </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-        <tr>
-            <th>Новинки по подписке на жанры</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="newEpisode, iterator : ${newEpisodes}">
-            <td>
-                [[ ${newEpisode.name} ]]
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- меню конец -->
 
 </div>
 
-<!-- меню конец -->
 
 <footer th:replace="blocks/footer2.html :: footer"></footer>
+<script>
+    $('#myTab a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+</script>
 </body>
 </html>

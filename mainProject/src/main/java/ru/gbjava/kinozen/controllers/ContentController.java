@@ -44,13 +44,15 @@ public class ContentController {
         return "contentAll";
     }
 
+    //todo большой метод стал, возможно стоит его оптимизировать
     @GetMapping("/{contentUrl}")
     public String getContentByUrl(Model model, Principal principal, @PathVariable String contentUrl) {
         Content content = contentFacade.findContentByUrl(contentUrl);
-        ContentDto contentDto = ContentMapper.INSTANCE.toDto(content);
         contentFacade.checkWished(model, content);
         contentFacade.checkTypeAndSetupModel(model, content);
         contentFacade.updateHistory(principal, content);
+
+        //todo убрать логику
         if (principal != null && content.getType() == TypeContent.SERIAL){
             model.addAttribute("isUserSubscribedToContent",
                     subscribeService.isUserSubscribedToContent(principal.getName(), content));
@@ -74,6 +76,12 @@ public class ContentController {
         List<Episode> episodes = currentSeason.getEpisodes();
         EpisodeDto currentEpisode = EpisodeMapper.INSTANCE.toDto(contentFacade.getEpisodeFromListByNumber(episodes, episode));
         List<Comment> comments = contentFacade.findAllCommentByIdEntity(currentEpisode.getId()); //Ищем комментарии
+
+        //todo убрать логику
+        if (principal != null && content.getType() == TypeContent.SERIAL){
+            model.addAttribute("isUserSubscribedToContent",
+                    subscribeService.isUserSubscribedToContent(principal.getName(), content));
+        }
 
         model.addAttribute("idEntity", currentEpisode.getId());
         model.addAttribute("description", currentEpisode.getDescription());
