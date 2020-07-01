@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+<head th:replace="blocks/header2.html :: head"></head>
+<body>
+<div th:replace="blocks/header2.html:: header"></div>
+
+<div class="container">
+    <h1 class="mt-4 mb-4 text-white display-4"><span>Поиск</span></h1>
+
+    <!-- todo breadcrumb  начало-->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item active" aria-current="page">todo</li>
+        </ol>
+    </nav>
+    <!-- todo breadcrumb конец-->
+
+    <form th:action="@{/search/results}" method="GET">
+        <div class="input-group">
+            <input class="form-control" th:value="${param.name}" name="name" type="text"
+                   placeholder="Введите название фильма или сериала"/>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-warning">Применить</button>
+        <a class="btn btn-warning" th:href="@{'/search'}">Сбросить</a>
+    </form>
+
+    <div th:if="${page != null}">
+
+        <ul class="list-unstyled">
+            <li class="media mb-3 mt-3" th:each="content: ${page.content}">
+                <img th:src="@{'/image/content/' + ${content.imageName}}"
+                     class="mr-3 image-normalize rounded" th:alt="${content.imageName}"
+                     style="width: 64px; height: 64px">
+                <div class="media-body">
+                    <a th:href="@{'/content/' + ${content.url}}">
+                        <h5 class="mt-0 mb-1" th:text="${content.name}"></h5>
+                    </a>
+                    <span class="mt-0 mb-1 text-white-50" th:text="${content.description}"></span>
+                </div>
+
+            </li>
+        </ul>
+
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{'/search/results?p='+ ${page.previousOrFirstPageable().getPageNumber() + 1} + ${filtersDef}}">Предыдущая</a>
+                </li>
+                <li class="page-item" th:classappend="${page.getNumber() + 1 == i ? 'active' : ''}"
+                    th:each="i : ${#numbers.sequence(1, page.getTotalPages())}">
+                    <a class="page-link" th:text="${i}" th:href="@{'/search/results?p=' + ${i} + ${filtersDef}}"></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{'/search/results?p='+ ${page.nextOrLastPageable().getPageNumber() + 1} + ${filtersDef}}">Следующая</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+<footer th:replace="blocks/footer2.html :: footer"></footer>
+</body>
+</html>

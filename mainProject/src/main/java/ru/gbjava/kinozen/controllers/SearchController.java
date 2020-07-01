@@ -21,7 +21,7 @@ public class SearchController {
     @GetMapping("/search")
     public String search(Model model){
         model.addAttribute("content", new Content ());
-        return "search_form";
+        return "searchPage";
     }
     @GetMapping("/search/results")
     public String search(Model model, @RequestParam Map<String, String> params) {
@@ -29,12 +29,13 @@ public class SearchController {
         if (params.containsKey("p")) {
             pageIndex = Integer.parseInt(params.get("p")) - 1;
         }
-        Pageable pageRequest = PageRequest.of(pageIndex, 5);
+        Pageable pageRequest = PageRequest.of(pageIndex, 6);
         ContentFilter contentFilter = new ContentFilter(params);
         Page<Content> page = contentService.findAll(contentFilter.getSpec(), pageRequest);
+        model.addAttribute("content", new Content ());
         model.addAttribute("filtersDef", contentFilter.getFilterDefinition());
         model.addAttribute("page", page);
-        return "search";
+        return "searchPage";
     }
 }
 
