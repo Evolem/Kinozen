@@ -179,7 +179,7 @@
             <!-- playerzen начало -->
             <div th:if="${idEntity != null}">
                 <div class="">
-                    <video controls width="100%" height="440">
+                    <video class="rounded shadow"  style="background-color: black; border: solid #2f2f2f 1px;" controls width="100%" height="440">
                         <source th:src="@{/player/video/{id}(id=${idEntity})}"
                                 type="video/mp4">
                     </video>
@@ -188,10 +188,10 @@
             <!-- playerzen конец -->
         </div>
 
-        <div class="col-3" th:if="${episodes != null}">
+        <div class="col-3 rounded shadow" style="height: 440px; background: #1a1a1a; border: solid #2f2f2f 1px;" th:if="${episodes != null}">
             <!-- episodes начало -->
-            <div class="overflow-auto" style="height: 440px">
-                <div class="text-white mb-2">Эпизоды:</div>
+            <div class="overflow-auto " >
+                <div class="text-white-50 mb-2 mt-2">Эпизоды:</div>
                 <ul class="list-group">
                     <a class="btn btn btn-outline-light btn-sm mb-3 mr-3 text-left" th:if="${currentEpisode != null}"
                        th:each="e : ${episodes}" th:text="${e.numberEpisode} + '. ' +  ${e.name}"
