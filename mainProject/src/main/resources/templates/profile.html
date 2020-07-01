@@ -68,6 +68,7 @@
                                 <a th:href="@{'/content/' + ${w.content.url}}">
                                     <h5 class="mt-0 mb-1" th:text="${w.content.name}"></h5>
                                 </a>
+                                <div class="mt-0 mb-1 text-white" th:text="${'Сезонов: 8 (todo)'}"></div>
                                 <span class="mt-0 mb-1 text-white-50" th:text="${w.content.description}"></span>
                             </div>
 
@@ -94,7 +95,6 @@
                         </li>
                     </ul>
                     <!-- Подписки конец-->
-
                 </div>
 
                 <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="v-pills-messages-tab">

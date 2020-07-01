@@ -10,7 +10,7 @@
 <div class="container">
     <!-- Content начало-->
     <div class="content-info-wrap bg-transparent text-white mt-4 shadow rounded overflow-hidden">
-        <div class="img-black image-normalize">
+        <div class="img-black image-normalize position-absolute">
             <img th:src="@{'/image/content/' + ${content.imageName}}" class="image-normalize">
         </div>
         <div class="card-img-overlay content-info" style="z-index: 3">
@@ -167,7 +167,7 @@
     <!-- трейлер начало -->
     <div class="mt-4" th:unless="${idEntity != null}">
         <h3 class="mt-4 mb-4 text-white font-weight-light">Трейлер</h3>
-        <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
+        <iframe width="100%" height="440" src="https://www.youtube.com/embed/fAOVvJx0Y60"
                 frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
@@ -200,15 +200,6 @@
             </div>
 
             <!-- episodes конец -->
-
-            <!-- трейлер начало -->
-            <div class="mt-4" th:unless="${idEntity != null}">
-                <iframe width="100%" height="440" src="https://www.youtube.com/embed/g8evyE9TuYk"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-            </div>
-            <!-- трейлер конец -->
         </div>
 
     </div>
