@@ -8,7 +8,7 @@
 <div th:replace="blocks/header2.html:: header"></div>
 
 <div class="container">
-    <h1 class="mt-4 mb-4 text-white display-4"><span>Жанры</span></h1>
+    <h1 class="mt-4 mb-4 text-white display-4"><span>Жанры (todo)</span></h1>
 
     <!-- todo breadcrumb  начало-->
     <nav aria-label="breadcrumb">
@@ -27,6 +27,7 @@
                 <tr>
                     <th class="text-white">Название</th>
                     <th class="text-white">Содержит</th>
+                    <th class="text-white">Подписка</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,6 +36,9 @@
                         <a th:href="@{'/genre/' + ${g.url}}" class="text-warning" style="text-transform: capitalize" th:text="${g.name}"></a>
                     </td>
                     <td th:text="${g.getContents().size()}"></td>
+                    <td>
+                        <a th:href="@{'/genre/' + ${g.url}}" class="btn btn-outline-warning" style="text-transform: capitalize" th:text="Подписаться"></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

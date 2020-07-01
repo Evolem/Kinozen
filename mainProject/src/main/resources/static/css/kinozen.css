@@ -44,6 +44,7 @@ body {
     width: 100%;
     object-fit: cover;
     height: 100%;
+    object-position: top;
 }
 
 .vignette {
@@ -57,7 +58,6 @@ body {
 }
 
 .img-black{
-    position: absolute;
 }
 
 .carousel-inner img{
