@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+<head th:replace="adminPanel/blocks/adminHeader.html :: head"></head>
+<body>
+<div th:replace="adminPanel/blocks/adminHeader.html:: header"></div>
+
+<div class="container containerExtends">
+
+    <!--  TODO плохая реализация if else -->
+    <h1 class="display-4 text-muted" th:unless="${season.id !=null}">New season</h1>
+    <h1 class="display-4 text-muted" th:if="${season.id !=null}">Edit</h1>
+
+    <blockquote class="blockquote">
+        <footer class="blockquote-footer" th:text="${season.content.name}"></footer>
+    </blockquote>
+
+    <form class="form-horizontal" th:object="${season}" th:action="@{/admin/season/save}" method="post">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idContent">Content id</label>
+                <input type="text" class="form-control" th:field="*{content}" name="idContent" id="idContent"
+                       placeholder="contentName не получен, баг!" readonly>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="id">Season id</label>
+                <input type="text" class="form-control" th:field="*{id}" name="id" id="id"
+                       placeholder="id не сгенерирован" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="url">Url</label>
+            <input class="form-control" type="text" id="url" th:field="*{url}" placeholder="url не сгенерирован"
+                   readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="numberSeason">Number Season</label>
+            <input type="number" class="form-control" id="numberSeason" name="numberSeason" value="${content.}"
+                   th:field="*{numberSeason}">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" name="description" id="description" th:field="*{description}"></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <button class="btn btn-success btn-lg btn-block mt-2 mb-2" type="submit">Save</button>
+            </div>
+            <div class="col-sm">
+                <a type="button" class="btn btn-secondary btn-lg btn-block mb-2 mt-2"
+                   th:href="@{'/admin/content/edit/' + ${season.content.id}}">Back</a>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+<footer th:replace="adminPanel/blocks/adminFooter.html :: footer"></footer>
+</body>
+</html>

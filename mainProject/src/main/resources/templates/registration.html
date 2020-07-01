@@ -3,7 +3,6 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Registration</title>
-    <head th:replace="blocks/header.html :: head"></head>
 </head>
 <body>
 <!--<form class="form-horizontal" th:object="${userPojo}" th:action="@{/registration}" method="post">
@@ -54,24 +53,28 @@
             <div class="registration__content-title">Регистрация</div>
             <div class="registration__form-title">Зарегистрируйтесь для просмотра и загрузки фильмов и сериалов
             </div>
-            <form th:object="${userPojo}" th:action="@{/registration}" class="registration__form">
+            <form th:object="${userDto}" th:action="@{/registration}" class="registration__form" method="POST">
                 <div class="registration__form-content">
                     <div class="registration__form-inputs">
                         <div class="registration__form-input_wrapper">
                             <input th:field="*{login}" type="text" name="login" id="exampleInputLogin"
                                    aria-describedby="emailHelp" class="registration__form-input" placeholder="Логин"/>
+                            <small th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</small>
                         </div>
                         <div class="registration__form-input_wrapper">
                             <input th:field="*{name}" type="text" name="name" id="exampleInputName"
                                    aria-describedby="emailHelp" class="registration__form-input" placeholder="Имя пользователя"/>
+                            <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
                         </div>
                         <div class="registration__form-input_wrapper">
                             <input th:field="*{email}" type="text" name="name" id="exampleInputEmail"
                                    aria-describedby="emailHelp" class="registration__form-input" placeholder="E-mail"/>
+                            <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</small>
                         </div>
                         <div class="registration__form-input_wrapper">
                             <input th:field="*{newPassword1}" type="text" name="name" id="exampleInputPass1"
                                    aria-describedby="emailHelp" class="registration__form-input" placeholder="Пароль"/>
+                            <small th:if="${#fields.hasErrors('newPassword1')}" th:errors="*{newPassword1}">Login Error</small>
                         </div>
                         <div class="registration__form-input_wrapper">
                             <input th:field="*{newPassword2}" type="text" name="name" id="exampleInputPass2"
@@ -85,8 +88,8 @@
                         <label for="confirm_license">
                                     <span>Я
                                     согласен с условиями
-                                        <a href="/terms-of-use">пользовательского соглашения</a> <!-- -->и даю свое
-                                        <a href="/terms-of-use">согласие на обработку моих персональных
+                                        <a href="#">пользовательского соглашения</a> <!-- -->и даю свое
+                                        <a href="#">согласие на обработку моих персональных
                                         данных</a>
                                     </span></label></div>
                     <button class="registration__form-button active">Зарегистрироваться</button>

@@ -26,6 +26,8 @@ public class UserService implements UserDetailsService, CrudService<User, UUID> 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
+
+
     public User findByLogin(String login) {
         return userRepository.findOneByLogin(login).orElseThrow(()-> new RuntimeException("Login not found! " + login));
     }
