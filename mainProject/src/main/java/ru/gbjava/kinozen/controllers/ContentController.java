@@ -1,5 +1,7 @@
 package ru.gbjava.kinozen.controllers;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,22 +27,26 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/content")
 @RequiredArgsConstructor
+@Api("Набор методов для Контента.")
 public class ContentController {
 
     private final ContentFacade contentFacade;
 
+    @ApiOperation(value = "Получить страницу со всеми сериалами.", response = String.class)
     @GetMapping(value = "/serials")
     public String getAllSerial(Model model, @RequestParam(required = false) UUID genre) {
         contentFacade.modelSetupForSerials(model, genre);
         return "contentAll";
     }
 
+    @ApiOperation(value = "Получить страницу со всеми фильмами.", response = String.class)
     @GetMapping(value = "/films")
     public String getAllFilms(Model model, @RequestParam(required = false) UUID genre) {
         contentFacade.modelSetupForFilms(model, genre);
         return "contentAll";
     }
 
+    @ApiOperation(value = "Получить страницу со определёным контентом по id.", response = String.class)
     @GetMapping("/{contentUrl}")
     public String getContentByUrl(Model model, Principal principal, @PathVariable String contentUrl) {
         Content content = contentFacade.findContentByUrl(contentUrl);
@@ -79,12 +85,14 @@ public class ContentController {
         return "contentPage";
     }
 
+    @ApiOperation(value = "Отправка лайка", response = String.class)
     @PostMapping("/like/{contentUrl}")
     public void likeContent(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
         contentFacade.likeContentByUser(principal.getName(), contentUrl);
         response.sendRedirect(request.getHeader("referer"));
     }
 
+    @ApiOperation(value = "Отправка дизлайка", response = String.class)
     @PostMapping("/dislike/{contentUrl}")
     public void dislikeContent(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
         contentFacade.dislikeContentByUser(principal.getName(), contentUrl);

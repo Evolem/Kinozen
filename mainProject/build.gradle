@@ -31,6 +31,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.flywaydb:flyway-core'
 
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-bean-validators', version: '2.9.2'
+
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.3.RELEASE'
     compileOnly 'org.springframework.boot:spring-boot-devtools'
 
