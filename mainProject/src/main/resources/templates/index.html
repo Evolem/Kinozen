@@ -113,7 +113,7 @@
     <!-- Wishlist конец-->
 
     <!-- popularContentList начало-->
-    <h3 class="mt-4 mb-4 text-white font-weight-light">Самое популярное у зрителей</h3>
+    <h3 class="mt-4 mb-4 text-white font-weight-light">Лучшие сериалы и фильмы</h3>
     <div class="owl-carousel text-white">
         <div class="" th:each="content: ${popularContentList}" style="width: 15rem;">
             <a th:href="@{'/content/' + ${content.url}}" class="m-3">
