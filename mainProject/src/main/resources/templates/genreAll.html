@@ -27,6 +27,7 @@
                 <tr>
                     <th class="text-white">Название</th>
                     <th class="text-white">Содержит</th>
+                    <th class="text-white">Подписка</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,6 +36,9 @@
                         <a th:href="@{'/genre/' + ${g.url}}" class="text-warning" style="text-transform: capitalize" th:text="${g.name}"></a>
                     </td>
                     <td th:text="${g.getContents().size()}"></td>
+                    <td>
+                        <a th:href="@{'/genre/' + ${g.url}}" class="btn btn-outline-warning" style="text-transform: capitalize" th:text="Подписаться"></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
