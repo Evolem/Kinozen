@@ -16,7 +16,7 @@
         <div class="card-img-overlay content-info" style="z-index: 3">
             <!-- todo breadcrumb  начало-->
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb" style="background-color: rgba(0, 0, 0, 0.18);">
+                <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Library</a></li>
                     <li class="breadcrumb-item"><a href="#">Library 2</a></li>
@@ -98,18 +98,30 @@
                 </div>
 
                 <div class="col">
+
+                    <!-- SubscribedToContent конец-->
+                    <div th:if="${content.type.ordinal() == 0}" sec:authorize="isAuthenticated()" style="clear: both">
+                        <form th:unless="${isUserSubscribedToContent}" th:action="@{'/content/subscribe/' + ${content.url}}" method="post">
+                            <button class="btn btn-warning float-right btn-sm mb-2" th:type="submit">Подписаться</button>
+                        </form>
+                        <form th:if="${isUserSubscribedToContent}" th:action="@{'/content/subscribe/' + ${content.url}}"  method="post">
+                            <button  class="btn btn-outline-warning float-right btn-sm mb-2" th:type="submit">Отписаться</button>
+                        </form>
+                    </div>
+                    <!-- SubscribedToContent конец-->
+
+
                     <!-- isWished начало -->
                     <div class="" sec:authorize="isAuthenticated()">
-                        <div>
-                            <!--  <div th:unless="${episodes != null}">-->
+                        <div style="clear: both">
                             <!--/*@thymesVar id="isWished" type="java.lang.Boolean"*/-->
                             <div th:if="${isWished}">
                                 <a th:href="@{'/profile/wishlist/delete/' + ${content.id}}"
-                                   class="btn btn-outline-warning float-right">Запланировано</a>
+                                   class="btn btn-outline-warning btn-sm float-right">Запланировано</a>
                             </div>
                             <div th:unless="${isWished}">
                                 <a th:href="@{'/profile/wishlist/add/' + ${content.id}}"
-                                   class="btn btn-warning float-right">Смотреть
+                                   class="btn btn-warning btn-sm float-right">Смотреть
                                     позже</a>
                             </div>
                         </div>

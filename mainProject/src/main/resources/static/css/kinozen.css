@@ -125,3 +125,36 @@ body {
 .content-info{
     position: relative;
 }
+
+.breadcrumb{
+   background-color: rgba(0, 0, 0, 0.18);
+}
+
+.breadcrumb a{
+    color: #ffc107;
+}
+
+.media{
+    background-color: rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.media a{
+    color: #ffc107;
+}
+
+.nav-link{
+    color: #ffc107;
+}
+
+
+.nav-link:hover{
+    color: gray;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: black;
+    background-color: #ffc107;
+}

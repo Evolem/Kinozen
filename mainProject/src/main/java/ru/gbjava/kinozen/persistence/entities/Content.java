@@ -7,7 +7,6 @@ import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.persistence.entities.utils.ImageEntity;
 
 import javax.persistence.*;
-import java.net.URL;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
@@ -63,4 +62,10 @@ public class Content extends ImageEntity {
 
     @ManyToMany(mappedBy = "dislikedContent")
     Set<User> dislikes;
+
+    @ManyToMany(mappedBy = "contentSubscribeList")
+    Set<User> contentSubscribers;
+
+    @OneToMany(mappedBy = "content")
+    private Set<Season> seasons;
 }

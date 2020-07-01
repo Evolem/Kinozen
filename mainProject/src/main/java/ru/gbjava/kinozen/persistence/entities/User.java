@@ -58,4 +58,28 @@ public class User {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_content"))
     private Set<Content> dislikedContent;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_subscribe_genre",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_genre")
+    )
+    private Set<Genre> genreSubscribeList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_subscribe_actor",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_actor")
+    )
+    private Set<Actor> actorSubscribeList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_subscribe_content",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_content")
+    )
+    private Set<Content> contentSubscribeList;
 }

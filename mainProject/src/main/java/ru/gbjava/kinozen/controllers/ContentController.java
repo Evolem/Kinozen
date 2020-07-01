@@ -13,6 +13,8 @@ import ru.gbjava.kinozen.persistence.entities.Comment;
 import ru.gbjava.kinozen.persistence.entities.Content;
 import ru.gbjava.kinozen.persistence.entities.Episode;
 import ru.gbjava.kinozen.persistence.entities.Season;
+import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
+import ru.gbjava.kinozen.services.SubscribeService;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +30,7 @@ import java.util.UUID;
 public class ContentController {
 
     private final ContentFacade contentFacade;
+    private final SubscribeService subscribeService;
 
     @GetMapping(value = "/serials")
     public String getAllSerial(Model model, @RequestParam(required = false) UUID genre) {
@@ -41,12 +44,19 @@ public class ContentController {
         return "contentAll";
     }
 
+    //todo большой метод стал, возможно стоит его оптимизировать
     @GetMapping("/{contentUrl}")
     public String getContentByUrl(Model model, Principal principal, @PathVariable String contentUrl) {
         Content content = contentFacade.findContentByUrl(contentUrl);
         contentFacade.checkWished(model, content);
         contentFacade.checkTypeAndSetupModel(model, content);
         contentFacade.updateHistory(principal, content);
+
+        //todo убрать логику
+        if (principal != null && content.getType() == TypeContent.SERIAL){
+            model.addAttribute("isUserSubscribedToContent",
+                    subscribeService.isUserSubscribedToContent(principal.getName(), content));
+        }
         return "contentPage";
     }
 
@@ -66,6 +76,12 @@ public class ContentController {
         List<Episode> episodes = currentSeason.getEpisodes();
         EpisodeDto currentEpisode = EpisodeMapper.INSTANCE.toDto(contentFacade.getEpisodeFromListByNumber(episodes, episode));
         List<Comment> comments = contentFacade.findAllCommentByIdEntity(currentEpisode.getId()); //Ищем комментарии
+
+        //todo убрать логику
+        if (principal != null && content.getType() == TypeContent.SERIAL){
+            model.addAttribute("isUserSubscribedToContent",
+                    subscribeService.isUserSubscribedToContent(principal.getName(), content));
+        }
 
         model.addAttribute("idEntity", currentEpisode.getId());
         model.addAttribute("description", currentEpisode.getDescription());
@@ -88,6 +104,12 @@ public class ContentController {
     @PostMapping("/dislike/{contentUrl}")
     public void dislikeContent(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
         contentFacade.dislikeContentByUser(principal.getName(), contentUrl);
+        response.sendRedirect(request.getHeader("referer"));
+    }
+
+    @PostMapping("/subscribe/{contentUrl}")
+    public void subscribe(@PathVariable String contentUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
+        subscribeService.subscribeUserToContent(principal.getName(), contentFacade.findContentByUrl(contentUrl));
         response.sendRedirect(request.getHeader("referer"));
     }
 }
