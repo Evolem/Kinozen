@@ -1,0 +1,15 @@
+server:
+  port: 8191
+  servlet:
+    context-path: /collection-service
+
+spring:
+  profiles:
+    include: 'private'
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    show-sql: false
+    hibernate:
+      ddl-auto: none

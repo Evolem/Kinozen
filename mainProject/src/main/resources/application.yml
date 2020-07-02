@@ -3,19 +3,23 @@ server:
     context-path: /kinozen
 
 spring:
+  profiles:
+    include: 'private'
   datasource:
-    url: jdbc:postgresql://localhost:5432/kinozen?useUnicode=true&characterEncoding=utf8
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: se1234
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     show-sql: false
     hibernate:
       ddl-auto: none
+  servlet:
+    multipart:
+      max-file-size: 2000MB
+      max-request-size: 2000MB
 
-
-files:
-  storepath:
-    video_download:  "C:\\video_download"
-
+playerzen:
+  service:
+    url: "http://localhost:8181/playerzen"
+collection:
+  service:
+    url: "http://localhost:8191/collection-service"

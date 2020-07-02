@@ -1,41 +1,163 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
-      lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Профиль</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-</head>
-    <body>
-        <div class="container">
-            <h1>Профиль пользователя <span sec:authentication="name"></span></h1>
-            <hr/>
-            <a th:href="@{~/kinozen/profile/password}" class="btn btn-primary btn-sm active" role="button">Сменить пароль</a>
-            <hr/>
-            <form action="#" th:action="@{/profile/change}" th:object="${userDto}" method="POST">
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">E-mail</label>
-                    <div class="col-sm-10">
-                        <input type="text" th:field="*{email}" class="form-control" th:value=${email} th:placeholder="Email" />
-                        <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Имя</label>
-                    <div class="col-sm-10">
-                        <input type="text" th:field="*{name}" class="form-control" th:value=${name} th:placeholder="Name" />
-                        <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Текущий пароль</label>
-                    <div class="col-sm-10">
-                        <input type="password" th:field="*{password}" class="form-control" th:placeholder="Password" />
-                        <small class="form-text text-muted" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</small>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-            </form>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+<head th:replace="blocks/header2.html :: head"></head>
+<body>
+<div th:replace="blocks/header2.html:: header"></div>
+
+<div class="container">
+
+    <!--    <h1 class="display-4 text-muted" th:text="${#authentication.name}"></h1>-->
+    <h1 class="mt-4 mb-4 text-white display-4">Профиль</h1>
+
+    <!-- todo breadcrumb  начало-->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent ">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item active" aria-current="page">todo</li>
+        </ol>
+    </nav>
+    <!-- todo breadcrumb конец-->
+
+
+    <!-- меню начало -->
+    <div class="row mg-3">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#history" role="tab"
+                   aria-controls="v-pills-home" aria-selected="true">История</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#wishlist" role="tab"
+                   aria-controls="v-pills-profile" aria-selected="false">Смотреть позже</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#subscriptions" role="tab"
+                   aria-controls="v-pills-settings" aria-selected="false">Подписки</a>
+                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#settings" role="tab"
+                   aria-controls="v-pills-messages" aria-selected="false">Настройки</a>
+            </div>
         </div>
-    </body>
+        <div class="col-9 rounded shadow bg-dark" >
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="history" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
+                    <!-- history начало-->
+                    <ul class="list-unstyled">
+                        <li class="media mb-3 mt-3" th:each="h: ${history}">
+                            <img th:src="@{'/image/content/' + ${h.content.imageName}}"
+                                 class="mr-3 image-normalize rounded" th:alt="${h.content.imageName}"
+                                 style="width: 64px; height: 64px">
+                            <div class="media-body">
+                                <a th:href="@{'/content/' + ${h.content.url}}">
+                                    <h5 class="mt-0 mb-1" th:text="${h.content.name}"></h5>
+                                </a>
+                                <span class="mt-0 mb-1 text-white-50" th:text="${h.date}"></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- history конец-->
+                </div>
+                <div class="tab-pane fade" id="wishlist" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <!-- wishList начало-->
+                    <ul class="list-unstyled">
+                        <li class="media mb-3 mt-3" th:each="w: ${wishList}">
+                            <img th:src="@{'/image/content/' + ${w.content.imageName}}"
+                                 class="mr-3 image-normalize rounded" th:alt="${w.content.imageName}"
+                                 style="width: 64px; height: 64px">
+                            <div class="media-body">
+                                <a th:href="@{'/content/' + ${w.content.url}}">
+                                    <h5 class="mt-0 mb-1" th:text="${w.content.name}"></h5>
+                                </a>
+                                <div class="mt-0 mb-1 text-white" th:text="${'Сезонов: 8 (todo)'}"></div>
+                                <span class="mt-0 mb-1 text-white-50" th:text="${w.content.description}"></span>
+                            </div>
+
+                        </li>
+                    </ul>
+                    <!-- wishList конец-->
+                </div>
+
+                <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                    <!-- Подписки начало-->
+                    <ul class="list-unstyled">
+                        <div class="m-4 text-white-50" th:if="${newEpisodes.isEmpty()}">Пусто</div>
+                        <li class="media mb-3 mt-3" th:each="e: ${newEpisodes}">
+                            <img th:src="@{'/image/content/' + ${e.season.content.imageName}}"
+                                 class="mr-3 image-normalize rounded" th:alt="${e.season.content.imageName}"
+                                 style="width: 64px; height: 64px">
+                            <div class="media-body">
+                                <a th:href="@{'/content/' + ${e.season.content.url} + '/' + ${e.season.url} + '?episode=' + ${e.numberEpisode}}">
+                                    <h5 class="mt-0 mb-1" th:text="${e.season.content.name}"></h5>
+                                </a>
+                                <span class="mt-0 mb-1 text-white-50"
+                                      th:text="'Сезон ' + ${e.season.numberSeason} + ', эпизод ' + ${e.numberEpisode} + '. ' + ${e.name}"></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- Подписки конец-->
+                </div>
+
+                <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <!-- настройки начало-->
+                    <div class="pt-4 pb-4">
+                        <form action="#" th:action="@{/profile/change}" th:object="${userDto}" method="POST">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-white-50">E-mail</label>
+                                <div class="col-sm-10">
+                                    <input type="text" th:field="*{email}"
+                                           class="form-control"
+                                           th:value="*{email}"
+                                           th:placeholder="Email"/>
+                                    <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}"
+                                           th:errors="*{email}">Email Error</small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-white-50">Имя</label>
+                                <div class="col-sm-10">
+                                    <input type="text" th:field="*{name}"
+                                           class="form-control"
+                                           th:value="*{name}"
+                                           th:placeholder="Name"/>
+                                    <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}"
+                                           th:errors="*{name}">Name Error</small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-white-50">Текущий пароль</label>
+                                <div class="col-sm-10">
+                                    <input type="password" th:field="*{password}"
+                                           class="form-control"
+                                           th:placeholder="Password"/>
+                                    <small class="form-text text-muted" th:if="${#fields.hasErrors('password')}"
+                                           th:errors="*{password}">Password Error</small>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-warning btn-sm mt-2 mr-2">Сохранить изменения</button>
+                            <a th:href="@{~/kinozen/profile/password}" class="btn btn-outline-warning btn-sm mt-2 mr-2"
+                               role="button">Сменить
+                                пароль</a>
+
+
+                        </form>
+                    </div>
+                    <!-- настройки конец-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- меню конец -->
+
+</div>
+
+
+<footer th:replace="blocks/footer2.html :: footer"></footer>
+<script>
+    $('#myTab a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+</script>
+</body>
 </html>

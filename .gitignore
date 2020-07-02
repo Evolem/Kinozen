@@ -30,3 +30,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### private files ###
+/mainProject/src/main/resources/application-private.yml
+/playerzen/src/main/resources/application-private.yml
+/collection-service/src/main/resources/application-private.yml

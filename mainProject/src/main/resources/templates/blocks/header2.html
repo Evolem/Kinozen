@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+<html lang="en">
+
+<head th:fragment="head">
+    <title>Kinozen</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.min.css}">
+
+    <!-- kinozen CSS -->
+    <link rel="stylesheet" th:href="@{/css/kinozen.css}">
+
+    <!-- carousel CSS -->
+    <link rel="stylesheet" th:href="@{/owlcarousel/assets/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/owlcarousel/assets/owl.theme.default.min.css}">
+
+</head>
+<header th:fragment="header" style="background-color: #1a1a1a; border-bottom: solid #2f2f2f 1px;">
+    <div class="container ">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand mt-1" th:href="@{'/'}">
+                <span style="font-family: 'origami_making'; font-size: 23px">KinoZen</span>
+            </a>
+
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/content/serials'}">Сериалы</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/content/films'}">Фильмы</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/genre'}">Жанры</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/'}">Актеры (todo)</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/'}">Коллекции (todo)</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " th:href="@{'/search'}">Поиск</a>
+                    </li>
+
+                </ul>
+
+                <div>
+                    <div sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-warning btn-sm mr-2" href="/kinozen/login">Войти</a>
+                        <a class="btn btn-warning btn-sm" href="/kinozen/registration">Зарегистрироваться</a>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a class="btn btn-outline-warning btn-sm mr-2" href="/kinozen/profile" th:text="${#authentication.name}"></a>
+                        <form th:action="@{/logout}" method="post" style="display: inline;">
+                            <button class="btn btn-warning btn-sm">Выход</button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </nav>
+    </div>
+</header>

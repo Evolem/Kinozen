@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Director {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_director")
     private UUID id;
 

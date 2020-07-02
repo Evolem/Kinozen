@@ -1,34 +1,28 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="RU">
 <head>
-    <meta charset="utf-8"/>
-    <title>Страница режиссера</title>
-    <link rel="stylesheet" th:href="@{../css/style.css}">
+    <meta charset="UTF-8">
+    <title>Director page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
-
 <body>
 
-<div>
-    <p>Информация о режиссере</p>
-</div>
-<div>
-    <img class="director_image" th:src="@{'/image_repository/directors/' + ${director.idDirector} + '/img_1.jpg'}">
-</div>
-    <p th:text="${director.firstnameDirector} + ' ' + ${director.lastnameDirector}"/>
-</div>
+<div class="container">
+    [[ ${director.getFirstName()} ]]
+    [[ ${director.getLastName()} ]]
+    [[ ${director.getDescription()} ]]
+    <br>
 
-<div>
-   <p th:text="${director.descriptionDirector}"/>
+    <table class="table table-hover">
+        <tr th:each="content, iterator : ${director.contents}">
+            <td th:text="${iterator.index + 1}"></td>
+            <td>
+                <a th:href="@{'/content/' + ${content.url}}">[[ ${content.getName()} ]]</a>
+            </td>
+        </tr>
+    </table>
 </div>
-
-<div th:each="c : ${director.contents}">
-  <p  th:text="${c.getName().toString()} "/>
-  <br />
-</div>
-
-<a  th:href="@{'/directors/edit/' + ${director.idDirector}}" class="btn btn-warning">Edit</a>
-
 </body>
 </html>

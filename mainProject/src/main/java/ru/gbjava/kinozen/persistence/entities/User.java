@@ -4,14 +4,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Setter
@@ -23,7 +20,7 @@ public class User {
 
     @Id
     @Column(name = "id_user")
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue
     private UUID id;
 
     @Column(name = "login_user")
@@ -47,4 +44,42 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_content_like",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_content"))
+    private Set<Content> likedContent;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_content_dislike",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_content"))
+    private Set<Content> dislikedContent;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_subscribe_genre",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_genre")
+    )
+    private Set<Genre> genreSubscribeList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_subscribe_actor",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_actor")
+    )
+    private Set<Actor> actorSubscribeList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_subscribe_content",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_content")
+    )
+    private Set<Content> contentSubscribeList;
 }

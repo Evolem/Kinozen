@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.AUTO;
 
 @Getter
 @Setter
@@ -19,14 +19,15 @@ public class Comment {
 
     @Id
     @Column(name = "id_comment")
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = AUTO)
     private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
 
-    @JoinColumn (name = "id_entity")
+
+    @JoinColumn(name = "id_entity")
     private UUID idEntity;
 
     @Column(name = "text_comment")

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
+
+<head th:replace="adminPanel/blocks/adminHeader.html :: head"></head>
+<body>
+<div th:replace="adminPanel/blocks/adminHeader.html:: header"></div>
+
+<div class="container containerExtends">
+
+    <!--  TODO плохая реализация if else -->
+    <h1 class="display-4 text-muted" th:if="${content.id != null}">[[ ${content.name} ]]</h1>
+    <h1 class="display-4 text-muted" th:unless="${content.id != null}">Add new content</h1>
+
+    <div th:if="${message}">
+        <h2 th:text="${message}"/>
+    </div>
+
+    <div class="container">
+
+        <form class="form-horizontal" enctype="multipart/form-data" th:object="${content}"
+              th:action="@{/admin/content/save}" method="post">
+
+            <!-- UUID -->
+            <div class="form-group">
+                <label for="id">UUID</label>
+                <input class="form-control" type="text" id="id" th:field="*{id}" placeholder="id не сгенерирован"
+                       readonly>
+            </div>
+
+            <!-- URL -->
+            <div class="form-group">
+                <label for="url">Url</label>
+                <input class="form-control" type="text" id="url" th:field="*{url}" placeholder="url не сгенерирован"
+                       readonly>
+            </div>
+
+            <!-- Имя -->
+            <div class="form-group">
+                <label for="nameInput">Name</label>
+                <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+                    Error</small>
+                <input type="text" class="form-control" id="nameInput" name="name" th:field="*{name}">
+            </div>
+
+            <!-- Описание -->
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" name="description" id="description" th:field="*{description}"></textarea>
+            </div>
+
+            <!-- Трейлер -->
+            <div class="form-group">
+                <label for="trailerLink">Trailer link (Youtube)</label>
+                <input type="text" class="form-control" id="trailerLink"  th:field="*{trailerLink}">
+            </div>
+
+            <div class="form-row align-items-center">
+                <!-- Выбор даты -->
+                <div class="col-auto my-1">
+                    <label for="released">Released</label>
+                    <input type="date" class="form-control" name="released" id="released" th:field="*{released}">
+                </div>
+
+                <!-- Выбор типа -->
+                <div class="col-auto my-1">
+                    <label for="selectType">Content type</label>
+                    <select class="form-control" id="selectType" th:field="*{type}">
+                        <option th:if="*{type!=null}" th:text="*{type.typeName}" th:value="*{type}">Type</option>
+                        <option th:each="type : ${T(ru.gbjava.kinozen.persistence.entities.enums.TypeContent).values()}"
+                                th:value="${type}"
+                                th:text="${type.typeName}">
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Установка видимости -->
+            <div class="form-group mt-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="visible" id="visible"
+                           th:field="*{visible}">
+                    <label class="form-check-label" for="visible">Visible</label>
+                </div>
+            </div>
+
+            <!-- Изображение -->
+            <div class="row">
+                <div class="col-sm">
+                    <!-- Загрузка изображения -->
+                    <input type="text" hidden name="name" th:field="*{imageName}">
+                    <div class="input-group mb-3">
+                        <div class="custom-file" id="custom-file">
+                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile02"/>
+                            <label class="custom-file-label" for="inputGroupFile02">Choose image</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Показ изображения -->
+                <div class="col-sm" th:if="${content.imageName != null}">
+                    <img th:src="@{'/image/content/' + ${content.imageName}}" th:alt="${content.imageName}" class="img-thumbnail" style="max-height: 200px">
+                </div>
+            </div>
+
+            <!-- Вывод сезонов, если сериал -->
+            <div class="mb-4" th:if="${content.id != null}">
+                <div th:if="${content.type.ordinal() == 0}">
+                    <h3 class="text-muted">Seasons and episodes</h3>
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Link</th>
+                            <th>Episodes</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="s : ${seasons}">
+                            <td>
+                                <a th:href="@{'/content/' + ${s.content.url} + '/' + ${s.url}}"> [[ ${s.url} ]]</a>
+                            </td>
+                            <td>
+                                <div th:each="e : ${s.episodes}">
+                                    <a th:href="@{/admin/episode/edit/{id}(id=${e.id})}" th:text="${e.numberEpisode} +'. '+ ${e.name}"></a>
+<!--                                    <a class="btn btn-danger mb-1" th:href="@{/admin/episode/delete/{id}(id=${e.id})}" th:text="delete"></a>-->
+                                </div>
+                            </td>
+                            <td th:text="${s.description}"></td>
+
+                            <td>
+                                <a class="btn btn-warning  mb-1" th:href="@{'/admin/season/edit/'+ ${(s.id)}}">Edit</a>
+                                <a class="btn btn-danger mb-1"
+                                   th:href="@{'/admin/season/delete/'+ ${(s.id)}}">Delete</a>
+                                <a class="btn btn-outline-primary  mb-1"
+                                   th:href="@{'/admin/episode/add/'+ ${(s.id)}}">+ episode</a>
+                            </td>
+
+                        </tr>
+                    </table>
+                    <a class="btn btn-outline-primary mb-1" th:href="@{'/admin/season/add/'+ ${(content.id)}}">Add
+                        season</a>
+                </div>
+            </div>
+
+
+            <!-- Действие -->
+            <div class="row">
+                <div class="col-sm">
+                    <button class="btn btn-success btn-lg btn-block mt-2 mb-2" type="submit">Save</button>
+                </div>
+                <div class="col-sm">
+                    <a type="button" class="btn btn-secondary btn-lg btn-block mb-2 mt-2" th:href="@{'/admin/content'}">Back</a>
+                </div>
+                <div class="col-sm">
+                    <div class="mb-4" th:if="${content.id != null}">
+                        <a class="btn btn-danger btn-lg btn-block mb-2 mt-2"
+                           th:href="@{'/admin/content/delete/'+ ${(content.id)}}">Delete</a>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<footer th:replace="adminPanel/blocks/adminFooter.html :: footer"></footer>
+
+<script>
+    $('#inputGroupFile02').on('change', function () {
+        //get the file name
+        var fileName = $(this).val();
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileName);
+    })
+</script>
+
+</body>
+</html>

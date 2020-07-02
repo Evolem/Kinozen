@@ -31,8 +31,8 @@ public class ActorService implements CrudService<Actor, UUID>, UrlService<Actor>
 
     @Override
     @Transactional
-    public void save(Actor actor) {
-        actorRepository.save(actor);
+    public Actor save(Actor actor) {
+        return actorRepository.save(actor);
     }
 
     @Override

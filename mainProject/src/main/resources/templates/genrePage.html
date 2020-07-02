@@ -24,5 +24,15 @@
     </tbody>
 </table>
 
+<div sec:authorize="isAuthenticated()">
+    <form th:unless="${isUserSubscribedToGenre}" th:action="@{'/genre/subscribe/' + ${genre.url}}" method="post" class="btn btn-warning">
+        <button th:type="submit">подписаться</button>
+    </form>
+    <form th:if="${isUserSubscribedToGenre}" th:action="@{'/genre/subscribe/' + ${genre.url}}"  method="post" class="btn btn-danger">
+        <button th:type="submit">отписаться</button>
+    </form>
+</div>
+</div>
+
 </body>
 </html>

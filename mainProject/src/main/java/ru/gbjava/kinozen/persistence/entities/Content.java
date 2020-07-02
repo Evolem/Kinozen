@@ -1,26 +1,29 @@
 package ru.gbjava.kinozen.persistence.entities;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
+import ru.gbjava.kinozen.persistence.entities.utils.ImageEntity;
 
 import javax.persistence.*;
-
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.AUTO;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "tbl_content")
-public class Content {
+@AttributeOverride(name = "imageName", column = @Column(name = "img_content"))
+public class Content extends ImageEntity {
 
     @Id
     @Column(name = "id_content")
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = AUTO)
     private UUID id;
 
     @Column(name = "name_content")
@@ -38,6 +41,9 @@ public class Content {
     @Column(name = "url_content")
     private String url;
 
+    @Column(name = "trailer_link")
+    private String trailerLink;
+
     @Column(name = "type_content")
     @Enumerated(EnumType.ORDINAL)
     private TypeContent type;
@@ -50,4 +56,16 @@ public class Content {
 
     @ManyToMany(mappedBy = "contents")
     Set<Director> directors;
+
+    @ManyToMany(mappedBy = "likedContent")
+    Set<User> likes;
+
+    @ManyToMany(mappedBy = "dislikedContent")
+    Set<User> dislikes;
+
+    @ManyToMany(mappedBy = "contentSubscribeList")
+    Set<User> contentSubscribers;
+
+    @OneToMany(mappedBy = "content")
+    private Set<Season> seasons;
 }

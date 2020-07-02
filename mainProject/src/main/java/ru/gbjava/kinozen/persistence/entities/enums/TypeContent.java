@@ -8,9 +8,9 @@ public enum TypeContent {
     FILM("Фильм");
 
     @Getter
-    private String type;
+    private String typeName;
 
-    TypeContent(String type) {
-        this.type = type;
+    TypeContent(String typeName) {
+        this.typeName = typeName;
     }
 }

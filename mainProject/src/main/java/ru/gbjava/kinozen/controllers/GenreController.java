@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import ru.gbjava.kinozen.dto.GenreDto;
 import ru.gbjava.kinozen.dto.mappers.GenreMapper;
 import ru.gbjava.kinozen.services.GenreService;
+import ru.gbjava.kinozen.services.SubscribeService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/genre")
@@ -18,6 +20,7 @@ import java.io.IOException;
 public class GenreController {
 
     private final GenreService genreService;
+    private final SubscribeService subscribeService;
 
     //todo поправить логику добавления!
 
@@ -29,9 +32,13 @@ public class GenreController {
     }
 
     @GetMapping("/{url}")
-    public String getGenreByUrl(Model model, @PathVariable String url) {
+    public String getGenreByUrl(Model model, @PathVariable String url, Principal principal) {
         GenreDto genreDto = GenreMapper.INSTANCE.toDto(genreService.findByUrl(url));
         model.addAttribute("genre", genreDto);
+        if (principal != null){
+            model.addAttribute("isUserSubscribedToGenre",
+                    subscribeService.isUserSubscribedToGenre(principal.getName(), genreDto));
+        }
         return "genrePage";
     }
 
@@ -49,6 +56,12 @@ public class GenreController {
         if (param.equals("re")) {
             genreService.generateAllUrl();
         }
+        response.sendRedirect(request.getHeader("referer"));
+    }
+
+    @PostMapping("/subscribe/{genreUrl}")
+    public void likeContent(@PathVariable String genreUrl, HttpServletResponse response, HttpServletRequest request, Principal principal) throws IOException {
+        subscribeService.subscribeUserToGenre(principal.getName(), genreService.findByUrl(genreUrl));
         response.sendRedirect(request.getHeader("referer"));
     }
 }

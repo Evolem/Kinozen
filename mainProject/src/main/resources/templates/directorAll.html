@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Все жанры</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="d, iterator : ${directors}">
+        <td th:text="${d.id}"></td>
+        <td>
+            <a th:href="@{'/director/' + ${d.url}}">[[ ${d.firstName} ]] [[ ${d.lastName} ]]</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<a th:href="@{'/director/?param=re'}">Сгенерировать url всем сущностям</a>
+</body>
+</html>

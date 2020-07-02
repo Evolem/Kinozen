@@ -1,131 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Авторизация</title>
-    <head th:replace="blocks/header.html :: head"></head>
-</head>
-<body class="custom_class">
-<div id="__next">
-    <div class="registration" style="background-color: black">
-        <a class="registration__content-logo" href="/kinozen">
-            <img th:src="@{/images/log.png}" src="../static/images/log.png" class="registration__content-logo-img"/>
-        </a>
-        <a class="registration__close" href="/kinozen">
-            <img th:src="@{images/close.png}" src="images/close.png">
-        </a>
-        <div class="registration__content">
-            <div class="registration__content-title">Вход в аккаунт</div>
-            <div class="registration__form-title">Войдите для доступа к подписке и списку избранного</div>
-            <div class="registration__form">
-                <div class="registration__form-content">
-                    <div class="registration__form-switcher">
-                        <div class="registration__form-switcher_item active">E-mail</div>
-                        <div class="registration__form-switcher_item ">Телефон</div>
-                    </div>
-                    <form>
-                        <div class="registration__form-inputs" th:action="@{/authenticateTheUser}">
-                            <div class="registration__form-input_wrapper">
-                                <input type="email" value="" class="registration__form-input" placeholder="E-mail"/>
-                            </div>
-                            <div class="registration__form-input_wrapper">
-                                <input type="password" value="" class="registration__form-input" placeholder="Пароль"/>
-                                <div class="registration__eye">
-                                    <img src="" class="registration__eye-img"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="registration__form-forgot">Забыли пароль?</div>
-                        <div>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="RU">
 
-                        </div>
-                        <button class="registration__form-button active ">Войти</button>
-                    </form>
-                    <div class="registration__social">
-                        <div class="registration__social-title">Или войдите с помощью социальных сетей</div>
-                        <div class="registration__social-wrapper">
-                            <div class="registration__social-item">
-                                    <span style="transition:opacity 0.5s;opacity:0.6">
-                                        <button type="button" class="registration__social-img metro">
-                                            <img src=""/>
-                                        </button>
-                                    </span>
-                            </div>
-                            <div class="registration__social-item">
-                                <img src="" class="registration__social-img"/></div>
-                            <div class="registration__social-item">
-                                <img src="" class="registration__social-img"/></div>
-                            <div class="registration__social-item">
-                                <img src="" class="registration__social-img"/></div>
-                            <div class="registration__social-item">
-                                <img src="" class="registration__social-img"/></div>
-                        </div>
-                    </div>
-                    <div class="registration__no-account">Ещё нет аккаунта?
-                        <a class="registration__no-account_link" href="#">Зарегистрируйтесь!</a>
-                    </div>
-                </div>
+<head th:replace="blocks/header2.html :: head"></head>
+<body>
+<div th:replace="blocks/header2.html:: header"></div>
+
+<div class="container mt-4 mb-4">
+
+    <div class="row justify-content-md-center">
+
+
+        <div class="col-md-auto bg-dark p-5 m-3 rounded shadow-lg">
+            <div class="text-white mb-4 text-center">
+                <div class="display-4" style="font-size: 34px">Вход в аккаунт</div>
+                <div class="text-white-50" style="font-size: 14px">Войдите для доступа ко всем функциям</div>
             </div>
-        </div>
-        <div class="registration__shade"></div>
-        <div class="registration__footer">
-            <div class="registration__footer-wrapper">
-                <a class="registration__footer-logo" href="/">
-                    <img th:src="@{/images/log.png}" src="../static/images/log.png" width="200"/>
-                </a>
-                <div class="registration__footer-age">
-                    <div class="registration__footer-age_img">
-                        <img src=""/>
-                    </div>
-                    <div class="registration__footer-age_text">
-                            <span>Все права защищены<br/>© ООО &quot;Kinozen&quot;,
-                                2020<br/>© 2020 бла бла бла бла...... .</span>
-                    </div>
+
+
+            <form th:action="@{/authenticateTheUser}" method="post">
+                <div class="form-group">
+                    <label for="login" class="text-white">Login</label>
+                    <input type="text" name="username" class="form-control" id="login">
                 </div>
-                <div class="registration__footer-social">
-                    <div class="registration__footer-social_icons">
-                        <div class="registration__footer-icon registration__footer-tg">
-                            <a target="_blank" href="#">
-                                <img src=""/>
-                            </a>
-                        </div>
-                        <div class="registration__footer-icon registration__footer-vk">
-                            <a target="_blank" href="#">
-                                <img src=""/>
-                            </a>
-                        </div>
-                        <div class="registration__footer-icon registration__footer-fb">
-                            <a target="_blank" href="#">
-                                <img src=""/>
-                            </a>
-                        </div>
-                        <div class="registration__footer-icon registration__footer-ok">
-                            <a target="_blank" href="#">
-                                <img src=""/>
-                            </a>
-                            <div class="registration__footer-icon registration__footer-tw">
-                                <a target="_blank" href="#">
-                                    <img src=""/>
-                                </a>
-                            </div>
-                            <div class="registration__footer-icon registration__footer-yo">
-                                <a target="_blank" href="#">
-                                    <img src=""/>
-                                </a>
-                            </div>
-                            <div class="registration__footer-icon registration__footer-ze">
-                                <a target="_blank" href="#">
-                                    <img src=""/>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="registration__footer-social_support"><span>Поддержка:</span> 0 000 000 000 0</div>
-                    </div>
+                <div class="form-group">
+                    <label for="password" class="text-white">Password</label>
+                    <input type="password" name="password" class="form-control" id="password">
                 </div>
+                <button type="submit" class="btn btn-outline-warning btn-block">Войти</button>
+            </form>
+            <div class="mt-4">
+                <span class="text-white">Ещё нет аккаунта?</span> <a class="text-warning" th:href="@{'/registration'}">Зарегистрируйтесь!</a>
             </div>
+
         </div>
+
+
     </div>
+
+
 </div>
-<div id="portal-root" class="portal-root"></div>
+<footer th:replace="blocks/footer2.html :: footer"></footer>
 </body>
-<script src="js/js_1.js"></script>
 </html>

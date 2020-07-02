@@ -1,0 +1,44 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+</div>
+
+<div>
+    <form method="POST" enctype="multipart/form-data" th:action="@{'admin/storage/'}">
+        <table>
+            <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+        </table>
+    </form>
+</div>
+
+<div>
+    <ul>
+        <li th:each="file : ${files}">
+            <a th:href="${file}" th:text="${file}" />
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
+
+
+<!--        <form method="POST" enctype="multipart/form-data" th:action="@{'/admin/content/uploadImage'}">-->
+
+<!--            <div class="input-group mb-3">-->
+<!--                <div class="input-group-prepend">-->
+<!--                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>-->
+<!--                </div>-->
+<!--                <div class="custom-file">-->
+<!--                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"-->
+<!--                           aria-describedby="inputGroupFileAddon01">-->
+<!--                    <label class="custom-file-label" for="inputGroupFile01">[[ ${content.imageName}]]</label>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <input class="btn btn-outline-primary mb-1" type="submit" value="Upload"/>-->
+
+<!--        </form>-->

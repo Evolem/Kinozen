@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       lang="EN">
 <head>
     <meta charset="UTF-8">
@@ -23,6 +23,15 @@
                 </td>
             </tr>
         </table>
+
+        <div sec:authorize="isAuthenticated()">
+            <form th:unless="${isUserSubscribedToActor}" th:action="@{'/actor/subscribe/' + ${actor.url}}" method="post" class="btn btn-warning">
+                <button th:type="submit">подписаться</button>
+            </form>
+            <form th:if="${isUserSubscribedToActor}" th:action="@{'/actor/subscribe/' + ${actor.url}}"  method="post" class="btn btn-danger">
+                <button th:type="submit">отписаться</button>
+            </form>
+        </div>
     </div>
 
 </body>
