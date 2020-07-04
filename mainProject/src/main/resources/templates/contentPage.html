@@ -17,10 +17,11 @@
             <!-- todo breadcrumb  начало-->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item"><a href="#">Library 2</a></li>
-
+                    <li th:each="breadCrumb : ${session.currentBreadCrumb}" class="breadcrumb-item">
+                        <a th:href="@{(${breadCrumb.getUrl()})}">[[${breadCrumb.getLabel()}]]</a>
+                    </li>
+<!--                    <li class="breadcrumb-item"><a href="#">Library</a></li>-->
+<!--                    <li class="breadcrumb-item"><a href="#">Library 2</a></li>-->
                 </ol>
             </nav>
             <!-- todo breadcrumb конец-->

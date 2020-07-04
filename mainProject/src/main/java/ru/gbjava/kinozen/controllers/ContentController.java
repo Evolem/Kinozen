@@ -16,6 +16,7 @@ import ru.gbjava.kinozen.persistence.entities.Season;
 import ru.gbjava.kinozen.persistence.entities.enums.TypeContent;
 import ru.gbjava.kinozen.services.SubscribeService;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
+import ru.gbjava.kinozen.validators.Annotations.Link;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +39,7 @@ public class ContentController {
         return "contentAll";
     }
 
+    @Link(label = "Films", family = "Content", parent = "Home")
     @GetMapping(value = "/films")
     public String getAllFilms(Model model, @RequestParam(required = false) UUID genre) {
         contentFacade.modelSetupForFilms(model, genre);
@@ -45,6 +47,7 @@ public class ContentController {
     }
 
     //todo большой метод стал, возможно стоит его оптимизировать
+    @Link(label = "Film", family = "Content", parent = "Films")
     @GetMapping("/{contentUrl}")
     public String getContentByUrl(Model model, Principal principal, @PathVariable String contentUrl) {
         Content content = contentFacade.findContentByUrl(contentUrl);
