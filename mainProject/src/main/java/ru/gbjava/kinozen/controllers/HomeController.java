@@ -9,7 +9,6 @@ import ru.gbjava.kinozen.dto.mappers.ContentMapper;
 import ru.gbjava.kinozen.services.SubscribeService;
 import ru.gbjava.kinozen.services.facade.ContentFacade;
 import ru.gbjava.kinozen.services.wishlist.WishListService;
-import ru.gbjava.kinozen.utilites.breadCrumbs.Link;
 
 import java.security.Principal;
 import java.util.Objects;
@@ -23,7 +22,6 @@ public class HomeController {
 
     private final WishListService wishListService;
 
-    @Link(label = "Home", family = "Content", parent = "")
     @GetMapping
     public String index(Model model, Principal principal) throws Exception {
 

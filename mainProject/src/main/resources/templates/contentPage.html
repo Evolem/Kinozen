@@ -17,10 +17,12 @@
             <!-- breadcrumb  начало-->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li th:each="breadCrumb : ${session.currentBreadCrumb}" class="breadcrumb-item">
-                        <a th:if="${breadCrumb.isCurrentPage()}" th:href="@{(${breadCrumb.getUrl()})}">[[${content.name}]]</a>
-                        <a th:unless="${breadCrumb.isCurrentPage()}" th:href="@{(${breadCrumb.getUrl()})}">[[${breadCrumb.getLabel()}]]</a>
+                    <li class="breadcrumb-item"><a th:href="@{'/'}">Home</a></li>
+                    <li class="breadcrumb-item">
+                        <a th:if="${content.getType() == T(ru.gbjava.kinozen.persistence.entities.enums.TypeContent).SERIAL}" th:href="@{'/content/serials'}">Сериалы</a>
+                        <a th:if="${content.getType() == T(ru.gbjava.kinozen.persistence.entities.enums.TypeContent).FILM}" th:href="@{'/content/films'}">Фильмы</a>
                     </li>
+                    <li class="breadcrumb-item"><a th:href="@{''}">[[${content.name}]]</a></li>
                 </ol>
             </nav>
             <!-- breadcrumb конец-->

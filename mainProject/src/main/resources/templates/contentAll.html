@@ -17,9 +17,10 @@
     <!-- breadcrumb  начало-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li th:each="breadCrumb : ${session.currentBreadCrumb}" class="breadcrumb-item">
-                <a th:if="${breadCrumb.isCurrentPage()}" th:href="@{(${breadCrumb.getUrl()})}">[[${typeName}]]</a>
-                <a th:unless="${breadCrumb.isCurrentPage()}" th:href="@{(${breadCrumb.getUrl()})}">[[${breadCrumb.getLabel()}]]</a>
+            <li class="breadcrumb-item"><a th:href="@{'/'}">Home</a></li>
+            <li class="breadcrumb-item">
+                <a th:if="${typeName == 'Сериалы'}" th:href="@{'/content/serials'}">[[${typeName}]]</a>
+                <a th:if="${typeName == 'Фильмы'}" th:href="@{'/content/films'}">[[${typeName}]]</a>
             </li>
         </ol>
     </nav>
