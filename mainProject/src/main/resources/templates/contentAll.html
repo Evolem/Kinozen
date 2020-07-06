@@ -14,15 +14,17 @@
     </h1>
 
 
-    <!-- todo breadcrumb  начало-->
+    <!-- breadcrumb  начало-->
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-transparent">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Library</a></li>
-            <li class="breadcrumb-item active" aria-current="page">todo</li>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{'/'}">Home</a></li>
+            <li class="breadcrumb-item">
+                <a th:if="${typeName == 'Сериалы'}" th:href="@{'/content/serials'}">[[${typeName}]]</a>
+                <a th:if="${typeName == 'Фильмы'}" th:href="@{'/content/films'}">[[${typeName}]]</a>
+            </li>
         </ol>
     </nav>
-    <!-- todo breadcrumb конец-->
+    <!-- breadcrumb конец-->
 
 
     <ul class="list-inline pl-3 pr-3">

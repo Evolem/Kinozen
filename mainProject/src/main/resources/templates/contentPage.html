@@ -14,16 +14,18 @@
             <img th:src="@{'/image/content/' + ${content.imageName}}" class="image-normalize">
         </div>
         <div class="card-img-overlay content-info" style="z-index: 3">
-            <!-- todo breadcrumb  начало-->
+            <!-- breadcrumb  начало-->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item"><a href="#">Library 2</a></li>
-
+                    <li class="breadcrumb-item"><a th:href="@{'/'}">Home</a></li>
+                    <li class="breadcrumb-item">
+                        <a th:if="${content.getType() == T(ru.gbjava.kinozen.persistence.entities.enums.TypeContent).SERIAL}" th:href="@{'/content/serials'}">Сериалы</a>
+                        <a th:if="${content.getType() == T(ru.gbjava.kinozen.persistence.entities.enums.TypeContent).FILM}" th:href="@{'/content/films'}">Фильмы</a>
+                    </li>
+                    <li class="breadcrumb-item"><a th:href="@{''}">[[${content.name}]]</a></li>
                 </ol>
             </nav>
-            <!-- todo breadcrumb конец-->
+            <!-- breadcrumb конец-->
 
             <!-- загаловок начало-->
             <div>
