@@ -29,7 +29,6 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addFormatter(dateFormatter());
     }
 
-
     @Bean
     public DateFormatter dateFormatter(){
         return new DateFormatter();
