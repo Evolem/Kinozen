@@ -7,7 +7,7 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import ru.gbjava.kinozen.utilites.BreadCrumbInterceptor;
+import ru.gbjava.kinozen.utilites.breadCrumbs.BreadCrumbInterceptor;
 import ru.gbjava.kinozen.utilites.DateFormatter;
 
 /**

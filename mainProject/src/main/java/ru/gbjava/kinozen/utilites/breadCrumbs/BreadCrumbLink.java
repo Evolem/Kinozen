@@ -1,4 +1,4 @@
-package ru.gbjava.kinozen.utilites;
+package ru.gbjava.kinozen.utilites.breadCrumbs;
 
 import java.io.Serializable;
 import java.util.LinkedList;

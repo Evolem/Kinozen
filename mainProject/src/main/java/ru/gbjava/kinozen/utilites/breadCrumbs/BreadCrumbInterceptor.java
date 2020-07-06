@@ -1,9 +1,8 @@
-package ru.gbjava.kinozen.utilites;
+package ru.gbjava.kinozen.utilites.breadCrumbs;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import ru.gbjava.kinozen.validators.Annotations.Link;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +14,7 @@ import java.util.*;
 @Component
 public class BreadCrumbInterceptor extends HandlerInterceptorAdapter {
     private final String BREAD_CRUMB = "breadCrumb";
+    private final String HOME_PAGE = "Home";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -61,24 +61,24 @@ public class BreadCrumbInterceptor extends HandlerInterceptorAdapter {
     private BreadCrumbLink getBreadCrumbLink(HttpServletRequest request, Link link, Map<String, BreadCrumbLink> familyMap) {
         BreadCrumbLink breadCrumbLink;
         BreadCrumbLink breadCrumbLinkObject = familyMap.get(link.label());
-        resetBreadCrumbs(familyMap);
-
-        if (breadCrumbLinkObject != null) {
+        if (link.label().equals(HOME_PAGE) && breadCrumbLinkObject != null) {
+            familyMap.clear();
             breadCrumbLinkObject.setCurrentPage(true);
             breadCrumbLink = breadCrumbLinkObject;
         } else {
+            resetBreadCrumbs(familyMap);
             breadCrumbLink = new BreadCrumbLink(link.family(), link.label(), true, link.parent());
             String fullURL = request.getRequestURL().append((request.getQueryString() == null) ? "" : "?" + request.getQueryString()).toString();
             breadCrumbLink.setUrl(fullURL);
             createRelationships(familyMap, breadCrumbLink);
-            familyMap.put(link.label(), breadCrumbLink);
         }
+        familyMap.put(link.label(), breadCrumbLink);
         return breadCrumbLink;
     }
 
     private void createRelationships(Map<String, BreadCrumbLink> familyMap, BreadCrumbLink newLink) {
         for (BreadCrumbLink breadCrumbLink : familyMap.values()) {
-            if (breadCrumbLink.getLabel().equalsIgnoreCase(newLink.getParentKey())) {
+            if (newLink.getParentKey().contains(breadCrumbLink.getLabel())) {
                 breadCrumbLink.addNext(newLink);
                 newLink.setPrevious(breadCrumbLink);
                 newLink.setParent(breadCrumbLink);
@@ -92,7 +92,7 @@ public class BreadCrumbInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
-    @SuppressWarnings("uncheced")
+    @SuppressWarnings("unchecked")
     private Map<String, LinkedHashMap<String, BreadCrumbLink>> getBreadCrumbLinksFromSession(HttpSession session) {
         return (Map<String, LinkedHashMap<String, BreadCrumbLink>>) session.getAttribute(BREAD_CRUMB);
     }
